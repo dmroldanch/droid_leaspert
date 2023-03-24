@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.iteneum.leaspert'
+    namespace 'com.iteneum.leasepert'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.iteneum.leaspert"
+        applicationId "com.iteneum.leasepert"
         minSdk 28
         targetSdk 33
         versionCode 1
@@ -48,14 +48,10 @@ android {
 
 dependencies {
 
+    implementation libs.bundles.compose
+    implementation libs.core
+    implementation libs.lifecycle
+
     implementation project(":feature:login")
     implementation project(":feature:example")
-    implementation libs.bundles.compose
-
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
-
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

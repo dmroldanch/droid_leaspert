@@ -37,7 +37,6 @@ android {
 dependencies {
     // libraries
     implementation libs.bundles.compose
-    implementation libs.gson
 
     //Mudules
     implementation project(":core:designsystem")
