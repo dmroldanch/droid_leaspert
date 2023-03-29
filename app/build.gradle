@@ -52,6 +52,5 @@ dependencies {
     implementation libs.core
     implementation libs.lifecycle
 
-    implementation project(":feature:login")
-    implementation project(":feature:example")
+    implementation project(":core:designsystem")
 }
