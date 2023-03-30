@@ -12,7 +12,12 @@ private val DarkColorPalette = darkColorScheme(
     secondary = Drab,
     background = EerieBlack,
     error = RedSalsa,
-    tertiary = Boulder
+    tertiary = Boulder,
+    surface = MintJulep,
+    onSurface = Bianca,
+    secondaryContainer = AtomicTangerine,
+    onSecondary = DenimBlue,
+    onPrimaryContainer = SoftPeach
 )
 
 private val LightColorPalette = lightColorScheme(
@@ -21,7 +26,12 @@ private val LightColorPalette = lightColorScheme(
     secondary = Drab,
     background = EerieBlack,
     error = RedSalsa,
-    tertiary = Boulder
+    tertiary = Boulder,
+    surface = MintJulep,
+    onSurface = Bianca,
+    secondaryContainer = AtomicTangerine,
+    onSecondary = DenimBlue,
+    onPrimaryContainer = SoftPeach
 )
 
 @Composable
