@@ -70,7 +70,7 @@ dependencyResolutionManagement {
             library('junit', 'junit','junit').versionRef('junit')
             library('junitExt', 'androidx.test.ext','junit').versionRef('junitExt')
 
-            bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-constraints','compose-tooling','compose-tooling-prev','compose-navigation' ,'compose-icons-extended','compose-icons'])
+            bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-constraints','compose-tooling','compose-tooling-prev','compose-navigation','compose-icons-extended','compose-icons'])
             bundle('accompanist', ['accompanist-permisions'])
             bundle('dataStoreBundle', ['dataStore', 'dataStore-Core'])
         }
