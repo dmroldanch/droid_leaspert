@@ -17,7 +17,7 @@ fun LpFilledTonalButton(modifier: Modifier, textButtonDescription: String, onCli
             .fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
+            containerColor = MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.secondary
         )
     ) {
