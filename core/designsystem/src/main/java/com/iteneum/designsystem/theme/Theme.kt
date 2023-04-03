@@ -8,12 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColorScheme(
-    primary = JuneBud,
+    primary = MintJulep,
     onPrimary = Drab,
     primaryContainer = Bianca,
     onPrimaryContainer = EerieBlack,
     inversePrimary = AtomicTangerine,
-    secondary = MintJulep,
+    secondary = JuneBud,
     onSecondary = EerieBlack,
     secondaryContainer = SoftPeach,
     onSecondaryContainer = EerieBlack,
