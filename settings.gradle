@@ -37,6 +37,7 @@ dependencyResolutionManagement {
             version('espresso', '3.5.1')
             version('junit', '4.13.2')
             version('junitExt', '1.1.5')
+            version('coilVersion','2.3.0')
 
 
 
@@ -54,6 +55,8 @@ dependencyResolutionManagement {
             library('compose-icons','androidx.compose.material','material-icons-core').versionRef('compose')
             library('compose-icons-extended','androidx.compose.material','material-icons-extended').versionRef('compose')
 
+            library('coil-compose','io.coil-kt','coil-compose').versionRef('coilVersion')
+
             library('accompanist-permisions', 'com.google.accompanist', 'accompanist-permissions').versionRef('accompanist')
 
 
@@ -70,7 +73,7 @@ dependencyResolutionManagement {
             library('junit', 'junit','junit').versionRef('junit')
             library('junitExt', 'androidx.test.ext','junit').versionRef('junitExt')
 
-            bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-constraints','compose-tooling','compose-tooling-prev','compose-navigation','compose-icons-extended','compose-icons'])
+            bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-constraints','compose-tooling','compose-tooling-prev','compose-navigation','compose-icons-extended','compose-icons','coil-compose'])
             bundle('accompanist', ['accompanist-permisions'])
             bundle('dataStoreBundle', ['dataStore', 'dataStore-Core'])
         }
