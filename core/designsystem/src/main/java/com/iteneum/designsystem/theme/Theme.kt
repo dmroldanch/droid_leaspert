@@ -40,12 +40,12 @@ private val DarkColorPalette = darkColorScheme(
 )
 
 private val LightColorPalette = lightColorScheme(
-    primary = JuneBud,
+    primary = MintJulep,
     onPrimary = Drab,
     primaryContainer = Bianca,
     onPrimaryContainer = EerieBlack,
     inversePrimary = Snow,
-    secondary = MintJulep,
+    secondary = JuneBud,
     onSecondary = EerieBlack,
     secondaryContainer = SoftPeach,
     onSecondaryContainer = EerieBlack,
