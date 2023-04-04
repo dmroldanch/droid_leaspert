@@ -16,23 +16,31 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.ui.graphics.Color
 
+/**
+ * [LpOutlinedButton] is a button for show in the UI and this button can have icon depending of the use
+ *
+ * @param modifier Modifier is for specify style and params of the button, like for example the width of the component.
+ * @param textButton TextButton is for set a text what the button show in to the UI
+ * @param icon is for when uses this component can assign some icon depend of their function, but can not contain some icon.
+ * @param onClick High order function for assign functionality to the button.
+ *
+ * @author Usiel Filiberto Garcia Jimenez
+ */
 @Composable
 fun LpOutlinedButton(
-    modifierButton: Modifier = Modifier,
-    textButtonDescription: String,
+    modifier: Modifier = Modifier,
+    textButton: String,
     icon: ImageVector? = null,
     onClick: () -> Unit,
 ) {
     OutlinedButton(
         onClick = onClick,
-        modifier = modifierButton
-            .padding(10.dp)
-            .fillMaxWidth(),
+        modifier = modifier.padding(10.dp),
         shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.onSurface,
-            contentColor = MaterialTheme.colorScheme.secondary
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary
         )
     ) {
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
@@ -40,12 +48,12 @@ fun LpOutlinedButton(
                 icon?.let {
                     Icon(
                         icon,
-                        contentDescription = textButtonDescription,
+                        contentDescription = textButton,
                         modifier = Modifier.size(ButtonDefaults.IconSize)
                     )
                     Spacer(Modifier.size(ButtonDefaults.IconSpacing))
                 }
-                Text(textButtonDescription)
+                Text(textButton)
             }
         }
     }
