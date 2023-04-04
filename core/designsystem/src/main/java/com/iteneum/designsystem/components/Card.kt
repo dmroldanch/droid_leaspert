@@ -64,8 +64,8 @@ fun LpPostCard(
         modifier = modifier
             .fillMaxWidth(sizeWidth)
             .padding(15.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onSurface),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
         elevation = CardDefaults.cardElevation(1.dp),
     ){
         Column(
@@ -91,7 +91,7 @@ fun LpPostCard(
                 Column {
                     Text(
                         text = userName,
-                        color = MaterialTheme.colorScheme.background,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
                         fontWeight = FontWeight.Medium,
                         fontSize = 12.sp
                     )
@@ -116,7 +116,7 @@ fun LpPostCard(
             Row(modifier = Modifier.padding(10.dp)){
                 Text(
                     text = messagePost,
-                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontSize = 15.sp
                 )
             }
@@ -126,7 +126,7 @@ fun LpPostCard(
                         Icons.Outlined.Comment,
                         "Comment",
                         modifier = Modifier,
-                        tint = MaterialTheme.colorScheme.secondary
+                        tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
                 IconButton(onClick = onFavoriteClick) {
@@ -134,7 +134,7 @@ fun LpPostCard(
                         Icons.Outlined.Favorite,
                         contentDescription = "Favorite",
                         modifier = Modifier,
-                        tint = MaterialTheme.colorScheme.secondary
+                        tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
             }
