@@ -13,13 +13,16 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.iteneum.designsystem.theme.Drab
+import com.iteneum.designsystem.theme.MintJulep
 
 @Composable
 fun CountryCodePickerDialog(
@@ -88,8 +91,9 @@ fun PhoneNumberText(
     val keyBoardActions: KeyboardActions = KeyboardActions()
     val isEnabled: Boolean = true
 
-    TextField(
+    OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
+        label = { Text(text = "Phone number")},
         value = text,
         onValueChange = {text = it},
         leadingIcon = leadingIcon,
@@ -97,7 +101,10 @@ fun PhoneNumberText(
         keyboardOptions = KeyboardOptions(imeAction = imeAction,
             keyboardType = keyboardType),
         keyboardActions = keyBoardActions,
-        enabled = isEnabled
+        enabled = isEnabled,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = Drab,
+            unfocusedBorderColor = MintJulep),
     )
 }
 
