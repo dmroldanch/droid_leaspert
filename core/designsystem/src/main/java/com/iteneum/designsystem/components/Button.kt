@@ -29,7 +29,7 @@ fun LpEditFloatingActionButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     color: Color = MaterialTheme.colorScheme.primary,
-    colors: Color = contentColorFor(backgroundColor = MaterialTheme.colorScheme.secondary)
+    colors: Color = contentColorFor(backgroundColor = MaterialTheme.colorScheme.onPrimary)
 ){
     FloatingActionButton(
         onClick = onClick,
