@@ -103,8 +103,10 @@ fun PhoneNumberText(
         keyboardActions = keyBoardActions,
         enabled = isEnabled,
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = Drab,
-            unfocusedBorderColor = MintJulep),
+            focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+            focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+            cursorColor = MaterialTheme.colorScheme.onPrimary
+        ),
     )
 }
 
