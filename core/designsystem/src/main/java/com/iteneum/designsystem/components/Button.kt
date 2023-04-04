@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 fun LpEditFloatingActionButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    color: Color = MaterialTheme.colorScheme.surface,
+    color: Color = MaterialTheme.colorScheme.primary,
     colors: Color = contentColorFor(backgroundColor = MaterialTheme.colorScheme.secondary)
 ){
     FloatingActionButton(
@@ -40,6 +40,6 @@ fun LpEditFloatingActionButton(
         containerColor = color,
         contentColor = colors,
     ) {
-        Icon(Icons.Outlined.Edit, "edit button", tint = MaterialTheme.colorScheme.secondary)
+        Icon(Icons.Outlined.Edit, "edit button", tint = MaterialTheme.colorScheme.onPrimary)
     }
 }
