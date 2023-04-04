@@ -12,6 +12,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 
 
+fun String.isValidEmail(): Boolean {
+    return android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LpOutlinedTextFieldMail(
@@ -56,6 +60,3 @@ fun LpOutlinedTextFieldMail(
     }
 }
 
-fun String.isValidEmail(): Boolean {
-    return android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
-}
