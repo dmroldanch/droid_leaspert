@@ -32,12 +32,17 @@ fun LpOutlinedTextFieldPassword(
         value = password,
         onValueChange = {
             showError = false
-            password = it
+            password = it.replace("\n", "").replace("\t", "")
         },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+            focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+            cursorColor = MaterialTheme.colorScheme.onPrimary
+        ),
         label = { Text(text = stringResource(id = R.string.OTFPasswordLabel)) },
         placeholder = { Text(text = stringResource(id = R.string.OTFPasswordLabel)) },
         visualTransformation = PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         trailingIcon = {
             if (showError) {
                 Icon(
@@ -52,6 +57,8 @@ fun LpOutlinedTextFieldPassword(
                 Text(text = stringResource(id = R.string.OTFPasswordMessageError))
             }
         },
-        isError = showError
+        isError = showError,
+        singleLine = true,
+        maxLines = 1
     )
 }
