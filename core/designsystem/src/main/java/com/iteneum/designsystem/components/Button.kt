@@ -17,12 +17,10 @@ import androidx.compose.ui.unit.dp
 fun LpFilledTonalButton(modifier: Modifier, textButtonDescription: String, onClick: () -> Unit) {
     FilledTonalButton(
         onClick = onClick,
-        modifier
-            .padding(10.dp)
-            .fillMaxWidth(),
+        modifier.padding(10.dp),
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.surface,
+            containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.secondary
         )
     ) {
