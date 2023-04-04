@@ -43,11 +43,7 @@ fun LpOutlinedTextFieldMail(
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
                 unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
-                textColor = MaterialTheme.colorScheme.onPrimary,
-
-                ),
-            textStyle = MaterialTheme.typography.labelMedium.copy(
-                color = MaterialTheme.colorScheme.onPrimary
+                focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
             ),
             singleLine = true,
             maxLines = 1,
