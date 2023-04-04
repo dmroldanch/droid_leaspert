@@ -19,8 +19,7 @@ fun String.isValidEmail(): Boolean {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LpOutlinedTextFieldMail(
-    label: String, hint: String, onEmailValidated: (Boolean) -> Unit
-) {
+    label: String, hint: String, onEmailValidated: (Boolean) -> Unit ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
 
