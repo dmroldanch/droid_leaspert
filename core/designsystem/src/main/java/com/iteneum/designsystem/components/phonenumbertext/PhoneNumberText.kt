@@ -7,14 +7,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -78,27 +78,26 @@ fun CountryPickerView(
 
 @ExperimentalMaterial3Api
 @Composable
-fun PhoneNumberText(){
+fun PhoneNumberText(
+    modifier: Modifier = Modifier,
+    leadingIcon: @Composable (() -> Unit)? = null
+    ){
     var text by remember { mutableStateOf("") }
-    val viewModel: ViewModelPhone by viewModel()
+    val imeAction: ImeAction = ImeAction.Next
+    val keyboardType: KeyboardType = KeyboardType.Phone
+    val keyBoardActions: KeyboardActions = KeyboardActions()
+    val isEnabled: Boolean = true
 
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
+    TextField(
+        modifier = modifier.fillMaxWidth(),
         value = text,
-        onValueChange = { text = it},
+        onValueChange = {text = it},
+        leadingIcon = leadingIcon,
         textStyle = TextStyle(fontSize = 18.sp),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-        leadingIcon = {
-            viewModel.mobileCountry?.let {
-                CountryPickerView(
-                    countries = viewModel.countriesList,
-                    selectedCountry = it,
-                    onSelection = { selectedCountry ->
-                        viewModel.mobileCountry = selectedCountry
-                    },
-                )
-            }
-        },
+        keyboardOptions = KeyboardOptions(imeAction = imeAction,
+            keyboardType = keyboardType),
+        keyboardActions = keyBoardActions,
+        enabled = isEnabled
     )
 }
 
