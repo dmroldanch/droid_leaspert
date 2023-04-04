@@ -19,13 +19,10 @@ fun String.isValidEmail(): Boolean {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LpOutlinedTextFieldMail(
-    label: String,
-    hint: String,
-    onEmailValidated: (Boolean) -> Unit
+    label: String, hint: String, onEmailValidated: (Boolean) -> Unit
 ) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
 
     ) {
         var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
@@ -49,9 +46,8 @@ fun LpOutlinedTextFieldMail(
             maxLines = 1,
             shape = MaterialTheme.shapes.small,
             keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Email // Especifica el teclado para el campo de texto como el de correo electrónico
+                keyboardType = KeyboardType.Email
             )
-
         )
     }
 }
