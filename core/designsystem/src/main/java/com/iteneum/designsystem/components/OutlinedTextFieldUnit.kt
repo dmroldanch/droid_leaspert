@@ -16,8 +16,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 @Composable
 fun LpOutlinedTextFieldNumber(
     label: String,
-    hint: String,
-    onTextChanged: (String) -> Unit
+    hint: String
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -26,7 +25,7 @@ fun LpOutlinedTextFieldNumber(
     ) {
         var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
         val pattern = remember { Regex("^\\d+\$") }
-        var isInputError = false
+        val isInputError = false
         OutlinedTextField(
             value = textFieldValue,
             onValueChange = {
@@ -38,20 +37,17 @@ fun LpOutlinedTextFieldNumber(
             label = { Text(label) },
             placeholder = { Text(hint) },
             colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedLabelColor= MaterialTheme.colorScheme.onPrimary,
                 focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
                 unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
-                textColor = MaterialTheme.colorScheme.onPrimary,
                 errorBorderColor = MaterialTheme.colorScheme.error,
                 disabledBorderColor = if (isInputError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.secondary
-            ),
-            textStyle = MaterialTheme.typography.labelMedium.copy(
-                color = MaterialTheme.colorScheme.onPrimary
             ),
             isError = isInputError,
             singleLine = true,
             maxLines = 1,
             shape = MaterialTheme.shapes.small,
-            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)// Especifica el teclado para el campo de texto como el de correo electrónico
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
         )
     }
 }
