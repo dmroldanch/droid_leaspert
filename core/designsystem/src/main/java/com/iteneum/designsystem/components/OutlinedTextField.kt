@@ -16,9 +16,9 @@ import com.iteneum.designsystem.R
  * This function creates a password OutlinedTextField
  * @param modifier Set component modifier
  * @param value Current password value
- * @param onPasswordChange Returns value typed
  * @param errorMessage Set the error message to be displayed when an error occurs
  * @param showError This parameter determines whether the error is displayed or not
+ * @param onPasswordChange Returns value typed
  *
  * @author Jose G. Rivera
  */
@@ -27,9 +27,9 @@ import com.iteneum.designsystem.R
 fun LpOutlinedTextFieldPassword(
     modifier: Modifier = Modifier,
     value: String = "",
-    onPasswordChange: (String) -> Unit,
     errorMessage: String = "",
-    showError: Boolean = false
+    showError: Boolean = false,
+    onPasswordChange: (String) -> Unit
 ) {
     OutlinedTextField(
         modifier = modifier,
