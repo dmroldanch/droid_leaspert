@@ -16,9 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Gray
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -80,9 +82,49 @@ fun CountryPickerView(
         }
 }
 
+
+//Giving phone number format
+const val mask = "(000) 000-0000"
+fun mobileNumberFilter(text: AnnotatedString): TransformedText {
+    // change the length
+    val trimmed =
+        if (text.text.length >= 9) text.text.substring(0..8) else text.text
+
+    val annotatedString = AnnotatedString.Builder().run {
+        for (i in trimmed.indices) {
+            append(trimmed[i])
+            if (i == 1 || i == 4 || i == 6) {
+                append(" ")
+            }
+        }
+        pushStyle(SpanStyle(color = Color.LightGray))
+        append(mask.takeLast(mask.length - length))
+        toAnnotatedString()
+    }
+
+    val phoneNumberOffsetTranslator = object : OffsetMapping {
+        override fun originalToTransformed(offset: Int): Int {
+            if (offset <= 1) return offset
+            if (offset <= 4) return offset + 1
+            if (offset <= 6) return offset + 2
+            if (offset <= 9) return offset + 3
+            return 12
+        }
+
+        override fun transformedToOriginal(offset: Int): Int {
+            if (offset <= 1) return offset
+            if (offset <= 4) return offset - 1
+            if (offset <= 6) return offset - 2
+            if (offset <= 9) return offset - 3
+            return 9
+        }
+    }
+    return TransformedText(annotatedString, phoneNumberOffsetTranslator)
+}
+
 @ExperimentalMaterial3Api
 @Composable
-fun PhoneNumberText(){
+fun PhoneNumberText() {
     var text by remember { mutableStateOf("") }
     var showError by remember { mutableStateOf(false) }
     val imeAction: ImeAction = ImeAction.Next
@@ -91,13 +133,18 @@ fun PhoneNumberText(){
 
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
-        label = { Text(text = "Contact phone")},
+        label = { Text(text = "Contact phone") },
         value = text,
-        onValueChange = {showError = false
-            text = it.replace("\n", "").replace("\t", "")},
+        onValueChange = {
+            showError = false
+            text = it.replace("\n", "").replace("\t", "")
+        },
         textStyle = TextStyle(fontSize = 18.sp),
-        keyboardOptions = KeyboardOptions(imeAction = imeAction,
-            keyboardType = keyboardType),
+        keyboardOptions = KeyboardOptions(
+            imeAction = imeAction,
+            keyboardType = keyboardType
+        ),
+        visualTransformation = { mobileNumberFilter(it) },
         enabled = isEnabled,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             textColor = Black,
