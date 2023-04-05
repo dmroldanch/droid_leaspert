@@ -10,6 +10,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+/**
+ * Create [BadgeButton] compose for user's notifications
+ *
+ * @param modifier to modify box properties that contains: Button & Badge
+ * @param badgeNumber to modify the number of notifications shown
+ * @param onClick high order function, to define button action
+ *
+ * @author Jose Miguel Garcia Reyes
+*/
+
 @ExperimentalMaterial3Api
 @Composable
 fun BadgeButton(modifier: Modifier = Modifier, badgeNumber: Int, onClick : () -> Unit = {}) {
@@ -28,9 +38,7 @@ fun BadgeButton(modifier: Modifier = Modifier, badgeNumber: Int, onClick : () ->
                 modifier = Modifier.padding(15.dp, 7.dp).align(Alignment.BottomEnd),
                 badge = {
                     Badge(
-                        modifier = Modifier
-                            .padding(1.dp)
-                            .align(Alignment.TopEnd)
+                        modifier = Modifier.padding(1.dp).align(Alignment.TopEnd)
                     ) {
                         Text(text = badgeNumber.toString(), color = MaterialTheme.colorScheme.primary)
                     }
