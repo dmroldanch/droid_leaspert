@@ -9,37 +9,33 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.iteneum.designsystem.theme.Drab
-import com.iteneum.designsystem.theme.MintJulep
 
 @ExperimentalMaterial3Api
 @Composable
-fun BadgeButton(modifier: Modifier = Modifier, onClick : () -> Unit = {}, badgeNumber: Int) {
+fun BadgeButton(modifier: Modifier = Modifier, badgeNumber: Int, onClick : () -> Unit = {}) {
 
-    Box{
+    Box(modifier = modifier){
 
         FilledIconButton(
             onClick = onClick,
-            colors = IconButtonDefaults.filledIconButtonColors(MintJulep)
+            colors = IconButtonDefaults.filledIconButtonColors(MaterialTheme.colorScheme.surface)
         ) {
-            Icon(Icons.Filled.Notifications, contentDescription = "Notifications button", tint = Drab)
+            Icon(Icons.Filled.Notifications, contentDescription = "Notifications button", tint = MaterialTheme.colorScheme.secondary)
         }
 
         if(badgeNumber > 0) {
             BadgedBox(
-                modifier = modifier.padding(horizontal = 15.dp, vertical = 7.dp).align(Alignment.BottomEnd),
+                modifier = Modifier.padding(15.dp, 7.dp).align(Alignment.BottomEnd),
                 badge = {
                     Badge(
                         modifier = Modifier
                             .padding(1.dp)
                             .align(Alignment.TopEnd)
                     ) {
-                        Text(text = badgeNumber.toString())
+                        Text(text = badgeNumber.toString(), color = MaterialTheme.colorScheme.primary)
                     }
                 }
-            ) {
-
-            }
+            ) {}
         }
     }
 }
