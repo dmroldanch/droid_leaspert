@@ -27,73 +27,18 @@ import androidx.compose.ui.window.Dialog
 import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.MintJulep
 
-@Composable
-fun CountryCodePickerDialog(
-    countries: List<Country>,
-    onSelection: (Country) -> Unit,
-    dismiss: () -> Unit,
-) {
-    Dialog(onDismissRequest = dismiss) {
-        Box {
-            LazyColumn(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp, vertical = 40.dp)
-                    .background(shape = RoundedCornerShape(20.dp), color = Color.White)
-            ) {
-                for (country in countries) {
-                    item {
-                        Text(
-                            modifier = Modifier
-                                .clickable {
-                                    onSelection(country)
-                                    dismiss()
-                                }
-                                .fillMaxWidth()
-                                .padding(10.dp),
-                            text = "${getFlagEmojiFor(country.nameCode)} ${country.fullName}"
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun CountryPickerView(
-    selectedCountry: Country,
-    onSelection: (Country) -> Unit,
-    countries: List<Country>
-) {
-    var showDialog by remember { mutableStateOf(false) }
-    Text(
-        modifier = Modifier
-            .clickable {
-                showDialog = true
-            }
-            .padding(start = 20.dp, end = 5.dp),
-        text = "${getFlagEmojiFor(selectedCountry.nameCode)} +${selectedCountry.code}"
-    )
-
-    if (showDialog)
-        CountryCodePickerDialog(countries, onSelection) {
-            showDialog = false
-        }
-}
-
-
 //Giving phone number format
-const val mask = "(000) 000-0000"
+const val mask = "xxx xxx xxxx"
+
 fun mobileNumberFilter(text: AnnotatedString): TransformedText {
     // change the length
     val trimmed =
-        if (text.text.length >= 9) text.text.substring(0..8) else text.text
+        if (text.text.length >= 10) text.text.substring(0..9) else text.text
 
     val annotatedString = AnnotatedString.Builder().run {
         for (i in trimmed.indices) {
             append(trimmed[i])
-            if (i == 1 || i == 4 || i == 6) {
+            if (i == 2 || i == 5) {
                 append(" ")
             }
         }
@@ -104,18 +49,14 @@ fun mobileNumberFilter(text: AnnotatedString): TransformedText {
 
     val phoneNumberOffsetTranslator = object : OffsetMapping {
         override fun originalToTransformed(offset: Int): Int {
-            if (offset <= 1) return offset
-            if (offset <= 4) return offset + 1
-            if (offset <= 6) return offset + 2
-            if (offset <= 9) return offset + 3
-            return 12
+            if (offset <= 2) return offset
+            if (offset <= 5) return offset + 1
+            return 11
         }
 
         override fun transformedToOriginal(offset: Int): Int {
-            if (offset <= 1) return offset
-            if (offset <= 4) return offset - 1
-            if (offset <= 6) return offset - 2
-            if (offset <= 9) return offset - 3
+            if (offset <= 2) return offset
+            if (offset <= 5) return offset - 1
             return 9
         }
     }
