@@ -10,16 +10,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LpOutlinedTextFieldMail(
+fun LpOutlinedTextFieldNumber(
     modifier: Modifier,
     label: String,
     hint: String,
-    isValid: Boolean,
-    supportTextError: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
 ) {
     var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
-
     OutlinedTextField(
         value = textFieldValue,
         onValueChange = {
@@ -30,26 +27,16 @@ fun LpOutlinedTextFieldMail(
         label = { Text(label) },
         placeholder = { Text(hint) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
             focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
             unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
-            focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
-            errorLabelColor = MaterialTheme.colorScheme.error,
             errorBorderColor = MaterialTheme.colorScheme.error,
+            errorLabelColor = MaterialTheme.colorScheme.error,
             errorSupportingTextColor = MaterialTheme.colorScheme.error
         ),
-        isError = isValid,
-        supportingText = {
-            if (isValid) {
-                Text(text = supportTextError)
-            } else {
-                Text(text = "")
-            }
-        },
         singleLine = true,
         maxLines = 1,
         shape = MaterialTheme.shapes.small,
-        keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = KeyboardType.Email
-        )
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
     )
 }
