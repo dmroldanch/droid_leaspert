@@ -110,7 +110,7 @@ fun LpPostCard(
                     )
                     Spacer(modifier = Modifier.height(5.dp))
                     Text(
-                        text = timeAgo.toInt().toString() + "m",
+                        text = timeAgo,
                         color = MaterialTheme.colorScheme.tertiary,
                         fontWeight = FontWeight.Medium,
                         fontSize = 12.sp
