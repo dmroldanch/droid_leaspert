@@ -49,9 +49,9 @@ fun LpFilledTonalButton(modifier: Modifier, textButton: String, onClick: () -> U
 @Composable
 fun LpEditFloatingActionButton(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
     color: Color = MaterialTheme.colorScheme.primary,
-    colors: Color = contentColorFor(backgroundColor = MaterialTheme.colorScheme.onPrimary)
+    colors: Color = contentColorFor(backgroundColor = MaterialTheme.colorScheme.onPrimary),
+    onClick: () -> Unit,
 ){
     FloatingActionButton(
         onClick = onClick,
