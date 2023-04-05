@@ -18,29 +18,44 @@ import androidx.compose.ui.unit.dp
  * @param onClick high order function, to define button action
  *
  * @author Jose Miguel Garcia Reyes
-*/
+ */
 
 @ExperimentalMaterial3Api
 @Composable
-fun BadgeButton(modifier: Modifier = Modifier, badgeNumber: Int, onClick : () -> Unit = {}) {
-
-    Box(modifier = modifier){
-
+fun BadgeButton(
+    modifier: Modifier = Modifier,
+    badgeNumber: Int,
+    onClick: () -> Unit = {}
+) {
+    Box(modifier = modifier) {
         FilledIconButton(
             onClick = onClick,
             colors = IconButtonDefaults.filledIconButtonColors(MaterialTheme.colorScheme.surface)
         ) {
-            Icon(Icons.Filled.Notifications, contentDescription = "Notifications button", tint = MaterialTheme.colorScheme.secondary)
+            Icon(
+                imageVector = Icons.Filled.Notifications,
+                contentDescription = "Notifications button",
+                tint = MaterialTheme.colorScheme.secondary
+            )
         }
-
-        if(badgeNumber > 0) {
+        if (badgeNumber > 0) {
             BadgedBox(
-                modifier = Modifier.padding(15.dp, 7.dp).align(Alignment.BottomEnd),
+                modifier = Modifier
+                    .padding(
+                        horizontal = 15.dp,
+                        vertical = 7.dp
+                    )
+                    .align(alignment = Alignment.BottomEnd),
                 badge = {
                     Badge(
-                        modifier = Modifier.padding(1.dp).align(Alignment.TopEnd)
+                        modifier = Modifier
+                            .padding(all = 1.dp)
+                            .align(alignment = Alignment.TopEnd)
                     ) {
-                        Text(text = badgeNumber.toString(), color = MaterialTheme.colorScheme.primary)
+                        Text(
+                            text = badgeNumber.toString(),
+                            color = MaterialTheme.colorScheme.primary
+                        )
                     }
                 }
             ) {}
