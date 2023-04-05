@@ -5,6 +5,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 
@@ -15,9 +16,9 @@ fun LpOutlinedTextFieldMail(
     modifier: Modifier,
     label: String,
     hint: String,
-    onValueChange: (String) -> Unit,
     isValid: Boolean,
-    supportTextError: String
+    supportTextError: String,
+    onValueChange: (String) -> Unit
 ) {
 
     var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
@@ -28,7 +29,7 @@ fun LpOutlinedTextFieldMail(
             textFieldValue = it
             onValueChange(textFieldValue.text)
         },
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         label = { Text(label) },
         placeholder = { Text(hint) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -53,8 +54,5 @@ fun LpOutlinedTextFieldMail(
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Email
         )
-
     )
-
 }
-
