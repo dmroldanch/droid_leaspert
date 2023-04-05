@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LpOutlinedTextFieldMail(
