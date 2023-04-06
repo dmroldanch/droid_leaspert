@@ -1,6 +1,7 @@
 package com.iteneum.designsystem.components.phonenumbertext
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -53,15 +54,18 @@ fun mobileNumberFilter(text: AnnotatedString): TransformedText {
 
 @ExperimentalMaterial3Api
 @Composable
-fun PhoneNumberText() {
+fun PhoneNumberText(
+    modifier: Modifier,
+    imeAction: ImeAction = ImeAction.Next,
+    keyboardType: KeyboardType = KeyboardType.Phone,
+    isEnabled: Boolean = true,
+    onChange: (String) -> Unit = {}
+) {
     var text by remember { mutableStateOf("") }
     var showError by remember { mutableStateOf(false) }
-    val imeAction: ImeAction = ImeAction.Next
-    val keyboardType: KeyboardType = KeyboardType.Phone
-    val isEnabled = true
 
     OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         label = { Text(text = "Contact phone") },
         value = text,
         onValueChange = {
