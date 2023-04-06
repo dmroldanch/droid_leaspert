@@ -60,6 +60,7 @@ fun PhoneNumberText(
     keyboardType: KeyboardType = KeyboardType.Phone,
     isEnabled: Boolean = true,
     showError: Boolean = false,
+    onPhoneChange: (String) -> Unit
 ) {
     var text by remember { mutableStateOf("") }
 
@@ -69,7 +70,7 @@ fun PhoneNumberText(
         value = text,
         onValueChange = {
             showError
-            text = it.replace("\n", "").replace("\t", "")
+            onPhoneChange
         },
         textStyle = TextStyle(fontSize = 18.sp),
         keyboardOptions = KeyboardOptions(
