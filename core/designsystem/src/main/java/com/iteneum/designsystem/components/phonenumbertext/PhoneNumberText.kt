@@ -70,12 +70,14 @@ fun mobileNumberFilter(text: AnnotatedString): TransformedText {
 @Composable
 fun PhoneNumberText(
     modifier: Modifier = Modifier,
+    value: String,
     imeAction: ImeAction = ImeAction.Next,
     keyboardType: KeyboardType = KeyboardType.Phone,
     isEnabled: Boolean = true,
-    showError: Boolean = false
-    //onPhoneChange: (String) -> Unit
+    showError: Boolean = false,
+    onPhoneChange: (String) -> Unit
 ) {
+
     var text by remember { mutableStateOf("") }
     val maxChar = 10
     val focusManager = LocalFocusManager.current
@@ -83,13 +85,13 @@ fun PhoneNumberText(
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         label = { Text(text = "Contact phone") },
-        value = text,
+        value = value,
         onValueChange = {
             text = it.take(maxChar)
-            if (it.length > maxChar){
+            if (it.length > maxChar) {
                 focusManager.moveFocus(FocusDirection.Down) // Or receive a lambda function
             }
-            //onPhoneChange(it)
+            onPhoneChange(it)
         },
         textStyle = TextStyle(fontSize = 18.sp),
         keyboardOptions = KeyboardOptions(
