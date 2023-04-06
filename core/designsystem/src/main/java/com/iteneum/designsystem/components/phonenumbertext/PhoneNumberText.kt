@@ -59,17 +59,16 @@ fun PhoneNumberText(
     imeAction: ImeAction = ImeAction.Next,
     keyboardType: KeyboardType = KeyboardType.Phone,
     isEnabled: Boolean = true,
-    onChange: (String) -> Unit = {}
+    showError: Boolean = false,
 ) {
     var text by remember { mutableStateOf("") }
-    var showError by remember { mutableStateOf(false) }
 
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         label = { Text(text = "Contact phone") },
         value = text,
         onValueChange = {
-            showError = false
+            showError
             text = it.replace("\n", "").replace("\t", "")
         },
         textStyle = TextStyle(fontSize = 18.sp),
