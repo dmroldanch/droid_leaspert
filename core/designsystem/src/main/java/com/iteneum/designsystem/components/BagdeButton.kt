@@ -9,37 +9,56 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.iteneum.designsystem.theme.Drab
-import com.iteneum.designsystem.theme.MintJulep
+
+/**
+ * Create [BadgeButton] compose for user's notifications
+ *
+ * @param modifier to modify box properties that contains: Button & Badge
+ * @param badgeNumber to modify the number of notifications shown
+ * @param onClick high order function, to define button action
+ *
+ * @author Jose Miguel Garcia Reyes
+ */
 
 @ExperimentalMaterial3Api
 @Composable
-fun BadgeButton(modifier: Modifier = Modifier, onClick : () -> Unit = {}, badgeNumber: Int) {
-
-    Box{
-
+fun BadgeButton(
+    modifier: Modifier = Modifier,
+    badgeNumber: Int,
+    onClick: () -> Unit = {}
+) {
+    Box(modifier = modifier) {
         FilledIconButton(
             onClick = onClick,
-            colors = IconButtonDefaults.filledIconButtonColors(MintJulep)
+            colors = IconButtonDefaults.filledIconButtonColors(MaterialTheme.colorScheme.surface)
         ) {
-            Icon(Icons.Filled.Notifications, contentDescription = "Notifications button", tint = Drab)
+            Icon(
+                imageVector = Icons.Filled.Notifications,
+                contentDescription = "Notifications button",
+                tint = MaterialTheme.colorScheme.secondary
+            )
         }
-
-        if(badgeNumber > 0) {
+        if (badgeNumber > 0) {
             BadgedBox(
-                modifier = modifier.padding(horizontal = 15.dp, vertical = 7.dp).align(Alignment.BottomEnd),
+                modifier = Modifier
+                    .padding(
+                        horizontal = 15.dp,
+                        vertical = 7.dp
+                    )
+                    .align(alignment = Alignment.BottomEnd),
                 badge = {
                     Badge(
                         modifier = Modifier
-                            .padding(1.dp)
-                            .align(Alignment.TopEnd)
+                            .padding(all = 1.dp)
+                            .align(alignment = Alignment.TopEnd)
                     ) {
-                        Text(text = badgeNumber.toString())
+                        Text(
+                            text = badgeNumber.toString(),
+                            color = MaterialTheme.colorScheme.primary
+                        )
                     }
                 }
-            ) {
-
-            }
+            ) {}
         }
     }
 }
