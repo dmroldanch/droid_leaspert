@@ -48,6 +48,48 @@ import com.iteneum.designsystem.theme.MintJulep
 import com.iteneum.designsystem.utils.getFileName
 
 /**
+ * [LpOutlinedButton] is a button for show in the UI and this button can have icon depending of the use
+ *
+ * @param modifier Modifier is for specify style and params of the button, like for example the width of the component.
+ * @param textButton TextButton is for set a text what the button show in to the UI
+ * @param icon is for when uses this component can assign some icon depend of their function, but can not contain some icon.
+ * @param onClick High order function for assign functionality to the button.
+ *
+ * @author Usiel Filiberto Garcia Jimenez
+ */
+@Composable
+fun LpOutlinedButton(
+    modifier: Modifier = Modifier,
+    textButton: String,
+    icon: ImageVector? = null,
+    onClick: () -> Unit,
+) {
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier.padding(10.dp),
+        shape = RoundedCornerShape(12.dp),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary
+        )
+    ) {
+        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
+            Row {
+                icon?.let {
+                    Icon(
+                        icon,
+                        contentDescription = textButton,
+                        modifier = Modifier.size(ButtonDefaults.IconSize)
+                    )
+                    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+                }
+                Text(textButton)
+            }
+        }
+    }
+}
+/**
  * [LpFilledTonalButton] is a button for show in the login UI, is a button for the logic login
  *
  * @param modifier Modifier is for specify style and params of the button, like for example the width of the component.
@@ -84,9 +126,9 @@ fun LpFilledTonalButton(modifier: Modifier, textButton: String, onClick: () -> U
 @Composable
 fun LpEditFloatingActionButton(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
     color: Color = MaterialTheme.colorScheme.primary,
-    colors: Color = contentColorFor(backgroundColor = MaterialTheme.colorScheme.secondary)
+    colors: Color = contentColorFor(backgroundColor = MaterialTheme.colorScheme.onPrimary),
+    onClick: () -> Unit,
 ) {
     FloatingActionButton(
         onClick = onClick,

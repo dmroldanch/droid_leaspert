@@ -76,7 +76,7 @@ fun LpPostCard(
     modifier: Modifier,
     userName: String,
     userPhoto: Painter,
-    timeAgo: Float,
+    timeAgo: String,
     messagePost: String,
     sizeWidth: Float  = 1F,
     onCommentClick: () -> Unit,
@@ -118,21 +118,12 @@ fun LpPostCard(
                         fontSize = 12.sp
                     )
                     Spacer(modifier = Modifier.height(5.dp))
-                    if (timeAgo >= 1) {
-                        Text(
-                            text = timeAgo.toInt().toString() + "m",
-                            color = MaterialTheme.colorScheme.tertiary,
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 12.sp
-                        )
-                    }
-                    else{
-                        Text(
-                            text = "a few moments ago",
-                            color = MaterialTheme.colorScheme.tertiary,
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 12.sp)
-                    }
+                    Text(
+                        text = timeAgo,
+                        color = MaterialTheme.colorScheme.tertiary,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 12.sp
+                    )
                 }
             }
             Row(modifier = Modifier.padding(10.dp)){
