@@ -58,6 +58,16 @@ fun mobileNumberFilter(text: AnnotatedString): TransformedText {
     return TransformedText(annotatedString, phoneNumberOffsetTranslator)
 }
 
+/**
+ * This function creates a password OutlinedTextField
+ * @param modifier Set component modifier
+ * @param value Current password value
+ * @param errorMessage Set the error message to be displayed when an error occurs
+ * @param showError This parameter determines whether the error is displayed or not
+ * @param onPhoneChange Returns value typed
+ *
+ * @author Yaritza Moreno
+ */
 @ExperimentalMaterial3Api
 @Composable
 fun PhoneNumberText(
