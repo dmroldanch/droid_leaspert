@@ -6,7 +6,7 @@ import com.iteneum.designsystem.components.LpBasicCard
 
 @Composable
 fun ExampleView(){
-    LpBasicCard() {
+    LpBasicCard {
         Text("Hello")
     }
 }
