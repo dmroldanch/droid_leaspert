@@ -303,7 +303,7 @@ fun LPGenericElevatedCardImage(
         colors = CardDefaults.cardColors(
             containerColor = Drab,
         ),
-        modifier = Modifier.padding(10.dp)
+        modifier = Modifier.padding(all = 10.dp)
     ) {
         Card(
             colors = CardDefaults.cardColors(
@@ -314,7 +314,7 @@ fun LPGenericElevatedCardImage(
                 .width(177.dp)
                 .height(245.dp)
                 .clickable(onClick = onClick)
-                .padding(1.2.dp)
+                .padding(all = 1.2.dp)
         ) {
             Column {
                 Image(
@@ -325,7 +325,7 @@ fun LPGenericElevatedCardImage(
                         .height(169.dp),
                     contentScale = ContentScale.Crop
                 )
-                Box(modifier = Modifier.padding(12.dp)) {
+                Box(modifier = Modifier.padding(all = 12.dp)) {
                     ConstraintLayout {
                         val (titleText, descriptionText) = createRefs()
 
