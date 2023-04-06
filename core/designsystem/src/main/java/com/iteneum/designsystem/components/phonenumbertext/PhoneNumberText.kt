@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -16,6 +17,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.unit.sp
+import com.iteneum.designsystem.R
 
 //Giving phone number format
 const val mask = "xxx xxx xxxx"
@@ -55,7 +57,7 @@ fun mobileNumberFilter(text: AnnotatedString): TransformedText {
 @ExperimentalMaterial3Api
 @Composable
 fun PhoneNumberText(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     imeAction: ImeAction = ImeAction.Next,
     keyboardType: KeyboardType = KeyboardType.Phone,
     isEnabled: Boolean = true,
