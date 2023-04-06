@@ -46,23 +46,21 @@ fun mobileNumberFilter(text: AnnotatedString): TransformedText {
         override fun originalToTransformed(offset: Int): Int {
             if (offset <= 2) return offset
             if (offset <= 5) return offset + 1
-            return 11
+            return 12
         }
 
         override fun transformedToOriginal(offset: Int): Int {
             if (offset <= 2) return offset
             if (offset <= 5) return offset - 1
-            return 9
+            return 10
         }
     }
     return TransformedText(annotatedString, phoneNumberOffsetTranslator)
 }
 
 /**
- * This function creates a password OutlinedTextField
+ * This function creates a phone number OutlinedTextField
  * @param modifier Set component modifier
- * @param value Current password value
- * @param errorMessage Set the error message to be displayed when an error occurs
  * @param showError This parameter determines whether the error is displayed or not
  * @param onPhoneChange Returns value typed
  *
@@ -75,8 +73,8 @@ fun PhoneNumberText(
     imeAction: ImeAction = ImeAction.Next,
     keyboardType: KeyboardType = KeyboardType.Phone,
     isEnabled: Boolean = true,
-    showError: Boolean = false,
-    onPhoneChange: (String) -> Unit
+    showError: Boolean = false
+    //onPhoneChange: (String) -> Unit
 ) {
     var text by remember { mutableStateOf("") }
     val maxChar = 10
@@ -91,7 +89,7 @@ fun PhoneNumberText(
             if (it.length > maxChar){
                 focusManager.moveFocus(FocusDirection.Down) // Or receive a lambda function
             }
-            onPhoneChange(it)
+            //onPhoneChange(it)
         },
         textStyle = TextStyle(fontSize = 18.sp),
         keyboardOptions = KeyboardOptions(
