@@ -7,12 +7,18 @@ import androidx.compose.material.icons.filled.Error
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.R
+import com.iteneum.designsystem.components.phonenumbertext.mobileNumberFilter
 
 /**
  * This function creates a password OutlinedTextField
@@ -167,3 +173,55 @@ fun LpOutlinedTextFieldNumber(
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
     )
 }
+
+/**
+ * This function creates a phone number OutlinedTextField
+ * @param modifier Set component modifier
+ * @param showError This parameter determines whether the error is displayed or not
+ * @param onPhoneChange Returns value typed
+ *
+ * @author Yaritza Moreno
+ */
+@ExperimentalMaterial3Api
+@Composable
+fun PhoneNumberText(
+    modifier: Modifier = Modifier,
+    value: String,
+    imeAction: ImeAction = ImeAction.Next,
+    keyboardType: KeyboardType = KeyboardType.Phone,
+    isEnabled: Boolean = true,
+    showError: Boolean = false,
+    onPhoneChange: (String) -> Unit
+) {
+
+    var text by remember { mutableStateOf("") }
+    val maxChar = 10
+    val focusManager = LocalFocusManager.current
+
+    OutlinedTextField(
+        modifier = modifier.fillMaxWidth(),
+        label = { Text(text = "Contact phone") },
+        value = value,
+        onValueChange = {
+            text = it.take(maxChar)
+            if (it.length > maxChar) {
+                focusManager.moveFocus(FocusDirection.Down) // Or receive a lambda function
+            }
+            onPhoneChange(it)
+        },
+        textStyle = TextStyle(fontSize = 18.sp),
+        keyboardOptions = KeyboardOptions(
+            imeAction = imeAction,
+            keyboardType = keyboardType
+        ),
+        visualTransformation = { mobileNumberFilter(it) },
+        enabled = isEnabled,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            textColor = Color.Black,
+            focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+            focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+            cursorColor = MaterialTheme.colorScheme.onPrimary
+        )
+    )
+}
+
