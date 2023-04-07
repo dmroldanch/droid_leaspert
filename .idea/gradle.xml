@@ -20,12 +20,15 @@
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/apartment" />
             <option value="$PROJECT_DIR$/feature/community" />
+            <option value="$PROJECT_DIR$/feature/communitylist" />
+            <option value="$PROJECT_DIR$/feature/communitywall" />
             <option value="$PROJECT_DIR$/feature/dashboard" />
             <option value="$PROJECT_DIR$/feature/example" />
             <option value="$PROJECT_DIR$/feature/login" />
             <option value="$PROJECT_DIR$/feature/notification" />
             <option value="$PROJECT_DIR$/feature/office" />
             <option value="$PROJECT_DIR$/feature/profile" />
+            <option value="$PROJECT_DIR$/feature/repair" />
           </set>
         </option>
       </GradleProjectSettings>
