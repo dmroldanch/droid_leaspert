@@ -12,11 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,8 +20,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.iteneum.designsystem.theme.Drab
-import com.iteneum.designsystem.theme.MintJulep
 import com.iteneum.designsystem.utils.getFileName
 
 /**
@@ -125,45 +119,56 @@ fun LpEditFloatingActionButton(
 }
 
 /**
- * Create [BadgeButton] compose for user's notifications
+ * Function that creates [BadgeButton] compose for user's notifications
  *
  * @param modifier to modify box properties that contains: Button & Badge
  * @param badgeNumber to modify the number of notifications shown
+ * @param imageVector to modify the icon to be displayed
  * @param onClick high order function, to define button action
  *
  * @author Jose Miguel Garcia Reyes
  */
+
 @ExperimentalMaterial3Api
 @Composable
 fun BadgeButton(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-    badgeNumber: Int
+    badgeNumber: Int,
+    imageVector: ImageVector = Icons.Filled.Notifications,
+    onClick: () -> Unit = {}
 ) {
-    Box {
+    Box(modifier = modifier) {
         FilledIconButton(
             onClick = onClick,
-            colors = IconButtonDefaults.filledIconButtonColors(MintJulep)
+            colors = IconButtonDefaults.filledIconButtonColors(MaterialTheme.colorScheme.primary)
         ) {
             Icon(
-                Icons.Filled.Notifications,
-                contentDescription = "Notifications button",
-                tint = Drab
+                imageVector = imageVector,
+                contentDescription = "icon image",
+                tint = MaterialTheme.colorScheme.onPrimary
             )
         }
-
         if (badgeNumber > 0) {
-            BadgedBox(modifier = modifier
-                .padding(horizontal = 15.dp, vertical = 7.dp)
-                .align(Alignment.BottomEnd), badge = {
-                Badge(
-                    modifier = Modifier
-                        .padding(all = 1.dp)
-                        .align(Alignment.TopEnd)
-                ) {
-                    Text(text = badgeNumber.toString())
+            BadgedBox(
+                modifier = Modifier
+                    .padding(
+                        horizontal = 15.dp,
+                        vertical = 7.dp
+                    )
+                    .align(alignment = Alignment.BottomEnd),
+                badge = {
+                    Badge(
+                        modifier = Modifier
+                            .padding(all = 1.dp)
+                            .align(alignment = Alignment.TopEnd)
+                    ) {
+                        Text(
+                            text = badgeNumber.toString(),
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
                 }
-            }) {}
+            ) {}
         }
     }
 }
