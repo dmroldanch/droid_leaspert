@@ -136,8 +136,8 @@ fun LpEditFloatingActionButton(
 @Composable
 fun BadgeButton(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
     badgeNumber: Int,
+    onClick: () -> Unit
 ) {
     Box {
         FilledIconButton(
@@ -154,11 +154,11 @@ fun BadgeButton(
         if (badgeNumber > 0) {
             BadgedBox(modifier = modifier
                 .padding(horizontal = 15.dp, vertical = 7.dp)
-                .align(Alignment.BottomEnd), badge = {
+                .align(alignment = Alignment.BottomEnd), badge = {
                 Badge(
                     modifier = Modifier
                         .padding(all = 1.dp)
-                        .align(Alignment.TopEnd)
+                        .align(alignment = Alignment.TopEnd)
                 ) {
                     Text(text = badgeNumber.toString())
                 }
