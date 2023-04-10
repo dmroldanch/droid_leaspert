@@ -119,7 +119,7 @@ fun LpEditFloatingActionButton(
 }
 
 /**
- * Function that creates [BadgeButton] compose for user's notifications
+ * Function that creates [LpBadgeButton] compose for user's notifications
  *
  * @param modifier to modify box properties that contains: Button & Badge
  * @param badgeNumber to modify the number of notifications shown
@@ -131,7 +131,7 @@ fun LpEditFloatingActionButton(
 
 @ExperimentalMaterial3Api
 @Composable
-fun BadgeButton(
+fun LpBadgeButton(
     modifier: Modifier = Modifier,
     badgeNumber: Int,
     imageVector: ImageVector = Icons.Filled.Notifications,
