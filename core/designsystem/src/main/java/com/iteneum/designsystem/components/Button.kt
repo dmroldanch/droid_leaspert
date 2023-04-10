@@ -40,36 +40,35 @@ import com.iteneum.designsystem.utils.getFileName
  */
 @Composable
 fun LpOutlinedButton(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     textButton: String,
     icon: ImageVector? = null,
     onClick: () -> Unit,
 ) {
     OutlinedButton(
         onClick = onClick,
-        modifier = modifier.padding(10.dp),
+        modifier.padding(10.dp),
         shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimary
         )
     ) {
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
-            Row {
-                icon?.let {
-                    Icon(
-                        icon,
-                        contentDescription = textButton,
-                        modifier = Modifier.size(ButtonDefaults.IconSize)
-                    )
-                    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-                }
-                Text(textButton)
+        Row(modifier = Modifier.fillMaxWidth()) {
+            icon?.let {
+                Icon(
+                    icon,
+                    contentDescription = textButton,
+                    modifier = Modifier.size(ButtonDefaults.IconSize)
+                )
+                Spacer(Modifier.size(ButtonDefaults.IconSpacing))
             }
+            Text(textButton)
         }
     }
 }
+
 /**
  * [LpFilledTonalButton] is a button for show in the login UI, is a button for the logic login
  *
@@ -138,7 +137,7 @@ fun LpEditFloatingActionButton(
 fun BadgeButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    badgeNumber: Int
+    badgeNumber: Int,
 ) {
     Box {
         FilledIconButton(
