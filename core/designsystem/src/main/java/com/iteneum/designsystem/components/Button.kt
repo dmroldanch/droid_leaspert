@@ -43,13 +43,13 @@ fun LpOutlinedButton(
     modifier: Modifier,
     textButton: String,
     icon: ImageVector? = null,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     OutlinedButton(
         onClick = onClick,
-        modifier.padding(10.dp),
-        shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
+        modifier = modifier.padding(all = 10.dp),
+        shape = RoundedCornerShape(size = 12.dp),
+        border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.onPrimary),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimary
@@ -58,13 +58,13 @@ fun LpOutlinedButton(
         Row(modifier = Modifier.fillMaxWidth()) {
             icon?.let {
                 Icon(
-                    icon,
+                    imageVector = icon,
                     contentDescription = textButton,
                     modifier = Modifier.size(ButtonDefaults.IconSize)
                 )
-                Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+                Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
             }
-            Text(textButton)
+            Text(text = textButton)
         }
     }
 }
@@ -82,14 +82,14 @@ fun LpOutlinedButton(
 fun LpFilledTonalButton(modifier: Modifier, textButton: String, onClick: () -> Unit) {
     FilledTonalButton(
         onClick = onClick,
-        modifier.padding(10.dp),
+        modifier = modifier.padding(10.dp),
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary
         )
     ) {
-        Text(textButton)
+        Text(text = textButton)
     }
 }
 
