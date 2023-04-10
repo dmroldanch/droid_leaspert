@@ -78,10 +78,10 @@ fun LpPostCard(
     userPhoto: Painter,
     timeAgo: String,
     messagePost: String,
-    sizeWidth: Float  = 1F,
+    sizeWidth: Float = 1F,
     onCommentClick: () -> Unit,
     onFavoriteClick: () -> Unit
-){
+) {
     Card(
         modifier = modifier
             .fillMaxWidth(sizeWidth)
@@ -89,17 +89,19 @@ fun LpPostCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
         elevation = CardDefaults.cardElevation(1.dp),
-    ){
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(15.dp, 15.dp, 15.dp, 5.dp)
-        ){
+        ) {
             Row {
                 Column {
-                    Box(modifier = Modifier
-                        .fillMaxWidth(0.20f)
-                        .padding(0.dp)) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(0.20f)
+                            .padding(0.dp)
+                    ) {
                         Image(
                             painter = userPhoto,
                             contentDescription = "userPhoto",
@@ -126,14 +128,14 @@ fun LpPostCard(
                     )
                 }
             }
-            Row(modifier = Modifier.padding(10.dp)){
+            Row(modifier = Modifier.padding(10.dp)) {
                 Text(
                     text = messagePost,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontSize = 15.sp
                 )
             }
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End){
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                 IconButton(onClick = onCommentClick) {
                     Icon(
                         Icons.Outlined.Comment,
@@ -158,6 +160,7 @@ fun LpPostCard(
 /**
  * This function create a card with an icon and description
  *
+ * @param modifier component modifier.
  * @param icon The icon to be displayed
  * @param description Description to be displayed below the icon
  * @param onCardClick onClick event when card is clicked
@@ -167,15 +170,13 @@ fun LpPostCard(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LpIconTextCard(
+    modifier: Modifier = Modifier,
     icon: ImageVector,
     description: String,
     onCardClick: (String) -> Unit
 ) {
     Card(
-        modifier = Modifier
-            .height(120.dp)
-            .heightIn(120.dp, 250.dp)
-            .padding(8.dp),
+        modifier = modifier,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
         shape = RoundedCornerShape(12.dp),
         onClick = { onCardClick(description) },
@@ -225,7 +226,7 @@ fun LPGenericElevatedCard(
     val colors = MaterialTheme.colorScheme
     Card(
         colors = CardDefaults.cardColors(
-            containerColor =  Drab,
+            containerColor = Drab,
         ),
         shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp)),
         modifier = Modifier
