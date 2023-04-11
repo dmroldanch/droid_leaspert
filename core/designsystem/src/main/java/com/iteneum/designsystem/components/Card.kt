@@ -30,6 +30,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.iteneum.designsystem.theme.Bianca
 import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.LPTypography
+import com.iteneum.designsystem.theme.Snow
 
 /**
  * Created [LpPostCard]
@@ -78,10 +79,10 @@ fun LpPostCard(
     userPhoto: Painter,
     timeAgo: String,
     messagePost: String,
-    sizeWidth: Float  = 1F,
+    sizeWidth: Float = 1F,
     onCommentClick: () -> Unit,
     onFavoriteClick: () -> Unit
-){
+) {
     Card(
         modifier = modifier
             .fillMaxWidth(sizeWidth)
@@ -89,17 +90,19 @@ fun LpPostCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
         elevation = CardDefaults.cardElevation(1.dp),
-    ){
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(15.dp, 15.dp, 15.dp, 5.dp)
-        ){
+        ) {
             Row {
                 Column {
-                    Box(modifier = Modifier
-                        .fillMaxWidth(0.20f)
-                        .padding(0.dp)) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(0.20f)
+                            .padding(0.dp)
+                    ) {
                         Image(
                             painter = userPhoto,
                             contentDescription = "userPhoto",
@@ -126,14 +129,14 @@ fun LpPostCard(
                     )
                 }
             }
-            Row(modifier = Modifier.padding(10.dp)){
+            Row(modifier = Modifier.padding(10.dp)) {
                 Text(
                     text = messagePost,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontSize = 15.sp
                 )
             }
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End){
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                 IconButton(onClick = onCommentClick) {
                     Icon(
                         Icons.Outlined.Comment,
@@ -220,12 +223,12 @@ fun LPGenericElevatedCard(
     title: String,
     description: String,
     buttonText: String,
+    color: Color,
     onButtonClick: () -> Unit
 ) {
-    val colors = MaterialTheme.colorScheme
     Card(
         colors = CardDefaults.cardColors(
-            containerColor =  Drab,
+            containerColor = color,
         ),
         shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp)),
         modifier = Modifier
@@ -239,13 +242,13 @@ fun LPGenericElevatedCard(
             Text(
                 text = title,
                 style = LPTypography.titleMedium,
-                color = colors.onPrimary,
+                color = Snow,
             )
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = description,
                 style = LPTypography.bodyMedium,
-                color = colors.onPrimary,
+                color = Snow,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Justify,
@@ -262,7 +265,7 @@ fun LPGenericElevatedCard(
                 TextButton(
                     onClick = onButtonClick,
                     colors = ButtonDefaults.textButtonColors(
-                        contentColor = colors.onPrimary
+                        contentColor = Snow
                     )
                 ) {
                     Text(text = buttonText)

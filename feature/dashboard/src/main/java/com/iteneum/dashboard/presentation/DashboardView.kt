@@ -17,9 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.iteneum.designsystem.components.BadgeButton
 import com.iteneum.designsystem.components.LPGenericElevatedCard
-import com.iteneum.designsystem.theme.AtomicTangerine
 import com.iteneum.designsystem.theme.Drab
-import com.iteneum.designsystem.theme.JuneBud
 import com.iteneum.designsystem.theme.LPTypography
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -81,7 +79,7 @@ fun DashboardView() {
             color = MaterialTheme.colorScheme.tertiary
         )
 
-        val items = listOf("Coffe + Donuts", "Pool party", "Discounts")
+        val items = listOf("Coffee + Donuts", "Pool party", "Discounts")
         LazyRow(
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -90,7 +88,7 @@ fun DashboardView() {
                     title = item,
                     description = "This is mock data",
                     buttonText = "Go to Screen",
-                    //color = Drab
+                    color = Drab
                 ) {
                     Log.e("tag", "This is a mock click")
                 }
