@@ -32,29 +32,84 @@ import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.LPTypography
 
 /**
- * Created [LpPostCard]
+ * Created [LpGenericCard]
  *
  * @param modifier to modify an specific property of the card
- * @param content as a high order function
+ * @param title as an example 'Current balance'
+ * @param details this is the clickable option
+ * @param accountNumber the showed String number
+ * @param currency if the number represents currency for example current balance
+ * @param onTextClick as a high order function
  *
- * @author Daniel Roldan
+ * @author Juan R Islas
  */
 @Composable
-fun LpBasicCard(
+fun LpGenericCard(
     modifier: Modifier = Modifier,
-    content: @Composable (ColumnScope.() -> Unit)
+    title: String,
+    details: String,
+    accountNumber: String,
+    currency: Boolean = false,
+    onTextClick: () -> Unit
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(10.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.tertiary
+            containerColor = MaterialTheme.colorScheme.background
         ),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
         elevation = CardDefaults.cardElevation(1.dp),
-        content = content
     )
+    {
+        Row{
+            Column(modifier = Modifier
+                .fillMaxWidth(0.7f)
+                .padding(all = 15.dp)){
+                Text(
+                    text = title,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 17.sp
+                )
+                Text(
+                    modifier = Modifier
+                        .clickable(
+                            enabled = true,
+                            onClick = onTextClick
+                        ),
+                    text = details,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 15.sp
+                )
+            }
+            Column(
+                modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = 25.dp),
+                horizontalAlignment = Alignment.End
+            ){
+                if (currency){
+                    Text(
+                        text = "$$accountNumber",
+                        color = MaterialTheme.colorScheme.tertiary,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 18.sp
+                    )
+                }
+                else{
+                    Text(
+                        text = accountNumber,
+                        color = MaterialTheme.colorScheme.tertiary,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 18.sp
+                    )
+                }
+            }
+        }
+    }
 }
 
 /**
