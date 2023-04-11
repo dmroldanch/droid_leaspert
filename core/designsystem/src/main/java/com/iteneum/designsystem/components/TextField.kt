@@ -2,7 +2,6 @@ package com.iteneum.designsystem.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
@@ -15,7 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
 import com.iteneum.designsystem.R
 import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.MintJulep
@@ -177,7 +175,10 @@ fun LpOutlinedTextFieldNumber(
 /**
  * [DropdownTextField] it's a textfield to show a list of items inside a box
  *
- * @param items it refers to the list that will be given to expand the textfield
+ * @param title refers to the label that the textfield will have
+ * @param items refers to the list that will be given to expand the textfield
+ * @param modifier to set component modifier
+ * @param
  *
  * @author Jesus Lopez Gonzalez
  */
@@ -185,7 +186,9 @@ fun LpOutlinedTextFieldNumber(
 @Composable
 fun DropdownTextField(
     title: String,
-    items: List<String>
+    items: List<String>,
+    modifier: Modifier,
+    selected : (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf("") }
@@ -193,7 +196,7 @@ fun DropdownTextField(
     ExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = { expanded = !expanded },
-        modifier = Modifier.padding(all = 24.dp)
+        modifier = modifier
     ) {
         OutlinedTextField(
             modifier = Modifier.menuAnchor().fillMaxWidth(),
@@ -226,6 +229,7 @@ fun DropdownTextField(
                     text = {Text(selectedOption)},
                     onClick = {
                         selectedOptionText = selectedOption
+                        selected(selectedOptionText)
                         expanded = false
                     },
                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
