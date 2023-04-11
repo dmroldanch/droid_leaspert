@@ -178,7 +178,7 @@ fun LpOutlinedTextFieldNumber(
  * @param title refers to the label that the textfield will have
  * @param items refers to the list that will be given to expand the textfield
  * @param modifier to set component modifier
- * @param
+ * @param selected its a high order function that returns the selected option of the dropdown as result
  *
  * @author Jesus Lopez Gonzalez
  */
