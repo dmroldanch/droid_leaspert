@@ -177,6 +177,7 @@ fun LpOutlinedTextFieldNumber(
 /**
  * This function creates a phone number OutlinedTextField
  * @param modifier Set component modifier
+ * @param value Current phone value
  * @param showError This parameter determines whether the error is displayed or not
  * @param onPhoneChange Returns value typed
  *
@@ -194,13 +195,14 @@ fun PhoneNumberText(
     onPhoneChange: (String) -> Unit
 ) {
 
+    //Text value for the TextField label
     var text by remember { mutableStateOf("") }
     val maxChar = 10
     val focusManager = LocalFocusManager.current
 
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
-        label = { Text(text = "Contact phone") },
+        label = { Text(text = stringResource(id = R.string.LPContactPhone)) },
         value = value,
         onValueChange = {
             text = it.take(maxChar)
