@@ -31,5 +31,6 @@ android {
 }
 
 dependencies {
-
+    implementation libs.bundles.compose
+    implementation project(":core:designsystem")
 }
