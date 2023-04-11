@@ -108,7 +108,8 @@ fun LpEditFloatingActionButton(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.primary,
     colors: Color = contentColorFor(backgroundColor = MaterialTheme.colorScheme.onPrimary),
-    onClick: () -> Unit,
+    elevation: FloatingActionButtonElevation,
+    onClick: () -> Unit
 ) {
     FloatingActionButton(
         onClick = onClick,
@@ -118,6 +119,7 @@ fun LpEditFloatingActionButton(
             .width(50.dp),
         containerColor = color,
         contentColor = colors,
+        elevation = elevation
     ) {
         Icon(Icons.Outlined.Edit, "edit button", tint = MaterialTheme.colorScheme.onPrimary)
     }

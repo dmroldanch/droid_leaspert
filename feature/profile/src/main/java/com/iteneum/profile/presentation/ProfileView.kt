@@ -15,11 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.components.LpEditFloatingActionButton
 import com.iteneum.designsystem.components.LpOutlinedButton
+import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.profile.R
 
 @Composable
@@ -27,13 +29,15 @@ fun ProfileView(
 
 ) {
     val userPhoto = painterResource(id = R.drawable.gato)
+    val sizes = LeasePertTheme.sizes
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(all = 7.dp)
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
-            Box(modifier = Modifier.padding(horizontal = 0.dp, vertical = 10.dp)) {
+            Box(modifier = Modifier.padding(horizontal = sizes.nothingSize, vertical = 10.dp)) {
                 FilledIconButton(
                     onClick = { /*TODO*/ },
                     colors = IconButtonDefaults.filledIconButtonColors(MaterialTheme.colorScheme.inversePrimary)
@@ -51,7 +55,7 @@ fun ProfileView(
                     .padding(horizontal = 5.dp, vertical = 20.dp)
             ) {
                 Text(
-                    text = "Profile",
+                    text = stringResource(id = R.string.profile),
                     fontSize = 22.sp,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
@@ -63,7 +67,7 @@ fun ProfileView(
                 LpEditFloatingActionButton(
                     color = MaterialTheme.colorScheme.inversePrimary,
                     colors = MaterialTheme.colorScheme.inversePrimary,
-                    //elevation = FloatingActionButtonDefaults.elevation(0.dp),
+                    elevation = FloatingActionButtonDefaults.elevation(0.dp),
                 ) {}
             }
         }
@@ -100,7 +104,7 @@ fun ProfileView(
         ) {
             Icon(
                 Icons.Outlined.Phone,
-                contentDescription = "phone icon",
+                contentDescription = stringResource(id = R.string.phone_icon),
                 modifier = Modifier.padding(end = 5.dp),
                 tint = MaterialTheme.colorScheme.tertiary
             )
@@ -117,7 +121,7 @@ fun ProfileView(
         ) {
             Icon(
                 Icons.Outlined.Mail,
-                contentDescription = "mail icon",
+                contentDescription = stringResource(id = R.string.mail_icon),
                 modifier = Modifier.padding(end = 5.dp),
                 tint = MaterialTheme.colorScheme.tertiary
             )
@@ -134,7 +138,7 @@ fun ProfileView(
         ) {
             Icon(
                 Icons.Outlined.LocationOn,
-                contentDescription = "location icon",
+                contentDescription = stringResource(id = R.string.location_icon),
                 modifier = Modifier.padding(end = 5.dp),
                 tint = MaterialTheme.colorScheme.tertiary
             )
@@ -152,21 +156,15 @@ fun ProfileView(
         )
         LpOutlinedButton(
             modifier = Modifier.padding(horizontal = 15.dp),
-            textButton = "Payment Methods",
-            //borderColor = MaterialTheme.colorScheme.onPrimary,
-            //containerColor = MaterialTheme.colorScheme.primaryContainer,
-            onClick = {})
+            textButton = stringResource(id = R.string.payment_methods),
+            onClick = { /*TODO high order function for payment methods*/})
         LpOutlinedButton(
             modifier = Modifier.padding(horizontal = 15.dp, vertical = 0.dp),
-            textButton = "Emergency Contacts",
-            //borderColor = MaterialTheme.colorScheme.onPrimary,
-            //containerColor = MaterialTheme.colorScheme.primaryContainer,
-            onClick = {})
+            textButton = stringResource(id = R.string.emergency_contacts),
+            onClick = { /*TODO high order function for emergency contacts*/})
         LpOutlinedButton(
             modifier = Modifier.padding(horizontal = 15.dp, vertical = 0.dp),
-            textButton = "Log Out",
-            //borderColor = MaterialTheme.colorScheme.onPrimary,
-            //containerColor = MaterialTheme.colorScheme.primaryContainer,
-            onClick = {})
+            textButton = stringResource(id = R.string.log_out),
+            onClick = { /*TODO log out and return to the login view*/} )
     }
 }
