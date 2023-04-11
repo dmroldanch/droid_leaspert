@@ -53,4 +53,5 @@ dependencies {
     implementation libs.lifecycle
 
     implementation project(":core:designsystem")
+    implementation project(":feature:apartment")
 }
