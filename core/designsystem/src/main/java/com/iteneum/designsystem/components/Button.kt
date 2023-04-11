@@ -123,6 +123,7 @@ fun LpEditFloatingActionButton(
  *
  * @param modifier to modify box properties that contains: Button & Badge
  * @param badgeNumber to modify the number of notifications shown
+ * @param showBadge to enable the number of notifications to be displayed
  * @param imageVector to modify the icon to be displayed
  * @param onClick high order function, to define button action
  *
@@ -133,7 +134,8 @@ fun LpEditFloatingActionButton(
 @Composable
 fun LpBadgeButton(
     modifier: Modifier = Modifier,
-    badgeNumber: Int,
+    badgeNumber: Int = 0,
+    showBadge: Boolean = false,
     imageVector: ImageVector = Icons.Filled.Notifications,
     onClick: () -> Unit = {}
 ) {
@@ -148,7 +150,7 @@ fun LpBadgeButton(
                 tint = MaterialTheme.colorScheme.onPrimary
             )
         }
-        if (badgeNumber > 0) {
+        if (showBadge) {
             BadgedBox(
                 modifier = Modifier
                     .padding(
