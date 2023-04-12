@@ -1,9 +1,6 @@
 package com.iteneum.repair.presentation
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -42,14 +39,7 @@ fun RepairView() {
             )
         ) {
             Row {
-                Image(
-                    imageVector = Icons.Outlined.ArrowBack,
-                    contentDescription = stringResource(id = R.string.contentDescription_Image),
-                    modifier = Modifier.padding(
-                        start = eSdp06,
-                        top = eSdp10
-                    )
-                )
+                /* TODO - Add "arrow" navigation component when available */
                 Text(
                     text = stringResource(R.string.text_title),
                     modifier = Modifier.padding(
@@ -67,7 +57,7 @@ fun RepairView() {
                 isValid = false,
                 supportTextError = stringResource(id = R.string.supportError_Unit),
                 onValueChange = {}
-            )
+            )/* TODO - Change the component when available (Disable/Generic) */
             LpOutlinedTextFieldNumber(
                 modifier = Modifier.padding(
                     top = eSdp10
@@ -75,7 +65,7 @@ fun RepairView() {
                 label = stringResource(id = R.string.label_ContactPhone),
                 hint = stringResource(id = R.string.hint_ContactPhone),
                 onValueChange = {}
-            )
+            )/* TODO - Change for "Telephone Number" component when available */
             LpOutlinedTextFieldNumber(
                 modifier = Modifier.padding(
                     top = eSdp10
@@ -83,7 +73,7 @@ fun RepairView() {
                 label = stringResource(id = R.string.label_PetInUnit),
                 hint = stringResource(id = R.string.hint_PetInUnit),
                 onValueChange = {}
-            )
+            )/* TODO - Change for "Category" component when available A */
             Text(
                 text = stringResource(id = R.string.text_Service),
                 modifier = Modifier.padding(
@@ -98,7 +88,7 @@ fun RepairView() {
                 label = stringResource(id = R.string.label_Category),
                 hint = stringResource(id = R.string.hint_Category),
                 onValueChange = {}
-            )
+            )/* TODO - Change for "Category" component when available B */
             LpOutlinedTextFieldMail(
                 modifier = Modifier
                     .padding(
