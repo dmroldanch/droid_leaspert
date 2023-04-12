@@ -7,4 +7,6 @@
     <string name="payment_methods">Payment Methods</string>
     <string name="emergency_contacts">Emergency Contacts</string>
     <string name="log_out">Log Out</string>
+    <string name="back_button">back button</string>
+    <string name="user_photo">userPhoto</string>
 </resources>

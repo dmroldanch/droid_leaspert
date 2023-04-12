@@ -17,7 +17,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.components.LpEditFloatingActionButton
 import com.iteneum.designsystem.components.LpOutlinedButton
@@ -34,17 +33,23 @@ fun ProfileView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(all = 7.dp)
+            .padding(all = sizes.smallerSize)
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
-            Box(modifier = Modifier.padding(horizontal = sizes.nothingSize, vertical = 10.dp)) {
+            Box(
+                modifier = Modifier.padding(
+                    horizontal = sizes.nothingSize,
+                    vertical = sizes.midSmallSize
+                )
+            ) {
                 FilledIconButton(
                     onClick = { /*TODO*/ },
-                    colors = IconButtonDefaults.filledIconButtonColors(MaterialTheme.colorScheme.inversePrimary)
+                    colors = IconButtonDefaults
+                        .filledIconButtonColors(MaterialTheme.colorScheme.inversePrimary)
                 ) {
                     Icon(
                         Icons.Filled.ArrowBack,
-                        contentDescription = "back button",
+                        contentDescription = stringResource(R.string.back_button),
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
@@ -52,7 +57,7 @@ fun ProfileView(
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.75f)
-                    .padding(horizontal = 5.dp, vertical = 20.dp)
+                    .padding(horizontal = sizes.minorSmallSize, vertical = sizes.minorRegularSize)
             ) {
                 Text(
                     text = stringResource(id = R.string.profile),
@@ -61,29 +66,29 @@ fun ProfileView(
                 )
             }
             Column(
-                modifier = Modifier.padding(all = 0.dp),
+                modifier = Modifier.padding(all = sizes.nothingSize),
                 horizontalAlignment = Alignment.End
             ) {
                 LpEditFloatingActionButton(
                     color = MaterialTheme.colorScheme.inversePrimary,
                     colors = MaterialTheme.colorScheme.inversePrimary,
-                    elevation = FloatingActionButtonDefaults.elevation(0.dp),
+                    elevation = FloatingActionButtonDefaults.elevation(sizes.nothingSize),
                 ) {}
             }
         }
         Row(modifier = Modifier.fillMaxWidth()) {
-            Column(modifier = Modifier.padding(horizontal = 15.dp)) {
+            Column(modifier = Modifier.padding(horizontal = sizes.smallSize)) {
                 Image(
                     painter = userPhoto,
-                    contentDescription = "userPhoto",
+                    contentDescription = stringResource(R.string.user_photo),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .size(80.dp)
+                        .size(sizes.extraSize78)
                         .clip(CircleShape)
                 )
             }
             Column() {
-                Box(modifier = Modifier.padding(vertical = 10.dp)) {
+                Box(modifier = Modifier.padding(vertical = sizes.midSmallSize)) {
                     Text(
                         text = "Juan Islas",
                         fontWeight = FontWeight.Medium,
@@ -91,7 +96,7 @@ fun ProfileView(
                         color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 }
-                Box(modifier = Modifier.padding(top = 1.dp)) {
+                Box(modifier = Modifier.padding(top = sizes.stroke)) {
                     Text(text = "Apartment #101", color = MaterialTheme.colorScheme.tertiary)
                 }
             }
@@ -100,12 +105,17 @@ fun ProfileView(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 25.dp, end = 25.dp, top = 15.dp, bottom = 7.dp)
+                .padding(
+                    start = sizes.regularSize,
+                    end = sizes.regularSize,
+                    top = sizes.smallSize,
+                    bottom = sizes.smallerSize
+                )
         ) {
             Icon(
                 Icons.Outlined.Phone,
                 contentDescription = stringResource(id = R.string.phone_icon),
-                modifier = Modifier.padding(end = 5.dp),
+                modifier = Modifier.padding(end = sizes.minorSmallSize),
                 tint = MaterialTheme.colorScheme.tertiary
             )
             Text(
@@ -117,12 +127,12 @@ fun ProfileView(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 25.dp, vertical = 7.dp)
+                .padding(horizontal = sizes.regularSize, vertical = sizes.smallerSize)
         ) {
             Icon(
                 Icons.Outlined.Mail,
                 contentDescription = stringResource(id = R.string.mail_icon),
-                modifier = Modifier.padding(end = 5.dp),
+                modifier = Modifier.padding(end = sizes.minorSmallSize),
                 tint = MaterialTheme.colorScheme.tertiary
             )
             Text(
@@ -134,12 +144,17 @@ fun ProfileView(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 25.dp, end = 25.dp, top = 7.dp, bottom = 15.dp)
+                .padding(
+                    start = sizes.regularSize,
+                    end = sizes.regularSize,
+                    top = sizes.smallerSize,
+                    bottom = sizes.smallSize
+                )
         ) {
             Icon(
                 Icons.Outlined.LocationOn,
                 contentDescription = stringResource(id = R.string.location_icon),
-                modifier = Modifier.padding(end = 5.dp),
+                modifier = Modifier.padding(end = sizes.minorSmallSize),
                 tint = MaterialTheme.colorScheme.tertiary
             )
             Text(
@@ -151,20 +166,20 @@ fun ProfileView(
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 25.dp, vertical = 10.dp),
+                .padding(horizontal = sizes.regularSize, vertical = sizes.midSmallSize),
             color = MaterialTheme.colorScheme.onPrimary
         )
         LpOutlinedButton(
-            modifier = Modifier.padding(horizontal = 15.dp),
+            modifier = Modifier.padding(horizontal = sizes.smallSize),
             textButton = stringResource(id = R.string.payment_methods),
-            onClick = { /*TODO high order function for payment methods*/})
+            onClick = { /*TODO high order function for payment methods*/ })
         LpOutlinedButton(
-            modifier = Modifier.padding(horizontal = 15.dp, vertical = 0.dp),
+            modifier = Modifier.padding(horizontal = sizes.smallSize, vertical = sizes.nothingSize),
             textButton = stringResource(id = R.string.emergency_contacts),
-            onClick = { /*TODO high order function for emergency contacts*/})
+            onClick = { /*TODO high order function for emergency contacts*/ })
         LpOutlinedButton(
-            modifier = Modifier.padding(horizontal = 15.dp, vertical = 0.dp),
+            modifier = Modifier.padding(horizontal = sizes.smallSize, vertical = sizes.nothingSize),
             textButton = stringResource(id = R.string.log_out),
-            onClick = { /*TODO log out and return to the login view*/} )
+            onClick = { /*TODO log out and return to the login view*/ })
     }
 }
