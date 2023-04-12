@@ -18,8 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.iteneum.designsystem.R
 import com.iteneum.designsystem.utils.getFileName
 
 /**
@@ -122,7 +124,7 @@ fun LpEditFloatingActionButton(
  * Function that creates [LpBadgeButton] compose for user's notifications
  *
  * @param modifier to modify box properties that contains: Button & Badge
- * @param badgeNumber to modify the number of notifications shown
+ * @param badgeNumber to modify the string number of notifications shown
  * @param showBadge to enable the number of notifications to be displayed
  * @param imageVector to modify the icon to be displayed
  * @param onClick high order function, to define button action
@@ -134,7 +136,7 @@ fun LpEditFloatingActionButton(
 @Composable
 fun LpBadgeButton(
     modifier: Modifier = Modifier,
-    badgeNumber: Int = 0,
+    badgeNumber: String = "0",
     showBadge: Boolean = false,
     imageVector: ImageVector = Icons.Filled.Notifications,
     onClick: () -> Unit = {}
@@ -146,7 +148,7 @@ fun LpBadgeButton(
         ) {
             Icon(
                 imageVector = imageVector,
-                contentDescription = "icon image",
+                contentDescription = stringResource(R.string.cd_Icon),
                 tint = MaterialTheme.colorScheme.onPrimary
             )
         }
@@ -165,7 +167,7 @@ fun LpBadgeButton(
                             .align(alignment = Alignment.TopEnd)
                     ) {
                         Text(
-                            text = badgeNumber.toString(),
+                            text = badgeNumber,
                             color = MaterialTheme.colorScheme.primary
                         )
                     }
