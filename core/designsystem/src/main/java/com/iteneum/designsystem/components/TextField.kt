@@ -178,6 +178,9 @@ fun LpOutlinedTextFieldNumber(
  * This function creates a phone number OutlinedTextField
  * @param modifier Set component modifier
  * @param value Current phone value
+ * @param imeAction Signals the keyboard what type of action should be displayed
+ * @param keyboardType Displays a phone keyboard
+ * @param isEnabled Establish the button is enabled and ready to use
  * @param showError This parameter determines whether the error is displayed or not
  * @param onPhoneChange Returns value typed
  *
@@ -185,7 +188,7 @@ fun LpOutlinedTextFieldNumber(
  */
 @ExperimentalMaterial3Api
 @Composable
-fun PhoneNumberText(
+fun LPPhoneNumberText(
     modifier: Modifier = Modifier,
     value: String,
     imeAction: ImeAction = ImeAction.Next,
