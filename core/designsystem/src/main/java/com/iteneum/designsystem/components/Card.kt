@@ -41,7 +41,8 @@ import com.iteneum.designsystem.theme.LPTypography
  * @param currency if the number represents currency for example current balance
  * @param onTextClick as a high order function
  *
- * @author Juan R Islas
+ * @author Daniel Roldan
+ * @modifyBy Juan Islas
  */
 @Composable
 fun LpGenericCard(
@@ -53,9 +54,7 @@ fun LpGenericCard(
     onTextClick: () -> Unit
 ) {
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(10.dp),
+        modifier = modifier.padding(10.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.background
         ),
