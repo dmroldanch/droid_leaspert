@@ -26,10 +26,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import com.iteneum.designsystem.theme.Bianca
 import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.LPTypography
+import com.iteneum.designsystem.theme.LeasePertTheme
+import com.iteneum.designsystem.utils.TextUtils.ONE
 
 /**
  * Created [LpPostCard]
@@ -270,63 +273,71 @@ fun LPGenericElevatedCard(
  */
 @Composable
 fun LPGenericElevatedCardImage(
-    imageUrl: String,
+    imageUrl: String?,
     title: String,
     description: String,
     onClick: () -> Unit
 ) {
+    val dp2 = LeasePertTheme.sizes.middleSize
+    val dp8 = LeasePertTheme.sizes.smallerSize
+    val dp12 = LeasePertTheme.sizes.midSmallSize
+    val dp175 = LeasePertTheme.sizes.extraSize175
     Card(
-        shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp)),
+        border = BorderStroke(width = dp2, color = Drab),
         colors = CardDefaults.cardColors(
-            containerColor = Drab,
+            containerColor = Bianca,
         ),
-        modifier = Modifier.padding(all = 10.dp)
+        shape = MaterialTheme.shapes.medium.copy(all = CornerSize(dp12)),
+        modifier = Modifier
+            .clickable(onClick = onClick)
+            .padding(all = dp8)
     ) {
-        Card(
-            colors = CardDefaults.cardColors(
-                containerColor = Bianca,
-            ),
-            shape = MaterialTheme.shapes.medium.copy(all = CornerSize(11.dp)),
-            modifier = Modifier
-                .width(177.dp)
-                .height(245.dp)
-                .clickable(onClick = onClick)
-                .padding(all = 1.2.dp)
-        ) {
-            Column {
-                Image(
-                    painter = rememberAsyncImagePainter(imageUrl),
-                    contentDescription = null,
+        Column {
+            if (imageUrl != null) {
+                SubcomposeAsyncImage(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(169.dp),
-                    contentScale = ContentScale.Crop
-                )
-                Box(modifier = Modifier.padding(all = 12.dp)) {
-                    ConstraintLayout {
-                        val (titleText, descriptionText) = createRefs()
-
-                        Text(
-                            text = title,
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.constrainAs(titleText) {
-                                top.linkTo(parent.top)
-                            }
-                        )
-                        Text(
-                            text = description,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.constrainAs(descriptionText) {
-                                top.linkTo(titleText.bottom)
-                            }
-                        )
+                        .fillMaxSize()
+                        .height(dp175),
+                    model = imageUrl,
+                    contentScale = ContentScale.Crop,
+                    contentDescription = null,
+                    loading = {
+                        CircularProgressIndicator()
                     }
+                )
+            } else {
+                AsyncImage(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .height(dp175),
+                    model = "https://cdn-icons-png.flaticon.com/512/3792/3792702.png",
+                    contentDescription = null
+                )
+            }
+            Box(modifier = Modifier.padding(all = dp12)) {
+                ConstraintLayout {
+                    val (titleText, descriptionText) = createRefs()
+
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.titleLarge,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        maxLines = ONE,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.constrainAs(titleText) {
+                            top.linkTo(parent.top)
+                        }
+                    )
+                    Text(
+                        text = description,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        maxLines = ONE,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.constrainAs(descriptionText) {
+                            top.linkTo(titleText.bottom)
+                        }
+                    )
                 }
             }
         }
