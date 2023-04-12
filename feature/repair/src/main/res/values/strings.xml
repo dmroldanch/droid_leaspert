@@ -1,0 +1,24 @@
+<resources>
+
+    <string name="text_title">Repair request</string>
+    <string name="contentDescription_Image">Arrow Icon</string>
+    <string name="hint_Unit">Alphanumeric</string>
+    <string name="label_Unit">Unit</string>
+    <string name="supportError_Unit">Field already filled</string>
+    <string name="label_ContactPhone">Contact Phone</string>
+    <string name="hint_ContactPhone">Number</string>
+    <string name="label_PetInUnit">Pet in Unit</string>
+    <string name="hint_PetInUnit">Category</string>
+    <string name="text_Service">I would like to request a service for…</string>
+    <string name="label_Category">Select Category…</string>
+    <string name="hint_Category">Category</string>
+    <string name="label_Description">Describe your problem…</string>
+    <string name="hint_Description">Text</string>
+    <string name="supportError_Description">Required. Not empty and at least a brief description.</string>
+    <string name="text_Video">Upload video</string>
+    <string name="text_Permission">Permission to enter</string>
+    <string-array name="list_RadioButton">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+</resources>

@@ -7,167 +7,146 @@ import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.iteneum.designsystem.components.LpFileButton
 import com.iteneum.designsystem.components.LpOutlinedTextFieldMail
 import com.iteneum.designsystem.components.LpOutlinedTextFieldNumber
 import com.iteneum.designsystem.components.LpRadioGroup
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.theme.LeasePertTheme
+import com.iteneum.repair.R
 
 @Preview
 @Composable
 fun RepairView() {
-    val startMargin = 24.dp
-    val topMargin = 0.dp
-    val endMargin = 24.dp
-    val bottomMargin = 10.dp
-    val valuePaddingText = 5.dp
-    val radioValueList = listOf("Yes", "No")
+    val dp24 = LeasePertTheme.sizes.regularSize
+    val dp20 = LeasePertTheme.sizes.minorRegularSize
+    val eSdp06 = LeasePertTheme.sizes.extraSize6
+    val eSdp10 = LeasePertTheme.sizes.extraSize10
+    val eSdp104 = LeasePertTheme.sizes.extraSize104
+    val arrayRadioButtons = stringArrayResource(id = R.array.list_RadioButton)
+    var isValidDescription by remember {
+        mutableStateOf(false)
+    }
+    var selectedOptionRadioButtons by remember {
+        mutableStateOf(arrayRadioButtons[0])
+    }
     LeasePertTheme {
-        Column {
+        Column(
+            modifier = Modifier.padding(
+                start = dp24,
+                top = dp20,
+                end = dp24
+            )
+        ) {
             Row {
                 Image(
                     imageVector = Icons.Outlined.ArrowBack,
-                    contentDescription = "Arrow Icon",
-                    modifier = Modifier.padding(start = 20.dp, top = 25.dp)
+                    contentDescription = stringResource(id = R.string.contentDescription_Image),
+                    modifier = Modifier.padding(
+                        start = eSdp06,
+                        top = eSdp10
+                    )
                 )
                 Text(
-                    text = "Repair Request",
-                    modifier = Modifier.padding(all = 20.dp),
+                    text = stringResource(R.string.text_title),
+                    modifier = Modifier.padding(
+                        all = eSdp06
+                    ),
                     style = LPTypography.headlineSmall
                 )
             }
             LpOutlinedTextFieldMail(
-                modifier = Modifier
-                    .padding(
-                        start = startMargin,
-                        top = topMargin,
-                        end = endMargin,
-                        bottom = bottomMargin
-                    )
-                    .fillMaxWidth(),
-                label = "Unit",
-                hint = "Alphanumeric",
+                modifier = Modifier.padding(
+                    top = dp20
+                ),
+                label = stringResource(id = R.string.label_Unit),
+                hint = stringResource(id = R.string.hint_Unit),
                 isValid = false,
-                supportTextError = "Field already filled",
+                supportTextError = stringResource(id = R.string.supportError_Unit),
                 onValueChange = {}
             )
             LpOutlinedTextFieldNumber(
-                modifier = Modifier
-                    .padding(
-                        start = startMargin,
-                        top = topMargin,
-                        end = endMargin,
-                        bottom = bottomMargin
-                    )
-                    .fillMaxWidth(),
-                label = "Contact Phone",
-                hint = "Number",
+                modifier = Modifier.padding(
+                    top = eSdp10
+                ),
+                label = stringResource(id = R.string.label_ContactPhone),
+                hint = stringResource(id = R.string.hint_ContactPhone),
                 onValueChange = {}
             )
             LpOutlinedTextFieldNumber(
-                modifier = Modifier
-                    .padding(
-                        start = startMargin,
-                        top = topMargin,
-                        end = endMargin,
-                        bottom = bottomMargin
-                    )
-                    .fillMaxWidth(),
-                label = "Pet in Unit",
-                hint = "Category",
+                modifier = Modifier.padding(
+                    top = eSdp10
+                ),
+                label = stringResource(id = R.string.label_PetInUnit),
+                hint = stringResource(id = R.string.hint_PetInUnit),
                 onValueChange = {}
             )
             Text(
-                text = "I would like to request a service for...",
+                text = stringResource(id = R.string.text_Service),
                 modifier = Modifier.padding(
-                    start = startMargin,
-                    top = valuePaddingText,
-                    bottom = valuePaddingText
+                    top = eSdp10
                 ),
                 style = LPTypography.bodyLarge
             )
             LpOutlinedTextFieldNumber(
-                modifier = Modifier
-                    .padding(
-                        start = startMargin,
-                        top = topMargin,
-                        end = endMargin,
-                        bottom = bottomMargin
-                    )
-                    .fillMaxWidth(),
-                label = "Select Category...",
-                hint = "Category",
+                modifier = Modifier.padding(
+                    top = eSdp06
+                ),
+                label = stringResource(id = R.string.label_Category),
+                hint = stringResource(id = R.string.hint_Category),
                 onValueChange = {}
             )
-            var isValidDescription by remember {
-                mutableStateOf(false)
-            }
             LpOutlinedTextFieldMail(
                 modifier = Modifier
                     .padding(
-                        start = startMargin,
-                        top = topMargin,
-                        end = endMargin,
-                        bottom = bottomMargin
+                        top = eSdp10
                     )
-                    .height(height = 100.dp)
-                    .fillMaxWidth(),
-                label = "Describe your problem...",
-                hint = "Text",
+                    .height(height = eSdp104),
+                label = stringResource(id = R.string.label_Description),
+                hint = stringResource(id = R.string.hint_Description),
                 isValid = isValidDescription,
-                supportTextError = "Field required. Not empty and with letters.",
+                supportTextError = stringResource(id = R.string.supportError_Description),
                 onValueChange = {
                     isValidDescription = it.isEmpty() || it.matches(Regex(".*[a-zA-Z]+.*")).not()
                 }
             )
             Text(
-                text = "Upload video",
+                text = stringResource(id = R.string.text_Video),
                 modifier = Modifier.padding(
-                    start = startMargin,
-                    top = valuePaddingText,
-                    bottom = valuePaddingText
+                    top = eSdp10
                 ),
                 style = LPTypography.bodyLarge
             )
             LpFileButton(
                 modifier = Modifier
                     .padding(
-                        start = startMargin,
-                        top = topMargin,
-                        end = endMargin,
-                        bottom = bottomMargin
+                        top = eSdp06
                     )
                     .fillMaxWidth(),
                 mimeTypes = arrayOf("Option A", "Option B"),
                 onFileSelected = {}
             )
             Text(
-                text = "Permission to enter",
+                text = stringResource(id = R.string.text_Permission),
                 modifier = Modifier.padding(
-                    start = startMargin,
-                    top = valuePaddingText,
-                    bottom = valuePaddingText
+                    top = eSdp10
                 ),
                 style = LPTypography.bodyLarge
             )
             Column(
                 modifier = Modifier.padding(
-                    start = 38.dp,
-                    top = valuePaddingText,
-                    bottom = valuePaddingText
+                    start = eSdp10,
+                    top = eSdp10
                 )
             ) {
-                var selectedOption by remember {
-                    mutableStateOf(radioValueList[0])
-                }
                 LpRadioGroup(
-                    options = radioValueList,
-                    selectedOption = selectedOption,
+                    options = arrayRadioButtons.toList(),
+                    selectedOption = selectedOptionRadioButtons,
                     onOptionSelected = {
-                        selectedOption = it
+                        selectedOptionRadioButtons = it
                     }
                 )
             }
