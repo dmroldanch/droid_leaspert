@@ -28,8 +28,16 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        compose true
+    }
 }
 
 dependencies {
+    // libraries
+    implementation libs.bundles.compose
 
+    //Mudules
+    implementation project(":core:designsystem")
 }
