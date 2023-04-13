@@ -7,8 +7,11 @@ import androidx.compose.material.icons.outlined.Mail
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.dp
@@ -23,6 +26,8 @@ fun OfficeUI() {
 
         val textStyleInfo = TextStyle(
             textAlign = TextAlign.Justify,
+            color = Color.Gray,
+            fontFamily = FontFamily.SansSerif,
             fontSize = 20.sp,
             lineHeight = 20.sp,
             textIndent = TextIndent(firstLine = 14.sp)
@@ -63,5 +68,5 @@ fun OfficeUI() {
 }
 
 private fun onClick(){
-    TODO()
+    /*TODO*/
 }
