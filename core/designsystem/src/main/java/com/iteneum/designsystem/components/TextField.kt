@@ -139,8 +139,9 @@ fun LpOutlinedTextFieldMail(
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LpOutlinedTextFieldNumber(
+fun LpOutlinedTextFieldInput(
     modifier: Modifier,
+    enabled:Boolean,
     label: String,
     hint: String,
     onValueChange: (String) -> Unit,
@@ -148,6 +149,7 @@ fun LpOutlinedTextFieldNumber(
     var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
     OutlinedTextField(
         value = textFieldValue,
+        enabled = enabled,
         onValueChange = {
             textFieldValue = it
             onValueChange(textFieldValue.text)
@@ -166,7 +168,7 @@ fun LpOutlinedTextFieldNumber(
         singleLine = true,
         maxLines = 1,
         shape = MaterialTheme.shapes.small,
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType =KeyboardType.Text)
     )
 }
 
