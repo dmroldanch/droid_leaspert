@@ -249,11 +249,12 @@ fun LpFileButton(
  */
 @Composable
 fun LpRadioGroup(
+    modifier: Modifier = Modifier,
     options: List<String>,
     selectedOption: String,
     onOptionSelected: (String) -> Unit,
 ) {
-    Row {
+    Row(modifier = modifier) {
         options.forEach { option ->
             Row(modifier = Modifier
                 .selectable(
