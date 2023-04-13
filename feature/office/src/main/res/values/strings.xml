@@ -2,4 +2,6 @@
 <resources>
     <string name="LPCallButton">Call</string>
     <string name="LPMailButton">Mail</string>
+    <string name="LPAddress">Address: 4950 Gaidrew, Alpharetta, GA, 30022</string>
+    <string name="LPHours">Hours: 9AM - 7PM</string>
 </resources>
