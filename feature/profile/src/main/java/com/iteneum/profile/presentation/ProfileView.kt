@@ -1,8 +1,6 @@
 package com.iteneum.profile.presentation
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Mail
@@ -11,9 +9,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -26,7 +21,6 @@ import com.iteneum.profile.R
 fun ProfileView(
 
 ) {
-    val userPhoto = painterResource(id = R.drawable.gato)
     val sizes = LeasePertTheme.sizes
 
     Column(
@@ -67,14 +61,15 @@ fun ProfileView(
         }
         Row(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(horizontal = sizes.smallSize)) {
-                Image(
+                /*Image(
                     painter = userPhoto,
                     contentDescription = stringResource(R.string.user_photo),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(sizes.extraSize78)
                         .clip(CircleShape)
-                )
+                )*/
+                /*TODO Here will be the image implementation*/
             }
             Column() {
                 Box(modifier = Modifier.padding(vertical = sizes.midSmallSize)) {
