@@ -109,7 +109,7 @@ fun LpOutlinedTextFieldMail(
             textFieldValue = it
             onValueChange(textFieldValue.text)
         },
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         label = { Text(label) },
         placeholder = { Text(hint) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -191,9 +191,9 @@ fun LpOutlinedTextFieldNumber(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropdownTextField(
+    modifier: Modifier = Modifier,
     title: String,
     items: List<String>,
-    modifier: Modifier,
     selected : (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -205,7 +205,9 @@ fun DropdownTextField(
         modifier = modifier
     ) {
         OutlinedTextField(
-            modifier = Modifier.menuAnchor().fillMaxWidth(),
+            modifier = Modifier
+                .menuAnchor()
+                .fillMaxWidth(),
             value = selectedOptionText,
             onValueChange = {},
             label = { Text(text = title) },
@@ -218,15 +220,15 @@ fun DropdownTextField(
                 }
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Drab,
-                focusedLabelColor = Drab,
-                unfocusedBorderColor = Drab,
-                cursorColor = Drab,
-                placeholderColor = Drab
+                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                cursorColor = MaterialTheme.colorScheme.onPrimary,
+                placeholderColor = MaterialTheme.colorScheme.onPrimary
             )
         )
         ExposedDropdownMenu(
-            modifier = Modifier.background(MintJulep),
+            modifier = Modifier.background(MaterialTheme.colorScheme.primary),
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
