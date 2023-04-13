@@ -1,12 +1,17 @@
 package com.iteneum.example
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import com.iteneum.designsystem.components.LpBasicCard
+import androidx.compose.ui.Modifier
+import com.iteneum.designsystem.components.LpGenericCard
 
 @Composable
 fun ExampleView(){
-    LpBasicCard {
-        Text("Hello")
-    }
+    LpGenericCard(
+        modifier = Modifier,
+        title = "Current balance",
+        details = "Go to payments",
+        accountNumber = "0.00",
+        currency = true,
+        onTextClick = {}
+    )
 }
