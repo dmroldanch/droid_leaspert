@@ -1,8 +1,10 @@
 package com.iteneum.designsystem.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Error
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -13,6 +15,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import com.iteneum.designsystem.R
+import com.iteneum.designsystem.theme.Drab
+import com.iteneum.designsystem.theme.MintJulep
 
 /**
  * This function creates a password OutlinedTextField
@@ -166,4 +170,71 @@ fun LpOutlinedTextFieldNumber(
         shape = MaterialTheme.shapes.small,
         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
     )
+}
+
+/**
+ * [DropdownTextField] it's a textfield to show a list of items inside a box
+ *
+ * @param title refers to the label that the textfield will have
+ * @param items refers to the list that will be given to expand the textfield
+ * @param modifier to set component modifier
+ * @param selected its a high order function that returns the selected option of the dropdown as result
+ *
+ * @author Jesus Lopez Gonzalez
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DropdownTextField(
+    title: String,
+    items: List<String>,
+    modifier: Modifier,
+    selected : (String) -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+    var selectedOptionText by remember { mutableStateOf("") }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded },
+        modifier = modifier
+    ) {
+        OutlinedTextField(
+            modifier = Modifier.menuAnchor().fillMaxWidth(),
+            value = selectedOptionText,
+            onValueChange = {},
+            label = { Text(text = title) },
+            trailingIcon = {
+                IconButton(onClick = { expanded = true }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowDropDown,
+                        contentDescription = stringResource(id = R.string.DTFDropdownDescription)
+                    )
+                }
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Drab,
+                focusedLabelColor = Drab,
+                unfocusedBorderColor = Drab,
+                cursorColor = Drab,
+                placeholderColor = Drab
+            )
+        )
+        ExposedDropdownMenu(
+            modifier = Modifier.background(MintJulep),
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            items.forEach {selectedOption ->
+                DropdownMenuItem(
+                    text = {Text(selectedOption)},
+                    onClick = {
+                        selectedOptionText = selectedOption
+                        selected(selectedOptionText)
+                        expanded = false
+                    },
+                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+                )
+            }
+        }
+    }
 }
