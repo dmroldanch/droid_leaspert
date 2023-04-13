@@ -19,6 +19,11 @@ import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.office.R
 
+/**
+ * This function creates the Office screen UI
+ *With the Outlined buttons and the company information
+ * @author Yaritza Moreno
+ */
 @Composable
 fun OfficeUI() {
     
