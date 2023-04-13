@@ -21,6 +21,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.R
 import com.iteneum.designsystem.components.phonenumbertext.mobileNumberFilter
+import com.iteneum.designsystem.theme.Drab
+import com.iteneum.designsystem.theme.MintJulep
 
 /**
  * This function creates a password OutlinedTextField
