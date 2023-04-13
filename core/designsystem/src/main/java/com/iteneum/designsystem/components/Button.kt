@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.R
+import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.designsystem.utils.getFileName
 
 /**
@@ -140,6 +141,9 @@ fun LpBadgeButton(
     imageVector: ImageVector = Icons.Filled.Notifications,
     onClick: () -> Unit = {}
 ) {
+    val dp02 = LeasePertTheme.sizes.middleSize
+    val dp16 = LeasePertTheme.sizes.smallSize
+    val dp08 = LeasePertTheme.sizes.smallerSize
     Box(modifier = modifier) {
         FilledIconButton(
             onClick = onClick,
@@ -155,14 +159,14 @@ fun LpBadgeButton(
             BadgedBox(
                 modifier = Modifier
                     .padding(
-                        horizontal = 15.dp,
-                        vertical = 7.dp
+                        horizontal = dp16,
+                        vertical = dp08
                     )
                     .align(alignment = Alignment.BottomEnd),
                 badge = {
                     Badge(
                         modifier = Modifier
-                            .padding(all = 1.dp)
+                            .padding(all = dp02)
                             .align(alignment = Alignment.TopEnd)
                     ) {
                         Text(
