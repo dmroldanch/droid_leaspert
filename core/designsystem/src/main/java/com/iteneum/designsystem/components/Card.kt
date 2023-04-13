@@ -30,6 +30,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.iteneum.designsystem.theme.Bianca
 import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.LPTypography
+import com.iteneum.designsystem.theme.LeasePertTheme
 
 /**
  * Created [LpGenericCard]
@@ -53,19 +54,20 @@ fun LpGenericCard(
     currency: Boolean = false,
     onTextClick: () -> Unit
 ) {
+    val sizes = LeasePertTheme.sizes
     Card(
-        modifier = modifier.padding(10.dp),
+        modifier = modifier.padding(sizes.midSmallSize),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.background
         ),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
-        elevation = CardDefaults.cardElevation(1.dp),
+        border = BorderStroke(sizes.stroke, MaterialTheme.colorScheme.onPrimary),
+        elevation = CardDefaults.cardElevation(sizes.stroke),
     )
     {
         Row{
             Column(modifier = Modifier
                 .fillMaxWidth(0.7f)
-                .padding(all = 15.dp)){
+                .padding(all = sizes.smallSize)){
                 Text(
                     text = title,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -87,7 +89,7 @@ fun LpGenericCard(
             Column(
                 modifier = Modifier
                 .fillMaxWidth()
-                .padding(all = 25.dp),
+                .padding(all = sizes.regularSize),
                 horizontalAlignment = Alignment.End
             ){
                 if (currency){
