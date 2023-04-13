@@ -26,38 +26,91 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import coil.compose.AsyncImage
-import coil.compose.SubcomposeAsyncImage
+import coil.compose.rememberAsyncImagePainter
 import com.iteneum.designsystem.theme.Bianca
 import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.theme.LeasePertTheme
-import com.iteneum.designsystem.utils.TextUtils.ONE
 
 /**
- * Created [LpPostCard]
+ * Created [LpGenericCard]
  *
  * @param modifier to modify an specific property of the card
- * @param content as a high order function
+ * @param title as an example 'Current balance'
+ * @param details this is the clickable option
+ * @param accountNumber the showed String number
+ * @param currency if the number represents currency for example current balance
+ * @param onTextClick as a high order function
  *
  * @author Daniel Roldan
+ * @modifyBy Juan Islas
  */
 @Composable
-fun LpBasicCard(
+fun LpGenericCard(
     modifier: Modifier = Modifier,
-    content: @Composable (ColumnScope.() -> Unit)
+    title: String,
+    details: String,
+    accountNumber: String,
+    currency: Boolean = false,
+    onTextClick: () -> Unit
 ) {
+    val sizes = LeasePertTheme.sizes
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(10.dp),
+        modifier = modifier.padding(sizes.midSmallSize),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.tertiary
+            containerColor = MaterialTheme.colorScheme.background
         ),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
-        elevation = CardDefaults.cardElevation(1.dp),
-        content = content
+        border = BorderStroke(sizes.stroke, MaterialTheme.colorScheme.onPrimary),
+        elevation = CardDefaults.cardElevation(sizes.stroke),
     )
+    {
+        Row{
+            Column(modifier = Modifier
+                .fillMaxWidth(0.7f)
+                .padding(all = sizes.smallSize)){
+                Text(
+                    text = title,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 17.sp
+                )
+                Text(
+                    modifier = Modifier
+                        .clickable(
+                            enabled = true,
+                            onClick = onTextClick
+                        ),
+                    text = details,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 15.sp
+                )
+            }
+            Column(
+                modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = sizes.regularSize),
+                horizontalAlignment = Alignment.End
+            ){
+                if (currency){
+                    Text(
+                        text = "$$accountNumber",
+                        color = MaterialTheme.colorScheme.tertiary,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 18.sp
+                    )
+                }
+                else{
+                    Text(
+                        text = accountNumber,
+                        color = MaterialTheme.colorScheme.tertiary,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 18.sp
+                    )
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -273,71 +326,63 @@ fun LPGenericElevatedCard(
  */
 @Composable
 fun LPGenericElevatedCardImage(
-    imageUrl: String?,
+    imageUrl: String,
     title: String,
     description: String,
     onClick: () -> Unit
 ) {
-    val dp2 = LeasePertTheme.sizes.middleSize
-    val dp8 = LeasePertTheme.sizes.smallerSize
-    val dp12 = LeasePertTheme.sizes.midSmallSize
-    val dp175 = LeasePertTheme.sizes.extraSize175
     Card(
-        border = BorderStroke(width = dp2, color = Drab),
+        shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp)),
         colors = CardDefaults.cardColors(
-            containerColor = Bianca,
+            containerColor = Drab,
         ),
-        shape = MaterialTheme.shapes.medium.copy(all = CornerSize(dp12)),
-        modifier = Modifier
-            .clickable(onClick = onClick)
-            .padding(all = dp8)
+        modifier = Modifier.padding(all = 10.dp)
     ) {
-        Column {
-            if (imageUrl != null) {
-                SubcomposeAsyncImage(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .height(dp175),
-                    model = imageUrl,
-                    contentScale = ContentScale.Crop,
+        Card(
+            colors = CardDefaults.cardColors(
+                containerColor = Bianca,
+            ),
+            shape = MaterialTheme.shapes.medium.copy(all = CornerSize(11.dp)),
+            modifier = Modifier
+                .width(177.dp)
+                .height(245.dp)
+                .clickable(onClick = onClick)
+                .padding(all = 1.2.dp)
+        ) {
+            Column {
+                Image(
+                    painter = rememberAsyncImagePainter(imageUrl),
                     contentDescription = null,
-                    loading = {
-                        CircularProgressIndicator()
-                    }
-                )
-            } else {
-                AsyncImage(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .height(dp175),
-                    model = "https://cdn-icons-png.flaticon.com/512/3792/3792702.png",
-                    contentDescription = null
+                        .fillMaxWidth()
+                        .height(169.dp),
+                    contentScale = ContentScale.Crop
                 )
-            }
-            Box(modifier = Modifier.padding(all = dp12)) {
-                ConstraintLayout {
-                    val (titleText, descriptionText) = createRefs()
+                Box(modifier = Modifier.padding(all = 12.dp)) {
+                    ConstraintLayout {
+                        val (titleText, descriptionText) = createRefs()
 
-                    Text(
-                        text = title,
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        maxLines = ONE,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.constrainAs(titleText) {
-                            top.linkTo(parent.top)
-                        }
-                    )
-                    Text(
-                        text = description,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        maxLines = ONE,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.constrainAs(descriptionText) {
-                            top.linkTo(titleText.bottom)
-                        }
-                    )
+                        Text(
+                            text = title,
+                            style = MaterialTheme.typography.titleLarge,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.constrainAs(titleText) {
+                                top.linkTo(parent.top)
+                            }
+                        )
+                        Text(
+                            text = description,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.constrainAs(descriptionText) {
+                                top.linkTo(titleText.bottom)
+                            }
+                        )
+                    }
                 }
             }
         }
