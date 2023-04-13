@@ -38,6 +38,6 @@ dependencies {
     // libraries
     implementation libs.bundles.compose
 
-    //Mudules
+    //Modules
     implementation project(":core:designsystem")
 }
