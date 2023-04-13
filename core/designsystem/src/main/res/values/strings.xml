@@ -4,4 +4,5 @@
     <string name="OTFPasswordMessageError">At least 6 characters</string>
     <string name="cd_Icon">icon image</string>
     <string name="DTFDropdownDescription">Dropdown Arrow</string>
+    <string name="icon_description">an icon</string>
 </resources>
