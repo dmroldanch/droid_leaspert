@@ -36,36 +36,35 @@ import com.iteneum.designsystem.utils.getFileName
  */
 @Composable
 fun LpOutlinedButton(
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     textButton: String,
     icon: ImageVector? = null,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     OutlinedButton(
         onClick = onClick,
-        modifier = modifier.padding(10.dp),
-        shape = RoundedCornerShape(12.dp),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+        modifier = modifier.padding(all = 10.dp),
+        shape = RoundedCornerShape(size = 12.dp),
+        border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.onPrimary),
         colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimary
         )
     ) {
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterStart) {
-            Row {
-                icon?.let {
-                    Icon(
-                        icon,
-                        contentDescription = textButton,
-                        modifier = Modifier.size(ButtonDefaults.IconSize)
-                    )
-                    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-                }
-                Text(textButton)
+        Row(modifier = Modifier.fillMaxWidth()) {
+            icon?.let {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = textButton,
+                    modifier = Modifier.size(ButtonDefaults.IconSize)
+                )
+                Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
             }
+            Text(text = textButton)
         }
     }
 }
+
 /**
  * [LpFilledTonalButton] is a button for show in the login UI, is a button for the logic login
  *
@@ -79,14 +78,14 @@ fun LpOutlinedButton(
 fun LpFilledTonalButton(modifier: Modifier, textButton: String, onClick: () -> Unit) {
     FilledTonalButton(
         onClick = onClick,
-        modifier.padding(10.dp),
+        modifier = modifier.padding(10.dp),
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary
         )
     ) {
-        Text(textButton)
+        Text(text = textButton)
     }
 }
 
