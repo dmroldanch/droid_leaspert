@@ -5,13 +5,14 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.iteneum.designsystem.components.LPGenericElevatedCardImage
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.designsystem.utils.TextUtils.TWO
 
 @Composable
 fun CommunityListView(
-    viewModel: CommunityListViewModel = CommunityListViewModel() //TODO IT'S MISSING HILTVIEWMODEL
+    viewModel: CommunityListViewModel = hiltViewModel()
 ) {
     CommunityListContent(
         state = viewModel.uiState
