@@ -3,4 +3,6 @@
     <string name="OTFPasswordContentDescriptionError">Error</string>
     <string name="OTFPasswordMessageError">At least 6 characters</string>
     <string name="LPContactPhone">Contact phone</string>
+    <string name="cd_Icon">icon image</string>
+    <string name="DTFDropdownDescription">Dropdown Arrow</string>
 </resources>
