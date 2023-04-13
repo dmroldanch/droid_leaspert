@@ -15,8 +15,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import com.iteneum.designsystem.R
+import com.iteneum.designsystem.theme.LeasePertTheme
 
 @Composable
 fun LpGenericChip(
@@ -25,20 +25,29 @@ fun LpGenericChip(
     icon: ImageVector? = null,
     onClick: () -> Unit
 ) {
+    val sizes = LeasePertTheme.sizes
     Box(
         modifier = modifier
-            .padding(end = 5.dp, bottom = 5.dp)
+            .padding(end = sizes.minorSmallSize, bottom = sizes.minorSmallSize)
             .clickable { onClick }
     ) {
         Box(
             modifier = modifier
-                .clip(RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(sizes.midSmallSize))
                 .background(MaterialTheme.colorScheme.primary)
-                .padding(10.dp, 5.dp, 10.dp, 5.dp)
-                .defaultMinSize(minWidth = 35.dp, minHeight = 25.dp),
+                .padding(
+                    start = sizes.smallerSize,
+                    top = sizes.minorSmallSize,
+                    end = sizes.smallerSize,
+                    bottom = sizes.minorSmallSize
+                )
+                .defaultMinSize(minWidth = sizes.extraSize36, minHeight = sizes.regularSize),
             contentAlignment = Alignment.Center
         ) {
-            Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 icon?.let {
                     Icon(
                         imageVector = icon,
@@ -48,7 +57,11 @@ fun LpGenericChip(
                     )
                     Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
                 }
-                Text(text = label, color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.Medium)
+                Text(
+                    text = label,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontWeight = FontWeight.Medium
+                )
             }
         }
     }
