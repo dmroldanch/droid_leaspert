@@ -31,33 +31,88 @@ import coil.compose.SubcomposeAsyncImage
 import com.iteneum.designsystem.theme.Bianca
 import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.LPTypography
-import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.designsystem.utils.TextUtils.ONE
+import com.iteneum.designsystem.theme.LeasePertTheme
 
 /**
- * Created [LpPostCard]
+ * Created [LpGenericCard]
  *
  * @param modifier to modify an specific property of the card
- * @param content as a high order function
+ * @param title as an example 'Current balance'
+ * @param details this is the clickable option
+ * @param accountNumber the showed String number
+ * @param currency if the number represents currency for example current balance
+ * @param onTextClick as a high order function
  *
  * @author Daniel Roldan
+ * @modifyBy Juan Islas
  */
 @Composable
-fun LpBasicCard(
+fun LpGenericCard(
     modifier: Modifier = Modifier,
-    content: @Composable (ColumnScope.() -> Unit)
+    title: String,
+    details: String,
+    accountNumber: String,
+    currency: Boolean = false,
+    onTextClick: () -> Unit
 ) {
+    val sizes = LeasePertTheme.sizes
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(10.dp),
+        modifier = modifier.padding(sizes.midSmallSize),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.tertiary
+            containerColor = MaterialTheme.colorScheme.background
         ),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
-        elevation = CardDefaults.cardElevation(1.dp),
-        content = content
+        border = BorderStroke(sizes.stroke, MaterialTheme.colorScheme.onPrimary),
+        elevation = CardDefaults.cardElevation(sizes.stroke),
     )
+    {
+        Row{
+            Column(modifier = Modifier
+                .fillMaxWidth(0.7f)
+                .padding(all = sizes.smallSize)){
+                Text(
+                    text = title,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 17.sp
+                )
+                Text(
+                    modifier = Modifier
+                        .clickable(
+                            enabled = true,
+                            onClick = onTextClick
+                        ),
+                    text = details,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 15.sp
+                )
+            }
+            Column(
+                modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = sizes.regularSize),
+                horizontalAlignment = Alignment.End
+            ){
+                if (currency){
+                    Text(
+                        text = "$$accountNumber",
+                        color = MaterialTheme.colorScheme.tertiary,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 18.sp
+                    )
+                }
+                else{
+                    Text(
+                        text = accountNumber,
+                        color = MaterialTheme.colorScheme.tertiary,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 18.sp
+                    )
+                }
+            }
+        }
+    }
 }
 
 /**
