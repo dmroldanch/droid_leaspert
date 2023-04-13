@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="amenities">Amenities</string>
+    <string name="events">Events</string>
+    <string name="communityWall">Community Wall</string>
+    <string name="doItYourself">Do It Yourself</string>
+    <string name="services">Services</string>
+    <string name="community_title">Community</string>
+</resources>

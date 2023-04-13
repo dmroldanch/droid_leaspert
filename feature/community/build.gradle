@@ -28,8 +28,19 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures{
+        compose true
+    }
 }
 
 dependencies {
+    implementation libs.bundles.compose
+    implementation libs.core
+    implementation libs.lifecycle
+
+    implementation project(":core:designsystem")
+
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+
 
 }
