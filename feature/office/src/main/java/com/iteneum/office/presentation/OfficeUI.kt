@@ -30,30 +30,30 @@ fun OfficeUI() {
     Column() {
 
         val textStyleInfo = TextStyle(
-            textAlign = TextAlign.Justify,
+            textAlign = ,
             color = Color.Gray,
             fontFamily = FontFamily.SansSerif,
             fontSize = 20.sp,
             lineHeight = 20.sp,
-            textIndent = TextIndent(firstLine = 14.sp)
-        )
+            textIndent = TextIndent(firstLine = 14.sp))
 
-        Text(text = "Information",
+        val sizes = LeasePertTheme.sizes
+
+        Text(text = "Information", //TODO get from string
             modifier = Modifier
                 .width(118.dp)
                 .height(25.dp),
-            style = textStyleInfo)
+            style = TextStyle(textAlign = TextAlign.Justify))
 
         val textStyle = TextStyle(
             textAlign = TextAlign.Justify,
             lineHeight = 20.sp,
-            textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
-        )
+            textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp))
 
         Spacer(Modifier.size(10.dp))
 
         Text(text = stringResource(id = R.string.LPAddress),
-            style = textStyle)
+            style = textStyle, modifier = Modifier.padding(top = 10.dp))
 
         Text(text = stringResource(id = R.string.LPHours),
             style = textStyle)
@@ -70,8 +70,4 @@ fun OfficeUI() {
             textButton = stringResource(id = R.string.LPMailButton),
             onClick = { /*TODO*/ } )
     }
-}
-
-private fun onClick(){
-    /*TODO*/
 }
