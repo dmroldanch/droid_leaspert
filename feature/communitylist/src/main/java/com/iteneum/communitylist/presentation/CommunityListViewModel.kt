@@ -14,7 +14,7 @@ class CommunityListViewModel : ViewModel() {
     }
 
     private fun getInformation(){
-        uiState.data =  mutableListOf(
+        uiState.data =  listOf(
             ItemList(
                 title = "Prueba 1",
                 description = "Descripcion 2"
