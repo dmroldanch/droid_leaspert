@@ -103,7 +103,7 @@ fun LpOutlinedTextFieldMail(
             textFieldValue = it
             onValueChange(textFieldValue.text)
         },
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         label = { Text(label) },
         placeholder = { Text(hint) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
