@@ -26,6 +26,7 @@ import com.iteneum.office.R
  * This function creates the Office screen UI
  *With the Outlined buttons and the company information
  * @author Yaritza Moreno
+ * Comment
  */
 @Composable
 fun OfficeUI() {
