@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.components.LpOutlinedButton
+import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.office.R
 
 /**
@@ -29,36 +30,30 @@ fun OfficeUI() {
     
     Column() {
 
-        val textStyleInfo = TextStyle(
-            textAlign = ,
-            color = Color.Gray,
-            fontFamily = FontFamily.SansSerif,
-            fontSize = 20.sp,
-            lineHeight = 20.sp,
-            textIndent = TextIndent(firstLine = 14.sp))
-
         val sizes = LeasePertTheme.sizes
+        sizes.minorSmallSize
 
-        Text(text = "Information", //TODO get from string
+        Text(text = stringResource(id = R.string.LPInfo),
             modifier = Modifier
                 .width(118.dp)
                 .height(25.dp),
-            style = TextStyle(textAlign = TextAlign.Justify))
-
-        val textStyle = TextStyle(
-            textAlign = TextAlign.Justify,
-            lineHeight = 20.sp,
-            textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp))
-
-        Spacer(Modifier.size(10.dp))
+            style = TextStyle(textAlign = TextAlign.Justify, color = Color.Gray,
+                fontFamily = FontFamily.SansSerif,
+                fontSize = 20.sp,
+                lineHeight = 20.sp,
+                textIndent = TextIndent(firstLine = 14.sp)))
 
         Text(text = stringResource(id = R.string.LPAddress),
-            style = textStyle, modifier = Modifier.padding(top = 10.dp))
+            style = TextStyle(textAlign = TextAlign.Justify,
+                lineHeight = 20.sp,
+                textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)),
+            modifier = Modifier.padding(top = 10.dp))
 
         Text(text = stringResource(id = R.string.LPHours),
-            style = textStyle)
-
-        Spacer(Modifier.size(10.dp))
+            modifier = Modifier.padding(top = 10.dp),
+            style = TextStyle(textAlign = TextAlign.Justify,
+                lineHeight = 20.sp,
+                textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)))
 
         LpOutlinedButton(modifier = Modifier,
             icon = Icons.Filled.Call,
