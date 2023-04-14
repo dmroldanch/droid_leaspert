@@ -1,4 +1,4 @@
-package com.iteneum.leasepert.utilities.state
+package com.iteneum.communitylist
 
 interface UiState<T> : SimpleUiState {
     var data: T?
@@ -57,7 +57,7 @@ fun drawView(){
     }
 
     //Option 2
-    val uiState2: SecondUiState = SecondUiState.Success("Hello, world!","Value 2")
+    val uiState2: SecondUiState = SecondUiState.Success("Hello, world!", "Value 2")
 
     when(uiState2){
         SecondUiState.Error -> {
