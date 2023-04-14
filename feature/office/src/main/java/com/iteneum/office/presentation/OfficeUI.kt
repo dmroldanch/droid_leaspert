@@ -35,7 +35,7 @@ fun OfficeUI() {
 
         Text(text = stringResource(id = R.string.LPInfo),
             modifier = Modifier
-                .width(sizes.extraSize114)
+                .width(sizes.extraSize124)
                 .height(sizes.regularSize),
             style = TextStyle(textAlign = TextAlign.Justify, color = Color.Gray,
                 fontFamily = FontFamily.SansSerif,
