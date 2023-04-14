@@ -1,5 +1,11 @@
 package com.iteneum.designsystem.utils
 
+/**
+ * This class contains the values most used in the code, it works like utility.
+ * Add new constant if it's not here.
+ *
+ * @author Carlos Hernandez
+ */
 object TextUtils {
     const val ONE = 1
     const val ONE_FLOAT = 1f

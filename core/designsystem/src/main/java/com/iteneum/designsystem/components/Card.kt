@@ -20,14 +20,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
+import com.iteneum.designsystem.R
 import com.iteneum.designsystem.theme.Bianca
 import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.LPTypography
@@ -325,6 +327,7 @@ fun LPGenericElevatedCard(
  * @param onClick High order function to assign the action that this card will have
  *
  * @author Jesus Lopez Gonzalez
+ * @modifyBy Carlos Hernandez
  */
 @Composable
 fun LPGenericElevatedCardImage(
@@ -333,12 +336,13 @@ fun LPGenericElevatedCardImage(
     description: String,
     onClick: () -> Unit
 ) {
-    val dp2 = LeasePertTheme.sizes.middleSize
+    val dp1 = LeasePertTheme.sizes.stroke
     val dp8 = LeasePertTheme.sizes.smallerSize
     val dp12 = LeasePertTheme.sizes.midSmallSize
-    val dp175 = LeasePertTheme.sizes.extraSize175
+    val dp16 = LeasePertTheme.sizes.smallSize
+    val dp182 = LeasePertTheme.sizes.extraSize182
     Card(
-        border = BorderStroke(width = dp2, color = Drab),
+        border = BorderStroke(width = dp1, color = Drab),
         colors = CardDefaults.cardColors(
             containerColor = Bianca,
         ),
@@ -352,7 +356,7 @@ fun LPGenericElevatedCardImage(
                 SubcomposeAsyncImage(
                     modifier = Modifier
                         .fillMaxSize()
-                        .height(dp175),
+                        .height(dp182),
                     model = imageUrl,
                     contentScale = ContentScale.Crop,
                     contentDescription = null,
@@ -361,39 +365,31 @@ fun LPGenericElevatedCardImage(
                     }
                 )
             } else {
-                AsyncImage(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .height(dp175),
-                    model = "https://cdn-icons-png.flaticon.com/512/3792/3792702.png",
-                    contentDescription = null
+                Image(
+                    painter = painterResource(id = R.drawable.image_default),
+                    contentDescription = stringResource(R.string.image_default),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
                 )
             }
-            Box(modifier = Modifier.padding(all = dp12)) {
-                ConstraintLayout {
-                    val (titleText, descriptionText) = createRefs()
-
-                    Text(
-                        text = title,
-                        style = MaterialTheme.typography.titleLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        maxLines = ONE,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.constrainAs(titleText) {
-                            top.linkTo(parent.top)
-                        }
-                    )
-                    Text(
-                        text = description,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        maxLines = ONE,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.constrainAs(descriptionText) {
-                            top.linkTo(titleText.bottom)
-                        }
-                    )
-                }
+            Column(
+                Modifier.fillMaxSize()
+                    .padding(all = dp16)
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = ONE,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = ONE,
+                    overflow = TextOverflow.Ellipsis,
+                )
             }
         }
     }

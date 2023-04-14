@@ -5,31 +5,25 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.iteneum.ItemList
 import com.iteneum.designsystem.components.LPGenericElevatedCardImage
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.designsystem.utils.TextUtils.TWO
 
 @Composable
-fun CommunityListView(
-    viewModel: CommunityListViewModel = hiltViewModel()
-) {
-    CommunityListContent(
-        state = viewModel.uiState
-    )
+fun CommunityListView() {
+    CommunityListContent()
 }
 
 @Composable
-fun CommunityListContent(
-    state: CommunityListUIState
-) {
+fun CommunityListContent() {
     val dp8 = LeasePertTheme.sizes.smallerSize
     LazyVerticalGrid(
         columns = GridCells.Fixed(TWO),
         verticalArrangement = Arrangement.spacedBy(dp8),
         horizontalArrangement = Arrangement.spacedBy(dp8)
     ) {
-        items(state.data ?: listOf()) { item ->
+        items(getInformation()) { item ->
             LPGenericElevatedCardImage(
                 imageUrl = item.urlImage,
                 title = item.title.toString(),
@@ -39,3 +33,18 @@ fun CommunityListContent(
         }
     }
 }
+
+private fun getInformation() = listOf(
+    ItemList(
+        title = "Rooftop Lounge",
+        description = "Relaxing atmosphere."
+    ),
+    ItemList(
+        title = "Rooftop Lounge",
+        description = "Relaxing atmosphere."
+    ),
+    ItemList(
+        title = "Rooftop Lounge",
+        description = "Relaxing atmosphere."
+    )
+)
