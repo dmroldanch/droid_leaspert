@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="open">Open</string>
+    <string name="information">Information</string>
+    <string name="leasing_documents">Leasing Documents</string>
+    <string name="apartment_photos">Apartment photos</string>
+    <string name="current_status">Current Status</string>
+    <string name="in_progress">In Progress</string>
+    <string name="closed">Closed</string>
+    <string name="repairs">Repairs</string>
+</resources>
