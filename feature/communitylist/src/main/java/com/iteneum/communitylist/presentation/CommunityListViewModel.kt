@@ -16,16 +16,16 @@ class CommunityListViewModel : ViewModel() {
     private fun getInformation(){
         uiState.data =  listOf(
             ItemList(
-                title = "Prueba 1",
-                description = "Descripcion 2"
+                title = "Rooftop Lounge",
+                description = "Relaxing atmosphere."
             ),
             ItemList(
-                title = "Prueba 1",
-                description = "Descripcion 2"
+                title = "Rooftop Lounge",
+                description = "Relaxing atmosphere."
             ),
             ItemList(
-                title = "Prueba 1",
-                description = "Descripcion 2"
+                title = "Rooftop Lounge",
+                description = "Relaxing atmosphere."
             )
         )
     }
