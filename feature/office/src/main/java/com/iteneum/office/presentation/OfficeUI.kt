@@ -30,13 +30,13 @@ fun OfficeUI() {
     
     Column() {
 
+        //Get sizes from LeasePertTheme archive
         val sizes = LeasePertTheme.sizes
-        sizes.minorSmallSize
 
         Text(text = stringResource(id = R.string.LPInfo),
             modifier = Modifier
-                .width(118.dp)
-                .height(25.dp),
+                .width(sizes.extraSize114)
+                .height(sizes.regularSize),
             style = TextStyle(textAlign = TextAlign.Justify, color = Color.Gray,
                 fontFamily = FontFamily.SansSerif,
                 fontSize = 20.sp,
@@ -47,7 +47,7 @@ fun OfficeUI() {
             style = TextStyle(textAlign = TextAlign.Justify,
                 lineHeight = 20.sp,
                 textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)),
-            modifier = Modifier.padding(top = 10.dp))
+            modifier = Modifier.padding(top = sizes.extraSize10))
 
         Text(text = stringResource(id = R.string.LPHours),
             modifier = Modifier.padding(top = 10.dp),
