@@ -1,20 +1,19 @@
 package com.iteneum.repair.presentation
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.iteneum.designsystem.components.LpFileButton
-import com.iteneum.designsystem.components.LpOutlinedTextFieldMail
-import com.iteneum.designsystem.components.LpOutlinedTextFieldNumber
-import com.iteneum.designsystem.components.LpRadioGroup
+import com.iteneum.designsystem.components.*
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.repair.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
 fun RepairView() {
@@ -24,11 +23,16 @@ fun RepairView() {
     val eSdp10 = LeasePertTheme.sizes.extraSize10
     val eSdp104 = LeasePertTheme.sizes.extraSize104
     val arrayRadioButtons = stringArrayResource(id = R.array.list_RadioButton)
+    val arrayPetInUnit = stringArrayResource(id = R.array.list_PetInUnit)
+    val arrayCategory = stringArrayResource(id = R.array.list_Category)
     var isValidDescription by remember {
         mutableStateOf(false)
     }
     var selectedOptionRadioButtons by remember {
         mutableStateOf(arrayRadioButtons[0])
+    }
+    var numberValue by remember {
+        mutableStateOf("")
     }
     LeasePertTheme {
         Column(
@@ -49,31 +53,42 @@ fun RepairView() {
                 )
             }
             LpOutlinedTextFieldMail(
-                modifier = Modifier.padding(
-                    top = dp20
-                ),
+                modifier = Modifier
+                    .padding(
+                        top = dp20
+                    )
+                    .fillMaxWidth(),
                 label = stringResource(id = R.string.label_Unit),
                 hint = stringResource(id = R.string.hint_Unit),
                 isValid = false,
                 supportTextError = stringResource(id = R.string.supportError_Unit),
                 onValueChange = {}
             )/* TODO - Change the component when available (Disable/Generic) */
-            LpOutlinedTextFieldNumber(
+            LPPhoneNumberText(
+                modifier = Modifier.padding(
+                    top = eSdp10
+                ),
+                value = numberValue,
+                onPhoneChange = {
+                    numberValue = it
+                }
+            )
+            /*LpOutlinedTextFieldNumber(
                 modifier = Modifier.padding(
                     top = eSdp10
                 ),
                 label = stringResource(id = R.string.label_ContactPhone),
                 hint = stringResource(id = R.string.hint_ContactPhone),
                 onValueChange = {}
-            )/* TODO - Change for "Telephone Number" component when available */
-            LpOutlinedTextFieldNumber(
+            )*/
+            DropdownTextField(
                 modifier = Modifier.padding(
                     top = eSdp10
                 ),
-                label = stringResource(id = R.string.label_PetInUnit),
-                hint = stringResource(id = R.string.hint_PetInUnit),
-                onValueChange = {}
-            )/* TODO - Change for "Category" component when available A */
+                title = stringResource(id = R.string.label_PetInUnit),
+                items = arrayPetInUnit.toList(),
+                selected = {}
+            )
             Text(
                 text = stringResource(id = R.string.text_Service),
                 modifier = Modifier.padding(
@@ -81,20 +96,21 @@ fun RepairView() {
                 ),
                 style = LPTypography.bodyLarge
             )
-            LpOutlinedTextFieldNumber(
+            DropdownTextField(
                 modifier = Modifier.padding(
                     top = eSdp06
                 ),
-                label = stringResource(id = R.string.label_Category),
-                hint = stringResource(id = R.string.hint_Category),
-                onValueChange = {}
-            )/* TODO - Change for "Category" component when available B */
+                title = stringResource(id = R.string.label_Category),
+                items = arrayCategory.toList(),
+                selected = {}
+            )
             LpOutlinedTextFieldMail(
                 modifier = Modifier
                     .padding(
                         top = eSdp10
                     )
-                    .height(height = eSdp104),
+                    .height(height = eSdp104)
+                    .fillMaxWidth(),
                 label = stringResource(id = R.string.label_Description),
                 hint = stringResource(id = R.string.hint_Description),
                 isValid = isValidDescription,
@@ -126,20 +142,17 @@ fun RepairView() {
                 ),
                 style = LPTypography.bodyLarge
             )
-            Column(
+            LpRadioGroup(
                 modifier = Modifier.padding(
                     start = eSdp10,
                     top = eSdp10
-                )
-            ) {
-                LpRadioGroup(
-                    options = arrayRadioButtons.toList(),
-                    selectedOption = selectedOptionRadioButtons,
-                    onOptionSelected = {
-                        selectedOptionRadioButtons = it
-                    }
-                )
-            }
+                ),
+                options = arrayRadioButtons.toList(),
+                selectedOption = selectedOptionRadioButtons,
+                onOptionSelected = {
+                    selectedOptionRadioButtons = it
+                }
+            )
         }
     }
 }

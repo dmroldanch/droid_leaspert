@@ -17,6 +17,26 @@
     <string name="supportError_Description">Required. Not empty and at least a brief description.</string>
     <string name="text_Video">Upload video</string>
     <string name="text_Permission">Permission to enter</string>
+    <string-array name="list_PetInUnit"> <!-- TODO: Verify the list PetInUnit contents -->
+        <item>Bird</item>
+        <item>Cat</item>
+        <item>Dog</item>
+        <item>Fish</item>
+        <item>Insect</item>
+        <item>Other mammal</item>
+        <item>None</item>
+    </string-array>
+    <string-array name="list_Category"> <!-- TODO: Verify the list Category contents -->
+        <item>Attic</item>
+        <item>Bathroom</item>
+        <item>Basement</item>
+        <item>Bedroom</item>
+        <item>Dining room</item>
+        <item>Garage</item>
+        <item>Garden</item>
+        <item>Kitchen</item>
+        <item>Living room</item>
+    </string-array>
     <string-array name="list_RadioButton">
         <item>Yes</item>
         <item>No</item>
