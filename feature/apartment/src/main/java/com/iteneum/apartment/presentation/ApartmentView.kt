@@ -1,13 +1,11 @@
 package com.iteneum.apartment.presentation
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import com.iteneum.designsystem.theme.LeasePertTheme
 import androidx.compose.foundation.layout.*
 
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -48,16 +46,22 @@ fun ApartmentContainer() {
 
 @Composable
 fun PaymentsSection() {
-
+    Column() {
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = stringResource(id = R.string.payments),
+                color = MaterialTheme.colorScheme.tertiary,
+                fontSize = 20.sp
+            )
+        }
+        Row() {
+            cardFormExperimental()
+        }
+    }
 }
 
 @Composable
 fun RepairsSection() {
-    val dp8 = LeasePertTheme.sizes.smallerSize
-    val dp16 = LeasePertTheme.sizes.middleSize
-    val dp20 = LeasePertTheme.sizes.minorRegularSize
-    val onPrimary = MaterialTheme.colorScheme.onPrimary
-
     Column() {
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(
@@ -67,60 +71,81 @@ fun RepairsSection() {
             )
         }
 
-        RepairStatusRow(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.open))
-
-        Divider(
-            thickness = 1.dp,
-            color = onPrimary,
-            modifier = Modifier.padding(start = dp16, end = dp16)
+        RepairStatusRow(
+            modifier = Modifier.fillMaxWidth(),
+            titleStatusRepairs = stringResource(id = R.string.open)
         )
 
-        RepairStatusRow(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.in_progress))
+        Divider(
+            thickness = LeasePertTheme.sizes.stroke,
+            color = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier.padding(
+                start = LeasePertTheme.sizes.middleSize,
+                end = LeasePertTheme.sizes.middleSize
+            )
+        )
+
+        RepairStatusRow(
+            modifier = Modifier.fillMaxWidth(),
+            titleStatusRepairs = stringResource(id = R.string.in_progress)
+        )
 
 
         Divider(
-            thickness = 1.dp,
-            color = onPrimary,
-            modifier = Modifier.padding(start = dp16, end = dp16)
+            thickness = LeasePertTheme.sizes.stroke,
+            color = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier.padding(
+                start = LeasePertTheme.sizes.middleSize,
+                end = LeasePertTheme.sizes.middleSize
+            )
         )
 
-        RepairStatusRow(modifier = Modifier.fillMaxWidth(), title = stringResource(id = R.string.closed))
+        RepairStatusRow(
+            modifier = Modifier.fillMaxWidth(),
+            titleStatusRepairs = stringResource(id = R.string.closed)
+        )
 
     }
 }
 
 @Composable
-fun RepairStatusRow(modifier: Modifier = Modifier, title: String, quantity: Int = 0){
-    Row(modifier = modifier
-        .padding(start = LeasePertTheme.sizes.minorRegularSize,
-            end = LeasePertTheme.sizes.minorRegularSize,
-            top = LeasePertTheme.sizes.smallerSize,
-            bottom = LeasePertTheme.sizes.smallerSize)
-        , horizontalArrangement = Arrangement.SpaceBetween) {
+fun RepairStatusRow(
+    modifier: Modifier = Modifier,
+    titleStatusRepairs: String,
+    quantityStatusRepairs: Int = 0,
+) {
+    Row(
+        modifier = modifier
+            .padding(
+                start = LeasePertTheme.sizes.minorRegularSize,
+                end = LeasePertTheme.sizes.minorRegularSize
+            ), horizontalArrangement = Arrangement.SpaceBetween
+    ) {
         Text(
-            text = title,
+            modifier = Modifier.padding(top = LeasePertTheme.sizes.smallSize, bottom = 17.dp),
+            text = titleStatusRepairs,
             style = MaterialTheme.typography.bodyLarge
         )
 
         Box(
             modifier = Modifier
-                .size(40.dp)
+                .padding(bottom = LeasePertTheme.sizes.smallerSize, top = 9.dp)
+                .size(LeasePertTheme.sizes.largeSize)
                 .clip(MaterialTheme.shapes.extraLarge)
                 .background(color = MaterialTheme.colorScheme.secondaryContainer),
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = quantity.toString(),
+                text = quantityStatusRepairs.toString(),
                 color = MaterialTheme.colorScheme.onPrimary
             )
         }
     }
 }
 
-
 @Composable
 fun InformationSection() {
-    Column(modifier = Modifier.padding(top = 12.dp)) {
+    Column(modifier = Modifier.padding(top = LeasePertTheme.sizes.midSmallSize)) {
         Text(
             text = stringResource(id = R.string.information),
             color = MaterialTheme.colorScheme.tertiary,
@@ -128,21 +153,21 @@ fun InformationSection() {
         )
 
         LpOutlinedButton(
-            modifier = Modifier,
+            modifier = Modifier.padding(top = 14.dp),
             textButton = stringResource(id = R.string.leasing_documents)
         ) {
 
         }
 
         LpOutlinedButton(
-            modifier = Modifier,
+            modifier = Modifier.padding(top = 7.dp),
             textButton = stringResource(id = R.string.apartment_photos)
         ) {
 
         }
 
         LpOutlinedButton(
-            modifier = Modifier,
+            modifier = Modifier.padding(top = 7.dp),
             textButton = stringResource(id = R.string.current_status)
         ) {
 
@@ -150,29 +175,31 @@ fun InformationSection() {
     }
 }
 
-@Composable
-fun roundFormExperimental(quantity: Int) {
-    /*
-    FilledTonalIconButton(enabled = false, onClick = { /*TODO*/ }) {
-        Text(
-            text = "1",
-            color = MaterialTheme.colorScheme.onPrimary
-        )
-    }
-*/
 
+@Composable
+fun cardFormExperimental() {
+    //date: String, quantity: Double
+    Row(modifier = Modifier
+        .background(color = MaterialTheme.colorScheme.secondaryContainer)
+        .fillMaxWidth()) {
+        Text(text = "Perros")
+    }
+}
+
+
+@Composable
+fun roundFormExperimental(quantityStatusRepairs: Int) {
     Box(
         modifier = Modifier
-            .size(40.dp)
-            .clip(CircleShape)
+            .padding(bottom = LeasePertTheme.sizes.smallerSize, top = 9.dp)
+            .size(LeasePertTheme.sizes.largeSize)
+            .clip(MaterialTheme.shapes.extraLarge)
             .background(color = MaterialTheme.colorScheme.secondaryContainer),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = quantity.toString(),
+            text = quantityStatusRepairs.toString(),
             color = MaterialTheme.colorScheme.onPrimary
         )
     }
 }
-
-/*TODO Crear tarea para desarrollar input chip y asignarla a juan*/
