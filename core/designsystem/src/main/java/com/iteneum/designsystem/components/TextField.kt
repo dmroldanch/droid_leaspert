@@ -139,6 +139,7 @@ fun LpOutlinedTextFieldMail(
 /**
  * This function creates a password OutlinedTextField
  * @param modifier Set component modifier
+ * @param enabled set enabled/disabled component
  * @param label Text label
  * @param hint Hint message
  * @param onValueChange This parameter return the field value
@@ -147,8 +148,9 @@ fun LpOutlinedTextFieldMail(
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LpOutlinedTextFieldNumber(
+fun LpOutlinedTextFieldInput(
     modifier: Modifier,
+    enabled:Boolean,
     label: String,
     hint: String,
     onValueChange: (String) -> Unit,
@@ -161,6 +163,7 @@ fun LpOutlinedTextFieldNumber(
             onValueChange(textFieldValue.text)
         },
         modifier = modifier.fillMaxWidth(),
+        enabled=enabled,
         label = { Text(label) },
         placeholder = { Text(hint) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -174,7 +177,7 @@ fun LpOutlinedTextFieldNumber(
         singleLine = true,
         maxLines = 1,
         shape = MaterialTheme.shapes.small,
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text)
     )
 }
 
