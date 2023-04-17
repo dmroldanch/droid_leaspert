@@ -53,7 +53,7 @@ fun OfficeUI() {
             modifier = Modifier.padding(top = sizes.extraSize10))
 
         Text(text = stringResource(id = R.string.LPHours),
-            modifier = Modifier.padding(top = 10.dp),
+            modifier = Modifier.padding(top = sizes.extraSize10),
             style = TextStyle(textAlign = TextAlign.Justify,
                 lineHeight = 20.sp,
                 textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)))
