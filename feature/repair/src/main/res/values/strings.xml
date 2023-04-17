@@ -1,23 +1,23 @@
 <resources>
 
     <string name="text_title">Repair request</string>
-    <string name="contentDescription_Image">Arrow Icon</string>
-    <string name="hint_Unit">Alphanumeric</string>
-    <string name="label_Unit">Unit</string>
-    <string name="supportError_Unit">Field already filled</string>
-    <string name="label_ContactPhone">Contact Phone</string>
-    <string name="hint_ContactPhone">Number</string>
-    <string name="label_PetInUnit">Pet in Unit</string>
-    <string name="hint_PetInUnit">Category</string>
-    <string name="text_Service">I would like to request a service for…</string>
-    <string name="label_Category">Select Category…</string>
-    <string name="hint_Category">Category</string>
-    <string name="label_Description">Describe your problem…</string>
-    <string name="hint_Description">Text</string>
-    <string name="supportError_Description">Required. Not empty and at least a brief description.</string>
-    <string name="text_Video">Upload video</string>
-    <string name="text_Permission">Permission to enter</string>
-    <string-array name="list_PetInUnit"> <!-- TODO: Verify the list PetInUnit contents -->
+    <string name="content_description_image">Arrow Icon</string>
+    <string name="hint_unit">Alphanumeric</string>
+    <string name="label_unit">Unit</string>
+    <string name="support_error_unit">Field already filled</string>
+    <string name="label_contact_phone">Contact Phone</string>
+    <string name="hint_contact_phone">Number</string>
+    <string name="label_pet_in_unit">Pet in Unit</string>
+    <string name="hint_pet_in_unit">Category</string>
+    <string name="text_service">I would like to request a service for…</string>
+    <string name="label_category">Select Category…</string>
+    <string name="hint_category">Category</string>
+    <string name="label_description">Describe your problem…</string>
+    <string name="hint_description">Text</string>
+    <string name="support_error_description">Required. Not empty and at least a brief description.</string>
+    <string name="text_video">Upload video</string>
+    <string name="text_permission">Permission to enter</string>
+    <string-array name="options_pet_in_unit"> <!-- TODO: Verify the list PetInUnit contents -->
         <item>Bird</item>
         <item>Cat</item>
         <item>Dog</item>
@@ -26,7 +26,7 @@
         <item>Other mammal</item>
         <item>None</item>
     </string-array>
-    <string-array name="list_Category"> <!-- TODO: Verify the list Category contents -->
+    <string-array name="options_category"> <!-- TODO: Verify the list Category contents -->
         <item>Attic</item>
         <item>Bathroom</item>
         <item>Basement</item>
@@ -37,7 +37,7 @@
         <item>Kitchen</item>
         <item>Living room</item>
     </string-array>
-    <string-array name="list_RadioButton">
+    <string-array name="options_radio_button">
         <item>Yes</item>
         <item>No</item>
     </string-array>

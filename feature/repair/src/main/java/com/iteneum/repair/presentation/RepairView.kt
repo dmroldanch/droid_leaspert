@@ -7,29 +7,35 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.iteneum.designsystem.components.*
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.repair.R
 
+/**
+ * Function that creates [RepairView] compose. for user's service request
+ * LpOutlinedTextFieldMail A --> Client's department
+ * LPPhoneNumberText         --> Client's phone number
+ * DropdownTextField A       --> If client has a pet will be indicated here
+ * DropdownTextField B       --> Category of the client's problem
+ * LpOutlinedTextFieldMail B --> Client's problem description
+ * LpFileButton              --> Client's proof of repair problem
+ * LpRadioGroup              --> Client's permission approval
+ * @author Jose Miguel Garcia Reyes
+ */
+
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
 fun RepairView() {
-    val dp24 = LeasePertTheme.sizes.regularSize
-    val dp20 = LeasePertTheme.sizes.minorRegularSize
-    val eSdp06 = LeasePertTheme.sizes.extraSize6
-    val eSdp10 = LeasePertTheme.sizes.extraSize10
-    val eSdp104 = LeasePertTheme.sizes.extraSize104
-    val arrayRadioButtons = stringArrayResource(id = R.array.list_RadioButton)
-    val arrayPetInUnit = stringArrayResource(id = R.array.list_PetInUnit)
-    val arrayCategory = stringArrayResource(id = R.array.list_Category)
+    val sizes = LeasePertTheme.sizes
+    val optionsPermissionRadioButtons = stringArrayResource(id = R.array.options_radio_button)
+    val optionsPetInUnit = stringArrayResource(id = R.array.options_pet_in_unit)
+    val optionsCategory = stringArrayResource(id = R.array.options_category)
     var isValidDescription by remember {
         mutableStateOf(false)
     }
-    var selectedOptionRadioButtons by remember {
-        mutableStateOf(arrayRadioButtons[0])
+    var optionSelectedRadioButtons by remember {
+        mutableStateOf(optionsPermissionRadioButtons[0])
     }
     var numberValue by remember {
         mutableStateOf("")
@@ -37,9 +43,9 @@ fun RepairView() {
     LeasePertTheme {
         Column(
             modifier = Modifier.padding(
-                start = dp24,
-                top = dp20,
-                end = dp24
+                start = sizes.regularSize,
+                top = sizes.minorRegularSize,
+                end = sizes.regularSize
             )
         ) {
             Row {
@@ -47,7 +53,7 @@ fun RepairView() {
                 Text(
                     text = stringResource(R.string.text_title),
                     modifier = Modifier.padding(
-                        all = eSdp06
+                        all = sizes.extraSize6
                     ),
                     style = LPTypography.headlineSmall
                 )
@@ -55,102 +61,94 @@ fun RepairView() {
             LpOutlinedTextFieldMail(
                 modifier = Modifier
                     .padding(
-                        top = dp20
+                        top = sizes.minorRegularSize
                     )
                     .fillMaxWidth(),
-                label = stringResource(id = R.string.label_Unit),
-                hint = stringResource(id = R.string.hint_Unit),
+                label = stringResource(id = R.string.label_unit),
+                hint = stringResource(id = R.string.hint_unit),
                 isValid = false,
-                supportTextError = stringResource(id = R.string.supportError_Unit),
+                supportTextError = stringResource(id = R.string.support_error_unit),
                 onValueChange = {}
-            )/* TODO - Change the component when available (Disable/Generic) */
+            )/* TODO - Unit Text field - Change the component when available (Disable/Generic) */
             LPPhoneNumberText(
                 modifier = Modifier.padding(
-                    top = eSdp10
+                    top = sizes.extraSize10
                 ),
                 value = numberValue,
                 onPhoneChange = {
                     numberValue = it
                 }
             )
-            /*LpOutlinedTextFieldNumber(
-                modifier = Modifier.padding(
-                    top = eSdp10
-                ),
-                label = stringResource(id = R.string.label_ContactPhone),
-                hint = stringResource(id = R.string.hint_ContactPhone),
-                onValueChange = {}
-            )*/
             DropdownTextField(
                 modifier = Modifier.padding(
-                    top = eSdp10
+                    top = sizes.extraSize10
                 ),
-                title = stringResource(id = R.string.label_PetInUnit),
-                items = arrayPetInUnit.toList(),
+                title = stringResource(id = R.string.label_pet_in_unit),
+                items = optionsPetInUnit.toList(),
                 selected = {}
             )
             Text(
-                text = stringResource(id = R.string.text_Service),
+                text = stringResource(id = R.string.text_service),
                 modifier = Modifier.padding(
-                    top = eSdp10
+                    top = sizes.extraSize10
                 ),
                 style = LPTypography.bodyLarge
             )
             DropdownTextField(
                 modifier = Modifier.padding(
-                    top = eSdp06
+                    top = sizes.extraSize6
                 ),
-                title = stringResource(id = R.string.label_Category),
-                items = arrayCategory.toList(),
+                title = stringResource(id = R.string.label_category),
+                items = optionsCategory.toList(),
                 selected = {}
             )
             LpOutlinedTextFieldMail(
                 modifier = Modifier
                     .padding(
-                        top = eSdp10
+                        top = sizes.extraSize10
                     )
-                    .height(height = eSdp104)
+                    .height(height = sizes.extraSize104)
                     .fillMaxWidth(),
-                label = stringResource(id = R.string.label_Description),
-                hint = stringResource(id = R.string.hint_Description),
+                label = stringResource(id = R.string.label_description),
+                hint = stringResource(id = R.string.hint_description),
                 isValid = isValidDescription,
-                supportTextError = stringResource(id = R.string.supportError_Description),
+                supportTextError = stringResource(id = R.string.support_error_description),
                 onValueChange = {
                     isValidDescription = it.isEmpty() || it.matches(Regex(".*[a-zA-Z]+.*")).not()
                 }
             )
             Text(
-                text = stringResource(id = R.string.text_Video),
+                text = stringResource(id = R.string.text_video),
                 modifier = Modifier.padding(
-                    top = eSdp10
+                    top = sizes.extraSize10
                 ),
                 style = LPTypography.bodyLarge
             )
             LpFileButton(
                 modifier = Modifier
                     .padding(
-                        top = eSdp06
+                        top = sizes.extraSize6
                     )
                     .fillMaxWidth(),
-                mimeTypes = arrayOf("Option A", "Option B"),
+                mimeTypes = arrayOf("video/*", "image/*"),
                 onFileSelected = {}
-            )
+            )/* TODO - File Button - Add functionality on how its going to work */
             Text(
-                text = stringResource(id = R.string.text_Permission),
+                text = stringResource(id = R.string.text_permission),
                 modifier = Modifier.padding(
-                    top = eSdp10
+                    top = sizes.extraSize10
                 ),
                 style = LPTypography.bodyLarge
             )
             LpRadioGroup(
                 modifier = Modifier.padding(
-                    start = eSdp10,
-                    top = eSdp10
+                    start = sizes.extraSize10,
+                    top = sizes.extraSize10
                 ),
-                options = arrayRadioButtons.toList(),
-                selectedOption = selectedOptionRadioButtons,
+                options = optionsPermissionRadioButtons.toList(),
+                selectedOption = optionSelectedRadioButtons,
                 onOptionSelected = {
-                    selectedOptionRadioButtons = it
+                    optionSelectedRadioButtons = it
                 }
             )
         }
