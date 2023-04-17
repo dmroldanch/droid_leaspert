@@ -21,6 +21,12 @@ fun NotificationListView() {
     NotificationListContent()
 }
 
+/**
+ * [NotificationListContent] is a Content that show the list of notifications
+ *
+ * @author Daniel Roldan
+ */
+
 @Composable
 fun NotificationListContent() {
 
@@ -62,9 +68,7 @@ fun NotificationListContent() {
                 )
             }
             items(todayNotificationList) { notification ->
-                Column(
-
-                ) {
+                Column {
                     Text(
                         text = notification.date,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -79,7 +83,8 @@ fun NotificationListContent() {
                     Divider(
                         Modifier
                             .fillMaxSize()
-                            .padding(all = dp8))
+                            .padding(all = dp8)
+                    )
                 }
             }
             item {
@@ -108,7 +113,8 @@ fun NotificationListContent() {
                     Divider(
                         Modifier
                             .fillMaxSize()
-                            .padding(all = dp8))
+                            .padding(all = dp8)
+                    )
                 }
             }
         }
