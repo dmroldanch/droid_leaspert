@@ -103,7 +103,7 @@ fun LPSubTitleLarge(
     Text(
         text = label,
         color = color,
-        style = LPTypography.bodySmall,
+        style = LPTypography.labelLarge,
         modifier = modifier.clickable { onClick?.invoke() })
 }
 
@@ -117,7 +117,7 @@ fun LPSubTitleMedium(
     Text(
         text = label,
         color = color,
-        style = LPTypography.bodySmall,
+        style = LPTypography.labelMedium,
         modifier = modifier.clickable { onClick?.invoke() })
 }
 
@@ -131,6 +131,6 @@ fun LPSubTitleSmall(
     Text(
         text = label,
         color = color,
-        style = LPTypography.bodySmall,
+        style = LPTypography.labelSmall,
         modifier = modifier.clickable { onClick?.invoke() })
 }
