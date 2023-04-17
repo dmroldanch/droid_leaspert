@@ -10,8 +10,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.iteneum.designsystem.theme.LeasePertTheme
+import com.iteneum.notification.R
 import com.iteneum.notification.domain.models.NotificationDomain
 
 @Composable
@@ -45,14 +47,14 @@ fun NotificationListContent() {
     ) {
 
         Text(
-            text = "Notifications",
+            text = stringResource(id = R.string.notification_header),
             style = MaterialTheme.typography.titleLarge,
         )
 
         LazyColumn() {
             item {
                 Text(
-                    text = "Today",
+                    text = stringResource(id = R.string.notification_today),
                     modifier = Modifier.padding(top = dp16, bottom = dp16),
                     color = MaterialTheme.colorScheme.tertiary,
                     fontWeight = FontWeight.Medium,
@@ -82,7 +84,7 @@ fun NotificationListContent() {
             }
             item {
                 Text(
-                    text = "This Week",
+                    text = stringResource(id = R.string.notification_this_week),
                     modifier = Modifier.padding(top = dp16, bottom = dp16),
                     color = MaterialTheme.colorScheme.tertiary,
                     fontWeight = FontWeight.Medium,
