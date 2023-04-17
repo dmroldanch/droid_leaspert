@@ -20,16 +20,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import com.iteneum.designsystem.R
 import com.iteneum.designsystem.theme.Bianca
 import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.LPTypography
+import com.iteneum.designsystem.utils.TextUtils.ONE
 import com.iteneum.designsystem.theme.LeasePertTheme
 
 /**
@@ -323,67 +327,69 @@ fun LPGenericElevatedCard(
  * @param onClick High order function to assign the action that this card will have
  *
  * @author Jesus Lopez Gonzalez
+ * @modifyBy Carlos Hernandez
  */
 @Composable
 fun LPGenericElevatedCardImage(
-    imageUrl: String,
+    imageUrl: String?,
     title: String,
     description: String,
     onClick: () -> Unit
 ) {
+    val dp1 = LeasePertTheme.sizes.stroke
+    val dp8 = LeasePertTheme.sizes.smallerSize
+    val dp12 = LeasePertTheme.sizes.midSmallSize
+    val dp16 = LeasePertTheme.sizes.smallSize
+    val dp182 = LeasePertTheme.sizes.extraSize182
     Card(
-        shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp)),
+        border = BorderStroke(width = dp1, color = Drab),
         colors = CardDefaults.cardColors(
-            containerColor = Drab,
+            containerColor = Bianca,
         ),
-        modifier = Modifier.padding(all = 10.dp)
+        shape = MaterialTheme.shapes.medium.copy(all = CornerSize(dp12)),
+        modifier = Modifier
+            .clickable(onClick = onClick)
+            .padding(all = dp8)
     ) {
-        Card(
-            colors = CardDefaults.cardColors(
-                containerColor = Bianca,
-            ),
-            shape = MaterialTheme.shapes.medium.copy(all = CornerSize(11.dp)),
-            modifier = Modifier
-                .width(177.dp)
-                .height(245.dp)
-                .clickable(onClick = onClick)
-                .padding(all = 1.2.dp)
-        ) {
-            Column {
-                Image(
-                    painter = rememberAsyncImagePainter(imageUrl),
-                    contentDescription = null,
+        Column {
+            if (imageUrl != null) {
+                SubcomposeAsyncImage(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(169.dp),
-                    contentScale = ContentScale.Crop
-                )
-                Box(modifier = Modifier.padding(all = 12.dp)) {
-                    ConstraintLayout {
-                        val (titleText, descriptionText) = createRefs()
-
-                        Text(
-                            text = title,
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.constrainAs(titleText) {
-                                top.linkTo(parent.top)
-                            }
-                        )
-                        Text(
-                            text = description,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.constrainAs(descriptionText) {
-                                top.linkTo(titleText.bottom)
-                            }
-                        )
+                        .fillMaxSize()
+                        .height(dp182),
+                    model = imageUrl,
+                    contentScale = ContentScale.Crop,
+                    contentDescription = null,
+                    loading = {
+                        CircularProgressIndicator()
                     }
-                }
+                )
+            } else {
+                Image(
+                    painter = painterResource(id = R.drawable.image_default),
+                    contentDescription = stringResource(R.string.image_default),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+            Column(
+                Modifier.fillMaxSize()
+                    .padding(all = dp16)
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = ONE,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = ONE,
+                    overflow = TextOverflow.Ellipsis,
+                )
             }
         }
     }
