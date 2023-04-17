@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="LPCallButton">Call</string>
+    <string name="LPMailButton">Mail</string>
+    <string name="LPInfo">Information</string>
+    <string name="LPAddress">Address: 4950 Gaidrew, Alpharetta, GA, 30022</string>
+    <string name="LPHours">Hours: 9AM - 7PM</string>
+</resources>
