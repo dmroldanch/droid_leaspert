@@ -38,6 +38,7 @@ import com.iteneum.designsystem.theme.LPTypography
 @param modifier Modifier is used to apply custom styles and parameters to the body text, such as the width and height of the component.
 @param label The text label to be displayed as the body text.
 @param color The color of the body text.
+@param textAlign Optional text alignment parameter, default is TextAlign.Center.
 @param onClick Optional high-order function that defines the click behavior when the body text is clicked.
 @author Irving Ulises Gonzalez Uscanga
 
@@ -45,6 +46,7 @@ import com.iteneum.designsystem.theme.LPTypography
 @param modifier Modifier is used to apply custom styles and parameters to the body text, such as the width and height of the component.
 @param label The text label to be displayed as the body text.
 @param color The color of the body text.
+@param textAlign Optional text alignment parameter, default is TextAlign.Center.
 @param onClick Optional high-order function that defines the click behavior when the body text is clicked.
 @author Irving Ulises Gonzalez Uscanga
 
@@ -52,6 +54,7 @@ import com.iteneum.designsystem.theme.LPTypography
 @param modifier Modifier to specify the style and parameters of the component, such as the width of the component.
 @param label Text to be displayed in the user interface.
 @param color Text color.
+@param textAlign Optional text alignment parameter, default is TextAlign.Center.
 @param onClick Higher-order function that allows assigning functionality to the component when it is clicked.
 @author Irving Ulises Gonzalez Uscanga
 
@@ -59,6 +62,7 @@ import com.iteneum.designsystem.theme.LPTypography
 @param modifier Modifier to specify the style and parameters of the component, such as the width of the component.
 @param label Text to be displayed in the user interface.
 @param color Text color.
+@param textAlign Optional text alignment parameter, default is TextAlign.Center.
 @param onClick Higher-order function that allows assigning functionality to the component when it is clicked.
 @author Irving Ulises Gonzalez Uscanga
 
@@ -66,6 +70,7 @@ import com.iteneum.designsystem.theme.LPTypography
 @param modifier Modifier to specify the style and parameters of the component, such as the width of the component.
 @param label Text to be displayed in the user interface.
 @param color Text color.
+@param textAlign Optional text alignment parameter, default is TextAlign.Center.
 @param onClick Higher-order function that allows assigning functionality to the component when it is clicked.
 @author Irving Ulises Gonzalez Uscanga
 
@@ -73,6 +78,7 @@ import com.iteneum.designsystem.theme.LPTypography
 @param modifier Modifier to specify the style and parameters of the component, such as the width of the component.
 @param label Text to be displayed in the user interface.
 @param color Text color.
+@param textAlign Optional text alignment parameter, default is TextAlign.Center.
 @param onClick Higher-order function that allows assigning functionality to the component when it is clicked.
 @author Irving Ulises Gonzalez Uscanga
 
@@ -83,13 +89,16 @@ fun LPTitleLarge(
     modifier: Modifier = Modifier,
     label: String,
     color: Color,
-    textAlign: TextAlign? = TextAlign.Center
+    textAlign: TextAlign? = TextAlign.Center,
+    onClick: (() -> Unit)? = null
 ) {
     Text(
         text = label,
         color = color,
         style = LPTypography.titleLarge,
-        modifier = modifier, textAlign = textAlign)
+        modifier = modifier.clickable { onClick?.invoke() },
+        textAlign = textAlign
+    )
 }
 
 @Composable
@@ -97,13 +106,16 @@ fun LPTitleMedium(
     modifier: Modifier = Modifier,
     label: String,
     color: Color,
-    textAlign: TextAlign? = TextAlign.Center
+    textAlign: TextAlign? = TextAlign.Center,
+    onClick: (() -> Unit)? = null
 ) {
     Text(
         text = label,
         color = color,
         style = LPTypography.titleMedium,
-        modifier = modifier, textAlign = textAlign)
+        modifier = modifier.clickable { onClick?.invoke() },
+        textAlign = textAlign
+    )
 }
 
 @Composable
@@ -111,13 +123,16 @@ fun LPTitleSmall(
     modifier: Modifier = Modifier,
     label: String,
     color: Color,
-    textAlign: TextAlign? = TextAlign.Center
+    textAlign: TextAlign? = TextAlign.Center,
+    onClick: (() -> Unit)? = null
 ){
     Text(
         text = label,
         color = color,
         style = LPTypography.titleSmall,
-        modifier = modifier, textAlign = textAlign)
+        modifier = modifier.clickable { onClick?.invoke() },
+        textAlign = textAlign
+    )
 }
 
 @Composable
@@ -125,13 +140,16 @@ fun LPBodyLarge(
     modifier: Modifier = Modifier,
     label: String,
     color: Color,
+    textAlign: TextAlign? = TextAlign.Center,
     onClick: (() -> Unit)? = null
 ) {
     Text(
         text = label,
         color = color,
         style = LPTypography.bodyLarge,
-        modifier = modifier.clickable { onClick?.invoke() })
+        modifier = modifier.clickable { onClick?.invoke() },
+        textAlign = textAlign
+    )
 }
 
 @Composable
@@ -139,13 +157,16 @@ fun LPBodyMedium(
     modifier: Modifier = Modifier,
     label: String,
     color: Color,
+    textAlign: TextAlign? = TextAlign.Center,
     onClick: (() -> Unit)? = null
 ) {
     Text(
         text = label,
         color = color,
         style = LPTypography.bodyMedium,
-        modifier = modifier.clickable { onClick?.invoke() })
+        modifier = modifier.clickable { onClick?.invoke() },
+        textAlign = textAlign
+    )
 }
 
 @Composable
@@ -153,13 +174,16 @@ fun LPBodySmall(
     modifier: Modifier = Modifier,
     label: String,
     color: Color,
+    textAlign: TextAlign? = TextAlign.Center,
     onClick: (() -> Unit)? = null
 ) {
     Text(
         text = label,
         color = color,
         style = LPTypography.bodySmall,
-        modifier = modifier.clickable { onClick?.invoke() })
+        modifier = modifier.clickable { onClick?.invoke() },
+        textAlign = textAlign
+    )
 }
 
 @Composable
@@ -167,13 +191,16 @@ fun LPSubTitleLarge(
     modifier: Modifier = Modifier,
     label: String,
     color: Color,
+    textAlign: TextAlign? = TextAlign.Center,
     onClick: (() -> Unit)? = null
 ){
     Text(
         text = label,
         color = color,
         style = LPTypography.labelLarge,
-        modifier = modifier.clickable { onClick?.invoke() })
+        modifier = modifier.clickable { onClick?.invoke() },
+        textAlign = textAlign
+    )
 }
 
 @Composable
@@ -181,13 +208,16 @@ fun LPSubTitleMedium(
     modifier: Modifier = Modifier,
     label: String,
     color: Color,
+    textAlign: TextAlign? = TextAlign.Center,
     onClick: (() -> Unit)? = null
 ){
     Text(
         text = label,
         color = color,
         style = LPTypography.labelMedium,
-        modifier = modifier.clickable { onClick?.invoke() })
+        modifier = modifier.clickable { onClick?.invoke() },
+        textAlign = textAlign
+    )
 }
 
 @Composable
@@ -195,11 +225,14 @@ fun LPSubTitleSmall(
     modifier: Modifier = Modifier,
     label: String,
     color: Color,
+    textAlign: TextAlign? = TextAlign.Center,
     onClick: (() -> Unit)? = null
 ){
     Text(
         text = label,
         color = color,
         style = LPTypography.labelSmall,
-        modifier = modifier.clickable { onClick?.invoke() })
+        modifier = modifier.clickable { onClick?.invoke() },
+        textAlign = textAlign
+    )
 }
