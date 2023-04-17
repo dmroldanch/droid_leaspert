@@ -44,7 +44,7 @@ fun LpOutlinedButton(
 ) {
     OutlinedButton(
         onClick = onClick,
-        modifier = modifier.padding(all = 10.dp),
+        modifier = modifier.padding(all = 0.dp),
         shape = RoundedCornerShape(size = 12.dp),
         border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.onPrimary),
         colors = ButtonDefaults.buttonColors(
@@ -95,6 +95,7 @@ fun LpFilledTonalButton(modifier: Modifier, textButton: String, onClick: () -> U
  *
  * @param modifier to modify an specific property of the card
  * @param onClick high order function
+ * @param elevation FloatingActionButtonDefaults.elevation(dp's of the component elevation)
  * @param color Container color
  * @param colors Content color
  *

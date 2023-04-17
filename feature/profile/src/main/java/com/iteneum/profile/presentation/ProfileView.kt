@@ -19,7 +19,7 @@ import com.iteneum.profile.R
 
 @Composable
 fun ProfileView(
-
+    /*TODO expected parameters as navigation and view model*/
 ) {
     val sizes = LeasePertTheme.sizes
 
@@ -56,36 +56,28 @@ fun ProfileView(
                     color = MaterialTheme.colorScheme.inversePrimary,
                     colors = MaterialTheme.colorScheme.inversePrimary,
                     elevation = FloatingActionButtonDefaults.elevation(sizes.nothingSize),
-                ) {}
+                ) {/*TODO expected change in the values of user's phone number, email or address*/}
             }
         }
         Row(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(horizontal = sizes.smallSize)) {
-                /*Image(
-                    painter = userPhoto,
-                    contentDescription = stringResource(R.string.user_photo),
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .size(sizes.extraSize78)
-                        .clip(CircleShape)
-                )*/
                 /*TODO Here will be the image implementation*/
             }
-            Column() {
-                Box(modifier = Modifier.padding(vertical = sizes.midSmallSize)) {
-                    Text(
-                        text = "Juan Islas",
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 18.sp,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                }
-                Box(modifier = Modifier.padding(top = sizes.stroke)) {
-                    Text(text = "Apartment #101", color = MaterialTheme.colorScheme.tertiary)
-                }
+            Column {
+                Text(
+                    text = "Juan Islas",
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 18.sp,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    modifier = Modifier.padding(vertical = sizes.midSmallSize)
+                )
+                Text(
+                    text = "Apartment #101",
+                    color = MaterialTheme.colorScheme.tertiary,
+                    modifier = Modifier.padding(top = sizes.stroke)
+                )
             }
         }
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -150,19 +142,31 @@ fun ProfileView(
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = sizes.regularSize, vertical = sizes.midSmallSize),
+                .padding(horizontal = sizes.minorRegularSize, vertical = sizes.midSmallSize),
             color = MaterialTheme.colorScheme.onPrimary
         )
         LpOutlinedButton(
-            modifier = Modifier.padding(horizontal = sizes.smallSize),
+            modifier = Modifier
+                .padding(
+                    horizontal = sizes.smallSize,
+                    vertical = sizes.minorSmallSize
+                ),
             textButton = stringResource(id = R.string.payment_methods),
             onClick = { /*TODO high order function for payment methods*/ })
         LpOutlinedButton(
-            modifier = Modifier.padding(horizontal = sizes.smallSize, vertical = sizes.nothingSize),
+            modifier = Modifier
+                .padding(
+                    horizontal = sizes.smallSize,
+                    vertical = sizes.minorSmallSize
+                ),
             textButton = stringResource(id = R.string.emergency_contacts),
             onClick = { /*TODO high order function for emergency contacts*/ })
         LpOutlinedButton(
-            modifier = Modifier.padding(horizontal = sizes.smallSize, vertical = sizes.nothingSize),
+            modifier = Modifier
+                .padding(
+                    horizontal = sizes.smallSize,
+                    vertical = sizes.minorSmallSize
+                ),
             textButton = stringResource(id = R.string.log_out),
             onClick = { /*TODO log out and return to the login view*/ })
     }
