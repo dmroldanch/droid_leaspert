@@ -13,14 +13,9 @@ import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.repair.R
 
 /**
- * Function that creates [RepairView] compose. for user's service request
- * LpOutlinedTextFieldMail A --> Client's department
- * LPPhoneNumberText         --> Client's phone number
- * DropdownTextField A       --> If client has a pet will be indicated here
- * DropdownTextField B       --> Category of the client's problem
- * LpOutlinedTextFieldMail B --> Client's problem description
- * LpFileButton              --> Client's proof of repair problem
- * LpRadioGroup              --> Client's permission approval
+ * Function that creates [RepairView] compose. for user's service request.
+ * User will require to fill all the correspondent fields on the screen.
+ *
  * @author Jose Miguel Garcia Reyes
  */
 
@@ -31,13 +26,13 @@ fun RepairView() {
     val optionsPermissionRadioButtons = stringArrayResource(id = R.array.options_radio_button)
     val optionsPetInUnit = stringArrayResource(id = R.array.options_pet_in_unit)
     val optionsCategory = stringArrayResource(id = R.array.options_category)
-    var isValidDescription by remember {
+    var isAValidDescription by remember {
         mutableStateOf(false)
     }
     var optionSelectedRadioButtons by remember {
         mutableStateOf(optionsPermissionRadioButtons[0])
     }
-    var numberValue by remember {
+    var contactPhoneNumberValue by remember {
         mutableStateOf("")
     }
     LeasePertTheme {
@@ -74,9 +69,9 @@ fun RepairView() {
                 modifier = Modifier.padding(
                     top = sizes.extraSize10
                 ),
-                value = numberValue,
+                value = contactPhoneNumberValue,
                 onPhoneChange = {
-                    numberValue = it
+                    contactPhoneNumberValue = it
                 }
             )
             DropdownTextField(
@@ -111,10 +106,10 @@ fun RepairView() {
                     .fillMaxWidth(),
                 label = stringResource(id = R.string.label_description),
                 hint = stringResource(id = R.string.hint_description),
-                isValid = isValidDescription,
+                isValid = isAValidDescription,
                 supportTextError = stringResource(id = R.string.support_error_description),
                 onValueChange = {
-                    isValidDescription = it.isEmpty() || it.matches(Regex(".*[a-zA-Z]+.*")).not()
+                    isAValidDescription = it.isEmpty() || it.matches(Regex(".*[a-zA-Z]+.*")).not()
                 }
             )
             Text(
