@@ -7,17 +7,14 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class OfficeViewModel: ViewModel() {
-
-    private val _event = mutableStateOf(true)
-    val event: State<Boolean>
-    get() = _event
+class OfficeViewModel @Inject constructor(): ViewModel() {
 
     private fun onClick(){
         viewModelScope.launch(Dispatchers.IO) {
-
+            /*TODO*/
         }
     }
 

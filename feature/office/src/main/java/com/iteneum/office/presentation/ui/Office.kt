@@ -18,9 +18,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.office.R
+import com.iteneum.office.presentation.viewmodel.OfficeViewModel
 
 /**
  * This function creates the Office screen UI
@@ -29,43 +31,55 @@ import com.iteneum.office.R
  * Comment
  */
 @Composable
-fun OfficeUI() {
-
+fun OfficeUI(vm: OfficeViewModel = viewModel()) //Injecting the viewModel
+{
     Column() {
 
         //Get sizes from LeasePertTheme archive
         val sizes = LeasePertTheme.sizes
 
-        Text(text = stringResource(id = R.string.LPInfo),
+        Text(
+            text = stringResource(id = R.string.LPInfo),
             modifier = Modifier
                 .width(sizes.extraSize124)
                 .height(sizes.regularSize),
-            style = TextStyle(textAlign = TextAlign.Justify, color = Color.Gray,
+            style = TextStyle(
+                textAlign = TextAlign.Justify, color = Color.Gray,
                 fontFamily = FontFamily.SansSerif,
                 fontSize = 20.sp,
                 lineHeight = 20.sp,
-                textIndent = TextIndent(firstLine = 14.sp)))
+                textIndent = TextIndent(firstLine = 14.sp)
+            )
+        )
 
-        Text(text = stringResource(id = R.string.LPAddress),
-            style = TextStyle(textAlign = TextAlign.Justify,
+        Text(
+            text = stringResource(id = R.string.LPAddress),
+            style = TextStyle(
+                textAlign = TextAlign.Justify,
                 lineHeight = 20.sp,
-                textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)),
-            modifier = Modifier.padding(top = sizes.extraSize10))
+                textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
+            ),
+            modifier = Modifier.padding(top = sizes.extraSize10)
+        )
 
-        Text(text = stringResource(id = R.string.LPHours),
+        Text(
+            text = stringResource(id = R.string.LPHours),
             modifier = Modifier.padding(top = sizes.extraSize10),
-            style = TextStyle(textAlign = TextAlign.Justify,
+            style = TextStyle(
+                textAlign = TextAlign.Justify,
                 lineHeight = 20.sp,
-                textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)))
+                textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
+            )
+        )
 
         LpOutlinedButton(modifier = Modifier,
             icon = Icons.Filled.Call,
             textButton = stringResource(id = R.string.LPCallButton),
-            onClick = { /*TODO*/ } )
+            onClick = { /*TODO*/ })
 
         LpOutlinedButton(modifier = Modifier,
             icon = Icons.Outlined.Mail,
             textButton = stringResource(id = R.string.LPMailButton),
-            onClick = { /*TODO*/ } )
+            onClick = { /*TODO*/ })
     }
 }
