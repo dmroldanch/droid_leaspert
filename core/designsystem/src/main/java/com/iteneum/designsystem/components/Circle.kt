@@ -30,7 +30,8 @@ fun LpCircleText(quantityToShow: Int = 0, modifier: Modifier){
     ) {
         Text(
             text = quantityToShow.toString(),
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onTertiary,
+            style = MaterialTheme.typography.bodyLarge
         )
     }
 }
