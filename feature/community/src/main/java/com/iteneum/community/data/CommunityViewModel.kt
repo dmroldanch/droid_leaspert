@@ -17,9 +17,11 @@ class CommunityViewModel : ViewModel() {
     private val _communityServicesbuttonCards = mutableStateListOf<CardModel>()
     val communityServicesbuttonCards: SnapshotStateList<CardModel>
         get() = _communityServicesbuttonCards
+
     init {
         loadButtonCards()
     }
+
     fun loadButtonCards() {
         val cards = listOf(
             CardModel(Icons.Outlined.Diamond, CardMenuItem.AMENITIES),
@@ -30,6 +32,7 @@ class CommunityViewModel : ViewModel() {
         )
         _communityServicesbuttonCards.addAll(cards)
     }
+
     fun onItemClick(model: CardModel) {
         println(model)
     }

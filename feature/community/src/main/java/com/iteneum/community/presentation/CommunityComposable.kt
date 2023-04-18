@@ -15,6 +15,14 @@ import com.iteneum.community.domain.CardMenuItem
 import com.iteneum.designsystem.components.LpIconTextCard
 import com.iteneum.designsystem.theme.LeasePertTheme
 
+/**
+ * This function creates a view that displays a list of community sections.
+ * @param viewModel receives a viewModel to manage the logic of the view
+ *this view model is used to handle the loading of the components of the interface
+ * including icons, text and button click functionality.
+ *
+ * @author Andrés Ivan Medina Herrera
+ */
 @Composable
 fun CommunityUI(viewModel: CommunityViewModel = viewModel()) {
     val cardWith = LeasePertTheme.sizes.extraSize124
