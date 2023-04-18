@@ -7,6 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.iteneum.designsystem.theme.LeasePertTheme
 
+/**
+ * [LpDivider] is a button for show in the UI and this button can have icon depending of the use
+ *
+ * @param modifier Modifier is for specify style and params of the button, like for example the width of the component.
+ *
+ * @author Usiel Filiberto Garcia Jimenez
+ */
 @Composable
 fun LpDivider(modifier: Modifier) {
     Divider(
