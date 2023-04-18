@@ -15,8 +15,6 @@ dependencyResolutionManagement {
     versionCatalogs{
         libs {
 
-
-
             version('core', '1.7.0')
             version('lifecycle', '2.5.1')
             version('compose', '1.3.1')
@@ -34,10 +32,12 @@ dependencyResolutionManagement {
             version('dataStore-Core', '1.0.0')
             version('retrofit', '2.9.0')
             version('hilt', '2.44')
+            version('hilt-navigation', '1.0.0')
             version('espresso', '3.5.1')
             version('junit', '4.13.2')
             version('junitExt', '1.1.5')
             version('coilVersion','2.3.0')
+
 
 
 
@@ -55,10 +55,9 @@ dependencyResolutionManagement {
             library('compose-icons','androidx.compose.material','material-icons-core').versionRef('compose')
             library('compose-icons-extended','androidx.compose.material','material-icons-extended').versionRef('compose')
 
-            library('coil-compose','io.coil-kt','coil-compose').versionRef('coilVersion')
+            library('coil','io.coil-kt','coil-compose').versionRef('coilVersion')
 
             library('accompanist-permisions', 'com.google.accompanist', 'accompanist-permissions').versionRef('accompanist')
-
 
             library('gson', 'com.google.code.gson', 'gson').versionRef('gsonVersion')
 
@@ -66,16 +65,18 @@ dependencyResolutionManagement {
             library('dataStore-Core', 'androidx.datastore', 'datastore-preferences-core').versionRef('dataStore-Core')
             library('serialization', 'org.jetbrains.kotlin', 'kotlin-serialization').versionRef('serializationVersion')
             library('retrofit', 'com.squareup.retrofit2','retrofit').versionRef('retrofit')
-            library('hilt-android', 'com.google.dagger','hilt-android').versionRef('hilt')
-            library('hilt-compiler', 'com.google.dagger','hilt-compiler').versionRef('hilt')
+            library('hiltAndroid', 'com.google.dagger','hilt-android').versionRef('hilt')
+            library('hiltNavigation', 'androidx.hilt','hilt-navigation-compose').versionRef('hilt-navigation')
+            library('hiltCompiler', 'com.google.dagger','hilt-compiler').versionRef('hilt')
 
             library('espresso', 'androidx.test.espresso','espresso-core').versionRef('espresso')
             library('junit', 'junit','junit').versionRef('junit')
             library('junitExt', 'androidx.test.ext','junit').versionRef('junitExt')
 
-            bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-constraints','compose-tooling','compose-tooling-prev','compose-navigation','compose-icons-extended','compose-icons','coil-compose'])
+            bundle('compose', ['compose-material3', 'compose-windows', 'compose-activity', 'compose-view-model', 'compose-constraints','compose-tooling','compose-tooling-prev','compose-navigation','compose-icons-extended','compose-icons','coil'])
             bundle('accompanist', ['accompanist-permisions'])
             bundle('dataStoreBundle', ['dataStore', 'dataStore-Core'])
+            bundle('hilt', ['hiltAndroid', 'hiltNavigation'])
         }
     }
 
