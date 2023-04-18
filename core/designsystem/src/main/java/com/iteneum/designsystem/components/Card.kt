@@ -158,7 +158,7 @@ fun LpPostCard(
                         .clip(CircleShape),
                     model = userPhoto,
                     contentScale = ContentScale.Crop,
-                    contentDescription = userName,
+                    contentDescription = userName
                 )
                 Column(modifier = Modifier.padding(start = 8.dp)) {
                     Text(
