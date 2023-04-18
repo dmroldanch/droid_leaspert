@@ -120,7 +120,7 @@ fun LpGenericCard(
 fun LpPostCard(
     modifier: Modifier,
     userName: String,
-    userPhoto: Painter,
+    userPhoto: String,
     timeAgo: String,
     messagePost: String,
     onCommentClick: () -> Unit,
@@ -138,13 +138,13 @@ fun LpPostCard(
                 .padding(15.dp, 15.dp, 15.dp, 5.dp)
         ) {
             Row {
-                Image(
-                    painter = userPhoto,
-                    contentDescription = "userPhoto",
-                    contentScale = ContentScale.Crop,
+                SubcomposeAsyncImage(
                     modifier = Modifier
                         .size(50.dp)
-                        .clip(CircleShape)
+                        .clip(CircleShape),
+                    model = userPhoto,
+                    contentScale = ContentScale.Crop,
+                    contentDescription = userName
                 )
                 Column(modifier = Modifier.padding(start = 8.dp)) {
                     Text(
