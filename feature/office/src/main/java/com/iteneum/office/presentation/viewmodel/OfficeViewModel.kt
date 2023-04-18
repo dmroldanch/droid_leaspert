@@ -1,5 +1,6 @@
 package com.iteneum.office.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,10 +15,13 @@ import javax.inject.Inject
 @HiltViewModel
 class OfficeViewModel @Inject constructor(): ViewModel() {
 
-    private fun onClick(){
+    //I'm just added the context parameter to test the viewModel
+    //It can be removed in the future
+    fun onClick(){
         viewModelScope.launch(Dispatchers.IO) {
-            /*TODO*/
+           Log.e("Test", "Show test")
         }
+
     }
 
 }
