@@ -147,17 +147,14 @@ fun RepairView() {
                         optionSelectedRadioButtons = it
                     }
                 )
-                LpOutlinedButton(
-                    modifier = Modifier
-                        .padding(start = sizes.minorRegularSize)
-                        .size(
-                            width = sizes.extraSize86,
-                            height = sizes.extraSize48
-                        ),
-                    textButton = stringResource(id = R.string.text_button),
-                    onClick = {}
-                )/* TODO - Send Button - Add functionality on how its going to work */
             }
+            LpFilledTonalButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                ,
+                textButton = stringResource(id = R.string.text_button),
+                onClick = {}
+            ) /* TODO - Send Button - Add functionality on how its going to work */
         }
     }
 }
