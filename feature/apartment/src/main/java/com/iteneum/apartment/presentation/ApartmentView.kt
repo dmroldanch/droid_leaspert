@@ -90,7 +90,6 @@ fun RepairsSection() {
             titleStatusRepairs = stringResource(id = R.string.in_progress)
         )
 
-
         Divider(
             thickness = LeasePertTheme.sizes.stroke,
             color = MaterialTheme.colorScheme.onPrimary,
