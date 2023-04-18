@@ -18,6 +18,16 @@ import androidx.compose.ui.text.font.FontWeight
 import com.iteneum.designsystem.R
 import com.iteneum.designsystem.theme.LeasePertTheme
 
+/**
+ * Created [LpGenericChip]
+ *
+ * @param modifier to modify an specific property of the chip
+ * @param label as an example: 'History', 'Pay Now' or '+ New'
+ * @param onClick this is the clickable option
+ * @param icon an optional icon before the label
+ *
+ * @author Juan Islas
+ */
 @Composable
 fun LpGenericChip(
     modifier: Modifier = Modifier,
@@ -28,41 +38,33 @@ fun LpGenericChip(
     val sizes = LeasePertTheme.sizes
     Box(
         modifier = modifier
-            .padding(end = sizes.minorSmallSize, bottom = sizes.minorSmallSize)
-            .clickable { onClick }
+            .clip(RoundedCornerShape(sizes.smallSize))
+            .background(MaterialTheme.colorScheme.primary)
+            .padding(
+                all = sizes.midSmallSize,
+            )
+            .clickable { onClick },
+        contentAlignment = Alignment.Center
     ) {
-        Box(
-            modifier = modifier
-                .clip(RoundedCornerShape(sizes.midSmallSize))
-                .background(MaterialTheme.colorScheme.primary)
-                .padding(
-                    start = sizes.smallerSize,
-                    top = sizes.minorSmallSize,
-                    end = sizes.smallerSize,
-                    bottom = sizes.minorSmallSize
-                )
-                .defaultMinSize(minWidth = sizes.extraSize36, minHeight = sizes.regularSize),
-            contentAlignment = Alignment.Center
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                icon?.let {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = stringResource(R.string.icon_description),
-                        modifier = Modifier.size(ButtonDefaults.IconSize),
-                        tint = MaterialTheme.colorScheme.onPrimary
-                    )
-                    Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
-                }
-                Text(
-                    text = label,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    fontWeight = FontWeight.Medium
+            icon?.let {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = stringResource(R.string.icon_description),
+                    modifier = Modifier
+                        .size(ButtonDefaults.IconSize)
+                        .padding(horizontal = sizes.stroke),
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
             }
+            Text(
+                text = label,
+                color = MaterialTheme.colorScheme.onPrimary,
+                fontWeight = FontWeight.Medium
+            )
         }
     }
 }
