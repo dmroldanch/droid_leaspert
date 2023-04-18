@@ -1,4 +1,4 @@
-package com.iteneum.office.presentation
+package com.iteneum.office.presentation.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
