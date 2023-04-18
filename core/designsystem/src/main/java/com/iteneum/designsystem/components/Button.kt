@@ -40,7 +40,7 @@ fun LpOutlinedButton(
     modifier: Modifier,
     textButton: String,
     icon: ImageVector? = null,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     OutlinedButton(
         onClick = onClick,
