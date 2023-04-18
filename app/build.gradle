@@ -57,5 +57,5 @@ dependencies {
     kapt libs.hiltCompiler
 
     implementation project(":core:designsystem")
-    implementation project(":feature:community")
+    implementation project(":feature:example")
 }

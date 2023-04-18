@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile">Profile</string>
+    <string name="phone_icon">phone icon</string>
+    <string name="mail_icon">mail icon</string>
+    <string name="location_icon">location icon</string>
+    <string name="payment_methods">Payment Methods</string>
+    <string name="emergency_contacts">Emergency Contacts</string>
+    <string name="log_out">Log Out</string>
+    <string name="back_button">back button</string>
+    <string name="user_photo">userPhoto</string>
+</resources>
