@@ -5,14 +5,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.iteneum.apartment.presentation.ApartmentView
 import com.iteneum.designsystem.theme.LeasePertTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             LeasePertTheme {
                 ApartmentView()
+
             }
         }
     }

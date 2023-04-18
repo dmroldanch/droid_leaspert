@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -51,7 +53,11 @@ dependencies {
     implementation libs.bundles.compose
     implementation libs.core
     implementation libs.lifecycle
+    implementation libs.hiltAndroid
+    kapt libs.hiltCompiler
 
     implementation project(":core:designsystem")
     implementation project(":feature:apartment")
+    implementation project(":feature:example")
+    implementation project(":feature:office")
 }

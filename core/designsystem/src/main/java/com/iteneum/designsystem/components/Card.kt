@@ -20,41 +20,101 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.SubcomposeAsyncImage
+import com.iteneum.designsystem.R
 import com.iteneum.designsystem.theme.Bianca
 import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.LPTypography
+import com.iteneum.designsystem.utils.TextUtils.ONE
+import com.iteneum.designsystem.theme.LeasePertTheme
 
 /**
- * Created [LpPostCard]
+ * Created [LpGenericCard]
  *
  * @param modifier to modify an specific property of the card
- * @param content as a high order function
+ * @param title as an example 'Current balance'
+ * @param details this is the clickable option
+ * @param accountNumber the showed String number
+ * @param currency if the number represents currency for example current balance
+ * @param onTextClick as a high order function
  *
  * @author Daniel Roldan
+ * @modifyBy Juan Islas
  */
 @Composable
-fun LpBasicCard(
+fun LpGenericCard(
     modifier: Modifier = Modifier,
-    content: @Composable (ColumnScope.() -> Unit)
+    title: String,
+    details: String,
+    accountNumber: String,
+    currency: Boolean = false,
+    onTextClick: () -> Unit
 ) {
+    val sizes = LeasePertTheme.sizes
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(10.dp),
+        modifier = modifier.padding(sizes.midSmallSize),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.tertiary
+            containerColor = MaterialTheme.colorScheme.background
         ),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
-        elevation = CardDefaults.cardElevation(1.dp),
-        content = content
+        border = BorderStroke(sizes.stroke, MaterialTheme.colorScheme.onPrimary),
+        elevation = CardDefaults.cardElevation(sizes.stroke),
     )
+    {
+        Row{
+            Column(modifier = Modifier
+                .fillMaxWidth(0.7f)
+                .padding(all = sizes.smallSize)){
+                Text(
+                    text = title,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 17.sp
+                )
+                Text(
+                    modifier = Modifier
+                        .clickable(
+                            enabled = true,
+                            onClick = onTextClick
+                        ),
+                    text = details,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 15.sp
+                )
+            }
+            Column(
+                modifier = Modifier
+                .fillMaxWidth()
+                .padding(all = sizes.regularSize),
+                horizontalAlignment = Alignment.End
+            ){
+                if (currency){
+                    Text(
+                        text = "$$accountNumber",
+                        color = MaterialTheme.colorScheme.tertiary,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 18.sp
+                    )
+                }
+                else{
+                    Text(
+                        text = accountNumber,
+                        color = MaterialTheme.colorScheme.tertiary,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 18.sp
+                    )
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -65,7 +125,6 @@ fun LpBasicCard(
  * @param userPhoto a painter assigned to the user
  * @param timeAgo the float value of the minutes of the post
  * @param messagePost the string of the post
- * @param sizeWidth the desire width of the card between 0 (0%) to 1 (100%)
  * @param onCommentClick high order function
  * @param onFavoriteClick high order function
  *
@@ -78,39 +137,30 @@ fun LpPostCard(
     userPhoto: Painter,
     timeAgo: String,
     messagePost: String,
-    sizeWidth: Float  = 1F,
     onCommentClick: () -> Unit,
     onFavoriteClick: () -> Unit
-){
+) {
     Card(
-        modifier = modifier
-            .fillMaxWidth(sizeWidth)
-            .padding(15.dp),
+        modifier = modifier.padding(15.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
         elevation = CardDefaults.cardElevation(1.dp),
-    ){
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(15.dp, 15.dp, 15.dp, 5.dp)
-        ){
+        ) {
             Row {
-                Column {
-                    Box(modifier = Modifier
-                        .fillMaxWidth(0.20f)
-                        .padding(0.dp)) {
-                        Image(
-                            painter = userPhoto,
-                            contentDescription = "userPhoto",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .size(50.dp)
-                                .clip(CircleShape)
-                        )
-                    }
-                }
-                Column {
+                Image(
+                    painter = userPhoto,
+                    contentDescription = "userPhoto",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clip(CircleShape)
+                )
+                Column(modifier = Modifier.padding(start = 8.dp)) {
                     Text(
                         text = userName,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -126,19 +176,17 @@ fun LpPostCard(
                     )
                 }
             }
-            Row(modifier = Modifier.padding(10.dp)){
-                Text(
-                    text = messagePost,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    fontSize = 15.sp
-                )
-            }
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End){
+            Text(
+                modifier = Modifier.padding(10.dp),
+                text = messagePost,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                fontSize = 15.sp
+            )
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                 IconButton(onClick = onCommentClick) {
                     Icon(
                         Icons.Outlined.Comment,
                         "Comment",
-                        modifier = Modifier,
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
@@ -146,7 +194,6 @@ fun LpPostCard(
                     Icon(
                         Icons.Outlined.Favorite,
                         contentDescription = "Favorite",
-                        modifier = Modifier,
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
@@ -158,6 +205,7 @@ fun LpPostCard(
 /**
  * This function create a card with an icon and description
  *
+ * @param modifier component modifier.
  * @param icon The icon to be displayed
  * @param description Description to be displayed below the icon
  * @param onCardClick onClick event when card is clicked
@@ -167,15 +215,13 @@ fun LpPostCard(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LpIconTextCard(
+    modifier: Modifier = Modifier,
     icon: ImageVector,
     description: String,
     onCardClick: (String) -> Unit
 ) {
     Card(
-        modifier = Modifier
-            .height(120.dp)
-            .heightIn(120.dp, 250.dp)
-            .padding(8.dp),
+        modifier = modifier.padding(8.dp),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
         shape = RoundedCornerShape(12.dp),
         onClick = { onCardClick(description) },
@@ -225,7 +271,7 @@ fun LPGenericElevatedCard(
     val colors = MaterialTheme.colorScheme
     Card(
         colors = CardDefaults.cardColors(
-            containerColor =  Drab,
+            containerColor = Drab,
         ),
         shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp)),
         modifier = Modifier
@@ -281,67 +327,69 @@ fun LPGenericElevatedCard(
  * @param onClick High order function to assign the action that this card will have
  *
  * @author Jesus Lopez Gonzalez
+ * @modifyBy Carlos Hernandez
  */
 @Composable
 fun LPGenericElevatedCardImage(
-    imageUrl: String,
+    imageUrl: String?,
     title: String,
     description: String,
     onClick: () -> Unit
 ) {
+    val dp1 = LeasePertTheme.sizes.stroke
+    val dp8 = LeasePertTheme.sizes.smallerSize
+    val dp12 = LeasePertTheme.sizes.midSmallSize
+    val dp16 = LeasePertTheme.sizes.smallSize
+    val dp182 = LeasePertTheme.sizes.extraSize182
     Card(
-        shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp)),
+        border = BorderStroke(width = dp1, color = Drab),
         colors = CardDefaults.cardColors(
-            containerColor = Drab,
+            containerColor = Bianca,
         ),
-        modifier = Modifier.padding(all = 10.dp)
+        shape = MaterialTheme.shapes.medium.copy(all = CornerSize(dp12)),
+        modifier = Modifier
+            .clickable(onClick = onClick)
+            .padding(all = dp8)
     ) {
-        Card(
-            colors = CardDefaults.cardColors(
-                containerColor = Bianca,
-            ),
-            shape = MaterialTheme.shapes.medium.copy(all = CornerSize(11.dp)),
-            modifier = Modifier
-                .width(177.dp)
-                .height(245.dp)
-                .clickable(onClick = onClick)
-                .padding(all = 1.2.dp)
-        ) {
-            Column {
-                Image(
-                    painter = rememberAsyncImagePainter(imageUrl),
-                    contentDescription = null,
+        Column {
+            if (imageUrl != null) {
+                SubcomposeAsyncImage(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(169.dp),
-                    contentScale = ContentScale.Crop
-                )
-                Box(modifier = Modifier.padding(all = 12.dp)) {
-                    ConstraintLayout {
-                        val (titleText, descriptionText) = createRefs()
-
-                        Text(
-                            text = title,
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.constrainAs(titleText) {
-                                top.linkTo(parent.top)
-                            }
-                        )
-                        Text(
-                            text = description,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.constrainAs(descriptionText) {
-                                top.linkTo(titleText.bottom)
-                            }
-                        )
+                        .fillMaxSize()
+                        .height(dp182),
+                    model = imageUrl,
+                    contentScale = ContentScale.Crop,
+                    contentDescription = null,
+                    loading = {
+                        CircularProgressIndicator()
                     }
-                }
+                )
+            } else {
+                Image(
+                    painter = painterResource(id = R.drawable.image_default),
+                    contentDescription = stringResource(R.string.image_default),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+            Column(
+                Modifier.fillMaxSize()
+                    .padding(all = dp16)
+            ) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = ONE,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    maxLines = ONE,
+                    overflow = TextOverflow.Ellipsis,
+                )
             }
         }
     }

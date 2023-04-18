@@ -12,20 +12,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.iteneum.designsystem.theme.Drab
-import com.iteneum.designsystem.theme.MintJulep
+import com.iteneum.designsystem.R
+import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.designsystem.utils.getFileName
 
 /**
@@ -47,7 +44,7 @@ fun LpOutlinedButton(
 ) {
     OutlinedButton(
         onClick = onClick,
-        modifier = modifier.padding(all = 10.dp),
+        modifier = modifier.padding(all = 0.dp),
         shape = RoundedCornerShape(size = 12.dp),
         border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.onPrimary),
         colors = ButtonDefaults.buttonColors(
@@ -98,6 +95,7 @@ fun LpFilledTonalButton(modifier: Modifier, textButton: String, onClick: () -> U
  *
  * @param modifier to modify an specific property of the card
  * @param onClick high order function
+ * @param elevation FloatingActionButtonDefaults.elevation(dp's of the component elevation)
  * @param color Container color
  * @param colors Content color
  *
@@ -108,7 +106,8 @@ fun LpEditFloatingActionButton(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.primary,
     colors: Color = contentColorFor(backgroundColor = MaterialTheme.colorScheme.onPrimary),
-    onClick: () -> Unit,
+    elevation: FloatingActionButtonElevation,
+    onClick: () -> Unit
 ) {
     FloatingActionButton(
         onClick = onClick,
@@ -118,51 +117,68 @@ fun LpEditFloatingActionButton(
             .width(50.dp),
         containerColor = color,
         contentColor = colors,
+        elevation = elevation
     ) {
         Icon(Icons.Outlined.Edit, "edit button", tint = MaterialTheme.colorScheme.onPrimary)
     }
 }
 
 /**
- * Create [BadgeButton] compose for user's notifications
+ * Function that creates [LpBadgeButton] compose for user's notifications
  *
  * @param modifier to modify box properties that contains: Button & Badge
- * @param badgeNumber to modify the number of notifications shown
+ * @param badgeNumber to modify the string number of notifications shown
+ * @param showBadge to enable the number of notifications to be displayed
+ * @param imageVector to modify the icon to be displayed
  * @param onClick high order function, to define button action
  *
  * @author Jose Miguel Garcia Reyes
  */
+
 @ExperimentalMaterial3Api
 @Composable
-fun BadgeButton(
+fun LpBadgeButton(
     modifier: Modifier = Modifier,
-    badgeNumber: Int,
-    onClick: () -> Unit
+    badgeNumber: String = "0",
+    showBadge: Boolean = false,
+    imageVector: ImageVector = Icons.Filled.Notifications,
+    onClick: () -> Unit = {}
 ) {
-    Box {
+    val dp02 = LeasePertTheme.sizes.middleSize
+    val dp16 = LeasePertTheme.sizes.smallSize
+    val dp08 = LeasePertTheme.sizes.smallerSize
+    Box(modifier = modifier) {
         FilledIconButton(
             onClick = onClick,
-            colors = IconButtonDefaults.filledIconButtonColors(MintJulep)
+            colors = IconButtonDefaults.filledIconButtonColors(MaterialTheme.colorScheme.primary)
         ) {
             Icon(
-                Icons.Filled.Notifications,
-                contentDescription = "Notifications button",
-                tint = Drab
+                imageVector = imageVector,
+                contentDescription = stringResource(R.string.cd_Icon),
+                tint = MaterialTheme.colorScheme.onPrimary
             )
         }
-
-        if (badgeNumber > 0) {
-            BadgedBox(modifier = modifier
-                .padding(horizontal = 15.dp, vertical = 7.dp)
-                .align(alignment = Alignment.BottomEnd), badge = {
-                Badge(
-                    modifier = Modifier
-                        .padding(all = 1.dp)
-                        .align(alignment = Alignment.TopEnd)
-                ) {
-                    Text(text = badgeNumber.toString())
+        if (showBadge) {
+            BadgedBox(
+                modifier = Modifier
+                    .padding(
+                        horizontal = dp16,
+                        vertical = dp08
+                    )
+                    .align(alignment = Alignment.BottomEnd),
+                badge = {
+                    Badge(
+                        modifier = Modifier
+                            .padding(all = dp02)
+                            .align(alignment = Alignment.TopEnd)
+                    ) {
+                        Text(
+                            text = badgeNumber,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
                 }
-            }) {}
+            ) {}
         }
     }
 }
@@ -234,11 +250,12 @@ fun LpFileButton(
  */
 @Composable
 fun LpRadioGroup(
+    modifier: Modifier = Modifier,
     options: List<String>,
     selectedOption: String,
     onOptionSelected: (String) -> Unit,
 ) {
-    Row {
+    Row(modifier = modifier) {
         options.forEach { option ->
             Row(modifier = Modifier
                 .selectable(
