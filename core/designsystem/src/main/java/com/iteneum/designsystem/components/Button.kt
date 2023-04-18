@@ -83,14 +83,14 @@ fun LpOutlinedButton(
 fun LpFilledTonalButton(modifier: Modifier, textButton: String, onClick: () -> Unit) {
     FilledTonalButton(
         onClick = onClick,
-        modifier = modifier,
-        shape = RoundedCornerShape(LeasePertTheme.sizes.midSmallSize),
+        modifier = modifier.padding(10.dp),
+        shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary
         )
     ) {
-        Text(text = textButton, style = MaterialTheme.typography.titleSmall)
+        Text(text = textButton)
     }
 }
 /**
