@@ -19,6 +19,8 @@ fun communityWallView(){
 @Composable
 fun communityWallItemList() {
 
+    //Mock Data
+
     val list = listOf(
         Post("https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg","Martin Perroni","10m","This is a post about something"),
         Post("https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg","Martin Perroni","10m","This is a post about something"),
