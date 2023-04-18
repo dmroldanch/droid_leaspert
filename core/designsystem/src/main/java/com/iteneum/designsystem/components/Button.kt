@@ -89,7 +89,6 @@ fun LpFilledTonalButton(modifier: Modifier, textButton: String, onClick: () -> U
         Text(text = textButton, style = MaterialTheme.typography.titleSmall)
     }
 }
-
 /**
  * Create [LpEditFloatingActionButton] compose for user's posts
  *
