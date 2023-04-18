@@ -4,6 +4,6 @@ enum class CardMenuItem {
     AMENITIES,
     EVENTS,
     COMMUNITY_WALL,
-    DOITYOURSELF,
+    DOITYOURSELF ,
     SERVICES
 }

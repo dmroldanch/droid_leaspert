@@ -1,17 +1,19 @@
+package com.iteneum.community.presentation
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.iteneum.community.R
-import com.iteneum.community.data.CommunityViewModel
 import com.iteneum.community.domain.CardMenuItem
+import com.iteneum.community.domain.CardModel
 import com.iteneum.designsystem.components.LpIconTextCard
 import com.iteneum.designsystem.theme.LeasePertTheme
 
@@ -24,14 +26,20 @@ import com.iteneum.designsystem.theme.LeasePertTheme
  * @author Andrés Ivan Medina Herrera
  */
 @Composable
-fun CommunityUI(viewModel: CommunityViewModel = viewModel()) {
+fun CommunitylistUI() {
     val cardWith = LeasePertTheme.sizes.extraSize124
     val cardHeight = LeasePertTheme.sizes.extraSize128
     val cardPadding8 = LeasePertTheme.sizes.smallerSize
     val cardPadding15 = LeasePertTheme.sizes.smallSize
     val cardPadding10 = LeasePertTheme.sizes.midSmallSize
     val cardPadding20 = LeasePertTheme.sizes.minorRegularSize
-    val communityCardButtons = remember { viewModel.communityServicesbuttonCards }
+    val communityCardButtons = listOf(
+        CardModel(Icons.Outlined.Diamond, CardMenuItem.AMENITIES),
+        CardModel(Icons.Outlined.Event, CardMenuItem.EVENTS),
+        CardModel(Icons.Outlined.QuestionAnswer, CardMenuItem.COMMUNITY_WALL),
+        CardModel(Icons.Outlined.LibraryBooks, CardMenuItem.DOITYOURSELF),
+        CardModel(Icons.Outlined.Store, CardMenuItem.SERVICES)
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,7 +65,7 @@ fun CommunityUI(viewModel: CommunityViewModel = viewModel()) {
                             CardMenuItem.SERVICES -> R.string.communityui_cardbutton_services
                         }
                     ),
-                    onCardClick = { viewModel.onItemClick(singleCommunityCardButton) })
+                    onCardClick = { })
             }
         }
     }
