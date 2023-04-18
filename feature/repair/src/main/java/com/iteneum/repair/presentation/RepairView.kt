@@ -131,21 +131,33 @@ fun RepairView() {
             Text(
                 text = stringResource(id = R.string.text_permission),
                 modifier = Modifier.padding(
-                    top = sizes.extraSize10
+                    top = sizes.smallSize
                 ),
                 style = LPTypography.bodyLarge
             )
-            LpRadioGroup(
-                modifier = Modifier.padding(
-                    start = sizes.extraSize10,
-                    top = sizes.extraSize10
-                ),
-                options = optionsPermissionRadioButtons.toList(),
-                selectedOption = optionSelectedRadioButtons,
-                onOptionSelected = {
-                    optionSelectedRadioButtons = it
-                }
-            )
+            Row {
+                LpRadioGroup(
+                    modifier = Modifier.padding(
+                        start = sizes.extraSize10,
+                        top = sizes.extraSize10
+                    ),
+                    options = optionsPermissionRadioButtons.toList(),
+                    selectedOption = optionSelectedRadioButtons,
+                    onOptionSelected = {
+                        optionSelectedRadioButtons = it
+                    }
+                )
+                LpOutlinedButton(
+                    modifier = Modifier
+                        .padding(start = sizes.minorRegularSize)
+                        .size(
+                            width = sizes.extraSize86,
+                            height = sizes.extraSize48
+                        ),
+                    textButton = stringResource(id = R.string.text_button),
+                    onClick = {}
+                )/* TODO - Send Button - Add functionality on how its going to work */
+            }
         }
     }
 }

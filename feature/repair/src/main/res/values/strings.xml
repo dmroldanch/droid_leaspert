@@ -17,6 +17,7 @@
     <string name="support_error_description">Required. Not empty and at least a brief description.</string>
     <string name="text_video">Upload video</string>
     <string name="text_permission">Permission to enter</string>
+    <string name="text_button">Send</string>
     <string-array name="options_pet_in_unit"> <!-- TODO: Verify the list PetInUnit contents -->
         <item>Bird</item>
         <item>Cat</item>
