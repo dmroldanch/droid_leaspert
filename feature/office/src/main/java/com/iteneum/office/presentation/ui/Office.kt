@@ -1,9 +1,6 @@
 package com.iteneum.office.presentation.ui
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.outlined.Mail
@@ -31,7 +28,7 @@ import com.iteneum.office.presentation.viewmodel.OfficeViewModel
  */
 @Composable
 fun OfficeUI(viewModel: OfficeViewModel = hiltViewModel()) {
-    Column() {
+    Column(Modifier.fillMaxSize()) {
 
         //Get sizes from LeasePertTheme archive
         val sizes = LeasePertTheme.sizes
@@ -42,7 +39,8 @@ fun OfficeUI(viewModel: OfficeViewModel = hiltViewModel()) {
                 .width(sizes.extraSize124)
                 .height(sizes.regularSize),
             style = TextStyle(
-                textAlign = TextAlign.Justify, color = Color.Gray,
+                textAlign = TextAlign.Justify,
+                color = Color.Gray,
                 fontFamily = FontFamily.SansSerif,
                 fontSize = 20.sp,
                 lineHeight = 20.sp,
