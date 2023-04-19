@@ -1,14 +1,18 @@
 package com.iteneum.login.presentation
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,10 +20,10 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.iteneum.designsystem.components.LpFilledTonalButton
-import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.components.LpOutlinedTextFieldMail
 import com.iteneum.designsystem.components.LpOutlinedTextFieldPassword
 import com.iteneum.designsystem.R.drawable.*
+import com.iteneum.login.R
 
 
 @Preview
@@ -34,7 +38,7 @@ fun LoginView() {
 
         Image(
             painter = painterResource(id = leasepertlogo),
-            contentDescription = "Logo",
+            contentDescription = stringResource(R.string.lv_logo),
             modifier = Modifier
                 .size(143.dp, 142.dp)
                 .constrainAs(logo) {
@@ -50,10 +54,10 @@ fun LoginView() {
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-            label = "Email",
-            hint = "Enter your email",
+            label = stringResource(R.string.lv_email),
+            hint = stringResource(R.string.lv_enter_email_hint),
             isValid = false,
-            supportTextError = "",
+            supportTextError = stringResource(R.string.lv_support_text_error),
             onValueChange = {}
         )
         LpOutlinedTextFieldPassword(
@@ -73,7 +77,7 @@ fun LoginView() {
                     end.linkTo(password.end)
                     width = Dimension.fillToConstraints
                 },
-            textButton = "Login",
+            textButton = stringResource(R.string.lv_login),
             onClick = {},
         )
         Text(
@@ -82,7 +86,7 @@ fun LoginView() {
                     top.linkTo(tonalButton.bottom, margin = 14.dp)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                }, text = "Or login with..."
+                }, text = stringResource(R.string.lv_login_with)
         )
         Row(
             horizontalArrangement = Arrangement.spacedBy(32.dp),
@@ -92,21 +96,60 @@ fun LoginView() {
                 end.linkTo(parent.end)
             }
         ) {
-            LpOutlinedButton(
-                modifier = Modifier.size(46.dp),
-                textButton = "",
-                icon = ImageVector.vectorResource(id = googlelogo)
-            ) {}
-            LpOutlinedButton(
-                modifier = Modifier.size(46.dp),
-                textButton = "",
-                icon = ImageVector.vectorResource(id = twitterlogo)
-            ) {}
-            LpOutlinedButton(
-                modifier = Modifier.size(46.dp),
-                textButton = "",
-                icon = ImageVector.vectorResource(id = facebooklogo)
-            ) {}
+            Box(
+                modifier = Modifier
+                    .wrapContentSize(align = Alignment.Center)
+                    .size(42.dp)
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        shape = RoundedCornerShape(6.dp)
+                    )
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .padding(2.dp)
+                        .clickable {},
+                    imageVector = ImageVector.vectorResource(id = googlelogo),
+                    contentDescription = null
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .wrapContentSize(align = Alignment.Center)
+                    .size(42.dp)
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        shape = RoundedCornerShape(6.dp)
+                    ),
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .padding(2.dp)
+                        .clickable {},
+                    imageVector = ImageVector.vectorResource(id = twitterlogo),
+                    contentDescription = null
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .wrapContentSize(align = Alignment.Center)
+                    .size(42.dp)
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        shape = RoundedCornerShape(6.dp)
+                    )
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .padding(2.dp)
+                        .clickable {},
+                    imageVector = ImageVector.vectorResource(id = facebooklogo),
+                    contentDescription = null
+                )
+            }
         }
         Row(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -117,9 +160,9 @@ fun LoginView() {
                 bottom.linkTo(parent.bottom, margin = 10.dp)
             }
         ) {
-            Text(text = "New to LeasePert?")
+            Text(text = stringResource(R.string.lv_new_to_leasepert))
             ClickableText(
-                text = AnnotatedString("Register"),
+                text = AnnotatedString(stringResource(R.string.lv_register)),
                 onClick = { },
                 style = MaterialTheme.typography.labelLarge.copy(
                     color = MaterialTheme.colorScheme.onPrimary
