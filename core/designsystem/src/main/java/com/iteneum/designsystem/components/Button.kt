@@ -44,9 +44,12 @@ fun LpOutlinedButton(
 ) {
     OutlinedButton(
         onClick = onClick,
-        modifier = modifier.padding(all = 0.dp),
-        shape = RoundedCornerShape(size = 12.dp),
-        border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.onPrimary),
+        modifier = modifier,
+        shape = RoundedCornerShape(size = LeasePertTheme.sizes.midSmallSize),
+        border = BorderStroke(
+            width = LeasePertTheme.sizes.stroke,
+            color = MaterialTheme.colorScheme.onPrimary
+        ),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimary
@@ -61,11 +64,10 @@ fun LpOutlinedButton(
                 )
                 Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
             }
-            Text(text = textButton)
+            Text(text = textButton, style = MaterialTheme.typography.bodyLarge)
         }
     }
 }
-
 /**
  * [LpFilledTonalButton] is a button for show in the login UI, is a button for the logic login
  *
