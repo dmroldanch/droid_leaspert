@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -231,7 +230,8 @@ fun LpIconTextCard(
                 Text(
                     text = description,
                     style = LPTypography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onPrimary
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
@@ -244,20 +244,23 @@ fun LpIconTextCard(
  * @param title String to modify the name of the card
  * @param description String to modify the description within the card
  * @param onButtonClick High order function to assign the action that this card will have
+ * @param color Set the component background color
  *
  * @author Jesus Lopez Gonzalez
+ * @modifyBy Jose Guadalupe Rivera
  */
 @Composable
 fun LPGenericElevatedCard(
     title: String,
     description: String,
     buttonText: String,
+    color: Color = AtomicTangerine,
     onButtonClick: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = Drab,
+            containerColor = color,
         ),
         shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp)),
         modifier = Modifier
@@ -271,13 +274,13 @@ fun LPGenericElevatedCard(
             Text(
                 text = title,
                 style = LPTypography.titleMedium,
-                color = colors.onPrimary,
+                color = colors.inversePrimary,
             )
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = description,
                 style = LPTypography.bodyMedium,
-                color = colors.onPrimary,
+                color = colors.inversePrimary,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Justify,
@@ -287,14 +290,14 @@ fun LPGenericElevatedCard(
             Spacer(modifier = Modifier.weight(1f))
             Box(
                 modifier = Modifier.background(
-                    Color.White.copy(alpha = 0.1f),
+                    color = TransparentWhite,
                     shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp))
                 )
             ) {
                 TextButton(
                     onClick = onButtonClick,
                     colors = ButtonDefaults.textButtonColors(
-                        contentColor = colors.onPrimary
+                        contentColor = colors.inversePrimary
                     )
                 ) {
                     Text(text = buttonText)
@@ -302,6 +305,13 @@ fun LPGenericElevatedCard(
             }
         }
     }
+}
+
+/* TODO change function location to the view-model, this function
+*   shouldn't be here.*/
+fun getRandomColor(random: Int): Color {
+    val colorList = listOf(AtomicTangerine, DenimBlue, RedSalsa)
+    return colorList[random]
 }
 
 /**
