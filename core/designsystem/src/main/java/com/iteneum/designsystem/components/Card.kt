@@ -247,6 +247,7 @@ fun LpIconTextCard(
                     text = description,
                     style = LPTypography.bodyLarge,
                     color = MaterialTheme.colorScheme.onPrimary,
+                    fontWeight = FontWeight.Bold
                     )
             }
         }
