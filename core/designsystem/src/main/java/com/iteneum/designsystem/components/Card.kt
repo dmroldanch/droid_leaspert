@@ -299,7 +299,7 @@ fun LPGenericElevatedCard(
             Spacer(modifier = Modifier.weight(1f))
             Box(
                 modifier = Modifier.background(
-                    TransparentWhite,
+                    color = TransparentWhite,
                     shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp))
                 )
             ) {
