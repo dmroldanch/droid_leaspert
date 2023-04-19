@@ -211,7 +211,7 @@ fun LpPostCard(
  * @param onCardClick onClick event when card is clicked
  *
  * @author Jose Guadalupe Rivera
- * @modifyBy Andres Medina
+ *
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -247,7 +247,6 @@ fun LpIconTextCard(
                     text = description,
                     style = LPTypography.bodyLarge,
                     color = MaterialTheme.colorScheme.onPrimary,
-                    fontWeight = FontWeight.Bold,
                     )
             }
         }
