@@ -15,13 +15,12 @@ import javax.inject.Inject
 @HiltViewModel
 class OfficeViewModel @Inject constructor(): ViewModel() {
 
-    //I'm just added the context parameter to test the viewModel
-    //It can be removed in the future
-    fun onClick(){
-        viewModelScope.launch(Dispatchers.IO) {
-           Log.e("Test", "Show test")
-        }
+    fun onCallClicked(){
+      /*TODO ADD THE CALL BUTTON FUNCTION*/
+    }
 
+    fun onMailClicked(){
+        /*TODO ADD THE MAIL BUTTON FUNCTION*/
     }
 
 }
