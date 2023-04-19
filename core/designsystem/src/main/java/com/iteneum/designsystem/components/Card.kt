@@ -27,14 +27,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.SubcomposeAsyncImage
 import com.iteneum.designsystem.R
-import com.iteneum.designsystem.theme.Bianca
-import com.iteneum.designsystem.theme.Drab
-import com.iteneum.designsystem.theme.LPTypography
+import com.iteneum.designsystem.theme.*
 import com.iteneum.designsystem.utils.TextUtils.ONE
-import com.iteneum.designsystem.theme.LeasePertTheme
 
 /**
  * Created [LpGenericCard]
@@ -47,7 +43,7 @@ import com.iteneum.designsystem.theme.LeasePertTheme
  * @param onTextClick as a high order function
  *
  * @author Daniel Roldan
- * @modifyBy Juan Islas
+ * @modifyBy Jose Guadalupe Rivera
  */
 @Composable
 fun LpGenericCard(
@@ -68,16 +64,19 @@ fun LpGenericCard(
         elevation = CardDefaults.cardElevation(sizes.stroke),
     )
     {
-        Row{
-            Column(modifier = Modifier
-                .fillMaxWidth(0.7f)
-                .padding(all = sizes.smallSize)){
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(0.7f)
+                    .padding(all = sizes.smallSize)
+            ) {
                 Text(
                     text = title,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 17.sp
+                    style = LPTypography.bodyLarge,
+                    fontWeight = FontWeight.Bold
                 )
+                Spacer(modifier = Modifier.size(sizes.minorSmallSize))
                 Text(
                     modifier = Modifier
                         .clickable(
@@ -87,32 +86,19 @@ fun LpGenericCard(
                     text = details,
                     color = MaterialTheme.colorScheme.onPrimary,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 15.sp
+                    style = LPTypography.titleSmall
                 )
             }
-            Column(
+            Text(
                 modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = sizes.regularSize),
-                horizontalAlignment = Alignment.End
-            ){
-                if (currency){
-                    Text(
-                        text = "$$accountNumber",
-                        color = MaterialTheme.colorScheme.tertiary,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 18.sp
-                    )
-                }
-                else{
-                    Text(
-                        text = accountNumber,
-                        color = MaterialTheme.colorScheme.tertiary,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 18.sp
-                    )
-                }
-            }
+                    .fillMaxWidth()
+                    .padding(all = sizes.regularSize),
+                text = if (currency)
+                    "$$accountNumber" else accountNumber,
+                color = MaterialTheme.colorScheme.tertiary,
+                style = LPTypography.headlineSmall,
+                fontWeight = FontWeight.Bold,
+            )
         }
     }
 }
@@ -373,7 +359,8 @@ fun LPGenericElevatedCardImage(
                 )
             }
             Column(
-                Modifier.fillMaxSize()
+                Modifier
+                    .fillMaxSize()
                     .padding(all = dp16)
             ) {
                 Text(
