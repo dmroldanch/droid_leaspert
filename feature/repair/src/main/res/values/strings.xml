@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="text_title">Repair request</string>
+    <string name="text_repair_view_title">Repair request</string>
     <string name="content_description_image">Arrow Icon</string>
     <string name="hint_unit">Alphanumeric</string>
     <string name="label_unit">Unit</string>
@@ -15,9 +15,9 @@
     <string name="label_description">Describe your problem…</string>
     <string name="hint_description">Text</string>
     <string name="support_error_description">Required. Not empty and at least a brief description.</string>
-    <string name="text_video">Upload video</string>
+    <string name="text_video_button">Upload video</string>
     <string name="text_permission">Permission to enter</string>
-    <string name="text_button">Send</string>
+    <string name="text_repair_send_button">Send</string>
     <string-array name="options_pet_in_unit"> <!-- TODO: Verify the list PetInUnit contents -->
         <item>Bird</item>
         <item>Cat</item>

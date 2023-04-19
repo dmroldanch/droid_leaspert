@@ -44,9 +44,9 @@ fun RepairView() {
             )
         ) {
             Row {
-                /* TODO - Add "arrow" navigation component when available */
+                /* TODO - Arrow Back Navigation - Add "arrow" navigation component here when available */
                 Text(
-                    text = stringResource(R.string.text_title),
+                    text = stringResource(R.string.text_repair_view_title),
                     modifier = Modifier.padding(
                         all = sizes.extraSize6
                     ),
@@ -63,8 +63,8 @@ fun RepairView() {
                 hint = stringResource(id = R.string.hint_unit),
                 isValid = false,
                 supportTextError = stringResource(id = R.string.support_error_unit),
-                onValueChange = {}
-            )/* TODO - Unit Text field - Change the component when available (Disable/Generic) */
+                onValueChange = {/* TODO - Unit Text field - Change component, to Unit type and Disable it */}
+            )
             LPPhoneNumberText(
                 modifier = Modifier.padding(
                     top = sizes.extraSize10
@@ -80,7 +80,7 @@ fun RepairView() {
                 ),
                 title = stringResource(id = R.string.label_pet_in_unit),
                 items = optionsPetInUnit.toList(),
-                selected = {}
+                selected = {/* TODO - PetInUnit field - To verify if extra functionality required */}
             )
             Text(
                 text = stringResource(id = R.string.text_service),
@@ -95,7 +95,7 @@ fun RepairView() {
                 ),
                 title = stringResource(id = R.string.label_category),
                 items = optionsCategory.toList(),
-                selected = {}
+                selected = {/* TODO - Category field - To verify if extra functionality required */}
             )
             LpOutlinedTextFieldMail(
                 modifier = Modifier
@@ -113,7 +113,7 @@ fun RepairView() {
                 }
             )
             Text(
-                text = stringResource(id = R.string.text_video),
+                text = stringResource(id = R.string.text_video_button),
                 modifier = Modifier.padding(
                     top = sizes.extraSize10
                 ),
@@ -126,8 +126,8 @@ fun RepairView() {
                     )
                     .fillMaxWidth(),
                 mimeTypes = arrayOf("video/*", "image/*"),
-                onFileSelected = {}
-            )/* TODO - File Button - Add functionality on how its going to work */
+                onFileSelected = {/* TODO - File Button - Add functionality to save files */}
+            )
             Text(
                 text = stringResource(id = R.string.text_permission),
                 modifier = Modifier.padding(
@@ -150,11 +150,14 @@ fun RepairView() {
             }
             LpFilledTonalButton(
                 modifier = Modifier
-                    .fillMaxWidth()
-                ,
-                textButton = stringResource(id = R.string.text_button),
-                onClick = {}
-            ) /* TODO - Send Button - Add functionality on how its going to work */
+                    .padding(
+                        top = sizes.middleSize,
+                        bottom = sizes.middleSize
+                    )
+                    .fillMaxWidth(),
+                textButton = stringResource(id = R.string.text_repair_send_button),
+                onClick = {/* TODO - Send Repair Button - Add functionality to save repair request info */}
+            )
         }
     }
 }
