@@ -135,19 +135,17 @@ fun RepairView() {
                 ),
                 style = LPTypography.bodyLarge
             )
-            Row {
-                LpRadioGroup(
-                    modifier = Modifier.padding(
-                        start = sizes.extraSize10,
-                        top = sizes.extraSize10
-                    ),
-                    options = optionsPermissionRadioButtons.toList(),
-                    selectedOption = optionSelectedRadioButtons,
-                    onOptionSelected = {
-                        optionSelectedRadioButtons = it
-                    }
-                )
-            }
+            LpRadioGroup(
+                modifier = Modifier.padding(
+                    start = sizes.extraSize10,
+                    top = sizes.extraSize10
+                ),
+                options = optionsPermissionRadioButtons.toList(),
+                selectedOption = optionSelectedRadioButtons,
+                onOptionSelected = {
+                    optionSelectedRadioButtons = it
+                }
+            )
             LpFilledTonalButton(
                 modifier = Modifier
                     .padding(
