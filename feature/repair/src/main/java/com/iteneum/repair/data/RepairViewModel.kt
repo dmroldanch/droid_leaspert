@@ -20,7 +20,11 @@ class RepairViewModel: ViewModel() {
     private val _uiState = MutableStateFlow(RepairUiState())
     val uiState: StateFlow<RepairUiState> = _uiState.asStateFlow()
 
-    fun workData() {
+    /*add to fun composable as parameter --> repairViewModel: RepairViewModel = viewModel()
+      add to fun content                 --> val repairUiState by repairViewModel.uiState.collectAsState()
+    */
+
+    fun receiveRepairDataFromUI() {
         _uiState.update { currentState ->
             currentState.copy(
                 unitFieldValue = 1,
@@ -33,4 +37,9 @@ class RepairViewModel: ViewModel() {
             )
         }
     }
+
+    fun sendRepairDataToDB() {
+
+    }
+
 }
