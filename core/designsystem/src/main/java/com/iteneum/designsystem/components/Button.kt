@@ -44,9 +44,12 @@ fun LpOutlinedButton(
 ) {
     OutlinedButton(
         onClick = onClick,
-        modifier = modifier.padding(all = 10.dp),
-        shape = RoundedCornerShape(size = 12.dp),
-        border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.onPrimary),
+        modifier = modifier,
+        shape = RoundedCornerShape(size = LeasePertTheme.sizes.midSmallSize),
+        border = BorderStroke(
+            width = LeasePertTheme.sizes.stroke,
+            color = MaterialTheme.colorScheme.onPrimary
+        ),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimary
@@ -61,11 +64,10 @@ fun LpOutlinedButton(
                 )
                 Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
             }
-            Text(text = textButton)
+            Text(text = textButton, style = MaterialTheme.typography.bodyLarge)
         }
     }
 }
-
 /**
  * [LpFilledTonalButton] is a button for show in the login UI, is a button for the logic login
  *
@@ -79,22 +81,22 @@ fun LpOutlinedButton(
 fun LpFilledTonalButton(modifier: Modifier, textButton: String, onClick: () -> Unit) {
     FilledTonalButton(
         onClick = onClick,
-        modifier = modifier.padding(10.dp),
-        shape = RoundedCornerShape(12.dp),
+        modifier = modifier,
+        shape = RoundedCornerShape(LeasePertTheme.sizes.midSmallSize),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary
         )
     ) {
-        Text(text = textButton)
+        Text(text = textButton, style = MaterialTheme.typography.titleSmall)
     }
 }
-
 /**
  * Create [LpEditFloatingActionButton] compose for user's posts
  *
  * @param modifier to modify an specific property of the card
  * @param onClick high order function
+ * @param elevation FloatingActionButtonDefaults.elevation(dp's of the component elevation)
  * @param color Container color
  * @param colors Content color
  *
@@ -105,7 +107,8 @@ fun LpEditFloatingActionButton(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.primary,
     colors: Color = contentColorFor(backgroundColor = MaterialTheme.colorScheme.onPrimary),
-    onClick: () -> Unit,
+    elevation: FloatingActionButtonElevation,
+    onClick: () -> Unit
 ) {
     FloatingActionButton(
         onClick = onClick,
@@ -115,6 +118,7 @@ fun LpEditFloatingActionButton(
             .width(50.dp),
         containerColor = color,
         contentColor = colors,
+        elevation = elevation
     ) {
         Icon(Icons.Outlined.Edit, "edit button", tint = MaterialTheme.colorScheme.onPrimary)
     }
