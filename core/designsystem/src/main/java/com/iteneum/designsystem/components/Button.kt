@@ -79,17 +79,16 @@ fun LpOutlinedButton(
 fun LpFilledTonalButton(modifier: Modifier, textButton: String, onClick: () -> Unit) {
     FilledTonalButton(
         onClick = onClick,
-        modifier = modifier.padding(10.dp),
-        shape = RoundedCornerShape(12.dp),
+        modifier = modifier,
+        shape = RoundedCornerShape(LeasePertTheme.sizes.midSmallSize),
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary
         )
     ) {
-        Text(text = textButton)
+        Text(text = textButton, style = MaterialTheme.typography.titleSmall)
     }
 }
-
 /**
  * Create [LpEditFloatingActionButton] compose for user's posts
  *
