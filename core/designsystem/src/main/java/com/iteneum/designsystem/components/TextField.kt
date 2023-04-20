@@ -78,7 +78,7 @@ fun LpOutlinedTextFieldPassword(
 
 
 /**
- * This function creates a password OutlinedTextField
+ * This function creates a generic OutlinedTextField
  * @param modifier Set component modifier
  * @param label Text label
  * @param hint Hint message
@@ -135,7 +135,7 @@ fun LpOutlinedTextField(
 }
 
 /**
- * This function creates a password OutlinedTextField
+ * This function creates an Email OutlinedTextField
  * @param modifier Set component modifier
  * @param label Text label
  * @param isValid Validate if text is valid
