@@ -30,6 +30,7 @@ import com.iteneum.designsystem.components.phonenumbertext.mobileNumberFilter
  * @param onPasswordChange Returns value typed
  *
  * @author Jose G. Rivera
+ * @modifiedBy Jesus Lopez
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,6 +76,64 @@ fun LpOutlinedTextFieldPassword(
     )
 }
 
+
+/**
+ * This function creates a password OutlinedTextField
+ * @param modifier Set component modifier
+ * @param label Text label
+ * @param hint Hint message
+ * @param isValid Validate if text is valid
+ * @param supportTextError Error message
+ * @param onValueChange This parameter return the field value
+ *
+ * @author Jesus Lopez
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LpOutlinedTextField(
+    modifier: Modifier,
+    label: String,
+    hint: String,
+    isValid: Boolean,
+    supportTextError: String,
+    onValueChange: (String) -> Unit
+) {
+    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
+
+    OutlinedTextField(
+        value = textFieldValue,
+        onValueChange = {
+            textFieldValue = it
+            onValueChange(textFieldValue.text)
+        },
+        modifier = modifier,
+        label = { Text(label) },
+        placeholder = { Text(hint) },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+            unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+            focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+            errorLabelColor = MaterialTheme.colorScheme.error,
+            errorBorderColor = MaterialTheme.colorScheme.error,
+            errorSupportingTextColor = MaterialTheme.colorScheme.error
+        ),
+        isError = isValid,
+        supportingText = {
+            if (isValid) {
+                Text(text = supportTextError)
+            } else {
+                Text(text = "")
+            }
+        },
+        singleLine = true,
+        maxLines = 1,
+        shape = MaterialTheme.shapes.small,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardType = KeyboardType.Email
+        )
+    )
+}
+
 /**
  * This function creates a password OutlinedTextField
  * @param modifier Set component modifier
@@ -84,6 +143,7 @@ fun LpOutlinedTextFieldPassword(
  * @param onValueChange This parameter return the field value
  *
  * @author Andrés Ivan Medina Herrera
+ * @modifiedBy Jesus Lopez
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
