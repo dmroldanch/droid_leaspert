@@ -40,9 +40,11 @@ android {
 
 dependencies {
     implementation libs.bundles.compose
+    implementation libs.compose.navigation
     implementation libs.core
     implementation libs.lifecycle
     implementation libs.hiltAndroid
+
     kapt libs.hiltCompiler
 
 //Modules
