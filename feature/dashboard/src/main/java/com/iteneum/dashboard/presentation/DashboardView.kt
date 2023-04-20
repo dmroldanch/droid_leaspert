@@ -53,7 +53,7 @@ fun DashboardView() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(sizes.regularSize)
+            .padding(all = sizes.regularSize)
             .verticalScroll(rememberScrollState())
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -69,6 +69,7 @@ fun DashboardView() {
                 showBadge = showBadgeNotification,
                 imageVector = Icons.Filled.Notifications
             ) {
+                // TODO add click functionality here
                 Log.e("tag", "go to notification")
             }
             LpBadgeButton(
@@ -76,37 +77,44 @@ fun DashboardView() {
                 showBadge = showBadgePerson,
                 imageVector = Icons.Filled.Person
             ) {
+                // TODO add click functionality here
                 Log.e("tag", "go to person")
             }
         }
-        Spacer(modifier = Modifier.size(sizes.minorRegularSize))
         LpGenericCard(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(vertical = sizes.minorRegularSize),
             title = stringResource(R.string.current_balance),
             details = stringResource(R.string.go_to_payments),
             accountNumber = currentBalance,
             currency = currentBalanceCurrency
         ) {
+            // TODO navigate to payments screen
             Log.e("tag", "Go to payments")
         }
-        Spacer(modifier = Modifier.size(sizes.regularSize))
         LpGenericCard(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = sizes.minorRegularSize),
             title = stringResource(R.string.service_request),
             details = stringResource(R.string.view_detail),
             accountNumber = serviceRequest,
         ) {
+            // TODO navigate to service request screen
             Log.e("tag", "go to service request")
         }
-        Spacer(modifier = Modifier.size(sizes.regularSize))
         LpGenericCard(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = sizes.regularSize),
             title = stringResource(R.string.amenity_reservations),
             details = stringResource(R.string.view_detail),
             accountNumber = amenityReservations
         ) {
+            // TODO navigate to amenity reservations screen
             Log.e("tag", "go to amenity reservations")
         }
-        Spacer(modifier = Modifier.size(sizes.regularSize))
         Text(
             text = stringResource(R.string.happening_today),
             style = LPTypography.titleMedium,
@@ -122,6 +130,7 @@ fun DashboardView() {
                     buttonText = "Go to Screen",
                     color = getRandomColor(Random.nextInt(0, 3))
                 ) {
+                    // TODO add click functionality
                     Log.e("tag", event)
                 }
             }
