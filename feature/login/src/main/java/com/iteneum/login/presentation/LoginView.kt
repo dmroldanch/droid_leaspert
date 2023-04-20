@@ -16,18 +16,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.iteneum.designsystem.components.LpFilledTonalButton
 import com.iteneum.designsystem.components.LpOutlinedTextFieldMail
 import com.iteneum.designsystem.components.LpOutlinedTextFieldPassword
 import com.iteneum.designsystem.R.drawable.*
+import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.login.R
 
-
+/**
+ * Function that creates [LoginView] compose. This screen is used by the user to login on their account
+ * User will require to fill the correspondent information, such as email or password, or login
+ * with a social network
+ *
+ * @author Jesus Lopez
+ */
 @Composable
 fun LoginView() {
+    val sizes = LeasePertTheme.sizes
+
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -36,55 +44,65 @@ fun LoginView() {
         val (logo, mail, password, tonalButton, loginWith, socialNetworkLogins, registerButton) = createRefs()
 
         Image(
-            painter = painterResource(id = leasepertlogo),
+            painter = painterResource(id = leasepert_logo),
             contentDescription = stringResource(R.string.lv_logo),
             modifier = Modifier
-                .size(143.dp, 142.dp)
+                .size(sizes.extraSize142)
                 .constrainAs(logo) {
-                    top.linkTo(parent.top, margin = 50.dp)
+                    top.linkTo(parent.top, margin = sizes.extraSize100)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }
         )
         LpOutlinedTextFieldMail(
             modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = sizes.extraSize36, end = sizes.extraSize36)
                 .constrainAs(mail) {
-                    top.linkTo(logo.bottom, margin = 30.dp)
+                    top.linkTo(
+                        logo.bottom,
+                        goneMargin = sizes.extraSize100,
+                        margin = sizes.extraSize100
+                    )
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
             label = stringResource(R.string.lv_email),
             isValid = false,
             supportTextError = stringResource(R.string.lv_support_text_error),
-            onValueChange = {}
+            onValueChange = { TODO() }
         )
         LpOutlinedTextFieldPassword(
             modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = sizes.extraSize36, end = sizes.extraSize36)
                 .constrainAs(password) {
-                    top.linkTo(mail.bottom, margin = 2.dp)
+                    top.linkTo(mail.bottom, margin = sizes.middleSize)
                     start.linkTo(mail.start)
                     end.linkTo(mail.end)
                 },
-            onPasswordChange = {},
+            onPasswordChange = { TODO() },
             supportTextError = stringResource(R.string.lv_support_text_error),
             isValid = false,
             value = stringResource(R.string.lv_password)
         )
         LpFilledTonalButton(
             modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = sizes.extraSize36, end = sizes.extraSize36)
                 .constrainAs(tonalButton) {
-                    top.linkTo(password.bottom, margin = 18.dp)
+                    top.linkTo(password.bottom, margin = sizes.extraSize18)
                     start.linkTo(password.start)
                     end.linkTo(password.end)
                     width = Dimension.fillToConstraints
                 },
             textButton = stringResource(R.string.lv_login),
-            onClick = {},
+            onClick = { TODO() },
         )
         Text(
             modifier = Modifier
                 .constrainAs(loginWith) {
-                    top.linkTo(tonalButton.bottom, margin = 14.dp)
+                    top.linkTo(tonalButton.bottom, margin = sizes.extraSize14)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
@@ -92,9 +110,9 @@ fun LoginView() {
             style = MaterialTheme.typography.bodyMedium
         )
         Row(
-            horizontalArrangement = Arrangement.spacedBy(32.dp),
+            horizontalArrangement = Arrangement.spacedBy(space = sizes.mediumSize),
             modifier = Modifier.constrainAs(socialNetworkLogins) {
-                top.linkTo(loginWith.bottom, margin = 8.dp)
+                top.linkTo(loginWith.bottom, margin = sizes.smallerSize)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
             }
@@ -102,18 +120,18 @@ fun LoginView() {
             Box(
                 modifier = Modifier
                     .wrapContentSize(align = Alignment.Center)
-                    .size(42.dp)
+                    .size(sizes.extraSize42)
                     .border(
-                        width = 1.dp,
+                        width = sizes.stroke,
                         color = MaterialTheme.colorScheme.onPrimary,
-                        shape = RoundedCornerShape(6.dp)
+                        shape = RoundedCornerShape(sizes.extraSize6)
                     )
             ) {
                 Icon(
                     modifier = Modifier
-                        .padding(2.dp)
-                        .clickable {},
-                    imageVector = ImageVector.vectorResource(id = googlelogo),
+                        .padding(sizes.extraSize6)
+                        .clickable { TODO() },
+                    imageVector = ImageVector.vectorResource(id = google_logo),
                     contentDescription = null,
                     tint = Color.Unspecified
                 )
@@ -121,18 +139,18 @@ fun LoginView() {
             Box(
                 modifier = Modifier
                     .wrapContentSize(align = Alignment.Center)
-                    .size(42.dp)
+                    .size(sizes.extraSize42)
                     .border(
-                        width = 1.dp,
+                        width = sizes.stroke,
                         color = MaterialTheme.colorScheme.onPrimary,
-                        shape = RoundedCornerShape(6.dp)
+                        shape = RoundedCornerShape(sizes.extraSize6)
                     ),
             ) {
                 Icon(
                     modifier = Modifier
-                        .padding(2.dp)
-                        .clickable {},
-                    imageVector = ImageVector.vectorResource(id = twitterlogo),
+                        .padding(sizes.extraSize6)
+                        .clickable { TODO() },
+                    imageVector = ImageVector.vectorResource(id = twitter_logo),
                     contentDescription = null,
                     tint = Color.Unspecified
                 )
@@ -140,30 +158,30 @@ fun LoginView() {
             Box(
                 modifier = Modifier
                     .wrapContentSize(align = Alignment.Center)
-                    .size(42.dp)
+                    .size(sizes.extraSize42)
                     .border(
-                        width = 1.dp,
+                        width = sizes.stroke,
                         color = MaterialTheme.colorScheme.onPrimary,
-                        shape = RoundedCornerShape(6.dp)
+                        shape = RoundedCornerShape(sizes.extraSize6)
                     )
             ) {
                 Icon(
                     modifier = Modifier
-                        .padding(2.dp)
-                        .clickable {},
-                    imageVector = ImageVector.vectorResource(id = facebooklogo),
+                        .padding(sizes.extraSize6)
+                        .clickable { TODO() },
+                    imageVector = ImageVector.vectorResource(id = facebook_logo),
                     contentDescription = null,
                     tint = Color.Unspecified
                 )
             }
         }
         Row(
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            horizontalArrangement = Arrangement.spacedBy(sizes.minorSmallSize),
             modifier = Modifier.constrainAs(registerButton) {
-                top.linkTo(socialNetworkLogins.bottom, margin = 24.dp)
+                top.linkTo(socialNetworkLogins.bottom, margin = sizes.regularSize)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
-                bottom.linkTo(parent.bottom, margin = 10.dp)
+                bottom.linkTo(parent.bottom, margin = sizes.extraSize10)
             }
         ) {
             Text(
@@ -172,7 +190,7 @@ fun LoginView() {
             )
             ClickableText(
                 text = AnnotatedString(stringResource(R.string.lv_register)),
-                onClick = { },
+                onClick = { TODO() },
                 style = MaterialTheme.typography.labelLarge.copy(
                     color = MaterialTheme.colorScheme.onPrimary
                 )

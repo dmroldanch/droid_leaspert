@@ -41,13 +41,13 @@ fun LpOutlinedTextFieldPassword(
     supportTextError: String,
     onPasswordChange: (String) -> Unit
 ) {
-    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
+    var passwordFieldValue by remember { mutableStateOf(TextFieldValue("")) }
 
     OutlinedTextField(
-        value = textFieldValue,
+        value = passwordFieldValue,
         onValueChange = {
-            textFieldValue = it
-            onPasswordChange(textFieldValue.text)
+            passwordFieldValue = it
+            onPasswordChange(passwordFieldValue.text)
         },
         modifier = modifier,
         label = { Text(value, style = MaterialTheme.typography.bodyMedium) },
@@ -78,7 +78,7 @@ fun LpOutlinedTextFieldPassword(
 
 
 /**
- * This function creates a password OutlinedTextField
+ * This function creates a generic OutlinedTextField
  * @param modifier Set component modifier
  * @param label Text label
  * @param hint Hint message
@@ -135,7 +135,7 @@ fun LpOutlinedTextField(
 }
 
 /**
- * This function creates a password OutlinedTextField
+ * This function creates an Email OutlinedTextField
  * @param modifier Set component modifier
  * @param label Text label
  * @param isValid Validate if text is valid
@@ -154,13 +154,13 @@ fun LpOutlinedTextFieldMail(
     supportTextError: String,
     onValueChange: (String) -> Unit
 ) {
-    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
+    var emailFieldValue by remember { mutableStateOf(TextFieldValue("")) }
 
     OutlinedTextField(
-        value = textFieldValue,
+        value = emailFieldValue,
         onValueChange = {
-            textFieldValue = it
-            onValueChange(textFieldValue.text)
+            emailFieldValue = it
+            onValueChange(emailFieldValue.text)
         },
         modifier = modifier,
         label = { Text(label, style = MaterialTheme.typography.bodyMedium) },
@@ -187,6 +187,7 @@ fun LpOutlinedTextFieldMail(
         )
     )
 }
+
 /**
  * This function creates a password OutlinedTextField
  * @param modifier Set component modifier
@@ -245,7 +246,7 @@ fun DropdownTextField(
     modifier: Modifier = Modifier,
     title: String,
     items: List<String>,
-    selected : (String) -> Unit
+    selected: (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf("") }
@@ -283,9 +284,9 @@ fun DropdownTextField(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            items.forEach {selectedOption ->
+            items.forEach { selectedOption ->
                 DropdownMenuItem(
-                    text = {Text(selectedOption)},
+                    text = { Text(selectedOption) },
                     onClick = {
                         selectedOptionText = selectedOption
                         selected(selectedOptionText)
