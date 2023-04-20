@@ -3,6 +3,7 @@ package com.iteneum.designsystem.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -17,6 +18,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -25,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -35,6 +39,7 @@ import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.utils.TextUtils.ONE
 import com.iteneum.designsystem.theme.LeasePertTheme
+import kotlin.text.Typography
 
 /**
  * Created [LpGenericCard]
@@ -92,8 +97,8 @@ fun LpGenericCard(
             }
             Column(
                 modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = sizes.regularSize),
+                    .fillMaxWidth()
+                    .padding(all = sizes.regularSize),
                 horizontalAlignment = Alignment.End
             ){
                 if (currency){
@@ -373,7 +378,8 @@ fun LPGenericElevatedCardImage(
                 )
             }
             Column(
-                Modifier.fillMaxSize()
+                Modifier
+                    .fillMaxSize()
                     .padding(all = dp16)
             ) {
                 Text(
@@ -390,6 +396,55 @@ fun LPGenericElevatedCardImage(
                     maxLines = ONE,
                     overflow = TextOverflow.Ellipsis,
                 )
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun LpPaymentsRentCard() {
+    OutlinedCard(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+        border = BorderStroke(
+            width = LeasePertTheme.sizes.stroke,
+            color = MaterialTheme.colorScheme.onPrimary
+        )
+    ) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(start = 15.dp, top = 15.dp, bottom = 5.dp)
+        ) {
+            Text(text = "January", style = MaterialTheme.typography.bodyLarge)
+        }
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(start = 15.dp)
+        ) {
+
+            Text(
+                text = stringResource(R.string.rent),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.tertiary
+            )
+            Text(
+                text = "$950.00", modifier = Modifier.padding(start = 45.dp),
+                style = MaterialTheme.typography.bodyMedium
+            )
+
+        }
+        Row(modifier = Modifier.padding(start = 89.dp, end = 15.dp, bottom = 15.dp, top = 5.dp)) {
+            Text(
+                text = "Jan 25 2023",
+                modifier = Modifier.weight(1f),
+                style = MaterialTheme.typography.bodyMedium
+            )
+
+            Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.BottomEnd) {
+                Text(text = "Pay now")
             }
         }
     }
