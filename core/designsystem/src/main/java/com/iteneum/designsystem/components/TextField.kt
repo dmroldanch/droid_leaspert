@@ -134,7 +134,6 @@ fun LpOutlinedTextFieldMail(
         )
     )
 }
-
 /**
  * This function creates a password OutlinedTextField
  * @param modifier Set component modifier
@@ -233,9 +232,9 @@ fun DropdownTextField(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            items.forEach { selectedOption ->
+            items.forEach {selectedOption ->
                 DropdownMenuItem(
-                    text = { Text(selectedOption) },
+                    text = {Text(selectedOption)},
                     onClick = {
                         selectedOptionText = selectedOption
                         selected(selectedOptionText)
