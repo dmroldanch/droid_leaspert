@@ -24,7 +24,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import com.iteneum.designsystem.R
@@ -128,33 +127,38 @@ fun LpPostCard(
     onFavoriteClick: () -> Unit
 ) {
     Card(
-        modifier = modifier.padding(15.dp),
+        modifier = modifier.padding(LeasePertTheme.sizes.smallSize),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
-        elevation = CardDefaults.cardElevation(1.dp),
+        border = BorderStroke(LeasePertTheme.sizes.stroke, MaterialTheme.colorScheme.onPrimary),
+        elevation = CardDefaults.cardElevation(LeasePertTheme.sizes.stroke),
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(15.dp, 15.dp, 15.dp, 5.dp)
+                .padding(
+                    start = LeasePertTheme.sizes.smallSize,
+                    top = LeasePertTheme.sizes.smallSize,
+                    end = LeasePertTheme.sizes.smallSize,
+                    bottom = LeasePertTheme.sizes.extraSize6
+                )
         ) {
             Row {
                 SubcomposeAsyncImage(
                     modifier = Modifier
-                        .size(50.dp)
+                        .size(LeasePertTheme.sizes.extraSize48)
                         .clip(CircleShape),
                     model = userPhoto,
                     contentScale = ContentScale.Crop,
                     contentDescription = userName
                 )
-                Column(modifier = Modifier.padding(start = 8.dp)) {
+                Column(modifier = Modifier.padding(start = LeasePertTheme.sizes.smallerSize)) {
                     Text(
                         text = userName,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         fontWeight = FontWeight.Medium,
                         fontSize = 12.sp
                     )
-                    Spacer(modifier = Modifier.height(5.dp))
+                    Spacer(modifier = Modifier.height(LeasePertTheme.sizes.minorSmallSize))
                     Text(
                         text = timeAgo,
                         color = MaterialTheme.colorScheme.tertiary,
@@ -164,7 +168,7 @@ fun LpPostCard(
                 }
             }
             Text(
-                modifier = Modifier.padding(10.dp),
+                modifier = Modifier.padding(LeasePertTheme.sizes.extraSize10),
                 text = messagePost,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 15.sp
@@ -208,9 +212,9 @@ fun LpIconTextCard(
     onCardClick: (String) -> Unit
 ) {
     Card(
-        modifier = modifier.padding(8.dp),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
-        shape = RoundedCornerShape(12.dp),
+        modifier = modifier.padding(LeasePertTheme.sizes.smallerSize),
+        border = BorderStroke(LeasePertTheme.sizes.stroke, MaterialTheme.colorScheme.onPrimary),
+        shape = RoundedCornerShape(LeasePertTheme.sizes.midSmallSize),
         onClick = { onCardClick(description) },
     ) {
         Box(
@@ -264,21 +268,26 @@ fun LPGenericElevatedCard(
         colors = CardDefaults.cardColors(
             containerColor = color,
         ),
-        shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp)),
+        shape = MaterialTheme.shapes.medium.copy(all = CornerSize(LeasePertTheme.sizes.midSmallSize)),
         modifier = Modifier
-            .width(312.dp)
-            .height(196.dp)
-            .padding(16.dp)
+            .width(LeasePertTheme.sizes.extraSize336)
+            .height(LeasePertTheme.sizes.extraSize199)
+            .padding(all = LeasePertTheme.sizes.smallSize)
     ) {
         Column(
-            modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp, bottom = 10.dp)
+            modifier = Modifier.padding(
+                start = LeasePertTheme.sizes.minorRegularSize,
+                top = LeasePertTheme.sizes.minorRegularSize,
+                end = LeasePertTheme.sizes.minorRegularSize,
+                bottom = LeasePertTheme.sizes.extraSize10
+            )
         ) {
             Text(
                 text = title,
                 style = LPTypography.titleMedium,
                 color = colors.inversePrimary,
             )
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(LeasePertTheme.sizes.extraSize6))
             Text(
                 text = description,
                 style = LPTypography.bodyMedium,
@@ -288,12 +297,12 @@ fun LPGenericElevatedCard(
                 textAlign = TextAlign.Justify,
                 fontSize = 14.sp
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(LeasePertTheme.sizes.extraSize10))
             Spacer(modifier = Modifier.weight(1f))
             Box(
                 modifier = Modifier.background(
                     color = TransparentWhite,
-                    shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp))
+                    shape = MaterialTheme.shapes.medium.copy(all = CornerSize(LeasePertTheme.sizes.midSmallSize))
                 )
             ) {
                 TextButton(
