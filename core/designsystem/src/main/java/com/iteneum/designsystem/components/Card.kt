@@ -3,7 +3,6 @@ package com.iteneum.designsystem.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -18,9 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -36,7 +32,8 @@ import com.iteneum.designsystem.R
 import com.iteneum.designsystem.theme.*
 import com.iteneum.designsystem.utils.TextUtils.ONE
 import com.iteneum.designsystem.theme.LeasePertTheme
-import kotlin.text.Typography
+import org.w3c.dom.Text
+import java.util.Date
 
 /**
  * Created [LpGenericCard]
@@ -398,13 +395,25 @@ fun LPGenericElevatedCardImage(
         }
     }
 }
-
-@Preview
+/**
+ * [LpPaymentsRentCard] is a button for show in the UI and this button can have icon depending of the use
+ *
+ * @param modifier Modifier is for specify style and params of the card, like for example the width of the component.
+ * @param month is the month what this component shown at the user for indicate what month is must to pay
+ * @param quantity is the quantity what the user have to pay
+ * @param date is the limit date where it have to pay their rent
+ *
+ * @author Usiel Filiberto Garcia Jimenez
+ */
 @Composable
-fun LpPaymentsRentCard() {
+fun LpPaymentsRentCard(modifier: Modifier, month: String, quantity: Double, date: Date) {
     OutlinedCard(
-        modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+        modifier = modifier
+            .fillMaxWidth(),
+        colors = CardDefaults
+            .cardColors(
+                containerColor = Color.Transparent
+            ),
         border = BorderStroke(
             width = LeasePertTheme.sizes.stroke,
             color = MaterialTheme.colorScheme.onPrimary
@@ -415,34 +424,39 @@ fun LpPaymentsRentCard() {
                 .fillMaxWidth()
                 .padding(start = 15.dp, top = 15.dp, bottom = 5.dp)
         ) {
-            Text(text = "January", style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = month,
+                style = MaterialTheme.typography.bodyLarge)
         }
         Row(
             Modifier
                 .fillMaxWidth()
-                .padding(start = 15.dp)
-        ) {
+                .padding(start = 15.dp, bottom = 15.dp, end = 15.dp),
 
+            ) {
             Text(
                 text = stringResource(R.string.rent),
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.tertiary
             )
-            Text(
-                text = "$950.00", modifier = Modifier.padding(start = 45.dp),
-                style = MaterialTheme.typography.bodyMedium
-            )
+            Column(modifier = Modifier.padding(start = 45.dp)) {
+                Text(
+                    text = "$$quantity", modifier = Modifier,
+                    style = MaterialTheme.typography.bodyLarge
+                )
 
-        }
-        Row(modifier = Modifier.padding(start = 89.dp, end = 15.dp, bottom = 15.dp, top = 5.dp)) {
-            Text(
-                text = "Jan 25 2023",
-                modifier = Modifier.weight(1f),
-                style = MaterialTheme.typography.bodyMedium
-            )
+                Spacer(modifier = Modifier.height(height = 5.dp))
 
-            Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.BottomEnd) {
-                Text(text = "Pay now")
+                Text(
+                    text = date.toString(),
+                    style = MaterialTheme.typography.bodyLarge
+                )
+
+            }
+            Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.TopEnd) {
+                LpGenericChip(label = stringResource(R.string.pay_now)) {
+
+                }
             }
         }
     }
