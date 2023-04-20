@@ -7,4 +7,5 @@
     <string name="DTFDropdownDescription">Dropdown Arrow</string>
     <string name="image_default">Image default</string>
     <string name="rent">Rent</string>
+    <string name="icon_description">an icon</string>
 </resources>
