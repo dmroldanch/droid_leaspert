@@ -464,7 +464,7 @@ fun LpPaymentsRentCard(modifier: Modifier, month: String, quantity: Double, date
             }
             Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.TopEnd) {
                 LpGenericChip(label = stringResource(R.string.pay_now)) {
-                    /*TODO With this button the user could pay their rent*/
+                    /*TODO With this button the user could pay their rent */
                 }
             }
         }
