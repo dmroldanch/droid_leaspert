@@ -70,7 +70,7 @@ fun LoginView() {
             label = stringResource(R.string.lv_email),
             isValid = false,
             supportTextError = stringResource(R.string.lv_support_text_error),
-            onValueChange = { TODO() }
+            onValueChange = { /*TODO("This will change the value of the email")*/ }
         )
         LpOutlinedTextFieldPassword(
             modifier = Modifier
@@ -81,7 +81,7 @@ fun LoginView() {
                     start.linkTo(mail.start)
                     end.linkTo(mail.end)
                 },
-            onPasswordChange = { TODO() },
+            onPasswordChange = { /*TODO("This will change the value of the password")*/ },
             supportTextError = stringResource(R.string.lv_support_text_error),
             isValid = false,
             value = stringResource(R.string.lv_password)
@@ -97,7 +97,7 @@ fun LoginView() {
                     width = Dimension.fillToConstraints
                 },
             textButton = stringResource(R.string.lv_login),
-            onClick = { TODO() },
+            onClick = { /*TODO("It will verify the email and password and sign in the user")*/ },
         )
         Text(
             modifier = Modifier
@@ -130,9 +130,9 @@ fun LoginView() {
                 Icon(
                     modifier = Modifier
                         .padding(sizes.extraSize6)
-                        .clickable { TODO() },
+                        .clickable { /*TODO("Will start the logging in process with Google")*/ },
                     imageVector = ImageVector.vectorResource(id = google_logo),
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.lv_google_logo_description),
                     tint = Color.Unspecified
                 )
             }
@@ -149,9 +149,9 @@ fun LoginView() {
                 Icon(
                     modifier = Modifier
                         .padding(sizes.extraSize6)
-                        .clickable { TODO() },
+                        .clickable { /*TODO("Will start the logging in process with twitter")*/ },
                     imageVector = ImageVector.vectorResource(id = twitter_logo),
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.lv_twitter_logo_description),
                     tint = Color.Unspecified
                 )
             }
@@ -168,9 +168,9 @@ fun LoginView() {
                 Icon(
                     modifier = Modifier
                         .padding(sizes.extraSize6)
-                        .clickable { TODO() },
+                        .clickable { /*TODO("Will start the logging in process with facebook")*/ },
                     imageVector = ImageVector.vectorResource(id = facebook_logo),
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.lv_facebook_logo_description),
                     tint = Color.Unspecified
                 )
             }
@@ -190,7 +190,7 @@ fun LoginView() {
             )
             ClickableText(
                 text = AnnotatedString(stringResource(R.string.lv_register)),
-                onClick = { TODO() },
+                onClick = { /*TODO("Will open a register account window or screen")*/ },
                 style = MaterialTheme.typography.labelLarge.copy(
                     color = MaterialTheme.colorScheme.onPrimary
                 )

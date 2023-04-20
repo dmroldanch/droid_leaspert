@@ -9,4 +9,7 @@
     <string name="lv_enter_email_hint">Enter your email</string>
     <string name="lv_logo">Logo</string>
     <string name="lv_support_text_error" />
+    <string name="lv_google_logo_description">Google Logo</string>
+    <string name="lv_twitter_logo_description">Twitter Logo</string>
+    <string name="lv_facebook_logo_description">Facebook Logo</string>
 </resources>
