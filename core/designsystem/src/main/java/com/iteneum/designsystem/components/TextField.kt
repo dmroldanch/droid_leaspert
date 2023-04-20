@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.R
 import com.iteneum.designsystem.components.phonenumbertext.mobileNumberFilter
 
+
 /**
  * This function creates a password OutlinedTextField
  * @param modifier Set component modifier
@@ -134,7 +135,6 @@ fun LpOutlinedTextFieldMail(
         )
     )
 }
-
 /**
  * This function creates a password OutlinedTextField
  * @param modifier Set component modifier
@@ -233,9 +233,9 @@ fun DropdownTextField(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            items.forEach { selectedOption ->
+            items.forEach {selectedOption ->
                 DropdownMenuItem(
-                    text = { Text(selectedOption) },
+                    text = {Text(selectedOption)},
                     onClick = {
                         selectedOptionText = selectedOption
                         selected(selectedOptionText)
