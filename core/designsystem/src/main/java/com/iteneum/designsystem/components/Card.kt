@@ -55,7 +55,7 @@ fun LpGenericCard(
 ) {
     val sizes = LeasePertTheme.sizes
     Card(
-        modifier = modifier.padding(sizes.midSmallSize),
+        modifier = modifier,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.background
         ),
@@ -91,12 +91,14 @@ fun LpGenericCard(
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(all = sizes.regularSize),
+                    .padding(end = sizes.regularSize),
                 text = if (currency)
                     "$$accountNumber" else accountNumber,
                 color = MaterialTheme.colorScheme.tertiary,
                 style = LPTypography.headlineSmall,
                 fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.End,
+                maxLines = 1
             )
         }
     }
