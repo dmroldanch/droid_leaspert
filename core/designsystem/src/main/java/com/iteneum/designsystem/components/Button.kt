@@ -249,7 +249,7 @@ fun LpFileButton(
             .border(
                 border = BorderStroke(
                     width = LeasePertTheme.sizes.stroke,
-                    MaterialTheme.colorScheme.onPrimary
+                    color = MaterialTheme.colorScheme.onPrimary
                 ),
                 shape = RoundedCornerShape(LeasePertTheme.sizes.minorSmallSize)
             )

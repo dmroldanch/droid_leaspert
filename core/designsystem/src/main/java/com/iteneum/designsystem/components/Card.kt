@@ -135,10 +135,10 @@ fun LpPostCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    LeasePertTheme.sizes.smallSize,
-                    LeasePertTheme.sizes.smallSize,
-                    LeasePertTheme.sizes.smallSize,
-                    LeasePertTheme.sizes.extraSize6
+                    start = LeasePertTheme.sizes.smallSize,
+                    top = LeasePertTheme.sizes.smallSize,
+                    end = LeasePertTheme.sizes.smallSize,
+                    bottom = LeasePertTheme.sizes.extraSize6
                 )
         ) {
             Row {
@@ -271,7 +271,7 @@ fun LPGenericElevatedCard(
         modifier = Modifier
             .width(LeasePertTheme.sizes.extraSize336)
             .height(LeasePertTheme.sizes.extraSize199)
-            .padding(LeasePertTheme.sizes.smallSize)
+            .padding(all = LeasePertTheme.sizes.smallSize)
     ) {
         Column(
             modifier = Modifier.padding(
