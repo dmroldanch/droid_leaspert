@@ -30,6 +30,7 @@ import com.iteneum.designsystem.components.phonenumbertext.mobileNumberFilter
  * @param onPasswordChange Returns value typed
  *
  * @author Jose G. Rivera
+ * @modifiedBy Jesus Lopez
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
