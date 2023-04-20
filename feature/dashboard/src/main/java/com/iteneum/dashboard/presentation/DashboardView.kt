@@ -1,7 +1,6 @@
 package com.iteneum.dashboard.presentation
 
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -70,7 +69,6 @@ fun DashboardView() {
                 imageVector = Icons.Filled.Notifications
             ) {
                 // TODO add click functionality here
-                Log.e("tag", "go to notification")
             }
             LpBadgeButton(
                 badgeNumber = badgeNumberPerson,
@@ -78,7 +76,6 @@ fun DashboardView() {
                 imageVector = Icons.Filled.Person
             ) {
                 // TODO add click functionality here
-                Log.e("tag", "go to person")
             }
         }
         LpGenericCard(
@@ -91,7 +88,6 @@ fun DashboardView() {
             currency = currentBalanceCurrency
         ) {
             // TODO navigate to payments screen
-            Log.e("tag", "Go to payments")
         }
         LpGenericCard(
             modifier = Modifier
@@ -102,7 +98,6 @@ fun DashboardView() {
             accountNumber = serviceRequest,
         ) {
             // TODO navigate to service request screen
-            Log.e("tag", "go to service request")
         }
         LpGenericCard(
             modifier = Modifier
@@ -113,7 +108,6 @@ fun DashboardView() {
             accountNumber = amenityReservations
         ) {
             // TODO navigate to amenity reservations screen
-            Log.e("tag", "go to amenity reservations")
         }
         Text(
             text = stringResource(R.string.happening_today),
@@ -131,7 +125,6 @@ fun DashboardView() {
                     color = getRandomColor(Random.nextInt(0, 3))
                 ) {
                     // TODO add click functionality
-                    Log.e("tag", event)
                 }
             }
         }
