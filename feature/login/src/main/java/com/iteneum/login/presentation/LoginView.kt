@@ -10,12 +10,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -26,7 +26,6 @@ import com.iteneum.designsystem.R.drawable.*
 import com.iteneum.login.R
 
 
-@Preview
 @Composable
 fun LoginView() {
     ConstraintLayout(
@@ -55,7 +54,6 @@ fun LoginView() {
                     end.linkTo(parent.end)
                 },
             label = stringResource(R.string.lv_email),
-            hint = stringResource(R.string.lv_enter_email_hint),
             isValid = false,
             supportTextError = stringResource(R.string.lv_support_text_error),
             onValueChange = {}
@@ -67,7 +65,10 @@ fun LoginView() {
                     start.linkTo(mail.start)
                     end.linkTo(mail.end)
                 },
-            onPasswordChange = {}
+            onPasswordChange = {},
+            supportTextError = stringResource(R.string.lv_support_text_error),
+            isValid = false,
+            value = stringResource(R.string.lv_password)
         )
         LpFilledTonalButton(
             modifier = Modifier
@@ -86,7 +87,9 @@ fun LoginView() {
                     top.linkTo(tonalButton.bottom, margin = 14.dp)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                }, text = stringResource(R.string.lv_login_with)
+                },
+            text = stringResource(R.string.lv_login_with),
+            style = MaterialTheme.typography.bodyMedium
         )
         Row(
             horizontalArrangement = Arrangement.spacedBy(32.dp),
@@ -102,7 +105,7 @@ fun LoginView() {
                     .size(42.dp)
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         shape = RoundedCornerShape(6.dp)
                     )
             ) {
@@ -111,7 +114,8 @@ fun LoginView() {
                         .padding(2.dp)
                         .clickable {},
                     imageVector = ImageVector.vectorResource(id = googlelogo),
-                    contentDescription = null
+                    contentDescription = null,
+                    tint = Color.Unspecified
                 )
             }
             Box(
@@ -120,7 +124,7 @@ fun LoginView() {
                     .size(42.dp)
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         shape = RoundedCornerShape(6.dp)
                     ),
             ) {
@@ -129,7 +133,8 @@ fun LoginView() {
                         .padding(2.dp)
                         .clickable {},
                     imageVector = ImageVector.vectorResource(id = twitterlogo),
-                    contentDescription = null
+                    contentDescription = null,
+                    tint = Color.Unspecified
                 )
             }
             Box(
@@ -138,7 +143,7 @@ fun LoginView() {
                     .size(42.dp)
                     .border(
                         width = 1.dp,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        color = MaterialTheme.colorScheme.onPrimary,
                         shape = RoundedCornerShape(6.dp)
                     )
             ) {
@@ -147,7 +152,8 @@ fun LoginView() {
                         .padding(2.dp)
                         .clickable {},
                     imageVector = ImageVector.vectorResource(id = facebooklogo),
-                    contentDescription = null
+                    contentDescription = null,
+                    tint = Color.Unspecified
                 )
             }
         }
@@ -160,7 +166,10 @@ fun LoginView() {
                 bottom.linkTo(parent.bottom, margin = 10.dp)
             }
         ) {
-            Text(text = stringResource(R.string.lv_new_to_leasepert))
+            Text(
+                text = stringResource(R.string.lv_new_to_leasepert),
+                style = MaterialTheme.typography.bodyMedium
+            )
             ClickableText(
                 text = AnnotatedString(stringResource(R.string.lv_register)),
                 onClick = { },

@@ -5,6 +5,7 @@
     <string name="lv_register">Register</string>
     <string name="lv_login">Login</string>
     <string name="lv_email">Email</string>
+    <string name="lv_password">Password</string>
     <string name="lv_enter_email_hint">Enter your email</string>
     <string name="lv_logo">Logo</string>
     <string name="lv_support_text_error" />
