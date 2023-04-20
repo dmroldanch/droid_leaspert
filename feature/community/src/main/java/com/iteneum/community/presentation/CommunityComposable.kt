@@ -58,14 +58,16 @@ fun CommunitylistUI() {
                     icon = singleCommunityCardButton.icon,
                     description = stringResource(
                         id = when (singleCommunityCardButton.cardName) {
-                            CardMenuItem.AMENITIES -> R.string.communityui_cardbutton_ammenities
-                            CardMenuItem.EVENTS -> R.string.communityui_cardbutton_events
-                            CardMenuItem.COMMUNITY_WALL -> R.string.communityui_cardbutton_communityWall
-                            CardMenuItem.DOITYOURSELF -> R.string.communityui_cardbutton_doItYourself
-                            CardMenuItem.SERVICES -> R.string.communityui_cardbutton_services
+                            CardMenuItem.AMENITIES -> R.string.communityUi_cardButton_ammenities
+                            CardMenuItem.EVENTS -> R.string.communityUi_cardButton_events
+                            CardMenuItem.COMMUNITY_WALL -> R.string.communityUi_cardButton_communityWall
+                            CardMenuItem.DOITYOURSELF -> R.string.communityUi_cardButton_doItYourself
+                            CardMenuItem.SERVICES -> R.string.communityUi_cardButton_services
                         }
                     ),
-                    onCardClick = { })
+                    onCardClick = {
+                        //TODO implement functionalities related to on click over card
+                    })
             }
         }
     }
