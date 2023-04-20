@@ -9,4 +9,6 @@
     <string name="closed">Closed</string>
     <string name="repairs">Repairs</string>
     <string name="payments">Payments</string>
+    <string name="history">History</string>
+    <string name="newA">New</string>
 </resources>

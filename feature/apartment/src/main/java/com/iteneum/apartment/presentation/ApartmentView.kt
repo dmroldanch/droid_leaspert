@@ -4,6 +4,7 @@ import androidx.compose.foundation.*
 import com.iteneum.designsystem.theme.LeasePertTheme
 import androidx.compose.foundation.layout.*
 
+
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -19,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.iteneum.apartment.R
+import com.iteneum.designsystem.components.LpGenericChip
 import com.iteneum.designsystem.components.LpOutlinedButton
 
 @Composable
@@ -47,15 +49,16 @@ fun ApartmentContainer() {
 @Composable
 fun PaymentsSection() {
     Column() {
-        Row(modifier = Modifier.fillMaxWidth()) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
                 text = stringResource(id = R.string.payments),
                 color = MaterialTheme.colorScheme.tertiary,
                 fontSize = 20.sp
             )
-        }
-        Row() {
-            cardFormExperimental()
+
+            LpGenericChip(label = stringResource(id = R.string.history)) {
+
+            }
         }
     }
 }
@@ -63,12 +66,17 @@ fun PaymentsSection() {
 @Composable
 fun RepairsSection() {
     Column() {
-        Row(modifier = Modifier.fillMaxWidth()) {
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             Text(
                 text = stringResource(id = R.string.repairs),
+
                 color = MaterialTheme.colorScheme.tertiary,
                 fontSize = 20.sp
             )
+            
+            LpGenericChip(label = "+${stringResource(id = R.string.newA)}") {
+                
+            }
         }
 
         RepairStatusRow(
@@ -173,18 +181,6 @@ fun InformationSection() {
         }
     }
 }
-
-
-@Composable
-fun cardFormExperimental() {
-    //date: String, quantity: Double
-    Row(modifier = Modifier
-        .background(color = MaterialTheme.colorScheme.secondaryContainer)
-        .fillMaxWidth()) {
-        Text(text = "Perros")
-    }
-}
-
 
 @Composable
 fun roundFormExperimental(quantityStatusRepairs: Int) {
