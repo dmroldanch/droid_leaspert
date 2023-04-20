@@ -405,6 +405,7 @@ fun LPGenericElevatedCardImage(
         }
     }
 }
+
 /**
  * [LpPaymentsRentCard] is a button for show in the UI and this button can have icon depending of the use
  *
@@ -432,16 +433,25 @@ fun LpPaymentsRentCard(modifier: Modifier, month: String, quantity: Double, date
         Row(
             Modifier
                 .fillMaxWidth()
-                .padding(start = 15.dp, top = 15.dp, bottom = 5.dp)
+                .padding(
+                    start = LeasePertTheme.sizes.midMediumSize,
+                    top = LeasePertTheme.sizes.midMediumSize,
+                    bottom = LeasePertTheme.sizes.minorMediumSize
+                )
         ) {
             Text(
                 text = month,
-                style = MaterialTheme.typography.bodyLarge)
+                style = MaterialTheme.typography.bodyLarge
+            )
         }
         Row(
             Modifier
                 .fillMaxWidth()
-                .padding(start = 15.dp, bottom = 15.dp, end = 15.dp),
+                .padding(
+                    start = LeasePertTheme.sizes.midMediumSize,
+                    bottom = LeasePertTheme.sizes.midMediumSize,
+                    end = LeasePertTheme.sizes.midMediumSize
+                ),
 
             ) {
             Text(
@@ -449,13 +459,13 @@ fun LpPaymentsRentCard(modifier: Modifier, month: String, quantity: Double, date
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.tertiary
             )
-            Column(modifier = Modifier.padding(start = 45.dp)) {
+            Column(modifier = Modifier.padding(start = LeasePertTheme.sizes.midLargeSize)) {
                 Text(
                     text = "$$quantity",
                     style = MaterialTheme.typography.bodyLarge
                 )
 
-                Spacer(modifier = Modifier.height(height = 5.dp))
+                Spacer(modifier = Modifier.height(height = LeasePertTheme.sizes.minorMediumSize))
 
                 Text(
                     text = date.toString(),
