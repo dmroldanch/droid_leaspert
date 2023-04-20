@@ -148,7 +148,7 @@ fun LpOutlinedTextFieldMail(
 @Composable
 fun LpOutlinedTextFieldInput(
     modifier: Modifier,
-    enabled: Boolean = false,
+    enabled: Boolean = true,
     label: String,
     hint: String,
     onValueChange: (String) -> Unit,
