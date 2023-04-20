@@ -26,6 +26,14 @@ import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.theme.LeasePertTheme
 import kotlin.random.Random
 
+
+/**
+ * [DashboardView] Contains a welcome message follow by 2 icons (notifications and profile).
+ * Shows the current balance, the total service and amenities reservations requested.
+ * Also at the view bottom show a event list happening in the same day or events that coming soon.
+ *
+ * @author Jose Rivera
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardView() {
@@ -53,7 +61,7 @@ fun DashboardView() {
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .weight(1f),
-                text = stringResource(R.string.dashboard_welcome_back, username),
+                text = stringResource(R.string.welcome_back, username),
                 style = LPTypography.titleMedium,
             )
             LpBadgeButton(
@@ -75,8 +83,8 @@ fun DashboardView() {
         LpGenericCard(
             modifier = Modifier
                 .fillMaxWidth(),
-            title = stringResource(R.string.dashboard_current_balance),
-            details = stringResource(R.string.dashboard_go_to_payments),
+            title = stringResource(R.string.current_balance),
+            details = stringResource(R.string.go_to_payments),
             accountNumber = currentBalance,
             currency = currentBalanceCurrency
         ) {
@@ -84,23 +92,23 @@ fun DashboardView() {
         }
         Spacer(modifier = Modifier.size(sizes.regularSize))
         LpGenericCard(
-            title = stringResource(R.string.dashboard_service_request),
-            details = stringResource(R.string.dashboard_view_detail),
+            title = stringResource(R.string.service_request),
+            details = stringResource(R.string.view_detail),
             accountNumber = serviceRequest,
         ) {
             Log.e("tag", "go to service request")
         }
         Spacer(modifier = Modifier.size(sizes.regularSize))
         LpGenericCard(
-            title = stringResource(R.string.dashboard_amenity_reservations),
-            details = stringResource(R.string.dashboard_view_detail),
+            title = stringResource(R.string.amenity_reservations),
+            details = stringResource(R.string.view_detail),
             accountNumber = amenityReservations
         ) {
             Log.e("tag", "go to amenity reservations")
         }
         Spacer(modifier = Modifier.size(sizes.regularSize))
         Text(
-            text = stringResource(R.string.dashboard_happening_today),
+            text = stringResource(R.string.happening_today),
             style = LPTypography.titleMedium,
             color = MaterialTheme.colorScheme.tertiary
         )

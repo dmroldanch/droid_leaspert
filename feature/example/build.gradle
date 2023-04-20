@@ -40,5 +40,4 @@ dependencies {
 
     //Mudules
     implementation project(":core:designsystem")
-    implementation project(":feature:dashboard")
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="dashboard_welcome_back">Welcome back, %1$s!</string>
-    <string name="dashboard_current_balance">Current balance</string>
-    <string name="dashboard_go_to_payments">Go to payments</string>
-    <string name="dashboard_service_request">Service requests in progress</string>
-    <string name="dashboard_view_detail">View detail</string>
-    <string name="dashboard_amenity_reservations">Amenity reservations</string>
-    <string name="dashboard_happening_today">Happening Today</string>
+    <string name="welcome_back">Welcome back, %1$s!</string>
+    <string name="current_balance">Current balance</string>
+    <string name="go_to_payments">Go to payments</string>
+    <string name="service_request">Service requests in progress</string>
+    <string name="view_detail">View detail</string>
+    <string name="amenity_reservations">Amenity reservations</string>
+    <string name="happening_today">Happening Today</string>
 </resources>
