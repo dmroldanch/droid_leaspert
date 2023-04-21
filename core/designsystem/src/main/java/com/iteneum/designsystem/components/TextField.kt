@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Error
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -21,67 +20,65 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.R
 import com.iteneum.designsystem.components.phonenumbertext.mobileNumberFilter
-import com.iteneum.designsystem.theme.Drab
-import com.iteneum.designsystem.theme.MintJulep
 
 /**
  * This function creates a password OutlinedTextField
  * @param modifier Set component modifier
  * @param value Current password value
- * @param errorMessage Set the error message to be displayed when an error occurs
- * @param showError This parameter determines whether the error is displayed or not
+ * @param isValid Validate if text is valid
+ * @param supportTextError This parameter determines whether the error is displayed or not
  * @param onPasswordChange Returns value typed
  *
  * @author Jose G. Rivera
+ * @modifiedBy Jesus Lopez
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LpOutlinedTextFieldPassword(
-    modifier: Modifier = Modifier,
-    value: String = "",
-    errorMessage: String = "",
-    showError: Boolean = false,
+    modifier: Modifier,
+    value: String,
+    isValid: Boolean,
+    supportTextError: String,
     onPasswordChange: (String) -> Unit
 ) {
+    var passwordFieldValue by remember { mutableStateOf(TextFieldValue("")) }
+
     OutlinedTextField(
-        modifier = modifier,
-        value = value,
+        value = passwordFieldValue,
         onValueChange = {
-            onPasswordChange(it)
+            passwordFieldValue = it
+            onPasswordChange(passwordFieldValue.text)
         },
+        modifier = modifier,
+        label = { Text(value, style = MaterialTheme.typography.bodyMedium) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
-            focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
             unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
-            cursorColor = MaterialTheme.colorScheme.onPrimary,
-            placeholderColor = Color.LightGray
+            focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+            errorLabelColor = MaterialTheme.colorScheme.error,
+            errorBorderColor = MaterialTheme.colorScheme.error,
+            errorSupportingTextColor = MaterialTheme.colorScheme.error
         ),
-        label = { Text(text = stringResource(id = R.string.OTFPasswordLabel)) },
-        placeholder = { Text(text = stringResource(id = R.string.OTFPasswordLabel)) },
-        visualTransformation = PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        trailingIcon = {
-            if (showError) {
-                Icon(
-                    imageVector = Icons.Filled.Error,
-                    contentDescription = stringResource(id = R.string.OTFPasswordContentDescriptionError),
-                    tint = MaterialTheme.colorScheme.error
-                )
-            }
-        },
+        isError = isValid,
         supportingText = {
-            if (showError) {
-                Text(text = errorMessage)
+            if (isValid) {
+                Text(text = supportTextError)
+            } else {
+                Text(text = "")
             }
         },
-        isError = showError,
         singleLine = true,
-        maxLines = 1
+        maxLines = 1,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardType = KeyboardType.Password
+        ),
+        visualTransformation = PasswordVisualTransformation()
     )
 }
 
+
 /**
- * This function creates a password OutlinedTextField
+ * This function creates a generic OutlinedTextField
  * @param modifier Set component modifier
  * @param label Text label
  * @param hint Hint message
@@ -89,11 +86,11 @@ fun LpOutlinedTextFieldPassword(
  * @param supportTextError Error message
  * @param onValueChange This parameter return the field value
  *
- * @author Andrés Ivan Medina Herrera
+ * @author Jesus Lopez
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LpOutlinedTextFieldMail(
+fun LpOutlinedTextField(
     modifier: Modifier,
     label: String,
     hint: String,
@@ -136,6 +133,61 @@ fun LpOutlinedTextFieldMail(
         )
     )
 }
+
+/**
+ * This function creates an Email OutlinedTextField
+ * @param modifier Set component modifier
+ * @param label Text label
+ * @param isValid Validate if text is valid
+ * @param supportTextError Error message
+ * @param onValueChange This parameter return the field value
+ *
+ * @author Andrés Ivan Medina Herrera
+ * @modifiedBy Jesus Lopez
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun LpOutlinedTextFieldMail(
+    modifier: Modifier,
+    label: String,
+    isValid: Boolean,
+    supportTextError: String,
+    onValueChange: (String) -> Unit
+) {
+    var emailFieldValue by remember { mutableStateOf(TextFieldValue("")) }
+
+    OutlinedTextField(
+        value = emailFieldValue,
+        onValueChange = {
+            emailFieldValue = it
+            onValueChange(emailFieldValue.text)
+        },
+        modifier = modifier,
+        label = { Text(label, style = MaterialTheme.typography.bodyMedium) },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+            unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+            focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
+            errorLabelColor = MaterialTheme.colorScheme.error,
+            errorBorderColor = MaterialTheme.colorScheme.error,
+            errorSupportingTextColor = MaterialTheme.colorScheme.error
+        ),
+        isError = isValid,
+        supportingText = {
+            if (isValid) {
+                Text(text = supportTextError)
+            } else {
+                Text(text = "")
+            }
+        },
+        singleLine = true,
+        maxLines = 1,
+        keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardType = KeyboardType.Email
+        )
+    )
+}
+
 /**
  * This function creates a password OutlinedTextField
  * @param modifier Set component modifier
@@ -147,8 +199,9 @@ fun LpOutlinedTextFieldMail(
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LpOutlinedTextFieldNumber(
+fun LpOutlinedTextFieldInput(
     modifier: Modifier,
+    enabled: Boolean = true,
     label: String,
     hint: String,
     onValueChange: (String) -> Unit,
@@ -161,6 +214,7 @@ fun LpOutlinedTextFieldNumber(
             onValueChange(textFieldValue.text)
         },
         modifier = modifier.fillMaxWidth(),
+        enabled = enabled,
         label = { Text(label) },
         placeholder = { Text(hint) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -174,7 +228,7 @@ fun LpOutlinedTextFieldNumber(
         singleLine = true,
         maxLines = 1,
         shape = MaterialTheme.shapes.small,
-        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text)
     )
 }
 
@@ -194,7 +248,7 @@ fun DropdownTextField(
     modifier: Modifier = Modifier,
     title: String,
     items: List<String>,
-    selected : (String) -> Unit
+    selected: (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf("") }
@@ -232,9 +286,9 @@ fun DropdownTextField(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            items.forEach {selectedOption ->
+            items.forEach { selectedOption ->
                 DropdownMenuItem(
-                    text = {Text(selectedOption)},
+                    text = { Text(selectedOption) },
                     onClick = {
                         selectedOptionText = selectedOption
                         selected(selectedOptionText)

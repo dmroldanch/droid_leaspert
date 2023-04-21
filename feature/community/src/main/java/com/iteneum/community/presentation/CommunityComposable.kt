@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.iteneum.community.R
-import com.iteneum.community.domain.CommunitySectionList
 import com.iteneum.community.domain.CommunityCardDataModel
+import com.iteneum.community.domain.CommunitySectionList
 import com.iteneum.designsystem.components.LpIconTextCard
 import com.iteneum.designsystem.theme.LeasePertTheme
 
