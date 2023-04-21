@@ -56,7 +56,7 @@ fun RepairView() {
                     style = LPTypography.headlineSmall
                 )
             }
-            LpOutlinedTextFieldMail(
+            LpOutlinedTextField(
                 modifier = Modifier
                     .padding(
                         top = sizes.minorRegularSize
@@ -103,7 +103,7 @@ fun RepairView() {
                 items = optionsCategory.toList(),
                 selected = {/* TODO - Category field - To verify if extra functionality required */}
             )
-            LpOutlinedTextFieldMail(
+            LpOutlinedTextField(
                 modifier = Modifier
                     .padding(
                         top = sizes.extraSize10
