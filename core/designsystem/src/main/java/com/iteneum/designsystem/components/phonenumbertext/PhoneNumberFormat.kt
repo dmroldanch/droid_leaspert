@@ -6,45 +6,39 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 
-/*This block of code give format
-* for number phone in USA format
-* */
+/* Class that enables to have number phone in USA format */
 
 class PhoneNumberTransformation : VisualTransformation {
     private val separator = " - "
-
     override fun filter(text: AnnotatedString): TransformedText {
-
         val withinMaxLength = text.length <= 10
+        val separatorPositionA = 2
+        val separatorPositionB = 5
 
         val output = buildString {
             for ((index, char) in text.withIndex()) {
                 if (withinMaxLength) {
                     append(char)
                 }
-                if (index == 2 || index == 5) {
+                if (index == separatorPositionA || index == separatorPositionB) {
                     append(separator)
                 }
             }
         }
-
         val outputOffsets = calculateOutputOffsets(output)
-        Log.d("DEBUGGING","VAL AFTER --> outputOffsets IS $outputOffsets")
         val separatorIndices = calculateSeparatorOffsets(output)
-
         val offsetTranslator = object : OffsetMapping {
 
             override fun originalToTransformed(offset: Int): Int {
-                //return try {
-                return if (offset in 0 .. 10)
-                    outputOffsets[offset]
-                else
-                    outputOffsets[10]
-                //}
-                /*catch (e: IndexOutOfBoundsException){
-                    Log.d("ERROR","OUT OF BOUNDS --> OFFSET IS $offset")
-                    outputOffsets[0]
-                }*/
+                return try {
+                    if (offset in 0..9)
+                        outputOffsets[offset]
+                    else
+                        outputOffsets[9]
+                } catch (e: IndexOutOfBoundsException) {
+                    Log.d("ERROR", "OUT OF BOUNDS -> OFFSET IS $offset")
+                    outputOffsets[offset - 1]
+                }
             }
 
             override fun transformedToOriginal(offset: Int): Int {

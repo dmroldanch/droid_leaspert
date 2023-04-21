@@ -66,7 +66,7 @@ fun RepairView() {
                 hint = stringResource(id = R.string.hint_unit),
                 isValid = false,
                 supportTextError = stringResource(id = R.string.support_error_unit),
-                onValueChange = {/* TODO - Unit Text field - Change component, to Unit type and Disable it */}
+                onValueChange = {/* TODO - Unit Text field - Change component, to Unit type and Disable it */ }
             )
             LPPhoneNumberText(
                 modifier = Modifier.padding(
@@ -86,7 +86,7 @@ fun RepairView() {
                 ),
                 title = stringResource(id = R.string.label_pet_in_unit),
                 items = optionsPetInUnit.toList(),
-                selected = {/* TODO - PetInUnit field - To verify if extra functionality required */}
+                selected = {/* TODO - PetInUnit field - To verify if extra functionality required */ }
             )
             Text(
                 text = stringResource(id = R.string.text_service),
@@ -101,7 +101,7 @@ fun RepairView() {
                 ),
                 title = stringResource(id = R.string.label_category),
                 items = optionsCategory.toList(),
-                selected = {/* TODO - Category field - To verify if extra functionality required */}
+                selected = {/* TODO - Category field - To verify if extra functionality required */ }
             )
             LpOutlinedTextField(
                 modifier = Modifier
@@ -132,7 +132,7 @@ fun RepairView() {
                     )
                     .fillMaxWidth(),
                 mimeTypes = arrayOf("video/*", "image/*"),
-                onFileSelected = {/* TODO - File Button - Add functionality to save files */}
+                onFileSelected = {/* TODO - File Button - Add functionality to save files */ }
             )
             Text(
                 text = stringResource(id = R.string.text_permission),
@@ -160,7 +160,7 @@ fun RepairView() {
                     )
                     .fillMaxWidth(),
                 textButton = stringResource(id = R.string.text_repair_send_button),
-                onClick = {/* TODO - Send Repair Button - Add functionality to save repair request info */}
+                onClick = {/* TODO - Send Repair Button - Add functionality to save repair request info */ }
             )
         }
     }

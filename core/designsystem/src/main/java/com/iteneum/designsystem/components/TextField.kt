@@ -1,6 +1,5 @@
 package com.iteneum.designsystem.components
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
@@ -13,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -304,10 +302,11 @@ fun DropdownTextField(
 /**
  * This function creates a phone number OutlinedTextField
  * @param modifier Set component modifier
- * @param value Current phone value
- * @param imeAction Signals the keyboard what type of action should be displayed
+ * @param value Current contact phone text value
  * @param isEnabled Establish the button is enabled and ready to use
- * @param onPhoneChange Returns value typed
+ * @param isValid Indicates if the value introduced is valid
+ * @param supportTextError Indicates the error message when is not valid
+ * @param onPhoneChange Returns value typed, using high order functions
  *
  * @author Yaritza Moreno
  * @author Jose Miguel Garcia Reyes (fixes)
@@ -317,38 +316,27 @@ fun DropdownTextField(
 fun LPPhoneNumberText(
     modifier: Modifier = Modifier,
     value: String,
-    imeAction: ImeAction = ImeAction.Next,
     isEnabled: Boolean = true,
     isValid: Boolean,
     supportTextError: String,
     onPhoneChange: (String) -> Unit
 ) {
     var phoneNumberText by remember { mutableStateOf("") }
-    val transform = PhoneNumberTransformation()
+    val phoneNumberTransformation = PhoneNumberTransformation()
     val numbersOnlyExpression = Regex("^[0-9]*\$")
-    val maxCharacters = 10
+    val maxCharactersAllowed = 10
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         label = { Text(text = stringResource(id = R.string.LPContactPhone)) },
+        placeholder = { Text(text = stringResource(id = R.string.LPContactPhone_mask)) },
         value = value,
-        onValueChange = {
-            Log.d("TEXT_FIELD","IT LENGTH --> ${it.length}")
-            Log.d("TEXT_FIELD"," Phone LENGTH --> ${phoneNumberText.length}")
-            if ( it.length > maxCharacters ) {
-                Log.d("MAX_CHAR","phoneNumberText A --> $phoneNumberText")
-                phoneNumberText = it.substring(0, it.length.coerceAtMost(10))
-                Log.d("MAX_CHAR","phoneNumberText B --> $phoneNumberText")
-            }
-            else if ( !(it.matches(numbersOnlyExpression)) ) {
-                Log.d("NUMBERS_ONLY","phoneNumberText A --> $phoneNumberText")
-
-                phoneNumberText = it.filter { it in '0'..'9' }
-                Log.d("NUMBERS_ONLY","phoneNumberText B --> $phoneNumberText")
-            }
-            else {
-                Log.d("OK","phoneNumberText A --> $phoneNumberText")
-                phoneNumberText = it
-                Log.d("OK","phoneNumberText B --> $phoneNumberText")
+        onValueChange = { it ->
+            phoneNumberText = if ( it.length > maxCharactersAllowed ) {
+                it.substring(0, it.length.coerceAtMost(10))
+            } else if ( !(it.matches(numbersOnlyExpression)) ) {
+                it.filter { it.isDigit() }
+            } else {
+                it
             }
             onPhoneChange(it)
         },
@@ -359,10 +347,9 @@ fun LPPhoneNumberText(
                          },
         textStyle = TextStyle(fontSize = 18.sp),
         keyboardOptions = KeyboardOptions(
-            imeAction = imeAction,
             keyboardType = KeyboardType.Number,
         ),
-        visualTransformation = { transform.filter(AnnotatedString(phoneNumberText)) },
+        visualTransformation = { phoneNumberTransformation.filter(AnnotatedString(phoneNumberText)) },
         enabled = isEnabled,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             textColor = Color.Black,
