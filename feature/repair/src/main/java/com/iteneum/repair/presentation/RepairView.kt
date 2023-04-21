@@ -29,6 +29,9 @@ fun RepairView() {
     var isAValidDescription by remember {
         mutableStateOf(false)
     }
+    var isAValidNumber by remember {
+        mutableStateOf(false)
+    }
     var optionSelectedRadioButtons by remember {
         mutableStateOf(optionsPermissionRadioButtons[0])
     }
@@ -71,8 +74,11 @@ fun RepairView() {
                 ),
                 value = contactPhoneNumberValue,
                 onPhoneChange = {
+                    isAValidNumber = it.isEmpty() || it.length != 10
                     contactPhoneNumberValue = it
-                }
+                },
+                isValid = isAValidNumber,
+                supportTextError = "Not a valid number"
             )
             DropdownTextField(
                 modifier = Modifier.padding(

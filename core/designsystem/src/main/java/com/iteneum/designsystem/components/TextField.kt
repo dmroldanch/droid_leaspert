@@ -1,5 +1,6 @@
 package com.iteneum.designsystem.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
@@ -9,10 +10,9 @@ import androidx.compose.material.icons.filled.Error
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -20,7 +20,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.R
-import com.iteneum.designsystem.components.phonenumbertext.mobileNumberFilter
+import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransformation
 
 /**
  * This function creates a password OutlinedTextField
@@ -252,12 +252,11 @@ fun DropdownTextField(
  * @param modifier Set component modifier
  * @param value Current phone value
  * @param imeAction Signals the keyboard what type of action should be displayed
- * @param keyboardType Displays a phone keyboard
  * @param isEnabled Establish the button is enabled and ready to use
- * @param showError This parameter determines whether the error is displayed or not
  * @param onPhoneChange Returns value typed
  *
  * @author Yaritza Moreno
+ * @author Jose Miguel Garcia Reyes (fixes)
  */
 @ExperimentalMaterial3Api
 @Composable
@@ -265,34 +264,51 @@ fun LPPhoneNumberText(
     modifier: Modifier = Modifier,
     value: String,
     imeAction: ImeAction = ImeAction.Next,
-    keyboardType: KeyboardType = KeyboardType.Phone,
     isEnabled: Boolean = true,
-    showError: Boolean = false,
+    isValid: Boolean,
+    supportTextError: String,
     onPhoneChange: (String) -> Unit
 ) {
-
-    //Text value for the TextField label
-    var text by remember { mutableStateOf("") }
-    val maxChar = 10
-    val focusManager = LocalFocusManager.current
-
+    var phoneNumberText by remember { mutableStateOf("") }
+    val transform = PhoneNumberTransformation()
+    val numbersOnlyExpression = Regex("^[0-9]*\$")
+    val maxCharacters = 10
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         label = { Text(text = stringResource(id = R.string.LPContactPhone)) },
         value = value,
         onValueChange = {
-            text = it.take(maxChar)
-            if (it.length > maxChar) {
-                focusManager.moveFocus(FocusDirection.Down) // Or receive a lambda function
+            Log.d("TEXT_FIELD","IT LENGTH --> ${it.length}")
+            Log.d("TEXT_FIELD"," Phone LENGTH --> ${phoneNumberText.length}")
+            if ( it.length > maxCharacters ) {
+                Log.d("MAX_CHAR","phoneNumberText A --> $phoneNumberText")
+                phoneNumberText = it.substring(0, it.length.coerceAtMost(10))
+                Log.d("MAX_CHAR","phoneNumberText B --> $phoneNumberText")
+            }
+            else if ( !(it.matches(numbersOnlyExpression)) ) {
+                Log.d("NUMBERS_ONLY","phoneNumberText A --> $phoneNumberText")
+
+                phoneNumberText = it.filter { it in '0'..'9' }
+                Log.d("NUMBERS_ONLY","phoneNumberText B --> $phoneNumberText")
+            }
+            else {
+                Log.d("OK","phoneNumberText A --> $phoneNumberText")
+                phoneNumberText = it
+                Log.d("OK","phoneNumberText B --> $phoneNumberText")
             }
             onPhoneChange(it)
         },
+        isError = isValid,
+        supportingText = {
+            if (isValid)
+                Text(text = supportTextError)
+                         },
         textStyle = TextStyle(fontSize = 18.sp),
         keyboardOptions = KeyboardOptions(
             imeAction = imeAction,
-            keyboardType = keyboardType
+            keyboardType = KeyboardType.Number,
         ),
-        visualTransformation = { mobileNumberFilter(it) },
+        visualTransformation = { transform.filter(AnnotatedString(phoneNumberText)) },
         enabled = isEnabled,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             textColor = Color.Black,
@@ -302,4 +318,3 @@ fun LPPhoneNumberText(
         )
     )
 }
-
