@@ -28,8 +28,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        compose true
+    }
 }
 
 dependencies {
-
+    implementation libs.hiltAndroid
+    implementation libs.bundles.hilt
+    implementation libs.bundles.compose
+    implementation project(":core:designsystem")
 }

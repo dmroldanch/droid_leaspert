@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_header">Notificaciones</string>
+    <string name="notification_today">Hoy</string>
+    <string name="notification_this_week">Esta semana</string>
+</resources>

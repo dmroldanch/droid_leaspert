@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -25,16 +24,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.SubcomposeAsyncImage
+import com.iteneum.designsystem.R
+import com.iteneum.designsystem.theme.*
 import com.iteneum.designsystem.R
 import com.iteneum.designsystem.theme.Bianca
 import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.utils.TextUtils.ONE
-import com.iteneum.designsystem.theme.LeasePertTheme
 
 /**
  * Created [LpGenericCard]
@@ -47,7 +46,7 @@ import com.iteneum.designsystem.theme.LeasePertTheme
  * @param onTextClick as a high order function
  *
  * @author Daniel Roldan
- * @modifyBy Juan Islas
+ * @modifyBy Jose Guadalupe Rivera
  */
 @Composable
 fun LpGenericCard(
@@ -60,7 +59,7 @@ fun LpGenericCard(
 ) {
     val sizes = LeasePertTheme.sizes
     Card(
-        modifier = modifier.padding(sizes.midSmallSize),
+        modifier = modifier,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.background
         ),
@@ -68,16 +67,19 @@ fun LpGenericCard(
         elevation = CardDefaults.cardElevation(sizes.stroke),
     )
     {
-        Row{
-            Column(modifier = Modifier
-                .fillMaxWidth(0.7f)
-                .padding(all = sizes.smallSize)){
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(0.7f)
+                    .padding(all = sizes.smallSize)
+            ) {
                 Text(
                     text = title,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 17.sp
+                    style = LPTypography.bodyLarge,
+                    fontWeight = FontWeight.Bold
                 )
+                Spacer(modifier = Modifier.size(sizes.minorSmallSize))
                 Text(
                     modifier = Modifier
                         .clickable(
@@ -87,32 +89,21 @@ fun LpGenericCard(
                     text = details,
                     color = MaterialTheme.colorScheme.onPrimary,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 15.sp
+                    style = LPTypography.titleSmall
                 )
             }
-            Column(
+            Text(
                 modifier = Modifier
-                .fillMaxWidth()
-                .padding(all = sizes.regularSize),
-                horizontalAlignment = Alignment.End
-            ){
-                if (currency){
-                    Text(
-                        text = "$$accountNumber",
-                        color = MaterialTheme.colorScheme.tertiary,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 18.sp
-                    )
-                }
-                else{
-                    Text(
-                        text = accountNumber,
-                        color = MaterialTheme.colorScheme.tertiary,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 18.sp
-                    )
-                }
-            }
+                    .fillMaxWidth()
+                    .padding(end = sizes.regularSize),
+                text = if (currency)
+                    "$$accountNumber" else accountNumber,
+                color = MaterialTheme.colorScheme.tertiary,
+                style = LPTypography.headlineSmall,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.End,
+                maxLines = 1
+            )
         }
     }
 }
@@ -134,40 +125,45 @@ fun LpGenericCard(
 fun LpPostCard(
     modifier: Modifier,
     userName: String,
-    userPhoto: Painter,
+    userPhoto: String,
     timeAgo: String,
     messagePost: String,
     onCommentClick: () -> Unit,
     onFavoriteClick: () -> Unit
 ) {
     Card(
-        modifier = modifier.padding(15.dp),
+        modifier = modifier.padding(LeasePertTheme.sizes.smallSize),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
-        elevation = CardDefaults.cardElevation(1.dp),
+        border = BorderStroke(LeasePertTheme.sizes.stroke, MaterialTheme.colorScheme.onPrimary),
+        elevation = CardDefaults.cardElevation(LeasePertTheme.sizes.stroke),
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(15.dp, 15.dp, 15.dp, 5.dp)
+                .padding(
+                    start = LeasePertTheme.sizes.smallSize,
+                    top = LeasePertTheme.sizes.smallSize,
+                    end = LeasePertTheme.sizes.smallSize,
+                    bottom = LeasePertTheme.sizes.extraSize6
+                )
         ) {
             Row {
-                Image(
-                    painter = userPhoto,
-                    contentDescription = "userPhoto",
-                    contentScale = ContentScale.Crop,
+                SubcomposeAsyncImage(
                     modifier = Modifier
-                        .size(50.dp)
-                        .clip(CircleShape)
+                        .size(LeasePertTheme.sizes.extraSize48)
+                        .clip(CircleShape),
+                    model = userPhoto,
+                    contentScale = ContentScale.Crop,
+                    contentDescription = userName
                 )
-                Column(modifier = Modifier.padding(start = 8.dp)) {
+                Column(modifier = Modifier.padding(start = LeasePertTheme.sizes.smallerSize)) {
                     Text(
                         text = userName,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         fontWeight = FontWeight.Medium,
                         fontSize = 12.sp
                     )
-                    Spacer(modifier = Modifier.height(5.dp))
+                    Spacer(modifier = Modifier.height(LeasePertTheme.sizes.minorSmallSize))
                     Text(
                         text = timeAgo,
                         color = MaterialTheme.colorScheme.tertiary,
@@ -177,7 +173,7 @@ fun LpPostCard(
                 }
             }
             Text(
-                modifier = Modifier.padding(10.dp),
+                modifier = Modifier.padding(LeasePertTheme.sizes.extraSize10),
                 text = messagePost,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 15.sp
@@ -221,9 +217,9 @@ fun LpIconTextCard(
     onCardClick: (String) -> Unit
 ) {
     Card(
-        modifier = modifier.padding(8.dp),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onPrimary),
-        shape = RoundedCornerShape(12.dp),
+        modifier = modifier.padding(LeasePertTheme.sizes.smallerSize),
+        border = BorderStroke(LeasePertTheme.sizes.stroke, MaterialTheme.colorScheme.onPrimary),
+        shape = RoundedCornerShape(LeasePertTheme.sizes.midSmallSize),
         onClick = { onCardClick(description) },
     ) {
         Box(
@@ -245,7 +241,8 @@ fun LpIconTextCard(
                 Text(
                     text = description,
                     style = LPTypography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onPrimary
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
@@ -258,57 +255,65 @@ fun LpIconTextCard(
  * @param title String to modify the name of the card
  * @param description String to modify the description within the card
  * @param onButtonClick High order function to assign the action that this card will have
+ * @param color Set the component background color
  *
  * @author Jesus Lopez Gonzalez
+ * @modifyBy Jose Guadalupe Rivera
  */
 @Composable
 fun LPGenericElevatedCard(
     title: String,
     description: String,
     buttonText: String,
+    color: Color = AtomicTangerine,
     onButtonClick: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = Drab,
+            containerColor = color,
         ),
-        shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp)),
+        shape = MaterialTheme.shapes.medium.copy(all = CornerSize(LeasePertTheme.sizes.midSmallSize)),
         modifier = Modifier
-            .width(312.dp)
-            .height(196.dp)
-            .padding(16.dp)
+            .width(LeasePertTheme.sizes.extraSize336)
+            .height(LeasePertTheme.sizes.extraSize199)
+            .padding(all = LeasePertTheme.sizes.smallSize)
     ) {
         Column(
-            modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp, bottom = 10.dp)
+            modifier = Modifier.padding(
+                start = LeasePertTheme.sizes.minorRegularSize,
+                top = LeasePertTheme.sizes.minorRegularSize,
+                end = LeasePertTheme.sizes.minorRegularSize,
+                bottom = LeasePertTheme.sizes.extraSize10
+            )
         ) {
             Text(
                 text = title,
                 style = LPTypography.titleMedium,
-                color = colors.onPrimary,
+                color = colors.inversePrimary,
             )
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(LeasePertTheme.sizes.extraSize6))
             Text(
                 text = description,
                 style = LPTypography.bodyMedium,
-                color = colors.onPrimary,
+                color = colors.inversePrimary,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Justify,
                 fontSize = 14.sp
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(LeasePertTheme.sizes.extraSize10))
             Spacer(modifier = Modifier.weight(1f))
             Box(
                 modifier = Modifier.background(
-                    Color.White.copy(alpha = 0.1f),
-                    shape = MaterialTheme.shapes.medium.copy(all = CornerSize(12.dp))
+                    color = TransparentWhite,
+                    shape = MaterialTheme.shapes.medium.copy(all = CornerSize(LeasePertTheme.sizes.midSmallSize))
                 )
             ) {
                 TextButton(
                     onClick = onButtonClick,
                     colors = ButtonDefaults.textButtonColors(
-                        contentColor = colors.onPrimary
+                        contentColor = colors.inversePrimary
                     )
                 ) {
                     Text(text = buttonText)
@@ -316,6 +321,13 @@ fun LPGenericElevatedCard(
             }
         }
     }
+}
+
+/* TODO change function location to the view-model, this function
+*   shouldn't be here.*/
+fun getRandomColor(random: Int): Color {
+    val colorList = listOf(AtomicTangerine, DenimBlue, RedSalsa)
+    return colorList[random]
 }
 
 /**
@@ -327,6 +339,7 @@ fun LPGenericElevatedCard(
  * @param onClick High order function to assign the action that this card will have
  *
  * @author Jesus Lopez Gonzalez
+ * @modifyBy Carlos Hernandez
  */
 @Composable
 fun LPGenericElevatedCardImage(
@@ -372,7 +385,8 @@ fun LPGenericElevatedCardImage(
                 )
             }
             Column(
-                Modifier.fillMaxSize()
+                Modifier
+                    .fillMaxSize()
                     .padding(all = dp16)
             ) {
                 Text(
