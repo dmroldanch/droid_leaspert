@@ -14,7 +14,7 @@ class PhoneNumberTransformation : VisualTransformation {
     private val separator = " - "
 
     override fun filter(text: AnnotatedString): TransformedText {
-        
+
         val withinMaxLength = text.length <= 10
 
         val output = buildString {
