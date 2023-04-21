@@ -450,8 +450,7 @@ fun LpPaymentsRentCard(modifier: Modifier, month: String, quantity: Double, date
                     start = LeasePertTheme.sizes.midMediumSize,
                     bottom = LeasePertTheme.sizes.midMediumSize,
                     end = LeasePertTheme.sizes.midMediumSize
-                ),
-
+                )
             ) {
             Text(
                 text = stringResource(R.string.rent),
@@ -463,14 +462,11 @@ fun LpPaymentsRentCard(modifier: Modifier, month: String, quantity: Double, date
                     text = "$$quantity",
                     style = MaterialTheme.typography.bodyLarge
                 )
-
                 Spacer(modifier = Modifier.height(height = LeasePertTheme.sizes.minorMediumSize))
-
                 Text(
                     text = date.toString(),
                     style = MaterialTheme.typography.bodyLarge
                 )
-
             }
             Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.TopEnd) {
                 LpGenericChip(label = stringResource(R.string.pay_now)) {
