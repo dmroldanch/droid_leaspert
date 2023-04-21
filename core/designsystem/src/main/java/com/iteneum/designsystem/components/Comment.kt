@@ -4,13 +4,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.iteneum.designsystem.theme.LeasePertTheme
 
 /**
  * A component to generate a comment field.
@@ -33,9 +33,9 @@ fun LpGenericComment(
 ) {
     OutlinedTextField(
         modifier = modifier
-            .heightIn(min = 150.dp)
+            .heightIn(min = LeasePertTheme.sizes.extraSize175)
             .fillMaxWidth()
-            .padding(all = 15.dp),
+            .padding(all = LeasePertTheme.sizes.smallSize),
         value = comment,
         onValueChange = onValueChanged,
         singleLine = false,

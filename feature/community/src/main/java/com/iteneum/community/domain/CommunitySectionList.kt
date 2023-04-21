@@ -7,9 +7,5 @@ package com.iteneum.community.domain
  * @author Andrés Ivan Medina Herrera
  */
 enum class CommunitySectionList {
-    AMENITIES,
-    COMMUNITY_WALL,
-    DOITYOURSELF,
-    EVENTS,
-    SERVICES
+    AMENITIES, COMMUNITY_WALL, DOITYOURSELF, EVENTS, SERVICES
 }

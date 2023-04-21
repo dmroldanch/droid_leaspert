@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome_back">Welcome back, %1$s!</string>
+    <string name="current_balance">Current balance</string>
+    <string name="go_to_payments">Go to payments</string>
+    <string name="service_request">Service requests in progress</string>
+    <string name="view_detail">View detail</string>
+    <string name="amenity_reservations">Amenity reservations</string>
+    <string name="happening_today">Happening Today</string>
+</resources>
