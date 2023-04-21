@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lv_login_with">Or login with…</string>
+    <string name="lv_new_to_leasepert">New to LeasePert?</string>
+    <string name="lv_register">Register</string>
+    <string name="lv_login">Login</string>
+    <string name="lv_email">Email</string>
+    <string name="lv_password">Password</string>
+    <string name="lv_enter_email_hint">Enter your email</string>
+    <string name="lv_logo">Logo</string>
+    <string name="lv_support_text_error" />
+    <string name="lv_google_logo_description">Google Logo</string>
+    <string name="lv_twitter_logo_description">Twitter Logo</string>
+    <string name="lv_facebook_logo_description">Facebook Logo</string>
+</resources>
