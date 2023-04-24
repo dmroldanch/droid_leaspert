@@ -46,7 +46,7 @@ fun CommunitylistUI() {
             .padding(top = cardPadding20, start = cardPadding10, end = cardPadding10)
     ) {
         Text(
-            text = stringResource(R.string.uI_title_community),
+            text = stringResource(R.string.title_community),
             modifier = Modifier.padding(start = cardPadding15),
             style = MaterialTheme.typography.titleMedium,
         )
