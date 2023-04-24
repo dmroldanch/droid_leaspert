@@ -6,7 +6,13 @@ import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.core.text.isDigitsOnly
 
-/* Class that enables to have number phone in USA format */
+/**
+ * Class that enables to have number phone in USA format.
+ * Inserts a separator depending on the number position.
+ *
+ * @author Yaritza Moreno
+ * @modifiedBy Jose Miguel Garcia Reyes
+* */
 
 class PhoneNumberTransformation : VisualTransformation {
     private val separator = " - "
@@ -14,7 +20,6 @@ class PhoneNumberTransformation : VisualTransformation {
         val separatorPositionA = 2
         val separatorPositionB = 5
         val phoneNumberRange = 0 .. 10
-
         val output = buildString {
             for ((index, char) in text.withIndex()) {
                 if (text.text.length <= 10 && text.text.isDigitsOnly())
@@ -27,14 +32,12 @@ class PhoneNumberTransformation : VisualTransformation {
         val separatorIndices = calculateSeparatorOffsets(output)
 
         val offsetTranslator = object : OffsetMapping {
-
             override fun originalToTransformed(offset: Int): Int {
                 return if (offset in phoneNumberRange)
                     outputOffsets[offset]
                 else
                     outputOffsets[10]
             }
-
             override fun transformedToOriginal(offset: Int): Int {
                 val separatorCharactersBeforeOffset = separatorIndices.count { it < offset }
                 return offset - separatorCharactersBeforeOffset

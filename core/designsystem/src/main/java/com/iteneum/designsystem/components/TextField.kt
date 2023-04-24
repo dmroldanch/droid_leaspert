@@ -334,10 +334,10 @@ fun LPPhoneNumberText(
         placeholder = { Text(text = stringResource(id = R.string.LPContactPhone_mask)) },
         value = value,
         onValueChange = {
-            if ( it.matches(numbersOnlyExpression) && it.length <= maxCharactersAllowed )
+            if (it.matches(numbersOnlyExpression) && it.length <= maxCharactersAllowed)
                 phoneNumberText = it
             else
-                Toast.makeText(context,"Not a valid input", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Not a valid input", Toast.LENGTH_SHORT).show()
             onPhoneChange(it)
         },
         isError = isNotValid,
@@ -351,7 +351,7 @@ fun LPPhoneNumberText(
         ),
         visualTransformation = {
             phoneNumberTransformation.filter(AnnotatedString(phoneNumberText))
-                               },
+        },
         enabled = isEnabled,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             textColor = Color.Black,
