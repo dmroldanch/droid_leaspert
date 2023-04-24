@@ -26,10 +26,10 @@ fun RepairView() {
     val optionsPermissionRadioButtons = stringArrayResource(id = R.array.options_radio_button)
     val optionsPetInUnit = stringArrayResource(id = R.array.options_pet_in_unit)
     val optionsCategory = stringArrayResource(id = R.array.options_category)
-    var isAValidDescription by remember {
+    var isValidDescription by remember {
         mutableStateOf(false)
     }
-    var isAValidNumber by remember {
+    var isValidPhone by remember {
         mutableStateOf(false)
     }
     var optionSelectedRadioButtons by remember {
@@ -74,10 +74,10 @@ fun RepairView() {
                 ),
                 value = contactPhoneNumberValue,
                 onPhoneChange = {
-                    isAValidNumber = it.isEmpty() || it.length != 10
+                    isValidPhone = it.isEmpty() || it.length != 10
                     contactPhoneNumberValue = it
                 },
-                isValid = isAValidNumber,
+                isNotValid = isValidPhone,
                 supportTextError = "Not a valid number"
             )
             DropdownTextField(
@@ -112,10 +112,10 @@ fun RepairView() {
                     .fillMaxWidth(),
                 label = stringResource(id = R.string.label_description),
                 hint = stringResource(id = R.string.hint_description),
-                isValid = isAValidDescription,
+                isValid = isValidDescription,
                 supportTextError = stringResource(id = R.string.support_error_description),
                 onValueChange = {
-                    isAValidDescription = it.isEmpty() || it.matches(Regex(".*[a-zA-Z]+.*")).not()
+                    isValidDescription = it.isEmpty() || it.matches(Regex(".*[a-zA-Z]+.*")).not()
                 }
             )
             Text(

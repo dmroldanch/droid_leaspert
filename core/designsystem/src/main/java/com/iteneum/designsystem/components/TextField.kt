@@ -1,5 +1,6 @@
 package com.iteneum.designsystem.components
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
@@ -9,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
@@ -304,7 +306,7 @@ fun DropdownTextField(
  * @param modifier Set component modifier
  * @param value Current contact phone text value
  * @param isEnabled Establish the button is enabled and ready to use
- * @param isValid Indicates if the value introduced is valid
+ * @param isNotValid Indicates if the value introduced is not valid
  * @param supportTextError Indicates the error message when is not valid
  * @param onPhoneChange Returns value typed, using high order functions
  *
@@ -317,39 +319,39 @@ fun LPPhoneNumberText(
     modifier: Modifier = Modifier,
     value: String,
     isEnabled: Boolean = true,
-    isValid: Boolean,
+    isNotValid: Boolean,
     supportTextError: String,
     onPhoneChange: (String) -> Unit
 ) {
     var phoneNumberText by remember { mutableStateOf("") }
+    val numbersOnlyExpression = remember { Regex("^\\d*\$") }
     val phoneNumberTransformation = PhoneNumberTransformation()
-    val numbersOnlyExpression = Regex("^[0-9]*\$")
     val maxCharactersAllowed = 10
+    val context = LocalContext.current
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         label = { Text(text = stringResource(id = R.string.LPContactPhone)) },
         placeholder = { Text(text = stringResource(id = R.string.LPContactPhone_mask)) },
         value = value,
-        onValueChange = { it ->
-            phoneNumberText = if ( it.length > maxCharactersAllowed ) {
-                it.substring(0, it.length.coerceAtMost(10))
-            } else if ( !(it.matches(numbersOnlyExpression)) ) {
-                it.filter { it.isDigit() }
-            } else {
-                it
-            }
+        onValueChange = {
+            if ( it.matches(numbersOnlyExpression) && it.length <= maxCharactersAllowed )
+                phoneNumberText = it
+            else
+                Toast.makeText(context,"Not a valid input", Toast.LENGTH_SHORT).show()
             onPhoneChange(it)
         },
-        isError = isValid,
+        isError = isNotValid,
         supportingText = {
-            if (isValid)
+            if (isNotValid)
                 Text(text = supportTextError)
-                         },
+        },
         textStyle = TextStyle(fontSize = 18.sp),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,
         ),
-        visualTransformation = { phoneNumberTransformation.filter(AnnotatedString(phoneNumberText)) },
+        visualTransformation = {
+            phoneNumberTransformation.filter(AnnotatedString(phoneNumberText))
+                               },
         enabled = isEnabled,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             textColor = Color.Black,
