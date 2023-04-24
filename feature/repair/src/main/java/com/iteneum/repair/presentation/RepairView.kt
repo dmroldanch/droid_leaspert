@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.core.text.isDigitsOnly
 import com.iteneum.designsystem.components.*
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.theme.LeasePertTheme
@@ -29,7 +30,7 @@ fun RepairView() {
     var isValidDescription by remember {
         mutableStateOf(false)
     }
-    var isValidPhone by remember {
+    var isNotValidPhone by remember {
         mutableStateOf(false)
     }
     var optionSelectedRadioButtons by remember {
@@ -74,11 +75,12 @@ fun RepairView() {
                 ),
                 value = contactPhoneNumberValue,
                 onPhoneChange = {
-                    isValidPhone = it.isEmpty() || it.length != 10
-                    contactPhoneNumberValue = it
+                    isNotValidPhone = it.isEmpty() || it.length < 10
+                    if (it.isDigitsOnly() && it.length <= 10)
+                        contactPhoneNumberValue = it
                 },
-                isNotValid = isValidPhone,
-                supportTextError = "Not a valid number"
+                isNotValid = isNotValidPhone,
+                supportTextError = stringResource(id = R.string.support_error_phone)
             )
             DropdownTextField(
                 modifier = Modifier.padding(

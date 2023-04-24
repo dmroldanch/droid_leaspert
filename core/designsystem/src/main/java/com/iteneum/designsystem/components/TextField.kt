@@ -311,7 +311,7 @@ fun DropdownTextField(
  * @param onPhoneChange Returns value typed, using high order functions
  *
  * @author Yaritza Moreno
- * @author Jose Miguel Garcia Reyes (fixes)
+ * @modifiedBy Jose Miguel Garcia Reyes
  */
 @ExperimentalMaterial3Api
 @Composable

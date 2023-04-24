@@ -1,6 +1,5 @@
 package com.iteneum.designsystem.components.phonenumbertext
 
-import android.util.Log
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
@@ -14,20 +13,14 @@ class PhoneNumberTransformation : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
         val separatorPositionA = 2
         val separatorPositionB = 5
+        val phoneNumberRange = 0 .. 10
 
         val output = buildString {
             for ((index, char) in text.withIndex()) {
-                Log.d("ATTENTION", "TEXT IS -> ${text.text}")
-                if (text.text.length <= 10 && text.text.isDigitsOnly()) {
+                if (text.text.length <= 10 && text.text.isDigitsOnly())
                     append(char)
-                    Log.d("CHECK_NUMBER", "APPENDABLE")
-                } else {
-                    Log.d("ERROR", "NOT APPENDABLE")
-                }
-                if (index == separatorPositionA || index == separatorPositionB) {
+                if (index == separatorPositionA || index == separatorPositionB)
                     append(separator)
-                    Log.d("CHECK_SEPARATOR", "APPENDABLE")
-                }
             }
         }
         val outputOffsets = calculateOutputOffsets(output)
@@ -36,7 +29,7 @@ class PhoneNumberTransformation : VisualTransformation {
         val offsetTranslator = object : OffsetMapping {
 
             override fun originalToTransformed(offset: Int): Int {
-                return if (offset in 0..10)
+                return if (offset in phoneNumberRange)
                     outputOffsets[offset]
                 else
                     outputOffsets[10]
