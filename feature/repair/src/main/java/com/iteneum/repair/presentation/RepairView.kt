@@ -27,9 +27,6 @@ fun RepairView() {
     val optionsPermissionRadioButtons = stringArrayResource(id = R.array.options_radio_button)
     val optionsPetInUnit = stringArrayResource(id = R.array.options_pet_in_unit)
     val optionsCategory = stringArrayResource(id = R.array.options_category)
-    var isValidDescription by remember {
-        mutableStateOf(false)
-    }
     var isNotValidPhone by remember {
         mutableStateOf(false)
     }
@@ -57,21 +54,20 @@ fun RepairView() {
                     style = LPTypography.headlineSmall
                 )
             }
-            LpOutlinedTextField(
+            LpOutlinedTextFieldInput(
                 modifier = Modifier
                     .padding(
                         top = sizes.minorRegularSize
                     )
                     .fillMaxWidth(),
+                enabled = false,
                 label = stringResource(id = R.string.label_unit),
                 hint = stringResource(id = R.string.hint_unit),
-                isValid = false,
-                supportTextError = stringResource(id = R.string.support_error_unit),
-                onValueChange = {/* TODO - Unit Text field - Change component, to Unit type and Disable it */ }
+                onValueChange = {/* TODO - Unit Text field - To verify if extra functionality required */ }
             )
             LPPhoneNumberText(
                 modifier = Modifier.padding(
-                    top = sizes.extraSize10
+                    top = sizes.extraSize14
                 ),
                 value = contactPhoneNumberValue,
                 onPhoneChange = {
@@ -84,7 +80,7 @@ fun RepairView() {
             )
             DropdownTextField(
                 modifier = Modifier.padding(
-                    top = sizes.extraSize10
+                    top = sizes.extraSize14
                 ),
                 title = stringResource(id = R.string.label_pet_in_unit),
                 items = optionsPetInUnit.toList(),
@@ -93,7 +89,7 @@ fun RepairView() {
             Text(
                 text = stringResource(id = R.string.text_service),
                 modifier = Modifier.padding(
-                    top = sizes.extraSize10
+                    top = sizes.extraSize14
                 ),
                 style = LPTypography.bodyLarge
             )
@@ -105,32 +101,28 @@ fun RepairView() {
                 items = optionsCategory.toList(),
                 selected = {/* TODO - Category field - To verify if extra functionality required */ }
             )
-            LpOutlinedTextField(
+            LpOutlinedTextFieldInput(
                 modifier = Modifier
                     .padding(
-                        top = sizes.extraSize10
+                        top = sizes.extraSize14
                     )
                     .height(height = sizes.extraSize104)
                     .fillMaxWidth(),
                 label = stringResource(id = R.string.label_description),
                 hint = stringResource(id = R.string.hint_description),
-                isValid = isValidDescription,
-                supportTextError = stringResource(id = R.string.support_error_description),
-                onValueChange = {
-                    isValidDescription = it.isEmpty() || it.matches(Regex(".*[a-zA-Z]+.*")).not()
-                }
+                onValueChange = {/* TODO - Description field - To verify if extra functionality required */ }
             )
             Text(
                 text = stringResource(id = R.string.text_video_button),
                 modifier = Modifier.padding(
-                    top = sizes.extraSize10
+                    top = sizes.extraSize14
                 ),
                 style = LPTypography.bodyLarge
             )
             LpFileButton(
                 modifier = Modifier
                     .padding(
-                        top = sizes.extraSize6
+                        top = sizes.extraSize10
                     )
                     .fillMaxWidth(),
                 mimeTypes = arrayOf("video/*", "image/*"),
@@ -145,7 +137,7 @@ fun RepairView() {
             )
             LpRadioGroup(
                 modifier = Modifier.padding(
-                    start = sizes.extraSize10,
+                    start = sizes.extraSize6,
                     top = sizes.extraSize10
                 ),
                 options = optionsPermissionRadioButtons.toList(),
