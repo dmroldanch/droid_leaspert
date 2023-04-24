@@ -5,6 +5,7 @@
     <string name="hint_unit">Alphanumeric</string>
     <string name="label_unit">Unit</string>
     <string name="support_error_unit">Field already filled</string>
+    <string name="support_error_phone">Not a valid number</string>
     <string name="label_contact_phone">Contact Phone</string>
     <string name="hint_contact_phone">Number</string>
     <string name="label_pet_in_unit">Pet in Unit</string>

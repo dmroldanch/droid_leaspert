@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.core.text.isDigitsOnly
 import com.iteneum.designsystem.components.*
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.theme.LeasePertTheme
@@ -26,7 +27,10 @@ fun RepairView() {
     val optionsPermissionRadioButtons = stringArrayResource(id = R.array.options_radio_button)
     val optionsPetInUnit = stringArrayResource(id = R.array.options_pet_in_unit)
     val optionsCategory = stringArrayResource(id = R.array.options_category)
-    var isAValidDescription by remember {
+    var isValidDescription by remember {
+        mutableStateOf(false)
+    }
+    var isNotValidPhone by remember {
         mutableStateOf(false)
     }
     var optionSelectedRadioButtons by remember {
@@ -63,7 +67,7 @@ fun RepairView() {
                 hint = stringResource(id = R.string.hint_unit),
                 isValid = false,
                 supportTextError = stringResource(id = R.string.support_error_unit),
-                onValueChange = {/* TODO - Unit Text field - Change component, to Unit type and Disable it */}
+                onValueChange = {/* TODO - Unit Text field - Change component, to Unit type and Disable it */ }
             )
             LPPhoneNumberText(
                 modifier = Modifier.padding(
@@ -71,8 +75,12 @@ fun RepairView() {
                 ),
                 value = contactPhoneNumberValue,
                 onPhoneChange = {
-                    contactPhoneNumberValue = it
-                }
+                    isNotValidPhone = it.isEmpty() || it.length < 10
+                    if (it.isDigitsOnly() && it.length <= 10)
+                        contactPhoneNumberValue = it
+                },
+                isNotValid = isNotValidPhone,
+                supportTextError = stringResource(id = R.string.support_error_phone)
             )
             DropdownTextField(
                 modifier = Modifier.padding(
@@ -80,7 +88,7 @@ fun RepairView() {
                 ),
                 title = stringResource(id = R.string.label_pet_in_unit),
                 items = optionsPetInUnit.toList(),
-                selected = {/* TODO - PetInUnit field - To verify if extra functionality required */}
+                selected = {/* TODO - PetInUnit field - To verify if extra functionality required */ }
             )
             Text(
                 text = stringResource(id = R.string.text_service),
@@ -95,7 +103,7 @@ fun RepairView() {
                 ),
                 title = stringResource(id = R.string.label_category),
                 items = optionsCategory.toList(),
-                selected = {/* TODO - Category field - To verify if extra functionality required */}
+                selected = {/* TODO - Category field - To verify if extra functionality required */ }
             )
             LpOutlinedTextField(
                 modifier = Modifier
@@ -106,10 +114,10 @@ fun RepairView() {
                     .fillMaxWidth(),
                 label = stringResource(id = R.string.label_description),
                 hint = stringResource(id = R.string.hint_description),
-                isValid = isAValidDescription,
+                isValid = isValidDescription,
                 supportTextError = stringResource(id = R.string.support_error_description),
                 onValueChange = {
-                    isAValidDescription = it.isEmpty() || it.matches(Regex(".*[a-zA-Z]+.*")).not()
+                    isValidDescription = it.isEmpty() || it.matches(Regex(".*[a-zA-Z]+.*")).not()
                 }
             )
             Text(
@@ -126,7 +134,7 @@ fun RepairView() {
                     )
                     .fillMaxWidth(),
                 mimeTypes = arrayOf("video/*", "image/*"),
-                onFileSelected = {/* TODO - File Button - Add functionality to save files */}
+                onFileSelected = {/* TODO - File Button - Add functionality to save files */ }
             )
             Text(
                 text = stringResource(id = R.string.text_permission),
@@ -154,7 +162,7 @@ fun RepairView() {
                     )
                     .fillMaxWidth(),
                 textButton = stringResource(id = R.string.text_repair_send_button),
-                onClick = {/* TODO - Send Repair Button - Add functionality to save repair request info */}
+                onClick = {/* TODO - Send Repair Button - Add functionality to save repair request info */ }
             )
         }
     }
