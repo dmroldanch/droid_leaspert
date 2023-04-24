@@ -34,7 +34,6 @@ android {
 }
 
 dependencies {
-    implementation libs.hiltAndroid
     implementation libs.bundles.hilt
     implementation libs.bundles.compose
     implementation project(":core:designsystem")
