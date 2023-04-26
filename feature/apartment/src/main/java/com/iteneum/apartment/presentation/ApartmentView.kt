@@ -88,7 +88,7 @@ fun PaymentsSection(
     modifier: Modifier,
     month: String,
     quantityToPay: String,
-    limitDateToPay: String,
+    limitDateToPay: String
 ) {
     Column() {
         Row(
@@ -187,7 +187,7 @@ fun RepairsSection() {
 fun RepairStatusRow(
     modifier: Modifier = Modifier,
     titleStatusRepairs: String,
-    quantityStatusRepairs: Int = 0,
+    quantityStatusRepairs: Int = 0
 ) {
     Row(
         modifier = modifier
