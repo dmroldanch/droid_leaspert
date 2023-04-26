@@ -17,6 +17,7 @@ import com.iteneum.designsystem.components.LPTitleLarge
 import com.iteneum.designsystem.components.LpGenericChip
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.components.LpPaymentsRentCard
+import java.sql.Timestamp
 
 /**
  * [ApartmentView] The apartment view is the main function, container and screen where all the sections of the view it be contained like:
@@ -109,8 +110,8 @@ fun PaymentsSection(
         LpPaymentsRentCard(
             modifier = Modifier.fillMaxWidth(),
             month = month,
-            quantity = quantityToPay,
-            date = limitDateToPay
+            quantity = 999.00,
+            date = Timestamp(33344)
         )
     }
 }
