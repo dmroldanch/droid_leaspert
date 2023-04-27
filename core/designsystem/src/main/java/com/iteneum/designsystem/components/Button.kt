@@ -7,17 +7,14 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
@@ -26,6 +23,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.FloatingActionButtonElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButtonDefaults
@@ -34,7 +32,6 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,6 +43,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.R
 import com.iteneum.designsystem.theme.LeasePertTheme
@@ -57,7 +55,7 @@ import com.iteneum.designsystem.utils.getFileName
  * @param modifier Modifier is for specify style and params of the button, like for example the width of the component.
  * @param textButton TextButton is for set a text what the button show in to the UI
  * @param icon is for when uses this component can assign some icon depend of their function, but can not contain some icon.
- * @param onClick High order function for assign functionality to the button.
+ * @param onClicked High order function for assign functionality to the button.
  *
  * @author Usiel Filiberto Garcia Jimenez
  */
@@ -66,10 +64,10 @@ fun LpOutlinedButton(
     modifier: Modifier,
     textButton: String,
     icon: ImageVector? = null,
-    onClick: () -> Unit
+    onClicked: () -> Unit
 ) {
     OutlinedButton(
-        onClick = onClick,
+        onClick = onClicked,
         modifier = modifier,
         shape = RoundedCornerShape(size = LeasePertTheme.sizes.midSmallSize),
         border = BorderStroke(
@@ -84,22 +82,26 @@ fun LpOutlinedButton(
         Row(modifier = Modifier.fillMaxWidth()) {
             icon?.let {
                 Icon(
+                    modifier = Modifier.padding(end = LeasePertTheme.sizes.smallerSize),
                     imageVector = icon,
-                    contentDescription = textButton,
-                    modifier = Modifier.size(ButtonDefaults.IconSize)
+                    contentDescription = textButton
                 )
-                Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing))
             }
-            Text(text = textButton, style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = textButton,
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.SemiBold
+            )
         }
     }
 }
+
 /**
  * [LpFilledTonalButton] is a button for show in the login UI, is a button for the logic login
  *
  * @param modifier Modifier is for specify style and params of the button, like for example the width of the component.
  * @param textButton TextButton is for set a text what the button show in to the UI
- * @param onClick High order function for assign functionality to the button.
+ * @param onClicked High order function for assign functionality to the button.
  *
  * @author Usiel Filiberto Garcia Jimenez
  */
@@ -107,10 +109,10 @@ fun LpOutlinedButton(
 fun LpFilledTonalButton(
     modifier: Modifier,
     textButton: String,
-    onClick: () -> Unit
+    onClicked: () -> Unit
 ) {
     FilledTonalButton(
-        onClick = onClick,
+        onClick = onClicked,
         modifier = modifier,
         shape = RoundedCornerShape(LeasePertTheme.sizes.midSmallSize),
         colors = ButtonDefaults.buttonColors(
@@ -121,36 +123,42 @@ fun LpFilledTonalButton(
         Text(text = textButton, style = MaterialTheme.typography.titleSmall)
     }
 }
+
 /**
- * Create [LpEditFloatingActionButton] compose for user's posts
+ * Create [LpFloatingActionIconButton] compose for user's posts
  *
  * @param modifier to modify an specific property of the card
- * @param onClick high order function
+ * @param onClicked high order function
  * @param elevation FloatingActionButtonDefaults.elevation(dp's of the component elevation)
- * @param color Container color
- * @param colors Content color
+ * @param containerColor Container color
+ * @param iconColor Content color
  *
  * @author Juan Ramon Islas Huesca
  */
 @Composable
-fun LpEditFloatingActionButton(
+fun LpFloatingActionIconButton(
     modifier: Modifier = Modifier,
-    color: Color = MaterialTheme.colorScheme.primary,
-    colors: Color = contentColorFor(backgroundColor = MaterialTheme.colorScheme.onPrimary),
-    elevation: FloatingActionButtonElevation,
-    onClick: () -> Unit
+    containerColor: Color = MaterialTheme.colorScheme.primary,
+    iconColor: Color = MaterialTheme.colorScheme.onPrimary,
+    elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
+    icon: ImageVector,
+    contentDescription: String,
+    onClicked: () -> Unit
 ) {
     FloatingActionButton(
-        onClick = onClick,
+        onClick = onClicked,
         modifier = modifier
             .padding(LeasePertTheme.sizes.smallSize)
             .height(LeasePertTheme.sizes.extraSize48)
             .width(LeasePertTheme.sizes.extraSize48),
-        containerColor = color,
-        contentColor = colors,
+        containerColor = containerColor,
         elevation = elevation
     ) {
-        Icon(Icons.Outlined.Edit, "edit button", tint = MaterialTheme.colorScheme.onPrimary)
+        Icon(
+            imageVector = icon,
+            contentDescription = contentDescription,
+            tint = iconColor
+        )
     }
 }
 
@@ -161,7 +169,7 @@ fun LpEditFloatingActionButton(
  * @param badgeNumber to modify the string number of notifications shown
  * @param showBadge to enable the number of notifications to be displayed
  * @param imageVector to modify the icon to be displayed
- * @param onClick high order function, to define button action
+ * @param onClicked high order function, to define button action
  *
  * @author Jose Miguel Garcia Reyes
  */
@@ -173,14 +181,14 @@ fun LpBadgeButton(
     badgeNumber: String = "0",
     showBadge: Boolean = false,
     imageVector: ImageVector = Icons.Filled.Notifications,
-    onClick: () -> Unit = {}
+    onClicked: () -> Unit = {}
 ) {
     val dp02 = LeasePertTheme.sizes.middleSize
     val dp16 = LeasePertTheme.sizes.smallSize
     val dp08 = LeasePertTheme.sizes.smallerSize
     Box(modifier = modifier) {
         FilledIconButton(
-            onClick = onClick,
+            onClick = onClicked,
             colors = IconButtonDefaults.filledIconButtonColors(MaterialTheme.colorScheme.primary)
         ) {
             Icon(
@@ -230,8 +238,8 @@ fun LpBadgeButton(
 fun LpFileButton(
     modifier: Modifier,
     mimeTypes: Array<String>,
-    textButton: String = "Choose File",
-    textHint: String = "No selected file...",
+    textButton: String = stringResource(R.string.text_choose_file),
+    textHint: String = stringResource(R.string.text_no_selected_file),
     onFileSelected: (Uri) -> Unit,
 ) {
     val contentResolver = LocalContext.current.contentResolver
@@ -266,9 +274,9 @@ fun LpFileButton(
         }
         Text(
             modifier = Modifier.padding(start = LeasePertTheme.sizes.smallSize),
-            text = fileName.ifEmpty { "Unable to get file name" },
+            text = fileName.ifEmpty { stringResource(R.string.text_unable_to_get_file_name) },
             fontSize = 18.sp,
-            color = Color.Gray
+            color = MaterialTheme.colorScheme.tertiary
         )
     }
 }
@@ -296,6 +304,7 @@ fun LpRadioGroup(
                     selected = false,
                     onClick = { onOptionSelected(option) }
                 )
+                .padding(bottom = LeasePertTheme.sizes.smallerSize)
             ) {
                 RadioButton(
                     selected = (option == selectedOption),
@@ -304,9 +313,13 @@ fun LpRadioGroup(
                         selectedColor = MaterialTheme.colorScheme.onPrimary
                     )
                 )
-                Text(text = option, Modifier.padding(start = LeasePertTheme.sizes.extraSize10))
+                Text(
+                    text = option, Modifier.padding(
+                        start = LeasePertTheme.sizes.smallerSize,
+                        end = LeasePertTheme.sizes.extraSize10
+                    )
+                )
             }
-            Spacer(modifier = Modifier.size(LeasePertTheme.sizes.largeSize))
         }
     }
 }
