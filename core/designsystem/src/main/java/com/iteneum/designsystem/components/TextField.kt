@@ -2,9 +2,12 @@ package com.iteneum.designsystem.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -13,10 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.R
 import com.iteneum.designsystem.components.phonenumbertext.mobileNumberFilter
@@ -25,7 +25,7 @@ import com.iteneum.designsystem.components.phonenumbertext.mobileNumberFilter
  * This function creates a password OutlinedTextField
  * @param modifier Set component modifier
  * @param value Current password value
- * @param isValid Validate if text is valid
+ * @param isPasswordError Validate if text is valid
  * @param supportTextError This parameter determines whether the error is displayed or not
  * @param onPasswordChange Returns value typed
  *
@@ -37,11 +37,12 @@ import com.iteneum.designsystem.components.phonenumbertext.mobileNumberFilter
 fun LpOutlinedTextFieldPassword(
     modifier: Modifier,
     value: String,
-    isValid: Boolean,
+    isPasswordError: Boolean,
     supportTextError: String,
     onPasswordChange: (String) -> Unit
 ) {
     var passwordFieldValue by remember { mutableStateOf(TextFieldValue("")) }
+    var passwordVisible by remember { mutableStateOf(false) }
 
     OutlinedTextField(
         value = passwordFieldValue,
@@ -57,25 +58,32 @@ fun LpOutlinedTextFieldPassword(
             focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
             errorLabelColor = MaterialTheme.colorScheme.error,
             errorBorderColor = MaterialTheme.colorScheme.error,
-            errorSupportingTextColor = MaterialTheme.colorScheme.error
+            errorSupportingTextColor = MaterialTheme.colorScheme.error,
+            unfocusedLabelColor = MaterialTheme.colorScheme.onPrimary
         ),
-        isError = isValid,
-        supportingText = {
-            if (isValid) {
-                Text(text = supportTextError)
-            } else {
-                Text(text = "")
-            }
-        },
+        isError = isPasswordError,
+        supportingText = { if (isPasswordError) Text(text = supportTextError) else Text(text = "") },
         singleLine = true,
         maxLines = 1,
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Password
         ),
-        visualTransformation = PasswordVisualTransformation()
+        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+        trailingIcon = {
+            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                Icon(
+                    imageVector =
+                    if (passwordVisible) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
+                    contentDescription =
+                    if (passwordVisible) 
+                        stringResource(id = R.string.OTFPasswordHideContent)
+                    else 
+                        stringResource(id = R.string.OTFPasswordShowContent)
+                )
+            }
+        }
     )
 }
-
 
 /**
  * This function creates a generic OutlinedTextField
@@ -118,13 +126,7 @@ fun LpOutlinedTextField(
             errorSupportingTextColor = MaterialTheme.colorScheme.error
         ),
         isError = isValid,
-        supportingText = {
-            if (isValid) {
-                Text(text = supportTextError)
-            } else {
-                Text(text = "")
-            }
-        },
+        supportingText = { if (isValid) Text(text = supportTextError) else Text(text = "") },
         singleLine = true,
         maxLines = 1,
         shape = MaterialTheme.shapes.small,
@@ -138,7 +140,7 @@ fun LpOutlinedTextField(
  * This function creates an Email OutlinedTextField
  * @param modifier Set component modifier
  * @param label Text label
- * @param isValid Validate if text is valid
+ * @param isEmailError Validate if text is valid
  * @param supportTextError Error message
  * @param onValueChange This parameter return the field value
  *
@@ -150,8 +152,10 @@ fun LpOutlinedTextField(
 fun LpOutlinedTextFieldMail(
     modifier: Modifier,
     label: String,
-    isValid: Boolean,
+    placeholder: String,
+    isEmailError: Boolean,
     supportTextError: String,
+    onImeActionPerformed: () -> Unit,
     onValueChange: (String) -> Unit
 ) {
     var emailFieldValue by remember { mutableStateOf(TextFieldValue("")) }
@@ -164,27 +168,26 @@ fun LpOutlinedTextFieldMail(
         },
         modifier = modifier,
         label = { Text(label, style = MaterialTheme.typography.bodyMedium) },
+        placeholder = { Text(placeholder) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
             unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
             focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
             errorLabelColor = MaterialTheme.colorScheme.error,
             errorBorderColor = MaterialTheme.colorScheme.error,
-            errorSupportingTextColor = MaterialTheme.colorScheme.error
+            errorSupportingTextColor = MaterialTheme.colorScheme.error,
+            placeholderColor = MaterialTheme.colorScheme.tertiary,
+            unfocusedLabelColor = MaterialTheme.colorScheme.onPrimary
         ),
-        isError = isValid,
-        supportingText = {
-            if (isValid) {
-                Text(text = supportTextError)
-            } else {
-                Text(text = "")
-            }
-        },
+        isError = isEmailError,
+        supportingText = { if (isEmailError) Text(text = supportTextError) else Text(text = "") },
         singleLine = true,
         maxLines = 1,
         keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = KeyboardType.Email
-        )
+            keyboardType = KeyboardType.Email,
+            imeAction = ImeAction.Next
+        ),
+        keyboardActions = KeyboardActions(onNext = { onImeActionPerformed() })
     )
 }
 
@@ -223,7 +226,7 @@ fun LpOutlinedTextFieldInput(
             unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
             errorBorderColor = MaterialTheme.colorScheme.error,
             errorLabelColor = MaterialTheme.colorScheme.error,
-            errorSupportingTextColor = MaterialTheme.colorScheme.error
+            errorSupportingTextColor = MaterialTheme.colorScheme.error,
         ),
         singleLine = true,
         maxLines = 1,

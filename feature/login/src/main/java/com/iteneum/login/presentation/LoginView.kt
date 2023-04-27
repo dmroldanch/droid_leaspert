@@ -8,8 +8,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -18,6 +23,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.iteneum.designsystem.components.LpFilledTonalButton
 import com.iteneum.designsystem.components.LpOutlinedTextFieldMail
 import com.iteneum.designsystem.components.LpOutlinedTextFieldPassword
@@ -33,15 +39,17 @@ import com.iteneum.login.R
  * @author Jesus Lopez
  */
 @Composable
-fun LoginView() {
+fun LoginView(loginViewModel: LoginViewModel = hiltViewModel()) {
     val sizes = LeasePertTheme.sizes
 
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
-
     ) {
-        val (logo, mail, password, tonalButton, loginWith, socialNetworkLogins, registerButton) = createRefs()
+        val (logo, emailField, passwordField, loginButton, loginWith, socialNetworkLogins, registerButton) = createRefs()
+        val focusRequester = remember { FocusRequester() }
+        val isEmailError by loginViewModel.isEmailError.collectAsState()
+        val isPasswordError by loginViewModel.isPasswordError.collectAsState()
 
         Image(
             painter = painterResource(id = leasepert_logo),
@@ -58,7 +66,7 @@ fun LoginView() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = sizes.extraSize36, end = sizes.extraSize36)
-                .constrainAs(mail) {
+                .constrainAs(emailField) {
                     top.linkTo(
                         logo.bottom,
                         goneMargin = sizes.extraSize100,
@@ -68,41 +76,46 @@ fun LoginView() {
                     end.linkTo(parent.end)
                 },
             label = stringResource(R.string.lv_email),
-            isValid = false,
-            supportTextError = stringResource(R.string.lv_support_text_error),
-            onValueChange = { /*TODO("This will change the value of the email")*/ }
+            placeholder = stringResource(R.string.lv_example_email),
+            isEmailError = isEmailError,
+            onImeActionPerformed = { focusRequester.requestFocus() },
+            supportTextError = stringResource(R.string.lv_valid_email_error),
+            onValueChange = { newEmail ->
+                loginViewModel.onEmailChanged(newEmail)
+            }
         )
         LpOutlinedTextFieldPassword(
             modifier = Modifier
                 .fillMaxWidth()
+                .focusRequester(focusRequester)
                 .padding(start = sizes.extraSize36, end = sizes.extraSize36)
-                .constrainAs(password) {
-                    top.linkTo(mail.bottom, margin = sizes.middleSize)
-                    start.linkTo(mail.start)
-                    end.linkTo(mail.end)
+                .constrainAs(passwordField) {
+                    top.linkTo(emailField.bottom, margin = sizes.middleSize)
+                    start.linkTo(emailField.start)
+                    end.linkTo(emailField.end)
                 },
-            onPasswordChange = { /*TODO("This will change the value of the password")*/ },
+            onPasswordChange = { loginViewModel.onPasswordChanged(it) },
             supportTextError = stringResource(R.string.lv_support_text_error),
-            isValid = false,
+            isPasswordError = isPasswordError,
             value = stringResource(R.string.lv_password)
         )
         LpFilledTonalButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = sizes.extraSize36, end = sizes.extraSize36)
-                .constrainAs(tonalButton) {
-                    top.linkTo(password.bottom, margin = sizes.extraSize18)
-                    start.linkTo(password.start)
-                    end.linkTo(password.end)
+                .constrainAs(loginButton) {
+                    top.linkTo(passwordField.bottom, margin = sizes.extraSize18)
+                    start.linkTo(passwordField.start)
+                    end.linkTo(passwordField.end)
                     width = Dimension.fillToConstraints
                 },
             textButton = stringResource(R.string.lv_login),
-            onClick = { /*TODO("It will verify the email and password and sign in the user")*/ },
+            onClick = { loginViewModel.onLoginClicked() },
         )
         Text(
             modifier = Modifier
                 .constrainAs(loginWith) {
-                    top.linkTo(tonalButton.bottom, margin = sizes.extraSize14)
+                    top.linkTo(loginButton.bottom, margin = sizes.extraSize14)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
