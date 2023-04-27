@@ -1,5 +1,6 @@
 package com.iteneum.designsystem.components
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
@@ -11,15 +12,17 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.*
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.R
-import com.iteneum.designsystem.components.phonenumbertext.mobileNumberFilter
+import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransformation
 
 /**
  * This function creates a password OutlinedTextField
@@ -42,7 +45,6 @@ fun LpOutlinedTextFieldPassword(
     onPasswordChange: (String) -> Unit
 ) {
     var passwordFieldValue by remember { mutableStateOf(TextFieldValue("")) }
-    var passwordVisible by remember { mutableStateOf(false) }
 
     OutlinedTextField(
         value = passwordFieldValue,
@@ -75,15 +77,16 @@ fun LpOutlinedTextFieldPassword(
                     imageVector =
                     if (passwordVisible) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
                     contentDescription =
-                    if (passwordVisible) 
+                    if (passwordVisible)
                         stringResource(id = R.string.OTFPasswordHideContent)
-                    else 
+                    else
                         stringResource(id = R.string.OTFPasswordShowContent)
                 )
             }
         }
     )
 }
+
 
 /**
  * This function creates a generic OutlinedTextField
@@ -307,12 +310,11 @@ fun DropdownTextField(
 /**
  * This function creates a phone number OutlinedTextField
  * @param modifier Set component modifier
- * @param value Current phone value
- * @param imeAction Signals the keyboard what type of action should be displayed
- * @param keyboardType Displays a phone keyboard
+ * @param value Current contact phone text value
  * @param isEnabled Establish the button is enabled and ready to use
- * @param showError This parameter determines whether the error is displayed or not
- * @param onPhoneChange Returns value typed
+ * @param isNotValid Indicates if the value introduced is not valid
+ * @param supportTextError Indicates the error message when is not valid
+ * @param onPhoneChange Returns value typed, using high order functions
  *
  * @author Yaritza Moreno
  */
@@ -321,41 +323,47 @@ fun DropdownTextField(
 fun LPPhoneNumberText(
     modifier: Modifier = Modifier,
     value: String,
-    imeAction: ImeAction = ImeAction.Next,
-    keyboardType: KeyboardType = KeyboardType.Phone,
     isEnabled: Boolean = true,
-    showError: Boolean = false,
+    isNotValid: Boolean,
+    supportTextError: String,
     onPhoneChange: (String) -> Unit
 ) {
-
-    //Text value for the TextField label
-    var text by remember { mutableStateOf("") }
-    val maxChar = 10
-    val focusManager = LocalFocusManager.current
-
+    var phoneNumberText by remember { mutableStateOf("") }
+    val numbersOnlyExpression = remember { Regex("^\\d*\$") }
+    val phoneNumberTransformation = PhoneNumberTransformation()
+    val maxCharactersAllowed = 10
+    val context = LocalContext.current
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         label = { Text(text = stringResource(id = R.string.LPContactPhone)) },
+        placeholder = { Text(text = stringResource(id = R.string.LPContactPhone_mask)) },
         value = value,
         onValueChange = {
-            text = it.take(maxChar)
-            if (it.length > maxChar) {
-                focusManager.moveFocus(FocusDirection.Down) // Or receive a lambda function
-            }
+            if (it.matches(numbersOnlyExpression) && it.length <= maxCharactersAllowed)
+                phoneNumberText = it
+            else
+                Toast.makeText(context, "Not a valid input", Toast.LENGTH_SHORT).show()
             onPhoneChange(it)
+        },
+        isError = isNotValid,
+        supportingText = {
+            if (isNotValid)
+                Text(text = supportTextError)
         },
         textStyle = TextStyle(fontSize = 18.sp),
         keyboardOptions = KeyboardOptions(
-            imeAction = imeAction,
-            keyboardType = keyboardType
+            keyboardType = KeyboardType.Number,
         ),
-        visualTransformation = { mobileNumberFilter(it) },
+        visualTransformation = {
+            phoneNumberTransformation.filter(AnnotatedString(phoneNumberText))
+        },
         enabled = isEnabled,
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            textColor = Color.Black,
             focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
             focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
-            cursorColor = MaterialTheme.colorScheme.onPrimary
+            unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+            cursorColor = MaterialTheme.colorScheme.onPrimary,
+            placeholderColor = MaterialTheme.colorScheme.onPrimary
         )
     )
 }

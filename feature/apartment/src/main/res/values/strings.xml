@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_status_open">Open</string>
+    <string name="text_title_information">Information</string>
+    <string name="leasing_documents">Leasing Documents</string>
+    <string name="apartment_photos">Apartment photos</string>
+    <string name="current_status">Current Status</string>
+    <string name="text_status_in_progress">In Progress</string>
+    <string name="text_status_closed">Closed</string>
+    <string name="text_title_section_repairs">Repairs</string>
+    <string name="text_title_section_payments">Payments</string>
+    <string name="text_button_history">History</string>
+    <string name="text_button_new">New</string>
+    <string name="text_title_apartment">Apartment</string>
+</resources>

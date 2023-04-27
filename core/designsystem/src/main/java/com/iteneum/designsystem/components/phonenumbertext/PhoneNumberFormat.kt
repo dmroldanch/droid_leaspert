@@ -1,44 +1,61 @@
 package com.iteneum.designsystem.components.phonenumbertext
 
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.core.text.isDigitsOnly
 
-/*This block of code give format
-* for number phone in USA format
+/**
+ * Class that enables to have number phone in USA format.
+ * Inserts a separator depending on the number position.
+ *
+ * @author Yaritza Moreno
+ * @modifiedBy Jose Miguel Garcia Reyes
 * */
-const val mask = "xxx xxx xxxx"
-fun mobileNumberFilter(text: AnnotatedString): TransformedText {
-    // change the length
-    val trimmed =
-        if (text.text.length >= 10) text.text.substring(0..9) else text.text
 
-    val annotatedString = AnnotatedString.Builder().run {
-        for (i in trimmed.indices) {
-            append(trimmed[i])
-            if (i == 2 || i == 5) {
-                append(" ")
+class PhoneNumberTransformation : VisualTransformation {
+    private val separator = " - "
+    override fun filter(text: AnnotatedString): TransformedText {
+        val separatorPositionA = 2
+        val separatorPositionB = 5
+        val phoneNumberRange = 0 .. 10
+        val output = buildString {
+            for ((index, char) in text.withIndex()) {
+                if (text.text.length <= 10 && text.text.isDigitsOnly())
+                    append(char)
+                if (index == separatorPositionA || index == separatorPositionB)
+                    append(separator)
             }
         }
-        pushStyle(SpanStyle(color = Color.LightGray))
-        append(mask.takeLast(mask.length - length))
-        toAnnotatedString()
-    }
+        val outputOffsets = calculateOutputOffsets(output)
+        val separatorIndices = calculateSeparatorOffsets(output)
 
-    val phoneNumberOffsetTranslator = object : OffsetMapping {
-        override fun originalToTransformed(offset: Int): Int {
-            if (offset <= 2) return offset
-            if (offset <= 5) return offset + 1
-            return 12
+        val offsetTranslator = object : OffsetMapping {
+            override fun originalToTransformed(offset: Int): Int {
+                return if (offset in phoneNumberRange)
+                    outputOffsets[offset]
+                else
+                    outputOffsets[10]
+            }
+            override fun transformedToOriginal(offset: Int): Int {
+                val separatorCharactersBeforeOffset = separatorIndices.count { it < offset }
+                return offset - separatorCharactersBeforeOffset
+            }
         }
-
-        override fun transformedToOriginal(offset: Int): Int {
-            if (offset <= 2) return offset
-            if (offset <= 5) return offset - 1
-            return 10
-        }
+        return TransformedText(AnnotatedString(output), offsetTranslator)
     }
-    return TransformedText(annotatedString, phoneNumberOffsetTranslator)
+}
+
+private fun calculateOutputOffsets(output: String): List<Int> {
+    val digitOffsets = output.mapIndexedNotNull { index, char ->
+        index.takeIf { char.isDigit() }?.plus(1)
+    }
+    return listOf(0) + digitOffsets.dropLast(1) + output.length
+}
+
+private fun calculateSeparatorOffsets(output: String): List<Int> {
+    return output.mapIndexedNotNull { index, c ->
+        index.takeUnless { c.isDigit() }
+    }
 }
