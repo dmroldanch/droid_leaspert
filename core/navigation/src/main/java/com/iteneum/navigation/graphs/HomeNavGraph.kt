@@ -5,7 +5,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.iteneum.apartment.presentation.ApartmentView
-import com.iteneum.community.presentation.CommunitylistUI
 import com.iteneum.dashboard.presentation.DashboardView
 import com.iteneum.navigation.BottomBar
 import com.iteneum.office.presentation.ui.OfficeUI
@@ -36,7 +35,7 @@ fun HomeNavGraph(navController: NavHostController) {
                 )
         }
         composable(route = BottomBar.COMMUNITY.route) {
-                CommunitylistUI()
+               // CommunitylistUI()
         }
 
         composable(route = BottomBar.OFFICE.route) {
