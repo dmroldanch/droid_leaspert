@@ -2,7 +2,11 @@ package com.iteneum.designsystem.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -23,7 +27,7 @@ import com.iteneum.designsystem.theme.LeasePertTheme
  *
  * @param modifier to modify an specific property of the chip
  * @param label as an example: 'History', 'Pay Now' or '+ New'
- * @param onClick this is the clickable option
+ * @param onClicked this is the clickable option
  * @param icon an optional icon before the label
  *
  * @author Juan Islas
@@ -33,7 +37,7 @@ fun LpGenericChip(
     modifier: Modifier = Modifier,
     label: String,
     icon: ImageVector? = null,
-    onClick: () -> Unit
+    onClicked: () -> Unit
 ) {
     val sizes = LeasePertTheme.sizes
     Box(
@@ -43,7 +47,7 @@ fun LpGenericChip(
             .padding(
                 all = sizes.midSmallSize,
             )
-            .clickable { onClick },
+            .clickable(onClick = onClicked),
         contentAlignment = Alignment.Center
     ) {
         Row(

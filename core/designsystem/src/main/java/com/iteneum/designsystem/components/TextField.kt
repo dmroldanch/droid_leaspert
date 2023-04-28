@@ -31,7 +31,7 @@ import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransforma
  * @param value Current password value
  * @param isPasswordError Boolean to check if there is an error on the password
  * @param supportTextError This parameter determines whether the error is displayed or not
- * @param onPasswordChange Returns value typed
+ * @param onPasswordChanged Returns value typed
  *
  * @author Jose G. Rivera
  * @modifiedBy Jesus Lopez
@@ -43,7 +43,7 @@ fun LpOutlinedTextFieldPassword(
     value: String,
     isPasswordError: Boolean,
     supportTextError: String,
-    onPasswordChange: (String) -> Unit
+    onPasswordChanged: (String) -> Unit
 ) {
     var passwordFieldValue by remember { mutableStateOf(TextFieldValue("")) }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -52,10 +52,16 @@ fun LpOutlinedTextFieldPassword(
         value = passwordFieldValue,
         onValueChange = {
             passwordFieldValue = it
-            onPasswordChange(passwordFieldValue.text)
+            onPasswordChanged(passwordFieldValue.text)
         },
         modifier = modifier,
-        label = { Text(value, style = MaterialTheme.typography.bodyMedium) },
+        label = {
+            Text(
+                text = value,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.tertiary
+            )
+        },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
             unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
@@ -97,7 +103,7 @@ fun LpOutlinedTextFieldPassword(
  * @param hint Hint message
  * @param isValid Validate if text is valid
  * @param supportTextError Error message
- * @param onValueChange This parameter return the field value
+ * @param onValueChanged This parameter return the field value
  *
  * @author Jesus Lopez
  */
@@ -109,7 +115,7 @@ fun LpOutlinedTextField(
     hint: String,
     isValid: Boolean,
     supportTextError: String,
-    onValueChange: (String) -> Unit
+    onValueChanged: (String) -> Unit
 ) {
     var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
 
@@ -117,11 +123,21 @@ fun LpOutlinedTextField(
         value = textFieldValue,
         onValueChange = {
             textFieldValue = it
-            onValueChange(textFieldValue.text)
+            onValueChanged(textFieldValue.text)
         },
         modifier = modifier,
-        label = { Text(label) },
-        placeholder = { Text(hint) },
+        label = {
+            Text(
+                text = label,
+                color = MaterialTheme.colorScheme.tertiary
+            )
+        },
+        placeholder = {
+            Text(
+                text = hint,
+                color = MaterialTheme.colorScheme.tertiary
+            )
+        },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
             unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
@@ -148,7 +164,7 @@ fun LpOutlinedTextField(
  * @param isEmailError Boolean to check if there is an error on the email
  * @param supportTextError Error message
  * @param onImeActionPerformed To set an action performed by the keyboard
- * @param onValueChange This parameter return the field value
+ * @param onValueChanged This parameter return the field value
  *
  * @author Andrés Ivan Medina Herrera
  * @modifiedBy Jesus Lopez
@@ -162,7 +178,7 @@ fun LpOutlinedTextFieldMail(
     isEmailError: Boolean,
     supportTextError: String,
     onImeActionPerformed: () -> Unit,
-    onValueChange: (String) -> Unit
+    onValueChanged: (String) -> Unit
 ) {
     var emailFieldValue by remember { mutableStateOf(TextFieldValue("")) }
 
@@ -170,10 +186,16 @@ fun LpOutlinedTextFieldMail(
         value = emailFieldValue,
         onValueChange = {
             emailFieldValue = it
-            onValueChange(emailFieldValue.text)
+            onValueChanged(emailFieldValue.text)
         },
         modifier = modifier,
-        label = { Text(label, style = MaterialTheme.typography.bodyMedium) },
+        label = {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.tertiary
+            )
+        },
         placeholder = { Text(placeholder) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
@@ -202,7 +224,7 @@ fun LpOutlinedTextFieldMail(
  * @param modifier Set component modifier
  * @param label Text label
  * @param hint Hint message
- * @param onValueChange This parameter return the field value
+ * @param onValueChanged This parameter return the field value
  *
  * @author Andrés Ivan Medina Herrera
  */
@@ -213,19 +235,29 @@ fun LpOutlinedTextFieldInput(
     enabled: Boolean = true,
     label: String,
     hint: String,
-    onValueChange: (String) -> Unit,
+    onValueChanged: (String) -> Unit,
 ) {
     var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
     OutlinedTextField(
         value = textFieldValue,
         onValueChange = {
             textFieldValue = it
-            onValueChange(textFieldValue.text)
+            onValueChanged(textFieldValue.text)
         },
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         enabled = enabled,
-        label = { Text(label) },
-        placeholder = { Text(hint) },
+        label = {
+            Text(
+                text = label,
+                color = MaterialTheme.colorScheme.tertiary
+            )
+        },
+        placeholder = {
+            Text(
+                text = hint,
+                color = MaterialTheme.colorScheme.tertiary
+            )
+        },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
             focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
@@ -269,11 +301,12 @@ fun DropdownTextField(
     ) {
         OutlinedTextField(
             modifier = Modifier
-                .menuAnchor()
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .menuAnchor(),
             value = selectedOptionText,
             onValueChange = {},
-            label = { Text(text = title) },
+            readOnly = true,
+            label = { Text(text = title, color = MaterialTheme.colorScheme.tertiary) },
             trailingIcon = {
                 IconButton(onClick = { expanded = true }) {
                     Icon(
@@ -320,6 +353,7 @@ fun DropdownTextField(
  * @param onPhoneChange Returns value typed, using high order functions
  *
  * @author Yaritza Moreno
+ * @modifiedBy Jose Miguel Garcia Reyes
  */
 @ExperimentalMaterial3Api
 @Composable
@@ -338,15 +372,25 @@ fun LPPhoneNumberText(
     val context = LocalContext.current
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
-        label = { Text(text = stringResource(id = R.string.LPContactPhone)) },
-        placeholder = { Text(text = stringResource(id = R.string.LPContactPhone_mask)) },
+        label = {
+            Text(
+                text = stringResource(id = R.string.LPContactPhone),
+                color = MaterialTheme.colorScheme.tertiary
+            )
+        },
+        placeholder = {
+            Text(
+                text = stringResource(id = R.string.LPContactPhone_mask),
+                color = MaterialTheme.colorScheme.tertiary
+            )
+        },
         value = value,
         onValueChange = {
             if (it.matches(numbersOnlyExpression) && it.length <= maxCharactersAllowed)
                 phoneNumberText = it
             else
                 Toast.makeText(context, "Not a valid input", Toast.LENGTH_SHORT).show()
-            onPhoneChange(it)
+            onPhoneChanged(it)
         },
         isError = isNotValid,
         supportingText = {
@@ -370,4 +414,3 @@ fun LPPhoneNumberText(
         )
     )
 }
-

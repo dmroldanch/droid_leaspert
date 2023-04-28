@@ -1,16 +1,61 @@
+.externalNativeBuild
+.cxx
+
+# Generated files
+bin/
+gen/
+.navigation/
+
+# Proguard folder generated
+proguard/
+
+# Intellij project files
+*.iws
+.idea/tasks.xml
+.idea
 *.iml
-.gradle
-/local.properties
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-.DS_Store
-/build
+/.idea/compiler.xml
+/.idea/misc.xml
+
+# Gradle
+.gradle/
 /captures
-.externalNativeBuild
-.cxx
+/ignore
+/captureIgnored
+
+# Gradle files
+/build
+
+# Log/OS Files
+*.log
+
+# Android Studio generated files and folders
+.externalNativeBuild/
+.cxx/
+*.apk
+output.json
+
+# IntelliJ
+.idea/
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+
+# Android Profiling
+*.hprof
+
+# Local Properties
 local.properties
-Project_Default.xml

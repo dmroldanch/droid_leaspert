@@ -8,13 +8,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -24,10 +19,13 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.iteneum.designsystem.R.drawable.facebook_logo
+import com.iteneum.designsystem.R.drawable.google_logo
+import com.iteneum.designsystem.R.drawable.leasepert_logo
+import com.iteneum.designsystem.R.drawable.twitter_logo
 import com.iteneum.designsystem.components.LpFilledTonalButton
 import com.iteneum.designsystem.components.LpOutlinedTextFieldMail
 import com.iteneum.designsystem.components.LpOutlinedTextFieldPassword
-import com.iteneum.designsystem.R.drawable.*
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.login.R
 
@@ -45,6 +43,7 @@ fun LoginView(loginViewModel: LoginViewModel = hiltViewModel()) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
+
     ) {
         val (logo, emailField, passwordField, loginButton, loginWith, socialNetworkLogins, registerButton) = createRefs()
         val focusRequester = remember { FocusRequester() }
