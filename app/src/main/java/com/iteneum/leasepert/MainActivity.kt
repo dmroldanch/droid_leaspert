@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LeasePertTheme {
-               RootNavigationGraph(navController = rememberNavController())
+                   RootNavigationGraph(navController = rememberNavController())
             }
         }
     }

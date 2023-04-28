@@ -143,7 +143,7 @@ fun RepairsSection(navigateToRepair : () -> Unit) {
             LpGenericChip(
                 icon = Icons.Filled.Add,
                 label = "${stringResource(id = R.string.text_button_new)}",
-                onClick = { navigateToRepair.invoke() }
+                onClicked = { navigateToRepair.invoke() }
 
             )
         }

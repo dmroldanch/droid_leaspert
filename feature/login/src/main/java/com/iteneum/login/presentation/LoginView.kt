@@ -109,8 +109,8 @@ fun LoginView(navigationToDashboard: () -> Unit) {
                     width = Dimension.fillToConstraints
                 },
             textButton = stringResource(R.string.lv_login),
-            onClick = {
-                navigationToDashboard()
+            onClicked = {
+               // navigationToDashboard
             },
         )
         Text(
