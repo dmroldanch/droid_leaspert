@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
 
@@ -13,6 +13,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
 
     buildTypes {
@@ -31,10 +34,10 @@ android {
     buildFeatures {
         compose true
     }
-
 }
 
 dependencies {
+
     implementation libs.bundles.compose
 //Modules
     implementation project(":core:designsystem")
