@@ -6,10 +6,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -79,7 +84,7 @@ fun LoginView(loginViewModel: LoginViewModel = hiltViewModel()) {
             isEmailError = isEmailError,
             onImeActionPerformed = { focusRequester.requestFocus() },
             supportTextError = stringResource(R.string.lv_valid_email_error),
-            onValueChange = { newEmail ->
+            onValueChanged = { newEmail ->
                 loginViewModel.onEmailChanged(newEmail)
             }
         )
@@ -93,7 +98,7 @@ fun LoginView(loginViewModel: LoginViewModel = hiltViewModel()) {
                     start.linkTo(emailField.start)
                     end.linkTo(emailField.end)
                 },
-            onPasswordChange = { loginViewModel.onPasswordChanged(it) },
+            onPasswordChanged = { loginViewModel.onPasswordChanged(it) },
             supportTextError = stringResource(R.string.lv_support_text_error),
             isPasswordError = isPasswordError,
             value = stringResource(R.string.lv_password)
@@ -109,7 +114,7 @@ fun LoginView(loginViewModel: LoginViewModel = hiltViewModel()) {
                     width = Dimension.fillToConstraints
                 },
             textButton = stringResource(R.string.lv_login),
-            onClick = { loginViewModel.onLoginClicked() },
+            onClicked = { loginViewModel.onLoginClicked() },
         )
         Text(
             modifier = Modifier

@@ -350,7 +350,7 @@ fun DropdownTextField(
  * @param isEnabled Establish the button is enabled and ready to use
  * @param isNotValid Indicates if the value introduced is not valid
  * @param supportTextError Indicates the error message when is not valid
- * @param onPhoneChange Returns value typed, using high order functions
+ * @param onPhoneChanged Returns value typed, using high order functions
  *
  * @author Yaritza Moreno
  * @modifiedBy Jose Miguel Garcia Reyes
@@ -363,7 +363,7 @@ fun LPPhoneNumberText(
     isEnabled: Boolean = true,
     isNotValid: Boolean,
     supportTextError: String,
-    onPhoneChange: (String) -> Unit
+    onPhoneChanged: (String) -> Unit
 ) {
     var phoneNumberText by remember { mutableStateOf("") }
     val numbersOnlyExpression = remember { Regex("^\\d*\$") }
