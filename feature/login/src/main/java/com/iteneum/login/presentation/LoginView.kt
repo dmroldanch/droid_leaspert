@@ -110,7 +110,7 @@ fun LoginView(navigationToDashboard: () -> Unit) {
                 },
             textButton = stringResource(R.string.lv_login),
             onClicked = {
-               // navigationToDashboard
+                navigationToDashboard()
             },
         )
         Text(
