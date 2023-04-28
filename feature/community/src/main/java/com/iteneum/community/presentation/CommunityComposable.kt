@@ -23,10 +23,10 @@ import com.iteneum.designsystem.theme.LeasePertTheme
  *this view model is used to handle the loading of the components of the interface
  * including icons, text and button click functionality.
  *
- * @author Andrés Ivan Medina Herrera
+ * @author Andres Ivan Medina Herrera
  */
 @Composable
-fun CommunitylistUI() {
+fun CommunityView() {
     val cardWidth = LeasePertTheme.sizes.extraSize124
     val cardHeight = LeasePertTheme.sizes.extraSize128
     val cardPadding8 = LeasePertTheme.sizes.smallerSize
