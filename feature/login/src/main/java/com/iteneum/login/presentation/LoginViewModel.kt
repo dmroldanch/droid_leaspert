@@ -6,6 +6,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
+/**
+ * The [LoginViewModel] is the ViewModel in charge of notifying all the changes to the [LoginView],
+ * here you can find the validations for the email and password fields, which are validated by the
+ * login button, this ViewModel is also in charge to handle the login in the application, with email
+ * and with the social network buttons below, and finally the register button is in charge to take
+ * the user to a registering screen.
+ *
+ * @author Jesus Lopez
+ */
 @HiltViewModel
 class LoginViewModel @Inject constructor() : ViewModel() {
     private val _email = MutableStateFlow("")

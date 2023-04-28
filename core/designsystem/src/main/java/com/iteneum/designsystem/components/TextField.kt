@@ -231,7 +231,7 @@ fun LpOutlinedTextFieldInput(
             unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
             errorBorderColor = MaterialTheme.colorScheme.error,
             errorLabelColor = MaterialTheme.colorScheme.error,
-            errorSupportingTextColor = MaterialTheme.colorScheme.error,
+            errorSupportingTextColor = MaterialTheme.colorScheme.error
         ),
         singleLine = true,
         maxLines = 1,
