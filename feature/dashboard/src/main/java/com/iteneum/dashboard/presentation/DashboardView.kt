@@ -122,6 +122,7 @@ fun DashboardView(
         ) {
             items(eventList) { event ->
                 LPGenericElevatedCard(
+                    modifier = Modifier.fillMaxWidth(),
                     title = event,
                     description = "This is mock data",
                     buttonText = "Go to Screen",

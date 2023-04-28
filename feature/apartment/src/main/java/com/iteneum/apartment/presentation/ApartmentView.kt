@@ -112,7 +112,9 @@ fun PaymentsSection(
             month = month,
             quantity = 999.00,
             date = Timestamp(33344)
-        )
+        ){
+            /*TODO add the functionality to this onclick*/
+        }
     }
 }
 
