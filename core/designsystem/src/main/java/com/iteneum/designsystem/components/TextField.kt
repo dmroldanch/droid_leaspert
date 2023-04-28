@@ -263,10 +263,10 @@ fun LpOutlinedTextFieldInput(
 }
 
 /**
- * [DropdownTextField] it's a textfield to show a list of items inside a box
+ * [DropdownTextField] it's a text-field to show a list of items inside a box
  *
- * @param title refers to the label that the textfield will have
- * @param items refers to the list that will be given to expand the textfield
+ * @param title refers to the label that the text-field will have
+ * @param items refers to the list that will be given to expand the text-field
  * @param modifier to set component modifier
  * @param selected its a high order function that returns the selected option of the dropdown as result
  *
