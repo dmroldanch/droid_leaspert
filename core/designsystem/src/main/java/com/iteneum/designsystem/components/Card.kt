@@ -34,6 +34,8 @@ import com.iteneum.designsystem.theme.Bianca
 import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.utils.TextUtils.ONE
+import com.iteneum.designsystem.theme.LeasePertTheme
+import java.sql.Timestamp
 
 /**
  * Created [LpGenericCard]
@@ -403,6 +405,78 @@ fun LPGenericElevatedCardImage(
                     maxLines = ONE,
                     overflow = TextOverflow.Ellipsis,
                 )
+            }
+        }
+    }
+}
+
+/**
+ * [LpPaymentsRentCard] is a button for show in the UI and this button can have icon depending of the use
+ *
+ * @param modifier Modifier is for specify style and params of the card, like for example the width of the component.
+ * @param month is the month what this component shown at the user for indicate what month is must to pay
+ * @param quantity is the quantity what the user have to pay
+ * @param date is the limit date where it have to pay their rent
+ *
+ * @author Usiel Filiberto Garcia Jimenez
+ */
+@Composable
+fun LpPaymentsRentCard(modifier: Modifier, month: String, quantity: Double, date: Timestamp) {
+    OutlinedCard(
+        modifier = modifier
+            .fillMaxWidth(),
+        colors = CardDefaults
+            .cardColors(
+                containerColor = Color.Transparent
+            ),
+        border = BorderStroke(
+            width = LeasePertTheme.sizes.stroke,
+            color = MaterialTheme.colorScheme.onPrimary
+        )
+    ) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = LeasePertTheme.sizes.midMediumSize,
+                    top = LeasePertTheme.sizes.midMediumSize,
+                    bottom = LeasePertTheme.sizes.minorMediumSize
+                )
+        ) {
+            Text(
+                text = month,
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = LeasePertTheme.sizes.midMediumSize,
+                    bottom = LeasePertTheme.sizes.midMediumSize,
+                    end = LeasePertTheme.sizes.midMediumSize
+                )
+            ) {
+            Text(
+                text = stringResource(R.string.rent),
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.tertiary
+            )
+            Column(modifier = Modifier.padding(start = LeasePertTheme.sizes.midLargeSize)) {
+                Text(
+                    text = "$$quantity",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Spacer(modifier = Modifier.height(height = LeasePertTheme.sizes.minorMediumSize))
+                Text(
+                    text = date.toString(),
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+            Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.TopEnd) {
+                LpGenericChip(label = stringResource(R.string.pay_now)) {
+                    /*TODO With this button the user could pay their rent */
+                }
             }
         }
     }

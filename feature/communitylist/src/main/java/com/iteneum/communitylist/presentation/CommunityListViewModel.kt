@@ -31,6 +31,7 @@ class CommunityListViewModel : ViewModel() {
         uiState.loading = response is DataState.Loading
         when (response) {
             is DataState.Success -> {
+                uiState.data?.clear()
                 uiState.data?.addAll(response.data)
             }
             is DataState.Error -> {
