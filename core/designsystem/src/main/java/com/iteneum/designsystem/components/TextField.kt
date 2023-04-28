@@ -29,7 +29,7 @@ import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransforma
  * This function creates a password OutlinedTextField
  * @param modifier Set component modifier
  * @param value Current password value
- * @param isPasswordError Validate if text is valid
+ * @param isPasswordError Boolean to check if there is an error on the password
  * @param supportTextError This parameter determines whether the error is displayed or not
  * @param onPasswordChange Returns value typed
  *
@@ -145,8 +145,9 @@ fun LpOutlinedTextField(
  * This function creates an Email OutlinedTextField
  * @param modifier Set component modifier
  * @param label Text label
- * @param isEmailError Validate if text is valid
+ * @param isEmailError Boolean to check if there is an error on the email
  * @param supportTextError Error message
+ * @param onImeActionPerformed To set an action performed by the keyboard
  * @param onValueChange This parameter return the field value
  *
  * @author Andrés Ivan Medina Herrera
