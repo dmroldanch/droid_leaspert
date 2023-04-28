@@ -63,14 +63,14 @@ fun RepairView() {
                 enabled = false,
                 label = stringResource(id = R.string.label_unit),
                 hint = stringResource(id = R.string.hint_unit),
-                onValueChange = {/* TODO - Unit Text field - To verify if extra functionality required */ }
+                onValueChanged = {/* TODO - Unit Text field - To verify if extra functionality required */ }
             )
             LPPhoneNumberText(
                 modifier = Modifier.padding(
                     top = sizes.extraSize14
                 ),
                 value = contactPhoneNumberValue,
-                onPhoneChange = {
+                onPhoneChanged = {
                     isNotValidPhone = it.isEmpty() || it.length < 10
                     if (it.isDigitsOnly() && it.length <= 10)
                         contactPhoneNumberValue = it
@@ -110,7 +110,7 @@ fun RepairView() {
                     .fillMaxWidth(),
                 label = stringResource(id = R.string.label_description),
                 hint = stringResource(id = R.string.hint_description),
-                onValueChange = {/* TODO - Description field - To verify if extra functionality required */ }
+                onValueChanged = {/* TODO - Description field - To verify if extra functionality required */ }
             )
             Text(
                 text = stringResource(id = R.string.text_video_button),
@@ -154,7 +154,7 @@ fun RepairView() {
                     )
                     .fillMaxWidth(),
                 textButton = stringResource(id = R.string.text_repair_send_button),
-                onClick = {/* TODO - Send Repair Button - Add functionality to save repair request info */ }
+                onClicked = {/* TODO - Send Repair Button - Add functionality to save repair request info */ }
             )
         }
     }
