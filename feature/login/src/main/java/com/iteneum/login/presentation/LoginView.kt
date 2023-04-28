@@ -33,7 +33,7 @@ import com.iteneum.login.R
  * @author Jesus Lopez
  */
 @Composable
-fun LoginView() {
+fun LoginView(navigationToDashboard: () -> Unit) {
     val sizes = LeasePertTheme.sizes
 
     ConstraintLayout(
@@ -97,7 +97,9 @@ fun LoginView() {
                     width = Dimension.fillToConstraints
                 },
             textButton = stringResource(R.string.lv_login),
-            onClick = { /*TODO("It will verify the email and password and sign in the user")*/ },
+            onClick = {
+                navigationToDashboard()
+            },
         )
         Text(
             modifier = Modifier

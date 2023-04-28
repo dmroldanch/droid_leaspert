@@ -24,8 +24,8 @@ import java.sql.Timestamp
  * payments, repairs, information, in resume this be the main container for the apartment view
  */
 @Composable
-fun ApartmentView() {
-    ApartmentContainer()
+fun ApartmentView(navigateToRepair : () -> Unit) {
+    ApartmentContainer { navigateToRepair() }
 }
 
 /**
@@ -33,7 +33,7 @@ fun ApartmentView() {
  * in this container it's defined the paddings, the vertical scroll and the configurations of how is the view shown to the user
  * */
 @Composable
-fun ApartmentContainer() {
+fun ApartmentContainer(navigateToRepair : () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -46,7 +46,7 @@ fun ApartmentContainer() {
         Column {
             TitleApartmentScreen()
             PaymentsSection(Modifier, "Junary", "990.00", "Jan 23 2022")
-            RepairsSection()
+            RepairsSection { navigateToRepair.invoke() }
             InformationSection()
         }
     }
@@ -122,7 +122,7 @@ fun PaymentsSection(
  *
  * */
 @Composable
-fun RepairsSection() {
+fun RepairsSection(navigateToRepair : () -> Unit) {
     Column() {
         Row(
             modifier = Modifier
@@ -140,10 +140,10 @@ fun RepairsSection() {
             )
             LpGenericChip(
                 icon = Icons.Filled.Add,
-                label = "${stringResource(id = R.string.text_button_new)}"
-            ) {
-                /*TODO with this button the user could make a repair request for him department*/
-            }
+                label = "${stringResource(id = R.string.text_button_new)}",
+                onClick = { navigateToRepair.invoke() }
+
+            )
         }
         RepairStatusRow(
             modifier = Modifier.fillMaxWidth(),

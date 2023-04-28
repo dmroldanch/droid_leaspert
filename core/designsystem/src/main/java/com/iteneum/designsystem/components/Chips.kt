@@ -43,7 +43,7 @@ fun LpGenericChip(
             .padding(
                 all = sizes.midSmallSize,
             )
-            .clickable { onClick },
+            .clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {
         Row(
