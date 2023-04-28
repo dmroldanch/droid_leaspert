@@ -3,10 +3,19 @@ package com.iteneum.login.presentation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,10 +27,13 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.iteneum.designsystem.R.drawable.facebook_logo
+import com.iteneum.designsystem.R.drawable.google_logo
+import com.iteneum.designsystem.R.drawable.leasepert_logo
+import com.iteneum.designsystem.R.drawable.twitter_logo
 import com.iteneum.designsystem.components.LpFilledTonalButton
 import com.iteneum.designsystem.components.LpOutlinedTextFieldMail
 import com.iteneum.designsystem.components.LpOutlinedTextFieldPassword
-import com.iteneum.designsystem.R.drawable.*
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.login.R
 
@@ -70,7 +82,7 @@ fun LoginView() {
             label = stringResource(R.string.lv_email),
             isValid = false,
             supportTextError = stringResource(R.string.lv_support_text_error),
-            onValueChange = { /*TODO("This will change the value of the email")*/ }
+            onValueChanged = { /*TODO("This will change the value of the email")*/ }
         )
         LpOutlinedTextFieldPassword(
             modifier = Modifier
@@ -81,7 +93,7 @@ fun LoginView() {
                     start.linkTo(mail.start)
                     end.linkTo(mail.end)
                 },
-            onPasswordChange = { /*TODO("This will change the value of the password")*/ },
+            onPasswordChanged = { /*TODO("This will change the value of the password")*/ },
             supportTextError = stringResource(R.string.lv_support_text_error),
             isValid = false,
             value = stringResource(R.string.lv_password)
@@ -97,7 +109,7 @@ fun LoginView() {
                     width = Dimension.fillToConstraints
                 },
             textButton = stringResource(R.string.lv_login),
-            onClick = { /*TODO("It will verify the email and password and sign in the user")*/ },
+            onClicked = { /*TODO("It will verify the email and password and sign in the user")*/ },
         )
         Text(
             modifier = Modifier
