@@ -11,7 +11,7 @@
     <string name="label_pet_in_unit">Pet in Unit</string>
     <string name="hint_pet_in_unit">Category</string>
     <string name="text_service">I would like to request a service for…</string>
-    <string name="label_category">Select Category…</string>
+    <string name="label_category">Select category (scroll for options)</string>
     <string name="hint_category">Category</string>
     <string name="label_description">Describe your problem…</string>
     <string name="hint_description">Text</string>
