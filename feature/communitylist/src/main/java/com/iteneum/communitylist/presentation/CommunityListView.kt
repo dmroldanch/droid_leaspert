@@ -6,10 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.iteneum.ItemModel
@@ -30,40 +27,37 @@ fun CommunityListView(
     onSuccess: () -> Unit, /* THIS WORKS WHEN YOU ARE USING A STATE AND YOU ARE GONNA FINISH THE VIEW */
     viewModel: CommunityListViewModel = hiltViewModel()
 ) {
-    val state by viewModel.state.collectAsState(initial = null)
-    when (state) {
-        is CommunityListState.Success -> {
-            onSuccess()
-        }
-        is CommunityListState.Error -> {
-            CommunityErrorState()
-        }
-        else -> {}
+    LaunchedEffect(true){
+        viewModel.getInformation()
+        /*viewModel.stateAction.collect {
+            //uiAction(it)
+        }*/
+    }
+    val list = remember {
+        viewModel.dataInfo
     }
     CommunityListContent(
-        state = viewModel.uiState,
+        list = list,
         onClickItem = {
-            onClickItem(it.id)
+            //onNavigateTo(it.id)
         }
     )
 }
 
 @Composable
 fun CommunityListContent(
-    state: CommunityListUIState,
+    list: List<ItemModel>,
     onClickItem: (ItemModel) -> Unit
 ) {
+
     val dp8 = LeasePertTheme.sizes.smallerSize
-    if (state.loading) {
-        LoadingBar()
-    }
     Column {
         LazyVerticalGrid(
             columns = GridCells.Fixed(TWO),
             verticalArrangement = Arrangement.spacedBy(dp8),
             horizontalArrangement = Arrangement.spacedBy(dp8)
         ) {
-            items(state.data ?: listOf()) { item ->
+            items(list) { item ->
                 LPGenericElevatedCardImage(
                     modifier = Modifier.fillMaxSize(),
                     imageUrl = item.urlImage,
@@ -75,14 +69,5 @@ fun CommunityListContent(
         }
     }
 }
-/** IT'S AN EXAMPLE IF WE HAD A COMPONENT FOR LOADING **/
-@Composable
-fun LoadingBar() {
-}
 
-/*THIS IS JUST AN EXAMPLE IF WE HAD A VIEW FOR ERROR, WE NEED TO DEFINE AND CHANGE IT*/
-@Composable
-fun CommunityErrorState() {
-    Text(text = "This can be a view for empty state")
-}
 
