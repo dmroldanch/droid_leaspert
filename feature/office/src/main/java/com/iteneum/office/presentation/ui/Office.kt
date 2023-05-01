@@ -71,11 +71,11 @@ fun OfficeUI(viewModel: OfficeViewModel = hiltViewModel()) {
         LpOutlinedButton(modifier = Modifier,
             icon = Icons.Filled.Call,
             textButton = stringResource(id = R.string.LPCallButton),
-            onClick = { viewModel.onCallClicked() })
+            onClicked = { viewModel.onCallClicked() })
 
         LpOutlinedButton(modifier = Modifier,
             icon = Icons.Outlined.Mail,
             textButton = stringResource(id = R.string.LPMailButton),
-            onClick = { viewModel.onMailClicked() })
+            onClicked = { viewModel.onMailClicked() })
     }
 }

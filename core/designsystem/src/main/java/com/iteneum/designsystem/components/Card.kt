@@ -29,12 +29,10 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.SubcomposeAsyncImage
 import com.iteneum.designsystem.R
 import com.iteneum.designsystem.theme.*
-import com.iteneum.designsystem.R
 import com.iteneum.designsystem.theme.Bianca
 import com.iteneum.designsystem.theme.Drab
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.utils.TextUtils.ONE
-import com.iteneum.designsystem.theme.LeasePertTheme
 import java.sql.Timestamp
 
 /**
@@ -45,7 +43,7 @@ import java.sql.Timestamp
  * @param details this is the clickable option
  * @param accountNumber the showed String number
  * @param currency if the number represents currency for example current balance
- * @param onTextClick as a high order function
+ * @param onTextClicked as a high order function
  *
  * @author Daniel Roldan
  * @modifyBy Jose Guadalupe Rivera
@@ -57,7 +55,7 @@ fun LpGenericCard(
     details: String,
     accountNumber: String,
     currency: Boolean = false,
-    onTextClick: () -> Unit
+    onTextClicked: () -> Unit
 ) {
     val sizes = LeasePertTheme.sizes
     Card(
@@ -76,17 +74,17 @@ fun LpGenericCard(
                     .padding(all = sizes.smallSize)
             ) {
                 Text(
+                    modifier = Modifier.padding(bottom = LeasePertTheme.sizes.extraSize6),
                     text = title,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     style = LPTypography.bodyLarge,
                     fontWeight = FontWeight.Bold
                 )
-                Spacer(modifier = Modifier.size(sizes.minorSmallSize))
                 Text(
                     modifier = Modifier
                         .clickable(
                             enabled = true,
-                            onClick = onTextClick
+                            onClick = onTextClicked
                         ),
                     text = details,
                     color = MaterialTheme.colorScheme.onPrimary,
@@ -118,8 +116,8 @@ fun LpGenericCard(
  * @param userPhoto a painter assigned to the user
  * @param timeAgo the float value of the minutes of the post
  * @param messagePost the string of the post
- * @param onCommentClick high order function
- * @param onFavoriteClick high order function
+ * @param onCommentClicked high order function
+ * @param onFavoriteClicked high order function
  *
  * @author Juan Ramon Islas Huesca
  */
@@ -130,11 +128,11 @@ fun LpPostCard(
     userPhoto: String,
     timeAgo: String,
     messagePost: String,
-    onCommentClick: () -> Unit,
-    onFavoriteClick: () -> Unit
+    onCommentClicked: () -> Unit,
+    onFavoriteClicked: () -> Unit
 ) {
     Card(
-        modifier = modifier.padding(LeasePertTheme.sizes.smallSize),
+        modifier = modifier,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
         border = BorderStroke(LeasePertTheme.sizes.stroke, MaterialTheme.colorScheme.onPrimary),
         elevation = CardDefaults.cardElevation(LeasePertTheme.sizes.stroke),
@@ -149,7 +147,7 @@ fun LpPostCard(
                     bottom = LeasePertTheme.sizes.extraSize6
                 )
         ) {
-            Row {
+            Row(modifier = Modifier.padding(bottom = LeasePertTheme.sizes.minorSmallSize)) {
                 SubcomposeAsyncImage(
                     modifier = Modifier
                         .size(LeasePertTheme.sizes.extraSize48)
@@ -160,12 +158,12 @@ fun LpPostCard(
                 )
                 Column(modifier = Modifier.padding(start = LeasePertTheme.sizes.smallerSize)) {
                     Text(
+                        modifier = Modifier.padding(bottom = LeasePertTheme.sizes.minorSmallSize),
                         text = userName,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         fontWeight = FontWeight.Medium,
                         fontSize = 12.sp
                     )
-                    Spacer(modifier = Modifier.height(LeasePertTheme.sizes.minorSmallSize))
                     Text(
                         text = timeAgo,
                         color = MaterialTheme.colorScheme.tertiary,
@@ -175,23 +173,22 @@ fun LpPostCard(
                 }
             }
             Text(
-                modifier = Modifier.padding(LeasePertTheme.sizes.extraSize10),
                 text = messagePost,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 15.sp
             )
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                IconButton(onClick = onCommentClick) {
+                IconButton(onClick = onCommentClicked) {
                     Icon(
-                        Icons.Outlined.Comment,
-                        "Comment",
+                        imageVector = Icons.Outlined.Comment,
+                        contentDescription = stringResource(R.string.content_description_comment),
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
-                IconButton(onClick = onFavoriteClick) {
+                IconButton(onClick = onFavoriteClicked) {
                     Icon(
-                        Icons.Outlined.Favorite,
-                        contentDescription = "Favorite",
+                        imageVector = Icons.Outlined.Favorite,
+                        contentDescription = stringResource(R.string.content_description_favorite),
                         tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
@@ -206,7 +203,7 @@ fun LpPostCard(
  * @param modifier component modifier.
  * @param icon The icon to be displayed
  * @param description Description to be displayed below the icon
- * @param onCardClick onClick event when card is clicked
+ * @param onCardClicked onClick event when card is clicked
  *
  * @author Jose Guadalupe Rivera
  */
@@ -216,26 +213,26 @@ fun LpIconTextCard(
     modifier: Modifier = Modifier,
     icon: ImageVector,
     description: String,
-    onCardClick: (String) -> Unit
+    onCardClicked: (String) -> Unit
 ) {
     Card(
-        modifier = modifier.padding(LeasePertTheme.sizes.smallerSize),
+        modifier = modifier.fillMaxWidth(),
         border = BorderStroke(LeasePertTheme.sizes.stroke, MaterialTheme.colorScheme.onPrimary),
         shape = RoundedCornerShape(LeasePertTheme.sizes.midSmallSize),
-        onClick = { onCardClick(description) },
+        onClick = { onCardClicked(description) },
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background),
-            contentAlignment = Alignment.Center,
-
-            ) {
+            contentAlignment = Alignment.Center
+        ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
                 Icon(
+                    modifier = Modifier.padding(bottom = LeasePertTheme.sizes.minorSmallSize),
                     imageVector = icon,
                     contentDescription = description,
                     tint = MaterialTheme.colorScheme.onPrimary
@@ -254,9 +251,11 @@ fun LpIconTextCard(
 /**
  * [LPGenericElevatedCard] it's a card to show in the Dashboard screen
  *
+ * @param modifier Modifier to add the params needed to the whole component's modifier
  * @param title String to modify the name of the card
  * @param description String to modify the description within the card
- * @param onButtonClick High order function to assign the action that this card will have
+ * @param buttonText Text button
+ * @param onButtonClicked High order function to assign the action that this card will have
  * @param color Set the component background color
  *
  * @author Jesus Lopez Gonzalez
@@ -264,11 +263,12 @@ fun LpIconTextCard(
  */
 @Composable
 fun LPGenericElevatedCard(
+    modifier: Modifier,
     title: String,
     description: String,
     buttonText: String,
     color: Color = AtomicTangerine,
-    onButtonClick: () -> Unit
+    onButtonClicked: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
     Card(
@@ -276,10 +276,7 @@ fun LPGenericElevatedCard(
             containerColor = color,
         ),
         shape = MaterialTheme.shapes.medium.copy(all = CornerSize(LeasePertTheme.sizes.midSmallSize)),
-        modifier = Modifier
-            .width(LeasePertTheme.sizes.extraSize336)
-            .height(LeasePertTheme.sizes.extraSize199)
-            .padding(all = LeasePertTheme.sizes.smallSize)
+        modifier = modifier
     ) {
         Column(
             modifier = Modifier.padding(
@@ -293,8 +290,8 @@ fun LPGenericElevatedCard(
                 text = title,
                 style = LPTypography.titleMedium,
                 color = colors.inversePrimary,
+                modifier = Modifier.padding(bottom = LeasePertTheme.sizes.extraSize6)
             )
-            Spacer(modifier = Modifier.height(LeasePertTheme.sizes.extraSize6))
             Text(
                 text = description,
                 style = LPTypography.bodyMedium,
@@ -302,10 +299,8 @@ fun LPGenericElevatedCard(
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Justify,
-                fontSize = 14.sp
+                modifier = Modifier.padding(bottom = LeasePertTheme.sizes.extraSize14)
             )
-            Spacer(modifier = Modifier.height(LeasePertTheme.sizes.extraSize10))
-            Spacer(modifier = Modifier.weight(1f))
             Box(
                 modifier = Modifier.background(
                     color = TransparentWhite,
@@ -313,7 +308,7 @@ fun LPGenericElevatedCard(
                 )
             ) {
                 TextButton(
-                    onClick = onButtonClick,
+                    onClick = onButtonClicked,
                     colors = ButtonDefaults.textButtonColors(
                         contentColor = colors.inversePrimary
                     )
@@ -335,23 +330,24 @@ fun getRandomColor(random: Int): Color {
 /**
  * [LPGenericElevatedCardImage] it's a card to show in the Community List screen
  *
+ * @param modifier Modifier to add the needed attributes to this component's modifier.
  * @param imageUrl String that will be a url to get the image from the internet
  * @param title String to modify the name of the card
  * @param description String to modify the description within the card
- * @param onClick High order function to assign the action that this card will have
+ * @param onClicked High order function to assign the action that this card will have
  *
  * @author Jesus Lopez Gonzalez
  * @modifyBy Carlos Hernandez
  */
 @Composable
 fun LPGenericElevatedCardImage(
+    modifier: Modifier,
     imageUrl: String?,
     title: String,
     description: String,
-    onClick: () -> Unit
+    onClicked: () -> Unit
 ) {
     val dp1 = LeasePertTheme.sizes.stroke
-    val dp8 = LeasePertTheme.sizes.smallerSize
     val dp12 = LeasePertTheme.sizes.midSmallSize
     val dp16 = LeasePertTheme.sizes.smallSize
     val dp182 = LeasePertTheme.sizes.extraSize182
@@ -361,9 +357,8 @@ fun LPGenericElevatedCardImage(
             containerColor = Bianca,
         ),
         shape = MaterialTheme.shapes.medium.copy(all = CornerSize(dp12)),
-        modifier = Modifier
-            .clickable(onClick = onClick)
-            .padding(all = dp8)
+        modifier = modifier
+            .clickable(onClick = onClicked)
     ) {
         Column {
             if (imageUrl != null) {
@@ -394,9 +389,10 @@ fun LPGenericElevatedCardImage(
                 Text(
                     text = title,
                     style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = Color.Black,
                     maxLines = ONE,
                     overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.padding(bottom = LeasePertTheme.sizes.middleSize)
                 )
                 Text(
                     text = description,
@@ -417,11 +413,18 @@ fun LPGenericElevatedCardImage(
  * @param month is the month what this component shown at the user for indicate what month is must to pay
  * @param quantity is the quantity what the user have to pay
  * @param date is the limit date where it have to pay their rent
+ * @param onButtonClicked high order function to call the function clicked.
  *
  * @author Usiel Filiberto Garcia Jimenez
  */
 @Composable
-fun LpPaymentsRentCard(modifier: Modifier, month: String, quantity: Double, date: Timestamp) {
+fun LpPaymentsRentCard(
+    modifier: Modifier,
+    month: String,
+    quantity: Double,
+    date: Timestamp,
+    onButtonClicked: () -> Unit
+) {
     OutlinedCard(
         modifier = modifier
             .fillMaxWidth(),
@@ -456,7 +459,7 @@ fun LpPaymentsRentCard(modifier: Modifier, month: String, quantity: Double, date
                     bottom = LeasePertTheme.sizes.midMediumSize,
                     end = LeasePertTheme.sizes.midMediumSize
                 )
-            ) {
+        ) {
             Text(
                 text = stringResource(R.string.rent),
                 style = MaterialTheme.typography.bodyLarge,
@@ -465,18 +468,19 @@ fun LpPaymentsRentCard(modifier: Modifier, month: String, quantity: Double, date
             Column(modifier = Modifier.padding(start = LeasePertTheme.sizes.midLargeSize)) {
                 Text(
                     text = "$$quantity",
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(bottom = LeasePertTheme.sizes.minorMediumSize)
                 )
-                Spacer(modifier = Modifier.height(height = LeasePertTheme.sizes.minorMediumSize))
                 Text(
                     text = date.toString(),
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
             Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.TopEnd) {
-                LpGenericChip(label = stringResource(R.string.pay_now)) {
-                    /*TODO With this button the user could pay their rent */
-                }
+                LpGenericChip(
+                    label = stringResource(R.string.pay_now),
+                    onClicked = onButtonClicked
+                )
             }
         }
     }

@@ -39,7 +39,7 @@ fun LpGenericComment(
         value = comment,
         onValueChange = onValueChanged,
         singleLine = false,
-        placeholder = {Text(text=hint)},
+        placeholder = { Text(text = hint, color = MaterialTheme.colorScheme.tertiary) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
             unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,

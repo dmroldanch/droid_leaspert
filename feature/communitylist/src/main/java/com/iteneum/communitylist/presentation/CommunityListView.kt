@@ -2,6 +2,7 @@ package com.iteneum.communitylist.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -9,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.iteneum.ItemModel
 import com.iteneum.designsystem.components.LPGenericElevatedCardImage
@@ -63,10 +65,11 @@ fun CommunityListContent(
         ) {
             items(state.data ?: listOf()) { item ->
                 LPGenericElevatedCardImage(
+                    modifier = Modifier.fillMaxSize(),
                     imageUrl = item.urlImage,
                     title = item.title.toString(),
                     description = item.description.toString(),
-                    onClick = { onClickItem(item) }
+                    onClicked = { onClickItem(item) }
                 )
             }
         }
