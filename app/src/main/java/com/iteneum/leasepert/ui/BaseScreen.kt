@@ -9,6 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -44,8 +45,8 @@ fun BottomBarComponent(navController: NavHostController) {
         NavigationBar {
             screens.forEachIndexed { index, item ->
                 NavigationBarItem(
-                    icon = { Icon(item.icon, contentDescription=item.title) },
-                    label = { Text(item.title) },
+                    icon = { Icon(item.icon, contentDescription= stringResource(id = item.title)) },
+                    label = { Text(stringResource(id = item.title)) },
                     selected = currentDestination?.hierarchy?.any {
                         it.route == screens[index].route
                     } == true,
