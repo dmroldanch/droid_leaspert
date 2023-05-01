@@ -65,7 +65,7 @@ fun CommunityView() {
                             CommunitySectionList.SERVICES -> R.string.communityUi_cardButton_services
                         }
                     ),
-                    onCardClick = {
+                    onCardClicked = {
                         //TODO implement functionalities related to on click over card
                     })
             }

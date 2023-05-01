@@ -1,10 +1,12 @@
 package com.iteneum.communitylist.presentation
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.iteneum.ItemList
 import com.iteneum.designsystem.components.LPGenericElevatedCardImage
 import com.iteneum.designsystem.theme.LeasePertTheme
@@ -25,10 +27,11 @@ fun CommunityListContent() {
     ) {
         items(getInformation()) { item ->
             LPGenericElevatedCardImage(
+                modifier = Modifier.fillMaxWidth(),
                 imageUrl = item.urlImage,
                 title = item.title.toString(),
                 description = item.description.toString(),
-                onClick = {} //TODO ONCLICK IMPLEMENT
+                onClicked = {} //TODO ONCLICK IMPLEMENT
             )
         }
     }
