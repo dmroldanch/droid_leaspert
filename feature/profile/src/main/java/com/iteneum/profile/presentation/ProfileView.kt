@@ -1,5 +1,6 @@
 package com.iteneum.profile.presentation
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -72,8 +73,9 @@ fun ProfileView(
                     containerColor = MaterialTheme.colorScheme.inversePrimary,
                     elevation = FloatingActionButtonDefaults.elevation(sizes.nothingSize),
                     icon = Icons.Outlined.Edit,
-                    contentDescription = stringResource(R.string.content_description_edit)
-                ) {/*TODO expected change in the values of user's phone number, email or address*/ }
+                    contentDescription = stringResource(R.string.content_description_edit),
+                    onClicked = {/*TODO expected change in the values of user's phone number, email or address*/}
+                )
             }
         }
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -112,34 +114,42 @@ fun ProfileView(
                     bottom = sizes.smallerSize
                 )
         ) {
-            Icon(
-                Icons.Outlined.Phone,
-                contentDescription = stringResource(id = R.string.phone_icon),
-                modifier = Modifier.padding(end = sizes.minorSmallSize),
-                tint = MaterialTheme.colorScheme.tertiary
-            )
-            Text(
-                text = "(404) 979-2400",
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.tertiary
-            )
+            AnimatedVisibility(true) {
+                Icon(
+                    Icons.Outlined.Phone,
+                    contentDescription = stringResource(id = R.string.phone_icon),
+                    modifier = Modifier.padding(end = sizes.minorSmallSize),
+                    tint = MaterialTheme.colorScheme.tertiary
+                )
+            }
+            AnimatedVisibility(true) {
+                Text(
+                    text = "(404) 979-2400",
+                    fontWeight = FontWeight.Normal,
+                    color = MaterialTheme.colorScheme.tertiary
+                )
+            }
         }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = sizes.regularSize, vertical = sizes.smallerSize)
         ) {
-            Icon(
-                Icons.Outlined.Mail,
-                contentDescription = stringResource(id = R.string.mail_icon),
-                modifier = Modifier.padding(end = sizes.minorSmallSize),
-                tint = MaterialTheme.colorScheme.tertiary
-            )
-            Text(
-                text = "juan.islas@mail.com",
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.tertiary
-            )
+            AnimatedVisibility(true) {
+                Icon(
+                    Icons.Outlined.Mail,
+                    contentDescription = stringResource(id = R.string.mail_icon),
+                    modifier = Modifier.padding(end = sizes.minorSmallSize),
+                    tint = MaterialTheme.colorScheme.tertiary
+                )
+            }
+            AnimatedVisibility(true) {
+                Text(
+                    text = "juan.islas@mail.com",
+                    fontWeight = FontWeight.Normal,
+                    color = MaterialTheme.colorScheme.tertiary
+                )
+            }
         }
         Row(
             modifier = Modifier
@@ -151,17 +161,21 @@ fun ProfileView(
                     bottom = sizes.smallSize
                 )
         ) {
-            Icon(
-                Icons.Outlined.LocationOn,
-                contentDescription = stringResource(id = R.string.location_icon),
-                modifier = Modifier.padding(end = sizes.minorSmallSize),
-                tint = MaterialTheme.colorScheme.tertiary
-            )
-            Text(
-                text = "4950 Gaidrew, Alpharetta, GA, 30022",
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.tertiary
-            )
+            AnimatedVisibility(true) {
+                Icon(
+                    Icons.Outlined.LocationOn,
+                    contentDescription = stringResource(id = R.string.location_icon),
+                    modifier = Modifier.padding(end = sizes.minorSmallSize),
+                    tint = MaterialTheme.colorScheme.tertiary
+                )
+            }
+            AnimatedVisibility(true) {
+                Text(
+                    text = "4950 Gaidrew, Alpharetta, GA, 30022",
+                    fontWeight = FontWeight.Normal,
+                    color = MaterialTheme.colorScheme.tertiary
+                )
+            }
         }
         Divider(
             modifier = Modifier
