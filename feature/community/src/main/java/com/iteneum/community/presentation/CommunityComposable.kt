@@ -58,11 +58,11 @@ fun CommunityView() {
                     icon = itemCard.icon,
                     description = stringResource(
                         id = when (itemCard.cardName) {
-                            CommunitySectionList.AMENITIES -> R.string.communityUi_cardButton_ammenities
-                            CommunitySectionList.EVENTS -> R.string.communityUi_cardButton_events
-                            CommunitySectionList.COMMUNITY_WALL -> R.string.communityUi_cardButton_communityWall
-                            CommunitySectionList.DOITYOURSELF -> R.string.communityUi_cardButton_doItYourself
-                            CommunitySectionList.SERVICES -> R.string.communityUi_cardButton_services
+                            CommunitySectionList.AMENITIES -> R.string.cardButton_ammenities
+                            CommunitySectionList.EVENTS -> R.string.cardButton_events
+                            CommunitySectionList.COMMUNITY_WALL -> R.string.cardButton_communityWall
+                            CommunitySectionList.DOITYOURSELF -> R.string.cardButton_doItYourself
+                            CommunitySectionList.SERVICES -> R.string.cardButton_services
                         }
                     ),
                     onCardClicked = {
