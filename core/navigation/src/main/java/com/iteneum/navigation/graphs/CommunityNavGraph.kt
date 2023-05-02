@@ -4,7 +4,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.iteneum.example.ScreenContent
+import com.iteneum.communitylist.presentation.CommunityListView
+import com.iteneum.communitywall.presentation.CommunityWallView
 
 fun NavGraphBuilder.communityNavGraph(navController: NavHostController) {
     navigation(
@@ -12,22 +13,10 @@ fun NavGraphBuilder.communityNavGraph(navController: NavHostController) {
         startDestination = CommunityScreen.Amenities.route
     ) {
         composable(route = CommunityScreen.Amenities.route) {
-            ScreenContent(
-                name = CommunityScreen.Amenities.route,
-                onClick = {
-                    navController.popBackStack()
-                    navController.navigate(Graph.HOME)
-                }
-            )
+            //CommunityListView()
         }
         composable(route = CommunityScreen.Wall.route) {
-            ScreenContent(
-                name = CommunityScreen.Amenities.route,
-                onClick = {
-                    navController.popBackStack()
-                    navController.navigate(Graph.HOME)
-                }
-            )
+            CommunityWallView()
         }
     }
 }

@@ -23,10 +23,13 @@ import com.iteneum.designsystem.theme.LeasePertTheme
  *this view model is used to handle the loading of the components of the interface
  * including icons, text and button click functionality.
  *
- * @author Andrés Ivan Medina Herrera
+ * @author Andres Ivan Medina Herrera
  */
 @Composable
-fun CommunitylistUI() {
+fun CommunityView(
+    navigationToCommnityWall : () -> Unit,
+    navigationToAmenities  : () -> Unit,
+) {
     val cardWidth = LeasePertTheme.sizes.extraSize124
     val cardHeight = LeasePertTheme.sizes.extraSize128
     val cardPadding8 = LeasePertTheme.sizes.smallerSize
@@ -58,15 +61,22 @@ fun CommunitylistUI() {
                     icon = itemCard.icon,
                     description = stringResource(
                         id = when (itemCard.cardName) {
-                            CommunitySectionList.AMENITIES -> R.string.communityUi_cardButton_ammenities
-                            CommunitySectionList.EVENTS -> R.string.communityUi_cardButton_events
-                            CommunitySectionList.COMMUNITY_WALL -> R.string.communityUi_cardButton_communityWall
-                            CommunitySectionList.DOITYOURSELF -> R.string.communityUi_cardButton_doItYourself
-                            CommunitySectionList.SERVICES -> R.string.communityUi_cardButton_services
+                            CommunitySectionList.AMENITIES -> R.string.cardButton_ammenities
+                            CommunitySectionList.EVENTS -> R.string.cardButton_events
+                            CommunitySectionList.COMMUNITY_WALL -> R.string.cardButton_communityWall
+                            CommunitySectionList.DOITYOURSELF -> R.string.cardButton_doItYourself
+                            CommunitySectionList.SERVICES -> R.string.cardButton_services
                         }
                     ),
                     onCardClicked = {
-                        //TODO implement functionalities related to on click over card
+                        when(itemCard.cardName){
+                            CommunitySectionList.AMENITIES -> {navigationToAmenities()}
+                            CommunitySectionList.COMMUNITY_WALL -> {navigationToCommnityWall()}
+                            CommunitySectionList.DOITYOURSELF -> {/*TODO()*/}
+                            CommunitySectionList.EVENTS -> {/*TODO()*/}
+                            CommunitySectionList.SERVICES -> {/*TODO()*/}
+                        }
+
                     })
             }
         }
