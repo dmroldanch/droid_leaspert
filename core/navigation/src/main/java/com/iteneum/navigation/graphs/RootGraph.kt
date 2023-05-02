@@ -8,3 +8,11 @@ object Graph {
     const val COMMUNITY = "community_graph"
     const val DASHBOARD = "dashboard_graph"
 }
+
+object RoutesButtonBar {
+    const val DASHBOARD = "dashboard"
+    const val APARTMENT = "apartment"
+    const val COMMUNITY = "community"
+    const val OFFICE = "office"
+
+}
