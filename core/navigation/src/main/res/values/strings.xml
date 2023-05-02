@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="LPButtonBarDashboard">DASHBOARD</string>
+    <string name="LPButtonBarApartment">APARTMENT</string>
+    <string name="LPButtonBarCommunity">COMMUNITY</string>
+    <string name="LPButtonBarOffice">OFFICE</string>
+</resources>

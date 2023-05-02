@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.iteneum.communitylist'
+    namespace 'com.iteneum.navigation'
     compileSdk 33
 
     defaultConfig {
@@ -28,6 +28,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         compose true
     }
@@ -35,8 +36,17 @@ android {
 
 dependencies {
     implementation libs.bundles.compose
-    implementation libs.bundles.hilt
+    implementation libs.coil
 
-    implementation project(":core:designsystem")
-    implementation project(path: ':core:data')
+    implementation project(":feature:example")
+    implementation project(":feature:login")
+    implementation project(":feature:dashboard")
+    implementation project(":feature:apartment")
+    implementation project(":feature:community")
+    implementation project(":feature:communitylist")
+    implementation project(":feature:communitywall")
+    implementation project(":feature:office")
+    implementation project(":feature:notification")
+    implementation project(":feature:profile")
+    implementation project(":feature:repair")
 }
