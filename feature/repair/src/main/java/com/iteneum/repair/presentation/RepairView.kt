@@ -8,10 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.core.text.isDigitsOnly
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.iteneum.designsystem.components.*
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.repair.R
+import com.iteneum.repair.data.RepairViewModel
 
 /**
  * Function that creates [RepairView] compose. for user's service request.
@@ -22,7 +24,8 @@ import com.iteneum.repair.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RepairView() {
+fun RepairView(onClicked: () -> Unit, repairViewModel: RepairViewModel = viewModel()) {
+    val repairUiState by repairViewModel.uiState.collectAsState()
     val sizes = LeasePertTheme.sizes
     val optionsPermissionRadioButtons = stringArrayResource(id = R.array.options_radio_button)
     val optionsPetInUnit = stringArrayResource(id = R.array.options_pet_in_unit)
@@ -154,7 +157,10 @@ fun RepairView() {
                     )
                     .fillMaxWidth(),
                 textButton = stringResource(id = R.string.text_repair_send_button),
-                onClicked = {/* TODO - Send Repair Button - Add functionality to save repair request info */ }
+                onClicked = {
+                    onClicked()
+                    //currentScrambledWord = gameUiState.currentScrambledWord
+                }
             )
         }
     }
