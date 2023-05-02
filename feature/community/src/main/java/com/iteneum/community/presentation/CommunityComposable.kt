@@ -26,7 +26,10 @@ import com.iteneum.designsystem.theme.LeasePertTheme
  * @author Andres Ivan Medina Herrera
  */
 @Composable
-fun CommunityView() {
+fun CommunityView(
+    navigationToCommnityWall : () -> Unit,
+    navigationToAmenities  : () -> Unit,
+) {
     val cardWidth = LeasePertTheme.sizes.extraSize124
     val cardHeight = LeasePertTheme.sizes.extraSize128
     val cardPadding8 = LeasePertTheme.sizes.smallerSize
@@ -66,7 +69,14 @@ fun CommunityView() {
                         }
                     ),
                     onCardClicked = {
-                        //TODO implement functionalities related to on click over card
+                        when(itemCard.cardName){
+                            CommunitySectionList.AMENITIES -> {navigationToAmenities()}
+                            CommunitySectionList.COMMUNITY_WALL -> {navigationToCommnityWall()}
+                            CommunitySectionList.DOITYOURSELF -> {/*TODO()*/}
+                            CommunitySectionList.EVENTS -> {/*TODO()*/}
+                            CommunitySectionList.SERVICES -> {/*TODO()*/}
+                        }
+
                     })
             }
         }
