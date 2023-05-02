@@ -3,8 +3,10 @@ package com.iteneum.leasepert.ui
 import android.annotation.SuppressLint
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,7 +44,7 @@ fun BottomBarComponent(navController: NavHostController) {
     val bottomBarDestination = screens.any { it.route == currentDestination?.route }
 
     if (bottomBarDestination) {
-        NavigationBar {
+        NavigationBar(containerColor = MaterialTheme.colorScheme.primary) {
             screens.forEachIndexed { index, item ->
                 NavigationBarItem(
                     icon = { Icon(item.icon, contentDescription= stringResource(id = item.title)) },
@@ -50,6 +52,9 @@ fun BottomBarComponent(navController: NavHostController) {
                     selected = currentDestination?.hierarchy?.any {
                         it.route == screens[index].route
                     } == true,
+                    colors = NavigationBarItemDefaults.colors(
+                        indicatorColor = MaterialTheme.colorScheme.secondary
+                    ),
                     onClick = {
                         navController.popBackStack()
                         navController.navigate(item.route)
