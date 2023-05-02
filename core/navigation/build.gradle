@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.iteneum.community'
+    namespace 'com.iteneum.navigation'
     compileSdk 33
 
     defaultConfig {
@@ -13,9 +13,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-        vectorDrawables {
-            useSupportLibrary true
-        }
     }
 
     buildTypes {
@@ -31,14 +28,23 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         compose true
     }
 }
 
 dependencies {
-
     implementation libs.bundles.compose
-//Modules
-    implementation project(":core:designsystem")
+    implementation libs.coil
+
+    implementation project(":feature:example")
+    implementation project(":feature:login")
+    implementation project(":feature:dashboard")
+    implementation project(":feature:apartment")
+    //implementation project(":feature:community")
+    implementation project(":feature:office")
+    implementation project(":feature:notification")
+    implementation project(":feature:profile")
+    implementation project(":feature:repair")
 }
