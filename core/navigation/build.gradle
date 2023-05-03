@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.iteneum.office'
+    namespace 'com.iteneum.navigation'
     compileSdk 33
 
     defaultConfig {
@@ -28,17 +28,25 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         compose true
     }
 }
 
 dependencies {
-    implementation libs.hiltAndroid
-    implementation libs.bundles.hilt
     implementation libs.bundles.compose
-    implementation libs.bundles.accompanist
+    implementation libs.coil
 
-    implementation project(":core:designsystem")
-    implementation project(":core:domain")
+    implementation project(":feature:example")
+    implementation project(":feature:login")
+    implementation project(":feature:dashboard")
+    implementation project(":feature:apartment")
+    implementation project(":feature:community")
+    implementation project(":feature:communitylist")
+    implementation project(":feature:communitywall")
+    implementation project(":feature:office")
+    implementation project(":feature:notification")
+    implementation project(":feature:profile")
+    implementation project(":feature:repair")
 }

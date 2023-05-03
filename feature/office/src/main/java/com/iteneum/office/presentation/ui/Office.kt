@@ -83,7 +83,7 @@ fun OfficeUI(viewModel: OfficeViewModel = hiltViewModel()) {
             icon = Icons.Filled.Call,
             textButton = stringResource(id = R.string.LPCallButton),
             onClicked = {
-                viewModel.makeCall(phone,context)
+                viewModel.makeCall(phone)
             })
 
         var Email = stringResource(R.string.LPcontactEmail)
@@ -94,7 +94,7 @@ fun OfficeUI(viewModel: OfficeViewModel = hiltViewModel()) {
                 viewModel.sendEmail(
                     Email,
                     "mail test",
-                    "this is a mail send test", context
+                    "this is a mail send test",
                 )
             })
     }
