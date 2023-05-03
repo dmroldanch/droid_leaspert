@@ -1,15 +1,17 @@
 package com.iteneum.communitywall.presentation
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.iteneum.communitywall.R
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.iteneum.communitywall.domain.Post
+import com.iteneum.designsystem.components.LPTitleLarge
 import com.iteneum.designsystem.components.LpPostCard
 import com.iteneum.designsystem.theme.LeasePertTheme
 
