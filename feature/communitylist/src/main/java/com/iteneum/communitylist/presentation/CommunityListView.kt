@@ -23,15 +23,10 @@ import com.iteneum.designsystem.utils.TextUtils.TWO
  */
 @Composable
 fun CommunityListView(
-    onClickItem: (Int) -> Unit, /* THIS WORKS WHEN YOU JUST WANT TO SEND A VALUE AND IF YOU ARE NOT USING A STATE YOU WILL CHANGE THE VIEW*/
-    onSuccess: () -> Unit, /* THIS WORKS WHEN YOU ARE USING A STATE AND YOU ARE GONNA FINISH THE VIEW */
     viewModel: CommunityListViewModel = hiltViewModel()
 ) {
     LaunchedEffect(true){
         viewModel.getInformation()
-        /*viewModel.stateAction.collect {
-            //uiAction(it)
-        }*/
     }
     val list = remember {
         viewModel.dataInfo
@@ -39,7 +34,7 @@ fun CommunityListView(
     CommunityListContent(
         list = list,
         onClickItem = {
-            //onNavigateTo(it.id)
+           //TODO HERE WE ARE GOING TO DECIDE WHAT ACTION TO DO
         }
     )
 }

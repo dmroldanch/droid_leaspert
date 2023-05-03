@@ -82,7 +82,3 @@ val response: DataState<List<ItemModel>> = DataState.Success(
         )
     )
 )
-
-/*    private val _loading = mutableStateOf(false)
-    val loading: State<Boolean>
-        get() = _loading*/
