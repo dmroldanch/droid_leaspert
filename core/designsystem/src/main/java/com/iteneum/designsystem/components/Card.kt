@@ -274,7 +274,7 @@ fun LPGenericElevatedCard(
         ),
         shape = MaterialTheme.shapes.medium.copy(all = CornerSize(LeasePertTheme.sizes.midSmallSize)),
         modifier = modifier
-            .widthIn(sizes.extraSize48, sizes.extraSize336)
+            .width(sizes.extraSize312)
     ) {
         Column(
             modifier = Modifier.padding(
