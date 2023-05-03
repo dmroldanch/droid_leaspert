@@ -61,7 +61,7 @@ fun CommunityView(
         Text(
             text = stringResource(R.string.title_community),
             modifier = Modifier.padding(start = sizes.smallSize),
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleLarge,
         )
         LazyVerticalGrid(
             columns = GridCells.Fixed(2), contentPadding = PaddingValues(sizes.smallerSize)
