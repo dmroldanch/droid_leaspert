@@ -113,12 +113,14 @@ fun DashboardView(
             // TODO navigate to amenity reservations screen
         }
         Text(
+            modifier = Modifier.padding(bottom = sizes.minorRegularSize),
             text = stringResource(R.string.happening_today),
             style = LPTypography.titleMedium,
             color = MaterialTheme.colorScheme.tertiary
         )
         LazyRow(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(sizes.smallSize)
         ) {
             items(eventList) { event ->
                 LPGenericElevatedCard(

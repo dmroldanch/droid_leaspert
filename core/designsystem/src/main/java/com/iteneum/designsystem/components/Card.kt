@@ -267,12 +267,14 @@ fun LPGenericElevatedCard(
     onButtonClicked: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
+    val sizes = LeasePertTheme.sizes
     Card(
         colors = CardDefaults.cardColors(
             containerColor = color,
         ),
         shape = MaterialTheme.shapes.medium.copy(all = CornerSize(LeasePertTheme.sizes.midSmallSize)),
         modifier = modifier
+            .widthIn(sizes.extraSize48, sizes.extraSize336)
     ) {
         Column(
             modifier = Modifier.padding(
