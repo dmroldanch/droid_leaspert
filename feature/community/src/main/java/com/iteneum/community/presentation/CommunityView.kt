@@ -26,7 +26,9 @@ namely navigationToCommunityWall and navigationToAmenities. The function display
 of community cards, each containing an icon and a description, which when clicked calls
 the appropriate lambda function to navigate to different parts of the application.
 The function uses Jetpack Compose to create a responsive UI.
-
+ *@param navigationToCommunityWall is the function called when clicking on the "Community Wall" button and navigate to CommunityWallView.
+ * @param navigationToAmenities is the function called when clicking on the "Amenities" button and navigate to AmenitiesView.
+* These functions are used to navigate to different parts of the application.
 * @author Irving Gonzalez
  **/
 @Composable
