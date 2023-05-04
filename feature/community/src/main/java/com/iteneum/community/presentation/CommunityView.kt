@@ -80,9 +80,18 @@ fun CommunityView(
                         when(itemCard.cardType){
                             CommunityCardType.Amenities -> {navigationToAmenities()}
                             CommunityCardType.CommunityWall -> {navigationToCommunityWall()}
-                            CommunityCardType.DoItYourself -> { TODO() }
-                            CommunityCardType.Events -> { TODO() }
-                            CommunityCardType.Services -> { TODO() }
+                            CommunityCardType.DoItYourself -> {
+                               /* TODO() This view does not exist, as soon as
+                                   this view is defined the navigation of this section is added */
+                            }
+                            CommunityCardType.Events -> {
+                                /* TODO() This view does not exist, as soon as
+                                    this view is defined the navigation of this section is added */
+                            }
+                            CommunityCardType.Services -> {
+                                /* TODO() This view does not exist, as soon as
+                                    this view is defined the navigation of this section is added */
+                            }
                         }
                     })
             }
