@@ -25,9 +25,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.SubcomposeAsyncImage
 import com.iteneum.designsystem.R
 import com.iteneum.designsystem.theme.*
+import com.iteneum.designsystem.theme.Bianca
+import com.iteneum.designsystem.theme.Drab
+import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.utils.TextUtils.ONE
 import java.sql.Timestamp
 
