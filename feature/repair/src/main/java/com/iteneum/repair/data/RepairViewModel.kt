@@ -1,95 +1,45 @@
 package com.iteneum.repair.data
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import androidx.lifecycle.viewModelScope
+import com.iteneum.RepairModel
+import com.iteneum.network.DataState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-data class RepairUiState (
-    val unitFieldValue: Int? = null,
-    val contactPhoneValue: String? = null,
-    val petInUnitValue: String? = null,
-    val categoryValue: String? = null,
-    val problemDescriptionValue: String? = null,
-    val videoFileValue: Any? = null,
-    val permissionToEnterValue: String? = null,
-)
+/**
+ * File that contains [RepairViewModel] that works as ViewModel for the Repair View.
+ * It will handle the data work & process when loading & be done with the view.
+ *
+ * @author Jose Miguel Garcia Reyes
+ */
 
-class RepairViewModel: ViewModel() {
-    private val _uiState = MutableStateFlow(RepairUiState())
-    val uiState: StateFlow<RepairUiState> = _uiState.asStateFlow()
 
-    /*add to fun composable view as parameter --> repairViewModel: RepairViewModel = viewModel()
-      add to fun composable                 --> val repairUiState by repairViewModel.uiState.collectAsState()
+@HiltViewModel
+class RepairViewModel @Inject constructor(): ViewModel() {
+    private val _dataInfo : MutableState<RepairModel?> = mutableStateOf(null)
+    val dataInfo: MutableState<RepairModel?>
+        get() = _dataInfo
 
-      isValidDescription = it.isEmpty() || it.matches(Regex(".*[a-zA-Z]+.*")).not()
-    */
-
-    /*
-    private val _state2: MutableStateFlow< > = MutableStateFlow(RepairUiState.Default)
-    val state2 = RepairUiState: UiState <MutableList<ItemModel>> {
-
-    }
-    parameter on composable function content --> state: RepairUiState
-    */
-    init {
-        receiveRepairData()
-    }
-    /*internal fun getInformation() = viewModelScope.launch {
-        = response is Database.Loading
+    fun getInformation() = viewModelScope.launch {
         when (response) {
             is DataState.Success -> {
-                uiState.<data>.clear()
-                uiState.<data>.addAll(response.data)
+                _dataInfo.value = response.data
             }
             is DataState.Error -> {
-                uiState.snackbarVisibleState = true
+                /* TODO - RepairViewModel DataState.Error - when data has an error */
+            }
+            is DataState.Loading -> {
+                /* TODO - RepairViewModel DataState.Loading - when data loads */
             }
             else -> Unit
-
-        }
-    }*/
-    private fun receiveRepairData() {
-        _uiState.update { currentState ->
-            currentState.copy(
-                unitFieldValue = 1,
-                contactPhoneValue = "text",
-                petInUnitValue = "text",
-                categoryValue = "text",
-                problemDescriptionValue = "text",
-                videoFileValue = "text",
-                permissionToEnterValue = "text",
-            )
         }
     }
 
-    fun sendRepairDataToDB() {
-        _uiState.value = RepairUiState(/*   */)
+    fun onClickSendButton() {
+        /* TODO - RepairViewModel onClickSendButton - When user clicks on Send button, save data and store it */
     }
-
-    /*private fun updateRepairState(updatedScore: Int) {
-        if (usedWords.size == MAX_NO_OF_WORDS){
-            //Last round in the game, update isGameOver to true, don't pick a new word
-            _uiState.update { currentState ->
-                currentState.copy(
-                    isGuessedWordWrong = false,
-                    score = updatedScore,
-                    isGameOver = true
-                )
-            }
-        } else{
-            // Normal round in the game
-            _uiState.update { currentState ->
-                currentState.copy(
-                    isGuessedWordWrong = false,
-                    currentScrambledWord = pickRandomWordAndShuffle(),
-                    currentWordCount = currentState.currentWordCount.inc(),
-                    score = updatedScore
-                )
-            }
-        }
-    }*/
-
-
 }

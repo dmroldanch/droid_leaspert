@@ -8,7 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.core.text.isDigitsOnly
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.iteneum.RepairModel
 import com.iteneum.designsystem.components.*
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.theme.LeasePertTheme
@@ -22,10 +23,28 @@ import com.iteneum.repair.data.RepairViewModel
  * @author Jose Miguel Garcia Reyes
  */
 
+@Composable
+fun RepairView(
+    navigateToApartment: () -> Unit,
+    repairViewModel: RepairViewModel = hiltViewModel()
+) {
+    LaunchedEffect(true) {
+        repairViewModel.getInformation()
+    }
+    RepairContainer(
+        dataInfo = repairViewModel.dataInfo.value,
+        navigateToApartment = navigateToApartment,
+        sendDataButton = { repairViewModel.onClickSendButton() }
+    )
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RepairView(onClicked: () -> Unit, repairViewModel: RepairViewModel = viewModel()) {
-    val repairUiState by repairViewModel.uiState.collectAsState()
+fun RepairContainer(
+    dataInfo: RepairModel?,
+    navigateToApartment: () -> Unit,
+    sendDataButton: () -> Unit
+) {
     val sizes = LeasePertTheme.sizes
     val optionsPermissionRadioButtons = stringArrayResource(id = R.array.options_radio_button)
     val optionsPetInUnit = stringArrayResource(id = R.array.options_pet_in_unit)
@@ -67,7 +86,7 @@ fun RepairView(onClicked: () -> Unit, repairViewModel: RepairViewModel = viewMod
                 label = stringResource(id = R.string.label_unit),
                 hint = stringResource(id = R.string.hint_unit),
                 onValueChanged = {/* TODO - Unit Text field - To verify if extra functionality required */ }
-            )
+            )//Value of Unit - value = dataInfo?.unitDepartment ?: "000"
             LPPhoneNumberText(
                 modifier = Modifier.padding(
                     top = sizes.extraSize14
@@ -158,8 +177,8 @@ fun RepairView(onClicked: () -> Unit, repairViewModel: RepairViewModel = viewMod
                     .fillMaxWidth(),
                 textButton = stringResource(id = R.string.text_repair_send_button),
                 onClicked = {
-                    onClicked()
-                    //currentScrambledWord = gameUiState.currentScrambledWord
+                    sendDataButton()
+                    navigateToApartment()
                 }
             )
         }
