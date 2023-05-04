@@ -294,7 +294,7 @@ fun DropdownTextField(
                 .fillMaxWidth()
                 .menuAnchor(),
             value = selectedOptionText,
-            onValueChange = { },
+            onValueChange = {/* TODO - DropdownTextField onValueChanged - to implement when value is changed within text field */},
             readOnly = true,
             label = { Text(text = title, color = MaterialTheme.colorScheme.tertiary) },
             trailingIcon = {
