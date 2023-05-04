@@ -26,15 +26,15 @@ namely navigationToCommunityWall and navigationToAmenities. The function display
 of community cards, each containing an icon and a description, which when clicked calls
 the appropriate lambda function to navigate to different parts of the application.
 The function uses Jetpack Compose to create a responsive UI.
-* @param navigationToCommunityWall is the function called when clicking on the "Community Wall" button and navigate to CommunityWallView.
-* @param navigationToAmenities is the function called when clicking on the "Amenities" button and navigate to AmenitiesView.
-* These functions are used to navigate to different parts of the application.
-* @author Irving Gonzalez
+ * @param navigationToCommunityWall is the function called when clicking on the "Community Wall" button and navigate to CommunityWallView.
+ * @param navigationToAmenities is the function called when clicking on the "Amenities" button and navigate to AmenitiesView.
+ * These functions are used to navigate to different parts of the application.
+ * @author Irving Gonzalez
  **/
 @Composable
 fun CommunityView(
-    navigationToCommunityWall : () -> Unit,
-    navigationToAmenities  : () -> Unit,
+    navigationToCommunityWall: () -> Unit,
+    navigationToAmenities: () -> Unit,
 ) {
     val sizes = LeasePertTheme.sizes
 
@@ -58,15 +58,21 @@ fun CommunityView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = sizes.minorRegularSize, start = sizes.midSmallSize, end = sizes.midSmallSize)
+            .padding(
+                top = sizes.minorRegularSize,
+                start = sizes.midSmallSize,
+                end = sizes.midSmallSize
+            )
     ) {
         Text(
             text = stringResource(R.string.title_community),
             modifier = Modifier.padding(start = sizes.smallSize),
-            style = MaterialTheme.typography.titleLarge,
+            style = MaterialTheme.typography.titleLarge
         )
+
         LazyVerticalGrid(
-            columns = GridCells.Fixed(2), contentPadding = PaddingValues(sizes.smallerSize)
+            columns = GridCells.Fixed(2),
+            contentPadding = PaddingValues(sizes.smallerSize)
         ) {
             items(communityCardButtons) { itemCard ->
                 LpIconTextCard(modifier = Modifier
@@ -74,15 +80,20 @@ fun CommunityView(
                     .padding(sizes.smallerSize),
                     icon = itemCard.icon,
                     description = stringResource(
-                        id = cardDescriptions[itemCard.cardType] ?: R.string.default_card_description
+                        id = cardDescriptions[itemCard.cardType]
+                            ?: R.string.default_card_description
                     ),
                     onCardClicked = {
-                        when(itemCard.cardType){
-                            CommunityCardType.Amenities -> {navigationToAmenities()}
-                            CommunityCardType.CommunityWall -> {navigationToCommunityWall()}
+                        when (itemCard.cardType) {
+                            CommunityCardType.Amenities -> {
+                                navigationToAmenities()
+                            }
+                            CommunityCardType.CommunityWall -> {
+                                navigationToCommunityWall()
+                            }
                             CommunityCardType.DoItYourself -> {
-                               /* TODO() This view does not exist, as soon as
-                                   this view is defined the navigation of this section is added */
+                                /* TODO() This view does not exist, as soon as
+                                    this view is defined the navigation of this section is added */
                             }
                             CommunityCardType.Events -> {
                                 /* TODO() This view does not exist, as soon as
@@ -93,7 +104,8 @@ fun CommunityView(
                                     this view is defined the navigation of this section is added */
                             }
                         }
-                    })
+                    }
+                )
             }
         }
     }
