@@ -70,7 +70,15 @@ fun CommunityWallItemList() {
     ){
         LazyColumn{
             items(postList){
-                LpPostCard(modifier = Modifier, it.name, it.img, it.time, it.message, {}, {})
+                LpPostCard(
+                    modifier = Modifier,
+                    userName = it.name,
+                    userPhoto = null,
+                    timeAgo = it.time,
+                    messagePost = it.message,
+                    onFavoriteClicked = {},
+                    onCommentClicked = {}
+                )
             }
         }
     }
