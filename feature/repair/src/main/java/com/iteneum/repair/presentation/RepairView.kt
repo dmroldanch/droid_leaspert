@@ -20,6 +20,15 @@ import com.iteneum.repair.data.RepairViewModel
  * Function that creates [RepairView] compose. for user's service request.
  * User will require to fill all the correspondent fields on the screen.
  *
+ * Function [RepairView] has
+ * @param navigateToApartment - to get the function to navigate ApartmentView when clicking button
+ * @param repairViewModel - to get the Repair View Model access
+ *
+ * Function [RepairContainer] has
+ * @param dataInfo - to use if for displaying Unit in the Unit Text Field
+ * @param repairViewModel -  to get the Repair View Model access
+ * @param navigateToApartment - its passed from RepairView() for same purpose
+ *
  * @author Jose Miguel Garcia Reyes
  */
 
@@ -33,8 +42,7 @@ fun RepairView(
     }
     RepairContainer(
         dataInfo = repairViewModel.dataInfo.value,
-        navigateToApartment = navigateToApartment,
-        sendDataButton = { repairViewModel.onClickSendButton() }
+        navigateToApartment = navigateToApartment
     )
 }
 
@@ -42,8 +50,8 @@ fun RepairView(
 @Composable
 fun RepairContainer(
     dataInfo: RepairModel?,
+    repairViewModel: RepairViewModel = hiltViewModel(),
     navigateToApartment: () -> Unit,
-    sendDataButton: () -> Unit
 ) {
     val sizes = LeasePertTheme.sizes
     val optionsPermissionRadioButtons = stringArrayResource(id = R.array.options_radio_button)
@@ -51,12 +59,6 @@ fun RepairContainer(
     val optionsCategory = stringArrayResource(id = R.array.options_category)
     var isNotValidPhone by remember {
         mutableStateOf(false)
-    }
-    var optionSelectedRadioButtons by remember {
-        mutableStateOf(optionsPermissionRadioButtons[0])
-    }
-    var contactPhoneNumberValue by remember {
-        mutableStateOf("")
     }
     LeasePertTheme {
         Column(
@@ -86,17 +88,19 @@ fun RepairContainer(
                 enabled = false,
                 label = stringResource(id = R.string.label_unit),
                 hint = stringResource(id = R.string.hint_unit),
-                onValueChanged = {/* TODO - Unit Text field - To verify if extra functionality required */ }
+                onValueChanged = {
+                    repairViewModel.getUnitDepartmentFromView(it)
+                }
             )
             LPPhoneNumberText(
                 modifier = Modifier.padding(
                     top = sizes.extraSize14
                 ),
-                value = contactPhoneNumberValue,
+                value = repairViewModel.repairModel.contactPhone,
                 onPhoneChanged = {
                     isNotValidPhone = it.isEmpty() || it.length < 10
                     if (it.isDigitsOnly() && it.length <= 10)
-                        contactPhoneNumberValue = it
+                        repairViewModel.getContactPhoneFromView(it)
                 },
                 isNotValid = isNotValidPhone,
                 supportTextError = stringResource(id = R.string.support_error_phone)
@@ -107,7 +111,9 @@ fun RepairContainer(
                 ),
                 title = stringResource(id = R.string.label_pet_in_unit),
                 items = optionsPetInUnit.toList(),
-                selected = {/* TODO - PetInUnit field - To verify if extra functionality required */ }
+                selected = {
+                    repairViewModel.getPetInUnitFromView(it)
+                }
             )
             Text(
                 text = stringResource(id = R.string.text_service),
@@ -122,7 +128,9 @@ fun RepairContainer(
                 ),
                 title = stringResource(id = R.string.label_category),
                 items = optionsCategory.toList(),
-                selected = {/* TODO - Category field - To verify if extra functionality required */ }
+                selected = {
+                    repairViewModel.getCategoryFromView(it)
+                }
             )
             LpOutlinedTextFieldInput(
                 modifier = Modifier
@@ -133,7 +141,9 @@ fun RepairContainer(
                     .fillMaxWidth(),
                 label = stringResource(id = R.string.label_description),
                 hint = stringResource(id = R.string.hint_description),
-                onValueChanged = {/* TODO - Description field - To verify if extra functionality required */ }
+                onValueChanged = {
+                    repairViewModel.getProblemDescriptionFromView(it)
+                }
             )
             Text(
                 text = stringResource(id = R.string.text_video_button),
@@ -149,7 +159,9 @@ fun RepairContainer(
                     )
                     .fillMaxWidth(),
                 mimeTypes = arrayOf("video/*", "image/*"),
-                onFileSelected = {/* TODO - File Button - Add functionality to save files */ }
+                onFileSelected = {
+                    repairViewModel.getImageOrVideoFileFromView(it)
+                }
             )
             Text(
                 text = stringResource(id = R.string.text_permission),
@@ -164,9 +176,9 @@ fun RepairContainer(
                     top = sizes.extraSize10
                 ),
                 options = optionsPermissionRadioButtons.toList(),
-                selectedOption = optionSelectedRadioButtons,
+                selectedOption = repairViewModel.repairModel.permissionToEnter,
                 onOptionSelected = {
-                    optionSelectedRadioButtons = it
+                    repairViewModel.getPermissionToEnterFromView(it)
                 }
             )
             LpFilledTonalButton(
@@ -178,7 +190,7 @@ fun RepairContainer(
                     .fillMaxWidth(),
                 textButton = stringResource(id = R.string.text_repair_send_button),
                 onClicked = {
-                    sendDataButton()
+                    repairViewModel.onClickSendButton()
                     navigateToApartment()
                 }
             )
