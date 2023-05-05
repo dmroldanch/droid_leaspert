@@ -10,11 +10,11 @@ import android.net.Uri
  */
 
 data class RepairModel (
-    var unitDepartment: String = "",
-    var contactPhone: String = "",
-    var petInUnit: String = "",
-    var category: String = "",
-    var problemDescription: String = "",
-    var imageOrVideoFile: Uri = Uri.parse(""),
-    var permissionToEnter: String = "",
+    val unitDepartment: String = "",
+    val contactPhone: String = "",
+    val petInUnit: String = "",
+    val category: String = "",
+    val problemDescription: String = "",
+    val imageOrVideoFile: Uri = Uri.parse(""),
+    val permissionToEnter: String = "",
 )

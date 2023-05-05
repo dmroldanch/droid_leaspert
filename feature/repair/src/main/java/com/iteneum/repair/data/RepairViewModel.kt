@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RepairViewModel @Inject constructor(): ViewModel() {
-    private val _dataInfo : MutableState<RepairModel?> = mutableStateOf(null)
+    private val _dataInfo : MutableState<RepairModel?> = mutableStateOf(null) /* TODO - RepairViewModel - Verify if it will stay null */
     val dataInfo: MutableState<RepairModel?>
         get() = _dataInfo
     var repairModel : RepairModel by mutableStateOf(RepairModel())
@@ -57,7 +57,7 @@ class RepairViewModel @Inject constructor(): ViewModel() {
         repairModel = repairModel.copy(category = category)
     }
     fun getProblemDescriptionFromView(problemDescription:String) {
-        repairModel = repairModel.copy(unitDepartment = problemDescription)
+        repairModel = repairModel.copy(problemDescription = problemDescription)
     }
     fun getImageOrVideoFileFromView(imageOrVideoFile: Uri) {
         repairModel = repairModel.copy(imageOrVideoFile = imageOrVideoFile)
