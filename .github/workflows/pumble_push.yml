@@ -1,7 +1,7 @@
 name: PumblePush
 
 env:
-    BRANCH: ${{ GITHUB_REF#refs/heads/ }}
+    BRANCH: ${{ github.ref_name }}
     USERNAME: ${{ github.actor }}
     
 on:
