@@ -422,9 +422,9 @@ fun LPGenericElevatedCardImage(
 @Composable
 fun LpPaymentsRentCard(
     modifier: Modifier,
-    month: String,
-    quantity: Double,
-    date: Timestamp,
+    currentMonth: String,
+    quantityToPay: String,
+    limitDateToPay: String,
     onButtonClicked: () -> Unit
 ) {
     OutlinedCard(
@@ -449,7 +449,7 @@ fun LpPaymentsRentCard(
                 )
         ) {
             Text(
-                text = month,
+                text = currentMonth,
                 style = MaterialTheme.typography.bodyLarge
             )
         }
@@ -469,12 +469,12 @@ fun LpPaymentsRentCard(
             )
             Column(modifier = Modifier.padding(start = LeasePertTheme.sizes.midLargeSize)) {
                 Text(
-                    text = "$$quantity",
+                    text = "$$quantityToPay",
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(bottom = LeasePertTheme.sizes.minorMediumSize)
                 )
                 Text(
-                    text = date.toString(),
+                    text = limitDateToPay,
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
