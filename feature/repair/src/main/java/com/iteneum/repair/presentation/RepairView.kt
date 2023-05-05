@@ -77,6 +77,7 @@ fun RepairContainer(
                 )
             }
             LpOutlinedTextFieldInput(
+                /* TODO - LpOutlinedTextFieldInput (Check component required) - To enable to action  of passing value argument --> value = dataInfo?.unitDepartment ?: "000" */
                 modifier = Modifier
                     .padding(
                         top = sizes.minorRegularSize
@@ -86,7 +87,7 @@ fun RepairContainer(
                 label = stringResource(id = R.string.label_unit),
                 hint = stringResource(id = R.string.hint_unit),
                 onValueChanged = {/* TODO - Unit Text field - To verify if extra functionality required */ }
-            )//Value of Unit - value = dataInfo?.unitDepartment ?: "000"
+            )
             LPPhoneNumberText(
                 modifier = Modifier.padding(
                     top = sizes.extraSize14
