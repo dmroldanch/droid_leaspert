@@ -32,19 +32,14 @@ import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransforma
 @Composable
 fun LpOutlinedTextFieldPassword(
     modifier: Modifier,
-    value: String,
+    value: String = "",
     isValid: Boolean,
     supportTextError: String,
     onPasswordChanged: (String) -> Unit
 ) {
-    var passwordFieldValue by remember { mutableStateOf(TextFieldValue("")) }
-
     OutlinedTextField(
-        value = passwordFieldValue,
-        onValueChange = {
-            passwordFieldValue = it
-            onPasswordChanged(passwordFieldValue.text)
-        },
+        value = value,
+        onValueChange = onPasswordChanged,
         modifier = modifier,
         label = {
             Text(
@@ -98,16 +93,13 @@ fun LpOutlinedTextField(
     hint: String,
     isValid: Boolean,
     supportTextError: String,
+    value: String = "",
     onValueChanged: (String) -> Unit
 ) {
-    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
 
     OutlinedTextField(
-        value = textFieldValue,
-        onValueChange = {
-            textFieldValue = it
-            onValueChanged(textFieldValue.text)
-        },
+        value = value,
+        onValueChange = onValueChanged,
         modifier = modifier,
         label = {
             Text(
@@ -164,16 +156,13 @@ fun LpOutlinedTextFieldMail(
     label: String,
     isValid: Boolean,
     supportTextError: String,
+    value: String = "",
     onValueChanged: (String) -> Unit
 ) {
-    var emailFieldValue by remember { mutableStateOf(TextFieldValue("")) }
 
     OutlinedTextField(
-        value = emailFieldValue,
-        onValueChange = {
-            emailFieldValue = it
-            onValueChanged(emailFieldValue.text)
-        },
+        value = value,
+        onValueChange = onValueChanged,
         modifier = modifier,
         label = {
             Text(
@@ -222,15 +211,12 @@ fun LpOutlinedTextFieldInput(
     enabled: Boolean = true,
     label: String,
     hint: String,
+    value: String = "",
     onValueChanged: (String) -> Unit,
 ) {
-    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
     OutlinedTextField(
-        value = textFieldValue,
-        onValueChange = {
-            textFieldValue = it
-            onValueChanged(textFieldValue.text)
-        },
+        value = value,
+        onValueChange = onValueChanged,
         modifier = modifier,
         enabled = enabled,
         label = {
@@ -277,10 +263,12 @@ fun DropdownTextField(
     modifier: Modifier = Modifier,
     title: String,
     items: List<String>,
-    selected: (String) -> Unit
+    selected: (String) -> Unit,
+    value: String = "",
+    onSelectedOption: (String) -> Unit,
+    newSelectedOption: (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedOptionText by remember { mutableStateOf("") }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -293,8 +281,8 @@ fun DropdownTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .menuAnchor(),
-            value = selectedOptionText,
-            onValueChange = {/* TODO - DropdownTextField onValueChanged - to implement when value is changed within text field */},
+            value = value,
+            onValueChange = onSelectedOption,
             readOnly = true,
             label = { Text(text = title, color = MaterialTheme.colorScheme.tertiary) },
             trailingIcon = {
@@ -323,8 +311,8 @@ fun DropdownTextField(
                 DropdownMenuItem(
                     text = { Text(selectedOption) },
                     onClick = {
-                        selectedOptionText = selectedOption
-                        selected(selectedOptionText)
+                        newSelectedOption(selectedOption)
+                        selected(newSelectedOption.toString())
                         expanded = false
                     },
                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
@@ -350,16 +338,16 @@ fun DropdownTextField(
 @Composable
 fun LPPhoneNumberText(
     modifier: Modifier = Modifier,
-    value: String,
+    value: String = "",
     isEnabled: Boolean = true,
     isNotValid: Boolean,
     supportTextError: String,
-    onPhoneChanged: (String) -> Unit
+    onPhoneChanged: (String) -> Unit,
 ) {
-    var phoneNumberText by remember { mutableStateOf("") }
-    val numbersOnlyExpression = remember { Regex("^\\d*\$") }
+    val numbersOnlyExpression = Regex("^\\d*\$")
     val phoneNumberTransformation = PhoneNumberTransformation()
     val maxCharactersAllowed = 10
+
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         label = {
@@ -376,9 +364,7 @@ fun LPPhoneNumberText(
         },
         value = value,
         onValueChange = {
-            if (it.matches(numbersOnlyExpression) && it.length <= maxCharactersAllowed)
-                phoneNumberText = it
-            onPhoneChanged(phoneNumberText)
+            if (it.matches(numbersOnlyExpression) && it.length <= maxCharactersAllowed) onPhoneChanged(it)
         },
         isError = isNotValid,
         supportingText = {
@@ -391,7 +377,7 @@ fun LPPhoneNumberText(
             imeAction = ImeAction.Next
         ),
         visualTransformation = {
-            phoneNumberTransformation.filter(AnnotatedString(phoneNumberText))
+            phoneNumberTransformation.filter(AnnotatedString(value))
         },
         enabled = isEnabled,
         colors = TextFieldDefaults.outlinedTextFieldColors(
