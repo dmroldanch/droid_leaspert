@@ -9,7 +9,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.*
+import com.iteneum.designsystem.R
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.iteneum.designsystem.theme.LeasePertTheme
 
 /**
@@ -28,7 +30,7 @@ import com.iteneum.designsystem.theme.LeasePertTheme
 fun LpGenericComment(
     modifier: Modifier = Modifier,
     comment: String,
-    hint: String = "Describe your problem...",
+    hint: String = stringResource(id = R.string.text_generic_comment_hint),
     onValueChanged: (String) -> Unit
 ) {
     OutlinedTextField(
