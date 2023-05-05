@@ -1,0 +1,19 @@
+name: PumblePush
+
+env:
+    BRANCH: ${{ substr(github.ref, 11) }}
+    USERNAME: ${{ github.actor }}
+    
+on:
+  push:
+    branches: [ "main","develop","feature" ]
+
+jobs:
+  curl:
+    runs-on: ubuntu-latest
+    steps:
+    - name: curl
+      uses: wei/curl@v1
+      with:
+        args: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"New code pushed to '${BRANCH}' by '${USERNAME}' \U+1F913"}' https://api.pumble.com/workspaces/6453cf643d135602f32c6fdb/incomingWebhooks/postMessage/6453d2b73d135602f32c7361/qPJ4Is8CHXsDqk9ShlldtysS

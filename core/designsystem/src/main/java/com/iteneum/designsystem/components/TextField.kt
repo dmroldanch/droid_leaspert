@@ -3,8 +3,6 @@ package com.iteneum.designsystem.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -265,12 +263,13 @@ fun LpOutlinedTextFieldInput(
 /**
  * [DropdownTextField] it's a text-field to show a list of items inside a box
  *
- * @param title refers to the label that the text-field will have
- * @param items refers to the list that will be given to expand the text-field
  * @param modifier to set component modifier
- * @param selected its a high order function that returns the selected option of the dropdown as result
+ * @param title refers to the label that the text-field will have
+ * @param items refers to the elements of the DropDownList (list of elements)
+ * @param selected refers to a high order function that returns the selected option of the DropDownList
  *
  * @author Jesus Lopez Gonzalez
+ * @modifiedBy Jose Miguel Garcia Reyes
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -285,7 +284,9 @@ fun DropdownTextField(
 
     ExposedDropdownMenuBox(
         expanded = expanded,
-        onExpandedChange = { expanded = !expanded },
+        onExpandedChange = {
+            expanded = !expanded
+        },
         modifier = modifier
     ) {
         OutlinedTextField(
@@ -293,16 +294,13 @@ fun DropdownTextField(
                 .fillMaxWidth()
                 .menuAnchor(),
             value = selectedOptionText,
-            onValueChange = {},
+            onValueChange = {/* TODO - DropdownTextField onValueChanged - to implement when value is changed within text field */},
             readOnly = true,
             label = { Text(text = title, color = MaterialTheme.colorScheme.tertiary) },
             trailingIcon = {
-                IconButton(onClick = { expanded = true }) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowDropDown,
-                        contentDescription = stringResource(id = R.string.DTFDropdownDescription)
-                    )
-                }
+                ExposedDropdownMenuDefaults.TrailingIcon(
+                    expanded = expanded
+                )
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
@@ -312,10 +310,14 @@ fun DropdownTextField(
                 placeholderColor = MaterialTheme.colorScheme.onPrimary
             )
         )
-        ExposedDropdownMenu(
-            modifier = Modifier.background(MaterialTheme.colorScheme.primary),
+        DropdownMenu(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.background)
+                .exposedDropdownSize(),
             expanded = expanded,
-            onDismissRequest = { expanded = false }
+            onDismissRequest = {
+                expanded = false
+            }
         ) {
             items.forEach { selectedOption ->
                 DropdownMenuItem(
