@@ -37,7 +37,7 @@ fun HomeNavGraph(navController: NavHostController) {
         }
         composable(route = BottomBar.COMMUNITY.route) {
             CommunityView(
-                navigationToCommnityWall = {
+                navigationToCommunityWall = {
                     navController.navigate(CommunityScreen.Wall.route)
                 } ,
                 navigationToAmenities = {
