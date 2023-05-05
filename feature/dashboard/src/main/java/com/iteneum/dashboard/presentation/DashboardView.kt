@@ -35,7 +35,10 @@ import kotlin.random.Random
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DashboardView() {
+fun DashboardView(
+    navigateToNotification: () -> Unit,
+    navigateToProfile: () -> Unit
+) {
     val sizes = LeasePertTheme.sizes
     // TODO mock data, change for real data
     val username = "Martin"
@@ -68,14 +71,14 @@ fun DashboardView() {
                 showBadge = showBadgeNotification,
                 imageVector = Icons.Filled.Notifications
             ) {
-                // TODO add click functionality here
+                navigateToNotification()
             }
             LpBadgeButton(
                 badgeNumber = badgeNumberPerson,
                 showBadge = showBadgePerson,
                 imageVector = Icons.Filled.Person
             ) {
-                // TODO add click functionality here
+                navigateToProfile()
             }
         }
         LpGenericCard(
@@ -110,12 +113,14 @@ fun DashboardView() {
             // TODO navigate to amenity reservations screen
         }
         Text(
+            modifier = Modifier.padding(bottom = sizes.minorRegularSize),
             text = stringResource(R.string.happening_today),
             style = LPTypography.titleMedium,
             color = MaterialTheme.colorScheme.tertiary
         )
         LazyRow(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(sizes.smallSize)
         ) {
             items(eventList) { event ->
                 LPGenericElevatedCard(

@@ -1,6 +1,5 @@
 package com.iteneum.designsystem.components
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
@@ -12,7 +11,6 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
@@ -274,10 +272,10 @@ fun LpOutlinedTextFieldInput(
 }
 
 /**
- * [DropdownTextField] it's a textfield to show a list of items inside a box
+ * [DropdownTextField] it's a text-field to show a list of items inside a box
  *
- * @param title refers to the label that the textfield will have
- * @param items refers to the list that will be given to expand the textfield
+ * @param title refers to the label that the text-field will have
+ * @param items refers to the list that will be given to expand the text-field
  * @param modifier to set component modifier
  * @param selected its a high order function that returns the selected option of the dropdown as result
  *
@@ -369,7 +367,6 @@ fun LPPhoneNumberText(
     val numbersOnlyExpression = remember { Regex("^\\d*\$") }
     val phoneNumberTransformation = PhoneNumberTransformation()
     val maxCharactersAllowed = 10
-    val context = LocalContext.current
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         label = {
@@ -388,9 +385,7 @@ fun LPPhoneNumberText(
         onValueChange = {
             if (it.matches(numbersOnlyExpression) && it.length <= maxCharactersAllowed)
                 phoneNumberText = it
-            else
-                Toast.makeText(context, "Not a valid input", Toast.LENGTH_SHORT).show()
-            onPhoneChanged(it)
+            onPhoneChanged(phoneNumberText)
         },
         isError = isNotValid,
         supportingText = {
@@ -400,6 +395,7 @@ fun LPPhoneNumberText(
         textStyle = TextStyle(fontSize = 18.sp),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Next
         ),
         visualTransformation = {
             phoneNumberTransformation.filter(AnnotatedString(phoneNumberText))
