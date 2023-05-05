@@ -16,4 +16,5 @@
     <string name="text_choose_file">Choose File</string>
     <string name="text_no_selected_file">No selected file…</string>
     <string name="text_unable_to_get_file_name">Unable to get file name</string>
+    <string name="text_generic_comment_hint">Describe your problem...</string>
 </resources>
