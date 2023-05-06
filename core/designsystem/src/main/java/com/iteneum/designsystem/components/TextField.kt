@@ -61,7 +61,7 @@ fun LpOutlinedTextFieldPassword(
             if (isValid) {
                 Text(text = supportTextError)
             } else {
-                Text(text = "")
+                Text(text = value)
             }
         },
         singleLine = true,
@@ -80,11 +80,13 @@ fun LpOutlinedTextFieldPassword(
  * @param label Text label
  * @param hint Hint message
  * @param isValid Validate if text is valid
- * @param supportTextError Error message
- * @param onValueChanged This parameter return the field value
+ * @param supportTextError The error message to be displayed when validation fails
+ * @param value The value of the component
+ * @param onValueChanged The callback function to be triggered on value change
  *
  * @author Jesus Lopez
  */
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LpOutlinedTextField(
@@ -126,7 +128,7 @@ fun LpOutlinedTextField(
             if (isValid) {
                 Text(text = supportTextError)
             } else {
-                Text(text = "")
+                Text(text = value)
             }
         },
         singleLine = true,
@@ -144,6 +146,7 @@ fun LpOutlinedTextField(
  * @param label Text label
  * @param isValid Validate if text is valid
  * @param supportTextError Error message
+ * @param value The current value of the input field
  * @param onValueChanged This parameter return the field value
  *
  * @author Andrés Ivan Medina Herrera
@@ -184,7 +187,7 @@ fun LpOutlinedTextFieldMail(
             if (isValid) {
                 Text(text = supportTextError)
             } else {
-                Text(text = "")
+                Text(text = value)
             }
         },
         singleLine = true,
@@ -200,6 +203,7 @@ fun LpOutlinedTextFieldMail(
  * @param modifier Set component modifier
  * @param label Text label
  * @param hint Hint message
+ * @param value The current value of the field
  * @param onValueChanged This parameter return the field value
  *
  * @author Andrés Ivan Medina Herrera
@@ -253,6 +257,7 @@ fun LpOutlinedTextFieldInput(
  * @param title refers to the label that the text-field will have
  * @param items refers to the elements of the DropDownList (list of elements)
  * @param selected refers to a high order function that returns the selected option of the DropDownList
+ * @param value The current value of the input field
  *
  * @author Jesus Lopez Gonzalez
  * @modifiedBy Jose Miguel Garcia Reyes
@@ -265,8 +270,6 @@ fun DropdownTextField(
     items: List<String>,
     selected: (String) -> Unit,
     value: String = "",
-    onSelectedOption: (String) -> Unit,
-    newSelectedOption: (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -282,7 +285,7 @@ fun DropdownTextField(
                 .fillMaxWidth()
                 .menuAnchor(),
             value = value,
-            onValueChange = onSelectedOption,
+            onValueChange = selected,
             readOnly = true,
             label = { Text(text = title, color = MaterialTheme.colorScheme.tertiary) },
             trailingIcon = {
@@ -311,8 +314,7 @@ fun DropdownTextField(
                 DropdownMenuItem(
                     text = { Text(selectedOption) },
                     onClick = {
-                        newSelectedOption(selectedOption)
-                        selected(newSelectedOption.toString())
+                        selected(selectedOption)
                         expanded = false
                     },
                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
