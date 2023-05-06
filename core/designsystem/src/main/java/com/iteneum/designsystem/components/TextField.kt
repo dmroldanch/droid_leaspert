@@ -27,6 +27,7 @@ import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransforma
  *
  * @author Jose G. Rivera
  * @modifiedBy Jesus Lopez
+ * @modifiedBy Irving Gonzalez
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -85,6 +86,7 @@ fun LpOutlinedTextFieldPassword(
  * @param onValueChanged The callback function to be triggered on value change
  *
  * @author Jesus Lopez
+ * @modifiedBy Irving Gonzalez
  */
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -151,6 +153,7 @@ fun LpOutlinedTextField(
  *
  * @author Andrés Ivan Medina Herrera
  * @modifiedBy Jesus Lopez
+ * @modifiedBy Irving Gonzalez
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -207,6 +210,7 @@ fun LpOutlinedTextFieldMail(
  * @param onValueChanged This parameter return the field value
  *
  * @author Andrés Ivan Medina Herrera
+ * @modifiedBy Irving Gonzalez
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -261,6 +265,7 @@ fun LpOutlinedTextFieldInput(
  *
  * @author Jesus Lopez Gonzalez
  * @modifiedBy Jose Miguel Garcia Reyes
+ * @modifiedBy Irving Gonzalez
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -335,6 +340,7 @@ fun DropdownTextField(
  *
  * @author Yaritza Moreno
  * @modifiedBy Jose Miguel Garcia Reyes
+ * @modifiedBy Irving Gonzalez
  */
 @ExperimentalMaterial3Api
 @Composable

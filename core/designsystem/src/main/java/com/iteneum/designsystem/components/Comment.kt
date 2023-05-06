@@ -23,6 +23,7 @@ import com.iteneum.designsystem.theme.LeasePertTheme
  * @param onValueChanged: high order function param
  *
  * @author Kevin Velez
+ * @modifiedBy Irving Gonzalez
  */
 
 @OptIn(ExperimentalMaterial3Api::class)
