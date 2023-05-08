@@ -1,9 +1,10 @@
 package com.iteneum.login.presentation
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 /**
@@ -17,24 +18,26 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class LoginViewModel @Inject constructor() : ViewModel() {
-    private val _email = MutableStateFlow("")
-    val email: StateFlow<String> = _email
 
-    private val _isEmailError = MutableStateFlow(false)
-    val isEmailError: StateFlow<Boolean> = _isEmailError
+    var isEmailError: Boolean by mutableStateOf(false)
+        private set
 
-    private val _password = MutableStateFlow("")
-    val password: StateFlow<String> = _password
+    private var email: String? = ""
 
-    private val _isPasswordError = MutableStateFlow(false)
-    val isPasswordError: StateFlow<Boolean> = _isPasswordError
+    var isPasswordError: Boolean by mutableStateOf(false)
+        private set
+
+    private var password: String? = ""
+
+    var isSuccess: Boolean by mutableStateOf(false)
+        private set
 
     fun onEmailChanged(newEmail: String) {
-        _email.value = newEmail
+        email = newEmail
     }
 
     fun onPasswordChanged(newPassword: String) {
-        _password.value = newPassword
+        password = newPassword
     }
 
     private fun String.isValidEmail(): Boolean {
@@ -49,27 +52,27 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     }
 
     fun onLoginClicked() {
-        val isEmailValid = email.value.isValidEmail()
-        val isPasswordValid = password.value.isValidPassword()
+        val isEmailValid = email?.isValidEmail() ?: false
+        val isPasswordValid = password?.isValidPassword() ?: false
 
         when {
             isEmailValid && isPasswordValid -> {
-                _isEmailError.value = false
-                _isPasswordError.value = false
+                isEmailError = false
+                isPasswordError = false
                 checkLoginCredentials()
             }
             !isEmailValid && !isPasswordValid -> {
-                _isEmailError.value = true
-                _isPasswordError.value = true
+                isEmailError = true
+                isPasswordError = true
             }
             else -> {
-                _isEmailError.value = false
-                _isPasswordError.value = false
+                isEmailError = false
+                isPasswordError= false
                 if (!isEmailValid) {
-                    _isEmailError.value = true
+                    isEmailError = true
                 }
                 if (!isPasswordValid) {
-                    _isPasswordError.value = true
+                    isPasswordError = true
                 }
             }
         }
@@ -77,5 +80,6 @@ class LoginViewModel @Inject constructor() : ViewModel() {
 
     private fun checkLoginCredentials() {
         // Logic to handle logins, either if it is a successful login or the credentials are wrong
+        isSuccess = true
     }
 }

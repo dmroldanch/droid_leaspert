@@ -1,8 +1,6 @@
 package com.iteneum.login.presentation
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -16,12 +14,10 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -54,17 +50,22 @@ fun LoginView(
     navigationToDashboard: () -> Unit,
     loginViewModel: LoginViewModel = hiltViewModel()
 ) {
+
+    LaunchedEffect(loginViewModel.isSuccess) {
+        if (loginViewModel.isSuccess) {
+            navigationToDashboard()
+        }
+    }
+
     val sizes = LeasePertTheme.sizes
 
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
-
+            .verticalScroll(rememberScrollState())
     ) {
         val (logo, emailField, passwordField, loginButton, loginWith, socialNetworkLogins, registerButton) = createRefs()
         val focusRequester = remember { FocusRequester() }
-        val isEmailError by loginViewModel.isEmailError.collectAsState()
-        val isPasswordError by loginViewModel.isPasswordError.collectAsState()
 
         Image(
             painter = painterResource(id = leasepert_logo),
@@ -92,7 +93,7 @@ fun LoginView(
                 },
             label = stringResource(R.string.lv_email),
             placeholder = stringResource(R.string.lv_example_email),
-            isEmailError = isEmailError,
+            isEmailError = loginViewModel.isEmailError,
             onImeActionPerformed = { focusRequester.requestFocus() },
             supportTextError = stringResource(R.string.lv_valid_email_error),
             onValueChanged = { newEmail ->
@@ -111,7 +112,7 @@ fun LoginView(
                 },
             onPasswordChanged = { loginViewModel.onPasswordChanged(it) },
             supportTextError = stringResource(R.string.lv_support_text_error),
-            isPasswordError = isPasswordError,
+            isPasswordError = loginViewModel.isPasswordError,
             value = stringResource(R.string.lv_password)
         )
         LpFilledTonalButton(
@@ -126,7 +127,7 @@ fun LoginView(
                 },
             textButton = stringResource(R.string.lv_login),
             onClicked = {
-                navigationToDashboard()
+                loginViewModel.onLoginClicked()
             },
         )
         Text(
