@@ -1,8 +1,6 @@
 package com.iteneum.communitywall.presentation
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -10,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.iteneum.communitywall.domain.Post
 import com.iteneum.designsystem.components.LpPostCard
+import com.iteneum.designsystem.theme.LeasePertTheme
 
 
 /**
@@ -25,10 +24,10 @@ fun communityWallView()
 This function does not accept any parameters and does not return any values.
 It simply calls the [CommunityWallItemList] function to retrieve the list
 of posts and displays them in a vertically scrolling list.
-**/
+ **/
 
 @Composable
-fun CommunityWallView(){
+fun CommunityWallView() {
     CommunityWallItemList()
 }
 
@@ -57,28 +56,50 @@ the application.
 @Composable
 fun CommunityWallItemList() {
 
+    val size = LeasePertTheme.sizes
+
     val postList = listOf(
-        Post("https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg","Martin Perroni","10m","This is a post about something"),
-        Post("https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg","Martin Perroni","10m","This is a post about something"),
-        Post("https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg","Martin Perroni","10m","This is a post about something"),
-        Post("https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg","Martin Perroni","10m","This is a post about something"),
+        Post(
+            "https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg",
+            "Martin Perroni",
+            "10m",
+            "This is a post about something"
+        ),
+        Post(
+            "https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg",
+            "Martin Perroni",
+            "10m",
+            "This is a post about something"
+        ),
+        Post(
+            "https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg",
+            "Martin Perroni",
+            "10m",
+            "This is a post about something"
+        ),
+        Post(
+            "https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg",
+            "Martin Perroni",
+            "10m",
+            "This is a post about something"
+        ),
     )
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .wrapContentSize(Alignment.Center)
-    ){
-        LazyColumn{
-            items(postList){
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .wrapContentSize(Alignment.Center)
+    ) {
+        LazyColumn {
+            items(postList) {
                 LpPostCard(
-                    modifier = Modifier,
-                    userName = it.name,
-                    userPhoto = null,
-                    timeAgo = it.time,
-                    messagePost = it.message,
-                    onFavoriteClicked = {},
-                    onCommentClicked = {}
-                )
+                    modifier = Modifier.padding(size.smallerSize),
+                    it.name,
+                    it.img,
+                    it.time,
+                    it.message,
+                    {},
+                    {})
             }
         }
     }
