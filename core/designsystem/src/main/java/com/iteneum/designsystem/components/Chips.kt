@@ -45,7 +45,10 @@ fun LpGenericChip(
             .clip(RoundedCornerShape(sizes.smallSize))
             .background(MaterialTheme.colorScheme.primary)
             .padding(
-                all = sizes.midSmallSize,
+                start = sizes.midSmallSize,
+                top = sizes.extraSize6,
+                end = sizes.midSmallSize,
+                bottom = sizes.extraSize6
             )
             .clickable(onClick = onClicked),
         contentAlignment = Alignment.Center
