@@ -55,7 +55,12 @@ fun DashboardView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(all = sizes.regularSize)
+            .padding(
+                top = sizes.regularSize,
+                start = sizes.smallerSize,
+                end = sizes.smallerSize,
+                bottom = sizes.regularSize
+            )
             .verticalScroll(rememberScrollState())
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -84,6 +89,7 @@ fun DashboardView(
         LpGenericCard(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(start = sizes.minorSmallSize, end = sizes.minorSmallSize)
                 .padding(vertical = sizes.minorRegularSize),
             title = stringResource(R.string.current_balance),
             details = stringResource(R.string.go_to_payments),
@@ -95,6 +101,7 @@ fun DashboardView(
         LpGenericCard(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(start = sizes.minorSmallSize, end = sizes.minorSmallSize)
                 .padding(bottom = sizes.minorRegularSize),
             title = stringResource(R.string.service_request),
             details = stringResource(R.string.view_detail),
@@ -105,6 +112,7 @@ fun DashboardView(
         LpGenericCard(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(start = sizes.minorSmallSize, end = sizes.minorSmallSize)
                 .padding(bottom = sizes.regularSize),
             title = stringResource(R.string.amenity_reservations),
             details = stringResource(R.string.view_detail),
@@ -119,6 +127,11 @@ fun DashboardView(
             color = MaterialTheme.colorScheme.tertiary
         )
         LazyRow(
+            modifier = Modifier.padding(
+                start = sizes.minorSmallSize,
+                end = sizes.minorSmallSize,
+                bottom = sizes.extraSize42
+            ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(sizes.smallSize)
         ) {
