@@ -274,7 +274,7 @@ fun DropdownTextField(
     title: String,
     items: List<String>,
     selected: (String) -> Unit,
-    value: String = "",
+    value: String = ""
 ) {
     var expanded by remember { mutableStateOf(false) }
 
