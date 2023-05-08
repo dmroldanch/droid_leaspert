@@ -220,7 +220,7 @@ fun LpOutlinedTextFieldInput(
     label: String,
     hint: String,
     value: String = "",
-    onValueChanged: (String) -> Unit,
+    onValueChanged: (String) -> Unit
 ) {
     OutlinedTextField(
         value = value,
@@ -273,8 +273,8 @@ fun DropdownTextField(
     modifier: Modifier = Modifier,
     title: String,
     items: List<String>,
-    selected: (String) -> Unit,
-    value: String = ""
+    value: String = "",
+    selected: (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -350,7 +350,7 @@ fun LPPhoneNumberText(
     isEnabled: Boolean = true,
     isNotValid: Boolean,
     supportTextError: String,
-    onPhoneChanged: (String) -> Unit,
+    onPhoneChanged: (String) -> Unit
 ) {
     val numbersOnlyExpression = Regex("^\\d*\$")
     val phoneNumberTransformation = PhoneNumberTransformation()

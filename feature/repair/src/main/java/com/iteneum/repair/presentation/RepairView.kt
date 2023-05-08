@@ -84,7 +84,7 @@ fun RepairView() {
                 ),
                 title = stringResource(id = R.string.label_pet_in_unit),
                 items = optionsPetInUnit.toList(),
-                selected = {/* TODO - PetInUnit field - To verify if extra functionality required */ },
+                selected = {/* TODO - PetInUnit field - To verify if extra functionality required */ }
             )
             Text(
                 text = stringResource(id = R.string.text_service),
@@ -99,7 +99,7 @@ fun RepairView() {
                 ),
                 title = stringResource(id = R.string.label_category),
                 items = optionsCategory.toList(),
-                selected = {/* TODO - Category field - To verify if extra functionality required */ },
+                selected = {/* TODO - Category field - To verify if extra functionality required */ }
             )
             LpOutlinedTextFieldInput(
                 modifier = Modifier
