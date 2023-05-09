@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.iteneum.communitywall.domain.Post
 import com.iteneum.designsystem.components.LpPostCard
 import com.iteneum.designsystem.theme.LeasePertTheme
@@ -24,15 +26,28 @@ fun communityWallView()
 This function does not accept any parameters and does not return any values.
 It simply calls the [CommunityWallItemList] function to retrieve the list
 of posts and displays them in a vertically scrolling list.
+
+@modifiedBy Carlos Hernandez
  **/
-
 @Composable
-fun CommunityWallView() {
-    CommunityWallItemList()
+fun CommunityWallView(
+    viewModel: CommunityWallViewModel = hiltViewModel()
+) {
+    LaunchedEffect(true){
+        viewModel.getInformation()
+    }
+    CommunityWallItemList(
+        myData = viewModel.myData,
+        onCommentClicked = {
+            /*TODO WE NEED DEFINE WHAT IT´s GOING TO DO IF IT GOES TO
+               A VIEW OR WE ARE GOING TO CALL A SERVICE*/
+        },
+        onFavoriteClicked = {
+            viewModel.likePost()
+        }
+    )
 }
-
 /**
-
 [CommunityWallItemList] is a composable function that represents a list of posts in
 a community or feed in an Android application. It retrieves a list of mock data
 for the posts and displays them using the [LazyColumn] composable.
@@ -54,52 +69,27 @@ different data sources, UI styles, and behavior depending on the requirements of
 the application.
  **/
 @Composable
-fun CommunityWallItemList() {
-
+fun CommunityWallItemList(
+    myData: List<Post>,
+    onCommentClicked: ()-> Unit,
+    onFavoriteClicked: ()-> Unit,
+) {
     val size = LeasePertTheme.sizes
-
-    val postList = listOf(
-        Post(
-            "https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg",
-            "Martin Perroni",
-            "10m",
-            "This is a post about something"
-        ),
-        Post(
-            "https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg",
-            "Martin Perroni",
-            "10m",
-            "This is a post about something"
-        ),
-        Post(
-            "https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg",
-            "Martin Perroni",
-            "10m",
-            "This is a post about something"
-        ),
-        Post(
-            "https://img.favpng.com/25/7/23/computer-icons-user-profile-avatar-image-png-favpng-LFqDyLRhe3PBXM0sx2LufsGFU.jpg",
-            "Martin Perroni",
-            "10m",
-            "This is a post about something"
-        ),
-    )
-
     Box(
         modifier = Modifier
             .fillMaxSize()
             .wrapContentSize(Alignment.Center)
     ) {
         LazyColumn {
-            items(postList) {
+            items(myData) {
                 LpPostCard(
                     modifier = Modifier.padding(size.smallerSize),
-                    it.name,
-                    it.img,
-                    it.time,
-                    it.message,
-                    {},
-                    {})
+                    userName = it.name,
+                    userPhoto = it.img,
+                    timeAgo = it.time,
+                    messagePost = it.message,
+                    onCommentClicked = onCommentClicked,
+                    onFavoriteClicked = onFavoriteClicked)
             }
         }
     }
