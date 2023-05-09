@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.components.LpFloatingActionIconButton
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.theme.LeasePertTheme
+import com.iteneum.designsystem.R as R_DS
 import com.iteneum.profile.R
 
 @Composable
@@ -79,7 +80,7 @@ fun ProfileView(
         Row(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(horizontal = sizes.smallSize)) {
                 Image(
-                    painter = painterResource(id = R.drawable.default_user_photo),
+                    painter = painterResource(id = R_DS.drawable.default_user_photo),
                     contentDescription = stringResource(R.string.user_photo),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
