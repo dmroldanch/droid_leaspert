@@ -32,10 +32,11 @@ import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransforma
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LpOutlinedTextFieldPassword(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
+    LabelText: String = "",
     value: String = "",
-    isValid: Boolean,
-    supportTextError: String,
+    isValid: Boolean = true,
+    supportTextError: String = "",
     onPasswordChanged: (String) -> Unit
 ) {
     OutlinedTextField(
@@ -44,7 +45,7 @@ fun LpOutlinedTextFieldPassword(
         modifier = modifier,
         label = {
             Text(
-                text = value,
+                text = LabelText,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.tertiary
             )
@@ -62,7 +63,7 @@ fun LpOutlinedTextFieldPassword(
             if (isValid) {
                 Text(text = supportTextError)
             } else {
-                Text(text = value)
+                Text(text = "")
             }
         },
         singleLine = true,
