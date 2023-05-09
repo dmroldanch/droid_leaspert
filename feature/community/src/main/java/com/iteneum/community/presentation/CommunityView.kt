@@ -1,19 +1,23 @@
 package com.iteneum.community.presentation
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.iteneum.community.R
-import com.iteneum.community.domain.Community
 import com.iteneum.community.domain.CommunityCardType
 import com.iteneum.designsystem.components.LpIconTextCard
 import com.iteneum.designsystem.theme.LeasePertTheme
@@ -26,35 +30,39 @@ namely navigationToCommunityWall and navigationToAmenities. The function display
 of community cards, each containing an icon and a description, which when clicked calls
 the appropriate lambda function to navigate to different parts of the application.
 The function uses Jetpack Compose to create a responsive UI.
- * @param navigationToCommunityWall is the function called when clicking on the "Community Wall" button and navigate to CommunityWallView.
  * @param navigationToAmenities is the function called when clicking on the "Amenities" button and navigate to AmenitiesView.
+ * @param navigationToEvents is the function called when clicking on the "Events" button and navigate to EventsView.
+ * @param navigationToCommunityWall is the function called when clicking on the "Community Wall" button and navigate to CommunityWallView.
+ * @param navigationToDoItYourSelf is the function called when clicking on the "Do it yourself" button and navigate to DoItYourSelfView.
+ * @param navigationToServices is the function called when clicking on the "Services" button and navigate to ServicesView.
  * These functions are used to navigate to different parts of the application.
  * @author Irving Gonzalez
+ * @modifyBy Jose Rivera
  **/
 @Composable
 fun CommunityView(
-    navigationToCommunityWall: () -> Unit,
     navigationToAmenities: () -> Unit,
+    navigationToEvents: () -> Unit,
+    navigationToCommunityWall: () -> Unit,
+    navigationToDoItYourSelf: () -> Unit,
+    navigationToServices: () -> Unit,
+    viewModel: CommunityViewModel = hiltViewModel()
 ) {
     val sizes = LeasePertTheme.sizes
+    val state = viewModel.state.collectAsState()
 
-    val cardDescriptions = remember {
-        mapOf(
-            CommunityCardType.Amenities to R.string.cardButton_ammenities,
-            CommunityCardType.Events to R.string.cardButton_events,
-            CommunityCardType.CommunityWall to R.string.cardButton_communityWall,
-            CommunityCardType.DoItYourself to R.string.cardButton_doItYourself,
-            CommunityCardType.Services to R.string.cardButton_services,
-        )
+    LaunchedEffect(true) {
+        viewModel.getCommunitySections()
     }
 
-    val communityCardButtons = listOf(
-        Community(Icons.Outlined.Diamond, CommunityCardType.Amenities),
-        Community(Icons.Outlined.Event, CommunityCardType.Events),
-        Community(Icons.Outlined.QuestionAnswer, CommunityCardType.CommunityWall),
-        Community(Icons.Outlined.LibraryBooks, CommunityCardType.DoItYourself),
-        Community(Icons.Outlined.Store, CommunityCardType.Services)
-    )
+    val communityCardButtons = remember {
+        viewModel.communitySections
+    }
+
+    val cardDescriptions = remember {
+        viewModel.cardDescriptions
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -88,6 +96,10 @@ fun CommunityView(
                             CommunityCardType.Amenities -> {
                                 navigationToAmenities()
                             }
+                            CommunityCardType.Events -> {
+                                /* TODO() This view does not exist, as soon as
+                                    this view is defined the navigation of this section is added */
+                            }
                             CommunityCardType.CommunityWall -> {
                                 navigationToCommunityWall()
                             }
@@ -95,13 +107,8 @@ fun CommunityView(
                                 /* TODO() This view does not exist, as soon as
                                     this view is defined the navigation of this section is added */
                             }
-                            CommunityCardType.Events -> {
-                                /* TODO() This view does not exist, as soon as
-                                    this view is defined the navigation of this section is added */
-                            }
                             CommunityCardType.Services -> {
-                                /* TODO() This view does not exist, as soon as
-                                    this view is defined the navigation of this section is added */
+                                navigationToServices()
                             }
                         }
                     }
