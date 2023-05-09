@@ -121,7 +121,7 @@ fun LpGenericCard(
 fun LpPostCard(
     modifier: Modifier,
     userName: String,
-    userPhoto: String,
+    userPhoto: String?,
     timeAgo: String,
     messagePost: String,
     onCommentClicked: () -> Unit,
@@ -144,14 +144,25 @@ fun LpPostCard(
                 )
         ) {
             Row(modifier = Modifier.padding(bottom = LeasePertTheme.sizes.minorSmallSize)) {
-                SubcomposeAsyncImage(
-                    modifier = Modifier
-                        .size(LeasePertTheme.sizes.extraSize48)
-                        .clip(CircleShape),
-                    model = userPhoto,
-                    contentScale = ContentScale.Crop,
-                    contentDescription = userName
-                )
+                userPhoto?.let {
+                    SubcomposeAsyncImage(
+                        modifier = Modifier
+                            .size(LeasePertTheme.sizes.extraSize48)
+                            .clip(CircleShape),
+                        model = it,
+                        contentScale = ContentScale.Crop,
+                        contentDescription = userName
+                    )
+                } ?: run {
+                    Image(
+                        modifier = Modifier
+                            .size(LeasePertTheme.sizes.extraSize48)
+                            .clip(CircleShape),
+                        painter = painterResource(id = R.drawable.default_user_photo),
+                        contentScale = ContentScale.Crop,
+                        contentDescription = userName
+                    )
+                }
                 Column(modifier = Modifier.padding(start = LeasePertTheme.sizes.smallerSize)) {
                     Text(
                         modifier = Modifier.padding(bottom = LeasePertTheme.sizes.minorSmallSize),
@@ -267,12 +278,14 @@ fun LPGenericElevatedCard(
     onButtonClicked: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
+    val sizes = LeasePertTheme.sizes
     Card(
         colors = CardDefaults.cardColors(
             containerColor = color,
         ),
         shape = MaterialTheme.shapes.medium.copy(all = CornerSize(LeasePertTheme.sizes.midSmallSize)),
         modifier = modifier
+            .width(sizes.extraSize312)
     ) {
         Column(
             modifier = Modifier.padding(

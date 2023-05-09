@@ -14,19 +14,18 @@ import javax.inject.Inject
 /**
  * This class is the viewModel corresponding to the Office screen
  * @author Yaritza Moreno
+ *
+ * @modfified by
+ * Andres Ivan Medina H
  */
 @HiltViewModel
 class OfficeViewModel @Inject constructor(val intentActions: IintentActions) : ViewModel() {
-
-
     fun makeCall(phoneNumber: String) {
         val contactTelephone = ContactTelephone(phoneNumber)
         intentActions.makeCall(contactTelephone)
     }
-
     fun sendEmail(to: String, subject: String, body: String) {
         val email = Email(to, subject, body)
         intentActions.sendEmail(email)
     }
-
 }

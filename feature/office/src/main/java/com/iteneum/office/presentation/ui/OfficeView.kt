@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -16,18 +15,11 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextIndent
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.iteneum.designsystem.components.LPSubTitleLarge
-import com.iteneum.designsystem.components.LPTitleLarge
-import com.iteneum.designsystem.components.LPTitleMedium
-import com.iteneum.designsystem.components.LPTitleSmall
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.theme.LeasePertTheme
-import com.iteneum.designsystem.theme.LeasePertTheme.sizes
 import com.iteneum.office.R
-import com.iteneum.office.presentation.viewmodel.OfficeViewModel
 
 /**
  * This function creates the Office screen UI
@@ -36,14 +28,21 @@ import com.iteneum.office.presentation.viewmodel.OfficeViewModel
  * @author Yaritza Moreno
  */
 @Composable
-fun OfficeUI(viewModel: OfficeViewModel = hiltViewModel()) {
+fun OfficeUI(
+    viewModel: OfficeViewModel = hiltViewModel()
+) {
     val context = LocalContext.current
+    viewModel
+    val schedule = stringResource(id = R.string.LPHours)
+    val address  = stringResource(R.string.LPAddress)
+    var email    = stringResource(R.string.LPcontactEmail)
+    val phone    = stringResource(R.string.LPphoneServiceContact)
+    val windowTitle = stringResource(R.string.LPInfo)
+    //Get sizes from LeasePertTheme archive
+    val sizes = LeasePertTheme.sizes
     Column(Modifier.fillMaxSize()) {
-
-        //Get sizes from LeasePertTheme archive
-        val sizes = LeasePertTheme.sizes
         Text(
-            text = stringResource(id = R.string.LPInfo),
+            text = windowTitle,
             modifier = Modifier
                 .width(sizes.extraSize124)
                 .height(sizes.regularSize),
@@ -57,9 +56,8 @@ fun OfficeUI(viewModel: OfficeViewModel = hiltViewModel()) {
                 textIndent = TextIndent(firstLine = 14.sp)
             )
         )
-
         Text(
-            text = stringResource(id = R.string.LPAddress),
+            text =  address,
             style = TextStyle(
                 textAlign = TextAlign.Justify,
                 lineHeight = 20.sp,
@@ -69,7 +67,7 @@ fun OfficeUI(viewModel: OfficeViewModel = hiltViewModel()) {
         )
 
         Text(
-            text = stringResource(id = R.string.LPHours),
+            text =  schedule,
             modifier = Modifier.padding(top = sizes.extraSize10),
             style = TextStyle(
                 textAlign = TextAlign.Justify,
@@ -77,22 +75,18 @@ fun OfficeUI(viewModel: OfficeViewModel = hiltViewModel()) {
                 textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
             )
         )
-
-        var phone = stringResource(R.string.LPphoneServiceContact)
         LpOutlinedButton(modifier = Modifier,
             icon = Icons.Filled.Call,
             textButton = stringResource(id = R.string.LPCallButton),
             onClicked = {
                 viewModel.makeCall(phone)
             })
-
-        var Email = stringResource(R.string.LPcontactEmail)
         LpOutlinedButton(modifier = Modifier,
             icon = Icons.Outlined.Mail,
             textButton = stringResource(id = R.string.LPMailButton),
             onClicked = {
                 viewModel.sendEmail(
-                    Email,
+                    email,
                     "mail test",
                     "this is a mail send test",
                 )

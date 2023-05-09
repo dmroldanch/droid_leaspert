@@ -49,6 +49,7 @@ data class DesignSizes internal constructor(
     val extraSize182: Dp = 182.dp,
     val extraSize199: Dp = 199.dp,
     val extraSize280: Dp = 280.dp,
+    val extraSize312: Dp = 312.dp,
     val extraSize336: Dp = 336.dp,
     val extraSize344: Dp = 344.dp,
     val extraSize360: Dp = 360.dp
