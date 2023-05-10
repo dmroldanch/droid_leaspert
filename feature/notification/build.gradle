@@ -35,7 +35,11 @@ android {
 }
 
 dependencies {
+    implementation libs.hiltAndroid
+    implementation libs.bundles.hilt
     implementation libs.bundles.compose
+    implementation libs.core
+    implementation libs.lifecycle
 
     implementation project(":core:designsystem")
 }
