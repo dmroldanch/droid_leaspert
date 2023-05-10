@@ -20,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,18 +29,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.iteneum.designsystem.components.LpFloatingActionIconButton
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.designsystem.R as R_DS
 import com.iteneum.profile.R
+import com.iteneum.profile.data.ProfileViewModel
 
 @Composable
 fun ProfileView(
-    /*TODO expected parameters as navigation and view model*/
+    navigation: () -> Unit /* TODO - ProfileView - Check navigation parameter*/ ,
+    profileViewModel: ProfileViewModel = hiltViewModel()
+) {
+    LaunchedEffect(true) {
+        profileViewModel.getInformation()
+    }
+    ProfileContainer()
+}
+
+@Composable
+fun ProfileContainer(
+    profileViewModel: ProfileViewModel = hiltViewModel()
 ) {
     val sizes = LeasePertTheme.sizes
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -74,7 +87,9 @@ fun ProfileView(
                     elevation = FloatingActionButtonDefaults.elevation(sizes.nothingSize),
                     icon = Icons.Outlined.Edit,
                     contentDescription = stringResource(R.string.content_description_edit)
-                ) {/*TODO expected change in the values of user's phone number, email or address*/ }
+                ) {
+                    profileViewModel.onClickEditProfileButton()
+                }
             }
         }
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -90,14 +105,14 @@ fun ProfileView(
             }
             Column {
                 Text(
-                    text = "Juan Islas",
+                    text = profileViewModel.profileModelRead.value.profileName,
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.padding(vertical = sizes.midSmallSize)
                 )
                 Text(
-                    text = "Apartment #101",
+                    text = profileViewModel.profileModelRead.value.profileApartment,
                     color = MaterialTheme.colorScheme.tertiary,
                     modifier = Modifier.padding(top = sizes.stroke)
                 )
@@ -120,7 +135,7 @@ fun ProfileView(
                 tint = MaterialTheme.colorScheme.tertiary
             )
             Text(
-                text = "(404) 979-2400",
+                text = profileViewModel.profileModelRead.value.profilePhoneNumber,
                 fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colorScheme.tertiary
             )
@@ -137,7 +152,7 @@ fun ProfileView(
                 tint = MaterialTheme.colorScheme.tertiary
             )
             Text(
-                text = "juan.islas@mail.com",
+                text = profileViewModel.profileModelRead.value.profileEmail,
                 fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colorScheme.tertiary
             )
@@ -159,7 +174,7 @@ fun ProfileView(
                 tint = MaterialTheme.colorScheme.tertiary
             )
             Text(
-                text = "4950 Gaidrew, Alpharetta, GA, 30022",
+                text = profileViewModel.profileModelRead.value.profileAddress,
                 fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colorScheme.tertiary
             )
@@ -177,7 +192,7 @@ fun ProfileView(
                     vertical = sizes.minorSmallSize
                 ),
             textButton = stringResource(id = R.string.payment_methods),
-            onClicked = { /*TODO high order function for payment methods*/ })
+            onClicked = { profileViewModel.onClickPaymentMethodsButton() })
         LpOutlinedButton(
             modifier = Modifier
                 .padding(
@@ -185,7 +200,7 @@ fun ProfileView(
                     vertical = sizes.minorSmallSize
                 ),
             textButton = stringResource(id = R.string.emergency_contacts),
-            onClicked = { /*TODO high order function for emergency contacts*/ })
+            onClicked = { profileViewModel.onClickEmergencyContactsButton() })
         LpOutlinedButton(
             modifier = Modifier
                 .padding(
@@ -193,6 +208,8 @@ fun ProfileView(
                     vertical = sizes.minorSmallSize
                 ),
             textButton = stringResource(id = R.string.log_out),
-            onClicked = { /*TODO log out and return to the login view*/ })
+            onClicked = { profileViewModel.onClickLogOutButton() })
     }
+
+
 }

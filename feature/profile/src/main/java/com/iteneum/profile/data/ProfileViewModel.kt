@@ -22,22 +22,34 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(): ViewModel() {
-    private val _dataInfo : MutableState<ProfileModel?> = mutableStateOf(null) /* TODO - ProfileViewModel - Verify if it will stay null */
-    val dataInfo: MutableState<ProfileModel?>
-        get() = _dataInfo
+    private val _profileModelMutable : MutableState<ProfileModel> = mutableStateOf(ProfileModel())
+    val profileModelRead: MutableState<ProfileModel>
+        get() = _profileModelMutable
     var profileModel : ProfileModel by mutableStateOf(ProfileModel())
         private set
 
     fun getInformation() = viewModelScope.launch {
         when (response) {
             is DataState.Success -> {
-                _dataInfo.value = response.data
+                _profileModelMutable.value = response.data
             }
             is DataState.Error -> {
-                /* TODO - RepairViewModel DataState.Error - when data has an error */
+                _profileModelMutable.value = ProfileModel(
+                    profileName = "Error",
+                    profileApartment = "Error",
+                    profilePhoneNumber = "1111111111",
+                    profileEmail = "Error",
+                    profileAddress = "Error"
+                )
             }
             is DataState.Loading -> {
-                /* TODO - RepairViewModel DataState.Loading - when data loads */
+                _profileModelMutable.value = ProfileModel(
+                    profileName = "Loading...",
+                    profileApartment = "Loading...",
+                    profilePhoneNumber = "0000000000",
+                    profileEmail = "Loading...",
+                    profileAddress = "Loading..."
+                )
             }
             else -> Unit
         }
@@ -62,26 +74,26 @@ class ProfileViewModel @Inject constructor(): ViewModel() {
         profileModel = profileModel.copy(profileAddress = profileAddress)
     }
     fun onClickEditProfileButton() {
-        /* TODO - ProfileViewModel onClickEditProfileButton - When user clicks on Profile Edit icon button */
+        /* TODO - ProfileViewModel onClickEditProfileButton - Logic when user clicks on Profile Edit icon button */
     }
     fun onClickPaymentMethodsButton() {
-        /* TODO - ProfileViewModel onClickPaymentMethodsButton - When user clicks on Payment button */
+        /* TODO - ProfileViewModel onClickPaymentMethodsButton - Logic when user clicks on Payment button */
     }
     fun onClickEmergencyContactsButton() {
-        /* TODO - ProfileViewModel onClickEmergencyContactsButton - When user clicks on Send button */
+        /* TODO - ProfileViewModel onClickEmergencyContactsButton - Logic when user clicks on Send button */
     }
     fun onClickLogOutButton() {
-        /* TODO - ProfileViewModel onClickLogOutButton - When user clicks on Log Out button */
+        /* TODO - ProfileViewModel onClickLogOutButton - Logic when user clicks on Log Out button */
     }
 }
 
 val response: DataState<ProfileModel> = DataState.Success(
     ProfileModel (
-        profileImage = "A123",
+        /*profileImage = "A123",*/ /* TODO - ProfileViewModel - Too see how profileImage will be implemented  */
         profileName = "Juan",
-        profileApartment = "101",
-        profilePhoneNumber = "4049792400",
-        profileEmail = "juan.islas@gmail.com",
+        profileApartment = "A123",
+        profilePhoneNumber = "6666666666",
+        profileEmail = "juan@gmail.com",
         profileAddress = "4950 Gaidrew, Alpharetta, GA, 30022",
     )
 )

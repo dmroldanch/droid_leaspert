@@ -14,7 +14,7 @@ fun NavGraphBuilder.dashboardNavGraph(navController: NavHostController) {
         startDestination = DashBoardScreen.Profile.route
     ) {
         composable(route = DashBoardScreen.Profile.route) {
-            ProfileView()
+            ProfileView(navigation = { /*TODO*/ })
         }
         composable(route = DashBoardScreen.Notification.route) {
             NotificationListView()
