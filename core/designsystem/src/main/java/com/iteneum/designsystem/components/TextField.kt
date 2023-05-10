@@ -20,6 +20,7 @@ import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransforma
 /**
  * This function creates a password OutlinedTextField
  * @param modifier Set component modifier
+ * @param labelText The text to be used as the input field label
  * @param value Current password value
  * @param isValid Validate if text is valid
  * @param supportTextError This parameter determines whether the error is displayed or not
@@ -27,28 +28,25 @@ import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransforma
  *
  * @author Jose G. Rivera
  * @modifiedBy Jesus Lopez
+ * @modifiedBy Irving Gonzalez
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LpOutlinedTextFieldPassword(
-    modifier: Modifier,
-    value: String,
-    isValid: Boolean,
-    supportTextError: String,
+    modifier: Modifier = Modifier,
+    labelText: String = "",
+    value: String = "",
+    isValid: Boolean = true,
+    supportTextError: String = "",
     onPasswordChanged: (String) -> Unit
 ) {
-    var passwordFieldValue by remember { mutableStateOf(TextFieldValue("")) }
-
     OutlinedTextField(
-        value = passwordFieldValue,
-        onValueChange = {
-            passwordFieldValue = it
-            onPasswordChanged(passwordFieldValue.text)
-        },
+        value = value,
+        onValueChange = onPasswordChanged,
         modifier = modifier,
         label = {
             Text(
-                text = value,
+                text = labelText,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.tertiary
             )
@@ -85,11 +83,14 @@ fun LpOutlinedTextFieldPassword(
  * @param label Text label
  * @param hint Hint message
  * @param isValid Validate if text is valid
- * @param supportTextError Error message
- * @param onValueChanged This parameter return the field value
+ * @param supportTextError The error message to be displayed when validation fails
+ * @param value The value of the component
+ * @param onValueChanged The callback function to be triggered on value change
  *
  * @author Jesus Lopez
+ * @modifiedBy Irving Gonzalez
  */
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LpOutlinedTextField(
@@ -98,16 +99,13 @@ fun LpOutlinedTextField(
     hint: String,
     isValid: Boolean,
     supportTextError: String,
+    value: String = "",
     onValueChanged: (String) -> Unit
 ) {
-    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
 
     OutlinedTextField(
-        value = textFieldValue,
-        onValueChange = {
-            textFieldValue = it
-            onValueChanged(textFieldValue.text)
-        },
+        value = value,
+        onValueChange = onValueChanged,
         modifier = modifier,
         label = {
             Text(
@@ -134,7 +132,7 @@ fun LpOutlinedTextField(
             if (isValid) {
                 Text(text = supportTextError)
             } else {
-                Text(text = "")
+                Text(text = value)
             }
         },
         singleLine = true,
@@ -152,10 +150,12 @@ fun LpOutlinedTextField(
  * @param label Text label
  * @param isValid Validate if text is valid
  * @param supportTextError Error message
+ * @param value The current value of the input field
  * @param onValueChanged This parameter return the field value
  *
  * @author Andrés Ivan Medina Herrera
  * @modifiedBy Jesus Lopez
+ * @modifiedBy Irving Gonzalez
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -164,16 +164,13 @@ fun LpOutlinedTextFieldMail(
     label: String,
     isValid: Boolean,
     supportTextError: String,
+    value: String = "",
     onValueChanged: (String) -> Unit
 ) {
-    var emailFieldValue by remember { mutableStateOf(TextFieldValue("")) }
 
     OutlinedTextField(
-        value = emailFieldValue,
-        onValueChange = {
-            emailFieldValue = it
-            onValueChanged(emailFieldValue.text)
-        },
+        value = value,
+        onValueChange = onValueChanged,
         modifier = modifier,
         label = {
             Text(
@@ -195,7 +192,7 @@ fun LpOutlinedTextFieldMail(
             if (isValid) {
                 Text(text = supportTextError)
             } else {
-                Text(text = "")
+                Text(text = value)
             }
         },
         singleLine = true,
@@ -211,9 +208,11 @@ fun LpOutlinedTextFieldMail(
  * @param modifier Set component modifier
  * @param label Text label
  * @param hint Hint message
+ * @param value The current value of the field
  * @param onValueChanged This parameter return the field value
  *
  * @author Andrés Ivan Medina Herrera
+ * @modifiedBy Irving Gonzalez
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -222,15 +221,12 @@ fun LpOutlinedTextFieldInput(
     enabled: Boolean = true,
     label: String,
     hint: String,
-    onValueChanged: (String) -> Unit,
+    value: String = "",
+    onValueChanged: (String) -> Unit
 ) {
-    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
     OutlinedTextField(
-        value = textFieldValue,
-        onValueChange = {
-            textFieldValue = it
-            onValueChanged(textFieldValue.text)
-        },
+        value = value,
+        onValueChange = onValueChanged,
         modifier = modifier,
         enabled = enabled,
         label = {
@@ -267,9 +263,11 @@ fun LpOutlinedTextFieldInput(
  * @param title refers to the label that the text-field will have
  * @param items refers to the elements of the DropDownList (list of elements)
  * @param selected refers to a high order function that returns the selected option of the DropDownList
+ * @param value The current value of the input field
  *
  * @author Jesus Lopez Gonzalez
  * @modifiedBy Jose Miguel Garcia Reyes
+ * @modifiedBy Irving Gonzalez
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -277,10 +275,10 @@ fun DropdownTextField(
     modifier: Modifier = Modifier,
     title: String,
     items: List<String>,
+    value: String = "",
     selected: (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedOptionText by remember { mutableStateOf("") }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -293,8 +291,8 @@ fun DropdownTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .menuAnchor(),
-            value = selectedOptionText,
-            onValueChange = {/* TODO - DropdownTextField onValueChanged - to implement when value is changed within text field */},
+            value = value,
+            onValueChange = selected,
             readOnly = true,
             label = { Text(text = title, color = MaterialTheme.colorScheme.tertiary) },
             trailingIcon = {
@@ -323,8 +321,7 @@ fun DropdownTextField(
                 DropdownMenuItem(
                     text = { Text(selectedOption) },
                     onClick = {
-                        selectedOptionText = selectedOption
-                        selected(selectedOptionText)
+                        selected(selectedOption)
                         expanded = false
                     },
                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
@@ -345,21 +342,22 @@ fun DropdownTextField(
  *
  * @author Yaritza Moreno
  * @modifiedBy Jose Miguel Garcia Reyes
+ * @modifiedBy Irving Gonzalez
  */
 @ExperimentalMaterial3Api
 @Composable
 fun LPPhoneNumberText(
     modifier: Modifier = Modifier,
-    value: String,
+    value: String = "",
     isEnabled: Boolean = true,
     isNotValid: Boolean,
     supportTextError: String,
     onPhoneChanged: (String) -> Unit
 ) {
-    var phoneNumberText by remember { mutableStateOf("") }
-    val numbersOnlyExpression = remember { Regex("^\\d*\$") }
+    val numbersOnlyExpression = Regex("^\\d*\$")
     val phoneNumberTransformation = PhoneNumberTransformation()
     val maxCharactersAllowed = 10
+
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         label = {
@@ -376,9 +374,7 @@ fun LPPhoneNumberText(
         },
         value = value,
         onValueChange = {
-            if (it.matches(numbersOnlyExpression) && it.length <= maxCharactersAllowed)
-                phoneNumberText = it
-            onPhoneChanged(phoneNumberText)
+            if (it.matches(numbersOnlyExpression) && it.length <= maxCharactersAllowed) onPhoneChanged(it)
         },
         isError = isNotValid,
         supportingText = {
@@ -391,7 +387,7 @@ fun LPPhoneNumberText(
             imeAction = ImeAction.Next
         ),
         visualTransformation = {
-            phoneNumberTransformation.filter(AnnotatedString(phoneNumberText))
+            phoneNumberTransformation.filter(AnnotatedString(value))
         },
         enabled = isEnabled,
         colors = TextFieldDefaults.outlinedTextFieldColors(

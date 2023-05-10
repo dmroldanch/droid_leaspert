@@ -94,12 +94,12 @@ fun CommunityWallItemList() {
             items(postList) {
                 LpPostCard(
                     modifier = Modifier.padding(size.smallerSize),
-                    it.name,
-                    it.img,
-                    it.time,
-                    it.message,
-                    {},
-                    {})
+                    userName = it.name,
+                    userPhoto = null,
+                    timeAgo = it.time,
+                    messagePost = it.message,
+                    onCommentClicked = {/*TODO the high order function for comment the post*/},
+                    onFavoriteClicked = {/*TODO the high order function for mark as favorite post*/})
             }
         }
     }
