@@ -35,6 +35,7 @@ The function uses Jetpack Compose to create a responsive UI.
  * @param navigationToCommunityWall is the function called when clicking on the "Community Wall" button and navigate to CommunityWallView.
  * @param navigationToDoItYourSelf is the function called when clicking on the "Do it yourself" button and navigate to DoItYourSelfView.
  * @param navigationToServices is the function called when clicking on the "Services" button and navigate to ServicesView.
+ * @param viewModel is used to manage the business logic inside the CommunityView
  * These functions are used to navigate to different parts of the application.
  * @author Irving Gonzalez
  * @modifyBy Jose Rivera
