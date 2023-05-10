@@ -25,13 +25,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.SubcomposeAsyncImage
 import com.iteneum.designsystem.R
 import com.iteneum.designsystem.theme.*
-import com.iteneum.designsystem.theme.Bianca
-import com.iteneum.designsystem.theme.Drab
-import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.utils.TextUtils.ONE
 import java.sql.Timestamp
 
@@ -125,7 +121,7 @@ fun LpGenericCard(
 fun LpPostCard(
     modifier: Modifier,
     userName: String,
-    userPhoto: String,
+    userPhoto: String?,
     timeAgo: String,
     messagePost: String,
     onCommentClicked: () -> Unit,
@@ -148,14 +144,25 @@ fun LpPostCard(
                 )
         ) {
             Row(modifier = Modifier.padding(bottom = LeasePertTheme.sizes.minorSmallSize)) {
-                SubcomposeAsyncImage(
-                    modifier = Modifier
-                        .size(LeasePertTheme.sizes.extraSize48)
-                        .clip(CircleShape),
-                    model = userPhoto,
-                    contentScale = ContentScale.Crop,
-                    contentDescription = userName
-                )
+                userPhoto?.let {
+                    SubcomposeAsyncImage(
+                        modifier = Modifier
+                            .size(LeasePertTheme.sizes.extraSize48)
+                            .clip(CircleShape),
+                        model = it,
+                        contentScale = ContentScale.Crop,
+                        contentDescription = userName
+                    )
+                } ?: run {
+                    Image(
+                        modifier = Modifier
+                            .size(LeasePertTheme.sizes.extraSize48)
+                            .clip(CircleShape),
+                        painter = painterResource(id = R.drawable.default_user_photo),
+                        contentScale = ContentScale.Crop,
+                        contentDescription = userName
+                    )
+                }
                 Column(modifier = Modifier.padding(start = LeasePertTheme.sizes.smallerSize)) {
                     Text(
                         modifier = Modifier.padding(bottom = LeasePertTheme.sizes.minorSmallSize),
