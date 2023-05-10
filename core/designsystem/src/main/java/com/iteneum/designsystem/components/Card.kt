@@ -476,7 +476,7 @@ fun LpPaymentsRentCard(
             )
             Column(modifier = Modifier.padding(start = LeasePertTheme.sizes.midLargeSize)) {
                 Text(
-                    text = stringResource(id = R.string.plus_symbol_for_quantities) + "$quantityToPay",
+                    text = "${stringResource(id = R.string.plus_symbol_for_quantities)}$quantityToPay",
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(bottom = LeasePertTheme.sizes.minorMediumSize)
                 )
