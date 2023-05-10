@@ -38,7 +38,10 @@ dependencies {
 
     // libraries
     implementation libs.bundles.compose
+    implementation libs.bundles.hilt
 
     //Modules
     implementation project(":core:designsystem")
+    implementation project(path: ':core:network')
+    implementation 'androidx.test.ext:junit-ktx:1.1.5'
 }
