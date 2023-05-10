@@ -1,5 +1,6 @@
 package com.iteneum.office.presentation.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
@@ -7,6 +8,8 @@ import androidx.compose.material.icons.outlined.Mail
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -16,33 +19,68 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.iteneum.IntentActionsImpl
+import com.iteneum.OfficeInfoItemModel
+import com.iteneum.PermissionsProviderImpl
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.office.R
 
 /**
+ * This class will handle the network states responses, i modification with the structure.
+ * @param onClickItem click back when you do it on an item
+ * @param onSuccess our event that send us to the next view
+ * TODO implement @param viewModel the view model we are using inside our view compose has to be injected
+ * /*viewModel: OfficeViewModel = hiltViewModel()*/
+ * @author Andres Ivan Medina
+ */
+@Composable
+fun OfficeView() {
+    val viewModel = OfficeViewModel(
+        IntentActionsImpl(
+            LocalContext.current, PermissionsProviderImpl(
+                LocalContext.current
+            )
+        )
+    )
+    LaunchedEffect(true) {
+        viewModel.loadOfficeInformationData()
+    }
+    val officeDataList = remember {
+        viewModel.dataOfficeInfo
+    }
+    OfficeUI(
+        officeDataList,
+        onCallButtonClicked = { viewModel.makeCall() },
+        onEmailButtonClicked = { viewModel.sendEmail() }
+    )
+}
+
+/**
  * This function creates the Office screen UI
- * With the Outlined buttons and the company information
- * @param vm injects the viewModel into the UI
+ * @param onCallButtonClicked launches the call intent
+ * @param onEmailButtonClicked launches the Email intent
  * @author Yaritza Moreno
+ * Modified by:
+ * @author Andres Ivan Medina
  */
 @Composable
 fun OfficeUI(
-    viewModel: OfficeViewModel = hiltViewModel()
+    list: List<OfficeInfoItemModel>,
+    onCallButtonClicked: () -> Unit,
+    onEmailButtonClicked: () -> Unit,
 ) {
-    val context = LocalContext.current
-    viewModel
-    val schedule = stringResource(id = R.string.LPHours)
-    val address  = stringResource(R.string.LPAddress)
-    var email    = stringResource(R.string.LPcontactEmail)
-    val phone    = stringResource(R.string.LPphoneServiceContact)
-    val windowTitle = stringResource(R.string.LPInfo)
+    val schedule = list[0].schedule
+    val address = list[0].address
+    val email = list[0].email
+    val phone = list[0].phone
+
+    Log.d("DATA_COMPOSE", "${schedule},${address},${email},${phone}")
     //Get sizes from LeasePertTheme archive
     val sizes = LeasePertTheme.sizes
     Column(Modifier.fillMaxSize()) {
         Text(
-            text = windowTitle,
+            text = stringResource(R.string.LPInfo),
             modifier = Modifier
                 .width(sizes.extraSize124)
                 .height(sizes.regularSize),
@@ -57,17 +95,15 @@ fun OfficeUI(
             )
         )
         Text(
-            text =  address,
-            style = TextStyle(
+            text = address, style = TextStyle(
                 textAlign = TextAlign.Justify,
                 lineHeight = 20.sp,
                 textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
-            ),
-            modifier = Modifier.padding(top = sizes.extraSize10)
+            ), modifier = Modifier.padding(top = sizes.extraSize10)
         )
 
         Text(
-            text =  schedule,
+            text = stringResource(id = R.string.LPHours) + schedule,
             modifier = Modifier.padding(top = sizes.extraSize10),
             style = TextStyle(
                 textAlign = TextAlign.Justify,
@@ -79,17 +115,13 @@ fun OfficeUI(
             icon = Icons.Filled.Call,
             textButton = stringResource(id = R.string.LPCallButton),
             onClicked = {
-                viewModel.makeCall(phone)
+                onCallButtonClicked()
             })
         LpOutlinedButton(modifier = Modifier,
             icon = Icons.Outlined.Mail,
             textButton = stringResource(id = R.string.LPMailButton),
             onClicked = {
-                viewModel.sendEmail(
-                    email,
-                    "mail test",
-                    "this is a mail send test",
-                )
+                onEmailButtonClicked()
             })
     }
 }

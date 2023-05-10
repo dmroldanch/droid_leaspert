@@ -10,6 +10,13 @@ import com.itenum.domain.IintentActions
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
+/**
+ * This class is the implementation of the interface IPermissionProvider
+ * @param context this param provides the local context
+ * @param permissionProvider this param is an interface contract that provides permissions
+ *
+ * @author Andres Ivan Medina
+ */
 class IntentActionsImpl @Inject constructor(
     @ApplicationContext val context: Context,
     val permissionProvider: IPermissionsProvider

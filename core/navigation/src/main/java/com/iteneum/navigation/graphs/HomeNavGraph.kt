@@ -8,7 +8,7 @@ import com.iteneum.apartment.presentation.ApartmentView
 import com.iteneum.community.presentation.CommunityView
 import com.iteneum.dashboard.presentation.DashboardView
 import com.iteneum.navigation.BottomBar
-import com.iteneum.office.presentation.ui.OfficeUI
+import com.iteneum.office.presentation.ui.OfficeView
 
 @Composable
 fun HomeNavGraph(navController: NavHostController) {
@@ -39,7 +39,7 @@ fun HomeNavGraph(navController: NavHostController) {
             CommunityView(
                 navigationToCommnityWall = {
                     navController.navigate(CommunityScreen.Wall.route)
-                } ,
+                },
                 navigationToAmenities = {
                     navController.navigate(CommunityScreen.Amenities.route)
                 }
@@ -47,7 +47,7 @@ fun HomeNavGraph(navController: NavHostController) {
         }
 
         composable(route = BottomBar.OFFICE.route) {
-            OfficeUI()
+            OfficeView()
         }
         dashboardNavGraph(navController = navController)
         apartmentNavGraph(navController = navController)

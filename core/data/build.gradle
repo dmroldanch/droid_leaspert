@@ -34,4 +34,6 @@ dependencies {
     implementation libs.bundles.hilt
 
     implementation project(path: ':core:domain')
+    implementation libs.bundles.compose
+    implementation project(":core:designsystem")
 }
