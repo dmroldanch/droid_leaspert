@@ -20,6 +20,7 @@ import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransforma
 /**
  * This function creates a password OutlinedTextField
  * @param modifier Set component modifier
+ * @param labelText The text to be used as the input field label
  * @param value Current password value
  * @param isValid Validate if text is valid
  * @param supportTextError This parameter determines whether the error is displayed or not
@@ -33,7 +34,7 @@ import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransforma
 @Composable
 fun LpOutlinedTextFieldPassword(
     modifier: Modifier = Modifier,
-    LabelText: String = "",
+    labelText: String = "",
     value: String = "",
     isValid: Boolean = true,
     supportTextError: String = "",
@@ -45,7 +46,7 @@ fun LpOutlinedTextFieldPassword(
         modifier = modifier,
         label = {
             Text(
-                text = LabelText,
+                text = labelText,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.tertiary
             )
