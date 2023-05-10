@@ -5,6 +5,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iteneum.RepairModel
@@ -23,22 +24,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RepairViewModel @Inject constructor(): ViewModel() {
-    private val _dataInfo : MutableState<RepairModel?> = mutableStateOf(null) /* TODO - RepairViewModel - Verify if it will stay null */
-    val dataInfo: MutableState<RepairModel?>
-        get() = _dataInfo
+    private val _repairModelMutable : MutableState<RepairModel> = mutableStateOf(RepairModel())
+    val repairModelRead: MutableState<RepairModel>
+        get() = _repairModelMutable
+
     var repairModel : RepairModel by mutableStateOf(RepairModel())
         private set
 
     fun getInformation() = viewModelScope.launch {
         when (response) {
             is DataState.Success -> {
-                _dataInfo.value = response.data
+                _repairModelMutable.value = response.data
             }
             is DataState.Error -> {
-                /* TODO - RepairViewModel DataState.Error - when data has an error */
+                _repairModelMutable.value = RepairModel(unitDepartment = "E000")
             }
             is DataState.Loading -> {
-                /* TODO - RepairViewModel DataState.Loading - when data loads */
+                _repairModelMutable.value = RepairModel(unitDepartment = "L000")
             }
             else -> Unit
         }
@@ -48,7 +50,9 @@ class RepairViewModel @Inject constructor(): ViewModel() {
         repairModel = repairModel.copy(unitDepartment = unitDepartment)
     }
     fun getContactPhoneFromView(contactPhone:String) {
-        repairModel = repairModel.copy(contactPhone = contactPhone)
+        if (contactPhone.isDigitsOnly() && contactPhone.length <= 10) {
+            repairModel = repairModel.copy(contactPhone = contactPhone)
+        }
     }
     fun getPetInUnitFromView(petInUnit:String) {
         repairModel = repairModel.copy(petInUnit = petInUnit)
@@ -72,12 +76,6 @@ class RepairViewModel @Inject constructor(): ViewModel() {
 
 val response: DataState<RepairModel> = DataState.Success(
     RepairModel (
-        unitDepartment = "A123",
-        contactPhone = "1234567891",
-        petInUnit = "Dog",
-        category = "Bedroom",
-        problemDescription = "I have a stain on my floor",
-        imageOrVideoFile = Uri.parse("http://www.google.com"),
-        permissionToEnter = "Yes",
+        unitDepartment = "A123"
     )
 )

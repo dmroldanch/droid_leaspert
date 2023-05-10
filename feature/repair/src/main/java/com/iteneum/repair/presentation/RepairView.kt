@@ -7,9 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
-import androidx.core.text.isDigitsOnly
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.iteneum.RepairModel
 import com.iteneum.designsystem.components.*
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.theme.LeasePertTheme
@@ -25,7 +23,7 @@ import com.iteneum.repair.data.RepairViewModel
  * @param repairViewModel - to get the Repair View Model access
  *
  * Function [RepairContainer] has
- * @param dataInfo - to use if for displaying Unit in the Unit Text Field
+ * @param unitDepartment - to use if for displaying Unit in the Unit Text Field
  * @param repairViewModel -  to get the Repair View Model access
  * @param navigateToApartment - its passed from RepairView() for same purpose
  *
@@ -41,7 +39,7 @@ fun RepairView(
         repairViewModel.getInformation()
     }
     RepairContainer(
-        dataInfo = repairViewModel.dataInfo.value,
+        unitDepartment = repairViewModel.repairModelRead.value.unitDepartment,
         navigateToApartment = navigateToApartment
     )
 }
@@ -49,7 +47,7 @@ fun RepairView(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RepairContainer(
-    dataInfo: RepairModel?,
+    unitDepartment: String,
     repairViewModel: RepairViewModel = hiltViewModel(),
     navigateToApartment: () -> Unit,
 ) {
@@ -79,7 +77,6 @@ fun RepairContainer(
                 )
             }
             LpOutlinedTextFieldInput(
-                /* TODO - LpOutlinedTextFieldInput (Check component required) - To enable to action  of passing value argument --> value = dataInfo?.unitDepartment ?: "000" */
                 modifier = Modifier
                     .padding(
                         top = sizes.minorRegularSize
@@ -88,6 +85,7 @@ fun RepairContainer(
                 enabled = false,
                 label = stringResource(id = R.string.label_unit),
                 hint = stringResource(id = R.string.hint_unit),
+                value = unitDepartment,
                 onValueChanged = {
                     repairViewModel.getUnitDepartmentFromView(it)
                 }
@@ -98,9 +96,12 @@ fun RepairContainer(
                 ),
                 value = repairViewModel.repairModel.contactPhone,
                 onPhoneChanged = {
-                    isNotValidPhone = it.isEmpty() || it.length < 10
-                    if (it.isDigitsOnly() && it.length <= 10)
+                    if (it.isEmpty() || it.length < 10) {
+                        isNotValidPhone = true
+                    }
+                   else {
                         repairViewModel.getContactPhoneFromView(it)
+                    }
                 },
                 isNotValid = isNotValidPhone,
                 supportTextError = stringResource(id = R.string.support_error_phone)
