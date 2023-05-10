@@ -96,7 +96,7 @@ fun LoginView(navigationToDashboard: () -> Unit) {
             onPasswordChanged = { /*TODO("This will change the value of the password")*/ },
             supportTextError = stringResource(R.string.lv_support_text_error),
             isValid = false,
-            LabelText = stringResource(R.string.lv_password)
+            labelText = stringResource(R.string.lv_password)
         )
         LpFilledTonalButton(
             modifier = Modifier
