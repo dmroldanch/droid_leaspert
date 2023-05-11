@@ -8,7 +8,7 @@ package com.iteneum
  * @author Carlos Hernandez
  */
 //TODO IT NEEDS TO BE PARCELIZE
-data class ItemModel(
+data class AmenitieModel(
     var id: Int = 0,
     var urlImage: String? = null,
     var title: String? = null,

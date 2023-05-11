@@ -13,17 +13,18 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.iteneum.dashboard.R
 import com.iteneum.designsystem.components.LPGenericElevatedCard
 import com.iteneum.designsystem.components.LpBadgeButton
 import com.iteneum.designsystem.components.LpGenericCard
-import com.iteneum.designsystem.components.getRandomColor
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.theme.LeasePertTheme
-import kotlin.random.Random
 
 
 /**
@@ -37,25 +38,22 @@ import kotlin.random.Random
 @Composable
 fun DashboardView(
     navigateToNotification: () -> Unit,
-    navigateToProfile: () -> Unit
+    navigateToProfile: () -> Unit,
+    viewModel: DashboardViewModel = hiltViewModel()
 ) {
+
     val sizes = LeasePertTheme.sizes
-    // TODO mock data, change for real data
-    val username = "Martin"
-    val badgeNumberNotification = "10"
-    val badgeNumberPerson = "20"
-    val showBadgeNotification = true
-    val showBadgePerson = false
-    val currentBalance = "0.00"
-    val currentBalanceCurrency = true
-    val serviceRequest = "1"
-    val amenityReservations = "1"
-    val eventList = listOf("Coffee + Donuts", "Pool party", "Discounts")
+    val userState by remember { viewModel.userDomain }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(all = sizes.regularSize)
+            .padding(
+                top = sizes.regularSize,
+                start = sizes.smallerSize,
+                end = sizes.smallerSize,
+                bottom = sizes.regularSize
+            )
             .verticalScroll(rememberScrollState())
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
@@ -63,19 +61,17 @@ fun DashboardView(
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .weight(1f),
-                text = stringResource(R.string.welcome_back, username),
+                text = stringResource(R.string.welcome_back, userState.username),
                 style = LPTypography.titleMedium,
             )
             LpBadgeButton(
-                badgeNumber = badgeNumberNotification,
-                showBadge = showBadgeNotification,
+                badgeNumber = userState.notification.notificationCount.toString(),
+                showBadge = true,
                 imageVector = Icons.Filled.Notifications
             ) {
                 navigateToNotification()
             }
             LpBadgeButton(
-                badgeNumber = badgeNumberPerson,
-                showBadge = showBadgePerson,
                 imageVector = Icons.Filled.Person
             ) {
                 navigateToProfile()
@@ -84,33 +80,36 @@ fun DashboardView(
         LpGenericCard(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(start = sizes.minorSmallSize, end = sizes.minorSmallSize)
                 .padding(vertical = sizes.minorRegularSize),
             title = stringResource(R.string.current_balance),
             details = stringResource(R.string.go_to_payments),
-            accountNumber = currentBalance,
-            currency = currentBalanceCurrency
+            accountNumber = userState.currentBalance.toString(),
+            currency = true
         ) {
-            // TODO navigate to payments screen
+            //TODO navigate to payments screen
         }
         LpGenericCard(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(start = sizes.minorSmallSize, end = sizes.minorSmallSize)
                 .padding(bottom = sizes.minorRegularSize),
             title = stringResource(R.string.service_request),
             details = stringResource(R.string.view_detail),
-            accountNumber = serviceRequest,
+            accountNumber = userState.serviceRequestInProgress.toString(),
         ) {
-            // TODO navigate to service request screen
+            //TODO navigate to service request screen
         }
         LpGenericCard(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(start = sizes.minorSmallSize, end = sizes.minorSmallSize)
                 .padding(bottom = sizes.regularSize),
             title = stringResource(R.string.amenity_reservations),
             details = stringResource(R.string.view_detail),
-            accountNumber = amenityReservations
+            accountNumber = userState.amenityReservetion.toString()
         ) {
-            // TODO navigate to amenity reservations screen
+            //TODO navigate to amenity reservations screen
         }
         Text(
             modifier = Modifier.padding(bottom = sizes.minorRegularSize),
@@ -119,16 +118,21 @@ fun DashboardView(
             color = MaterialTheme.colorScheme.tertiary
         )
         LazyRow(
+            modifier = Modifier.padding(
+                start = sizes.minorSmallSize,
+                end = sizes.minorSmallSize,
+                bottom = sizes.extraSize42
+            ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(sizes.smallSize)
         ) {
-            items(eventList) { event ->
+            items(userState.events) { event ->
                 LPGenericElevatedCard(
                     modifier = Modifier.fillMaxWidth(),
-                    title = event,
-                    description = "This is mock data",
-                    buttonText = "Go to Screen",
-                    color = getRandomColor(Random.nextInt(0, 3))
+                    title = event.title,
+                    description = event.description,
+                    buttonText = event.buttonText,
+                    color = event.color
                 ) {
                     // TODO add click functionality
                 }
