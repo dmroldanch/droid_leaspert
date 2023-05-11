@@ -113,7 +113,9 @@ fun LoginView(
             onPasswordChanged = { loginViewModel.onPasswordChanged(it) },
             supportTextError = stringResource(R.string.lv_support_text_error),
             isValid = loginViewModel.isPasswordError,
-            labelText = stringResource(R.string.lv_password)
+            labelText = stringResource(R.string.lv_password),
+            passwordVisible = loginViewModel.passwordVisible,
+            onPasswordVisibilityChanged = { loginViewModel.onPasswordVisibilityChanged() }
         )
         LpFilledTonalButton(
             modifier = Modifier

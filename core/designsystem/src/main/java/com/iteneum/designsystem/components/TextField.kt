@@ -17,7 +17,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.R
 import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransformation
@@ -30,6 +29,8 @@ import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransforma
  * @param isValid Validate if text is valid
  * @param supportTextError This parameter determines whether the error is displayed or not
  * @param onPasswordChanged Returns value typed
+ * @param passwordVisible
+ * @param onPasswordVisibilityChanged
  *
  * @author Jose G. Rivera
  * @modifiedBy Jesus Lopez
@@ -43,14 +44,14 @@ fun LpOutlinedTextFieldPassword(
     value: String = "",
     isValid: Boolean = true,
     supportTextError: String = "",
-    onPasswordChanged: (String) -> Unit
+    onPasswordChanged: (String) -> Unit,
+    passwordVisible: Boolean,
+    onPasswordVisibilityChanged: () -> Unit
 ) {
-    var passwordFieldValue by remember { mutableStateOf(TextFieldValue("")) }
-    var passwordVisible by remember { mutableStateOf(false) }
 
     OutlinedTextField(
         value = value,
-        onValueChange = onPasswordChanged(passwordFieldValue),
+        onValueChange = onPasswordChanged,
         modifier = modifier,
         label = {
             Text(
@@ -66,38 +67,48 @@ fun LpOutlinedTextFieldPassword(
             errorLabelColor = MaterialTheme.colorScheme.error,
             errorBorderColor = MaterialTheme.colorScheme.error,
             errorSupportingTextColor = MaterialTheme.colorScheme.error,
-            unfocusedLabelColor = MaterialTheme.colorScheme.onPrimary
+            unfocusedLabelColor = MaterialTheme.colorScheme.onPrimary,
         ),
         isError = isValid,
         supportingText = {
-            if (isValid) {
-                Text(text = supportTextError)
-            } else {
-                Text(text = "")
-            }
+            Text(text = if (isValid) supportTextError else value)
         },
         singleLine = true,
         maxLines = 1,
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Password
         ),
-        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-        trailingIcon = {
-            IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                Icon(
-                    imageVector =
-                    if (passwordVisible) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
-                    contentDescription =
-                    if (passwordVisible)
-                        stringResource(id = R.string.OTFPasswordHideContent)
-                    else
-                        stringResource(id = R.string.OTFPasswordShowContent)
-                )
-            }
-        }
+        visualTransformation =
+        if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+        trailingIcon =
+        { PasswordVisibilityIcon(passwordVisible, onPasswordVisibilityChanged) }
     )
 }
 
+/**
+ * This function is needed for the [LpOutlinedTextFieldPassword] to change the icon visibility
+ * @param passwordVisible Checks if the password is visible
+ * @param onPasswordVisibilityChanged Called when the user clicks on the icon
+ *
+ * @author Jesus Lopez
+ */
+@Composable
+fun PasswordVisibilityIcon(
+    passwordVisible: Boolean,
+    onPasswordVisibilityChanged: () -> Unit
+) {
+    IconButton(onClick = onPasswordVisibilityChanged) {
+        Icon(
+            imageVector =
+            if (passwordVisible) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
+            contentDescription =
+            if (passwordVisible)
+                stringResource(id = R.string.OTFPasswordHideContent)
+            else
+                stringResource(id = R.string.OTFPasswordShowContent)
+        )
+    }
+}
 
 /**
  * This function creates a generic OutlinedTextField

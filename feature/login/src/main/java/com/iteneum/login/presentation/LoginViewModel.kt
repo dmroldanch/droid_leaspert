@@ -32,6 +32,13 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     var isSuccess: Boolean by mutableStateOf(false)
         private set
 
+    var passwordVisible: Boolean by mutableStateOf(false)
+        private set
+
+    fun onPasswordVisibilityChanged() {
+        passwordVisible = passwordVisible.not()
+    }
+
     fun onEmailChanged(newEmail: String) {
         email = newEmail
     }
