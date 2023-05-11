@@ -39,6 +39,8 @@ android {
 dependencies {
 
     implementation libs.bundles.compose
+    implementation libs.bundles.hilt
 //Modules
     implementation project(":core:designsystem")
+    implementation project(":core:network")
 }

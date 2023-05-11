@@ -45,8 +45,19 @@ fun HomeNavGraph(
                     navController.navigate(CommunityScreen.Wall.route)
                 },
                 navigationToAmenities = {
-                    //uiAction(UIActions.ShowSnackBar(titleButton = "Titulo", description = "Prueba"))
                     navController.navigate(CommunityScreen.Amenities.route)
+                },
+                navigationToEvents = {
+                    // TODO: add navigation when screen is ready
+                },
+                navigationToCommunityWall = {
+                    navController.navigate(CommunityScreen.Wall.route)
+                },
+                navigationToDoItYourSelf = {
+                    // TODO: add navigation when screen is ready
+                },
+                navigationToServices = {
+                    navController.navigate(ApartmentScreen.Repair.route)
                 }
             )
         }
