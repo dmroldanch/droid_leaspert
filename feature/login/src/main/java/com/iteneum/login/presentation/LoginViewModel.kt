@@ -3,7 +3,6 @@ package com.iteneum.login.presentation
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -43,11 +42,11 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     }
 
     fun onEmailChanged(newEmail: String) {
-        email.value = newEmail
+        email = newEmail
     }
 
     fun onPasswordChanged(newPassword: String) {
-        password.value = newPassword
+        password = newPassword
     }
 
     private fun String.isValidEmail(): Boolean {
@@ -62,8 +61,8 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     }
 
     fun onLoginClicked() {
-        val isEmailValid = email.value.isValidEmail()
-        val isPasswordValid = password.value.isValidPassword()
+        val isEmailValid = email.isValidEmail()
+        val isPasswordValid = password.isValidPassword()
 
         when {
             isEmailValid && isPasswordValid -> {
