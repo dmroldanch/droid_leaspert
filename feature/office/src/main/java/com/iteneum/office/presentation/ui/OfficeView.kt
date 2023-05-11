@@ -5,123 +5,99 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.outlined.Mail
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextIndent
-import androidx.compose.ui.unit.sp
-import com.iteneum.IntentActionsImpl
-import com.iteneum.OfficeInfoItemModel
-import com.iteneum.PermissionsProviderImpl
+import com.iteneum.designsystem.components.LPBodyMedium
+import com.iteneum.designsystem.components.LPTitleLarge
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.office.R
+import com.iteneum.office.data.OfficeModel
 
 /**
- * This class will handle the network states responses, i modification with the structure.
- * @param onClickItem click back when you do it on an item
- * @param onSuccess our event that send us to the next view
- * TODO implement @param viewModel the view model we are using inside our view compose has to be injected
- * /*viewModel: OfficeViewModel = hiltViewModel()*/
+ * function: OfficeView  will handle:
+ * Exposing to the UI the Office information,
+ * working as container for OfficeUI function.
  * @author Andres Ivan Medina
  */
+
+
 @Composable
 fun OfficeView() {
-    val viewModel = OfficeViewModel(
-        IntentActionsImpl(
-            LocalContext.current, PermissionsProviderImpl(
-                LocalContext.current
-            )
-        )
-    )
+    val viewModel = OfficeViewModel()
+
     LaunchedEffect(true) {
-        viewModel.loadOfficeInformationData()
+        viewModel.getOfficeInformation()
     }
-    val officeDataList = remember {
-        viewModel.dataOfficeInfo
+
+    val OfficeData = remember { viewModel.officeInfo }
+
+    OfficeData?.let {
+        OfficeUI(it,
+            onCallButtonClicked = { viewModel.makeCall() },
+            onEmailButtonClicked = { viewModel.sendEmail() })
     }
-    OfficeUI(
-        officeDataList,
-        onCallButtonClicked = { viewModel.makeCall() },
-        onEmailButtonClicked = { viewModel.sendEmail() }
-    )
 }
 
 /**
- * This function creates the Office screen UI
+ * function: OfficeUI creates the Office screen UI
  * @param onCallButtonClicked launches the call intent
  * @param onEmailButtonClicked launches the Email intent
  * @author Yaritza Moreno
  * Modified by:
  * @author Andres Ivan Medina
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OfficeUI(
-    list: List<OfficeInfoItemModel>,
+    officeData: OfficeModel,
     onCallButtonClicked: () -> Unit,
     onEmailButtonClicked: () -> Unit,
 ) {
-    val schedule = list[0].schedule
-    val address = list[0].address
-    val email = list[0].email
-    val phone = list[0].phone
-
-    Log.d("DATA_COMPOSE", "${schedule},${address},${email},${phone}")
-    //Get sizes from LeasePertTheme archive
-    val sizes = LeasePertTheme.sizes
-    Column(Modifier.fillMaxSize()) {
-        Text(
-            text = stringResource(R.string.LPInfo),
-            modifier = Modifier
-                .width(sizes.extraSize124)
-                .height(sizes.regularSize),
-            style = TextStyle(
-                textAlign = TextAlign.Justify,
-                color = MaterialTheme.colorScheme.tertiary,
-                fontFamily = FontFamily.SansSerif,
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                lineHeight = 20.sp,
-                textIndent = TextIndent(firstLine = 14.sp)
-            )
-        )
-        Text(
-            text = address, style = TextStyle(
-                textAlign = TextAlign.Justify,
-                lineHeight = 20.sp,
-                textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
-            ), modifier = Modifier.padding(top = sizes.extraSize10)
-        )
-
-        Text(
-            text = stringResource(id = R.string.LPHours) + schedule,
-            modifier = Modifier.padding(top = sizes.extraSize10),
-            style = TextStyle(
-                textAlign = TextAlign.Justify,
-                lineHeight = 20.sp,
-                textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
-            )
-        )
-        LpOutlinedButton(modifier = Modifier,
-            icon = Icons.Filled.Call,
-            textButton = stringResource(id = R.string.LPCallButton),
-            onClicked = {
-                onCallButtonClicked()
-            })
-        LpOutlinedButton(modifier = Modifier,
-            icon = Icons.Outlined.Mail,
-            textButton = stringResource(id = R.string.LPMailButton),
-            onClicked = {
-                onEmailButtonClicked()
-            })
-    }
+    Scaffold(content = { paddingValues ->
+        val sizes = LeasePertTheme.sizes
+        Box(modifier = Modifier.padding(paddingValues)) {
+            Column(
+                Modifier.fillMaxSize()
+                //.padding(top = sizes.extraSize18)
+            ) {
+                LPTitleLarge(label = stringResource(
+                    id = R.string.LPInfo
+                ),
+                    color = MaterialTheme.colorScheme.tertiary,
+                    textAlign = TextAlign.Justify,
+                    onClick = {})
+                LPBodyMedium(modifier = Modifier.padding(top = sizes.extraSize10),
+                    label = officeData.address,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    textAlign = TextAlign.Justify,
+                    onClick = {})
+                LPBodyMedium(modifier = Modifier.padding(top = sizes.extraSize10),
+                    label = stringResource(id = R.string.LPHours) + officeData.schedule,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    textAlign = TextAlign.Justify,
+                    onClick = {})
+                LpOutlinedButton(Modifier.padding(top = sizes.extraSize10),
+                    icon = Icons.Filled.Call,
+                    textButton = stringResource(id = R.string.LPCallButton),
+                    onClicked = {
+                        onCallButtonClicked()
+                    })
+                LpOutlinedButton(Modifier.padding(top = sizes.extraSize10),
+                    icon = Icons.Outlined.Mail,
+                    textButton = stringResource(id = R.string.LPMailButton),
+                    onClicked = {
+                        onEmailButtonClicked()
+                    })
+            }
+        }
+    })
 }
+

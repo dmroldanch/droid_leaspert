@@ -1,44 +1,47 @@
 package com.iteneum.office.presentation.ui
 
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iteneum.OfficeInfoItemModel
+import com.iteneum.office.data.OfficeModel
 import com.iteneum.network.DataState
+import com.iteneum.office.presentation.ui.officeInfoResponse
 import com.itenum.domain.ContactTelephone
 import com.itenum.domain.Email
-import com.itenum.domain.IintentActions
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-/**
- * This class will handle the UI Logic and expose data to the composable views.
- * @param intentActions needs to be injected in order to decouple logic *
- * TODO implement @param viewModel the view model we are using inside our view compose has to be injected
- * /*viewModel: OfficeViewModel = hiltViewModel()*/
- * @author Andres Ivan Medina
- */
-@HiltViewModel
-class OfficeViewModel @Inject constructor(val intentActions: IintentActions) : ViewModel() {
 
-    private val _state: MutableStateFlow<OfficeStateList> = MutableStateFlow(OfficeStateList.Loading)
+/**
+ *class OfficeViewModel will handle the UI Logic and
+ * expose data to the composable views.
+ * TODO implement @param intentActions needs to be injected in order to decouple logic *
+ *
+ * /*viewModel: OfficeViewModel = hiltViewModel()*/
+ *@author  Yaritza Moreno
+ *
+ *@author Andres Ivan Medina
+ */
+
+class OfficeViewModel() : ViewModel() {
+
+    private val _state: MutableStateFlow<OfficeStateList> =
+        MutableStateFlow(OfficeStateList.Loading)
     val state: StateFlow<OfficeStateList> = _state
 
-    private val _dataOfficeInfo: MutableList<OfficeInfoItemModel> = mutableStateListOf()
-    val dataOfficeInfo: MutableList<OfficeInfoItemModel>
-        get() = _dataOfficeInfo
+    private val _officeInfo: MutableState<OfficeModel?> = mutableStateOf(null)
+    val officeInfo: OfficeModel?
+        get() = _officeInfo.value
 
     init {
-        loadOfficeInformationData()
+        getOfficeInformation()
     }
 
-    internal fun loadOfficeInformationData() = viewModelScope.launch {
+    internal fun getOfficeInformation() = viewModelScope.launch {
         when (officeInfoResponse) {
             is DataState.Success -> {
-                _dataOfficeInfo.clear()
-                _dataOfficeInfo.addAll(officeInfoResponse.data)
+                _officeInfo.value = officeInfoResponse.data
             }
 
             is DataState.Error -> {
@@ -54,15 +57,20 @@ class OfficeViewModel @Inject constructor(val intentActions: IintentActions) : V
     }
 
     fun makeCall() {
-        val contactTelephone = ContactTelephone(_dataOfficeInfo.first().phone.number)
-        intentActions.makeCall(contactTelephone)
+        val contactTelephone =
+            _officeInfo.value?.phone?.let { ContactTelephone(it.number) }/*TODO: Implement call intent once permission logic is stablished*/
     }
 
     fun sendEmail() {
-        val email = Email(_dataOfficeInfo.first().email.to,_dataOfficeInfo.first().email.subject,_dataOfficeInfo.first().email.body)
-        intentActions.sendEmail(email)
+        val email = Email(
+            _officeInfo.value?.email?.to ?: "",
+            _officeInfo.value?.email?.subject ?: "",
+            _officeInfo.value?.email?.body ?: ""
+        )/*TODO: Implement Email intent once permission logic is stablished*/
+
     }
 }
+
 
 /**
  * This variable represents the data Mock brought by the API call.
@@ -70,19 +78,18 @@ class OfficeViewModel @Inject constructor(val intentActions: IintentActions) : V
  *
  * @author Andres Ivan Medina
  */
-val officeInfoResponse: DataState<List<OfficeInfoItemModel>> = DataState.Success(
-    listOf(
-        OfficeInfoItemModel(
-            "Address: 4950 Gaidrew",
-            "9AM-6PM",
-             phone = ContactTelephone("+1 452 123 4567"),
-            email = Email("contact@leaspert.com","mail test", "this is a mail send test")
-        )
+val officeInfoResponse: DataState<OfficeModel> = DataState.Success(
+    OfficeModel(
+        "4950 Gaidrew, Alpharetta, GA, 30022 ",
+        "9AM-6PM",
+        phone = ContactTelephone("+1 452 123 4567"),
+        email = Email("contact@leaspert.com", "mail test", "this is a mail send test")
     )
 )
 
 /**
- * This class represents the states of the data exposed through the list.
+ * class:OfficeStateList  represents the states of the data
+ * exposed through the list.
  *
  * @author Andres Ivan Medina
  */
