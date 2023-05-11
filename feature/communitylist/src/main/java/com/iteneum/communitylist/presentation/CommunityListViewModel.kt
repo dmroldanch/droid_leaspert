@@ -3,7 +3,7 @@ package com.iteneum.communitylist.presentation
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iteneum.ItemModel
+import com.iteneum.Amenity
 import com.iteneum.network.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +23,7 @@ class CommunityListViewModel : ViewModel() {
         MutableStateFlow(CommunityListState.Loading)
     val state: StateFlow<CommunityListState> = _state
 
-    var myData: MutableList<ItemModel> = mutableStateListOf()
+    var amenitiesList: MutableList<Amenity> = mutableStateListOf()
         private set
 
     /* GETTING INFORMATION FROM SERVICE EXAMPLE */
@@ -31,8 +31,8 @@ class CommunityListViewModel : ViewModel() {
         /* HERE WE ARE GOING TO BE LISTENING THE DATA STATE FROM WE SERVICE */
         when (response) {
             is DataState.Success -> {
-                myData.clear()
-                myData.addAll(response.data)
+                amenitiesList.clear()
+                amenitiesList.addAll(response.data)
             }
             is DataState.Error -> {
                 _state.emit(CommunityListState.Error)
@@ -57,19 +57,19 @@ sealed class CommunityListState {
 }
 
 /* RESPONSE EXAMPLE */
-val response: DataState<List<ItemModel>> = DataState.Success(
+val response: DataState<List<Amenity>> = DataState.Success(
     listOf(
-        ItemModel(
+        Amenity(
             id = 1,
             title = "Rooftop Lounge",
             description = "Relaxing atmosphere."
         ),
-        ItemModel(
+        Amenity(
             id = 2,
             title = "Rooftop Lounge",
             description = "Relaxing atmosphere."
         ),
-        ItemModel(
+        Amenity(
             id = 3,
             title = "Rooftop Lounge",
             description = "Relaxing atmosphere."
