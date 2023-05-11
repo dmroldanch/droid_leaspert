@@ -16,7 +16,7 @@ dependencyResolutionManagement {
         libs {
 
             version('core', '1.7.0')
-            version('lifecycle', '2.5.1')
+            version('lifecycle', '2.6.1')
             version('compose', '1.3.1')
             version('activityCompose', '1.6.1')
             version('viewmodelCompose', '2.5.1')
@@ -43,7 +43,8 @@ dependencyResolutionManagement {
 
 
             library('core','androidx.core' ,'core-ktx').versionRef('core')
-            library('lifecycle','androidx.lifecycle', 'lifecycle-runtime-ktx').versionRef('lifecycle')
+            library('lifecycleRuntime','androidx.lifecycle', 'lifecycle-runtime-ktx').versionRef('lifecycle')
+            library('lifecycleCompose','androidx.lifecycle', 'lifecycle-runtime-compose').versionRef('lifecycle')
             library('compose-material3','androidx.compose.material3' ,'material3').versionRef('material3')
             library('compose-windows','androidx.compose.material3', 'material3-window-size-class').versionRef('material3')
             library('compose-navigation','androidx.navigation','navigation-compose').versionRef('composeNavigation')
@@ -77,6 +78,7 @@ dependencyResolutionManagement {
             bundle('accompanist', ['accompanist-permisions'])
             bundle('dataStoreBundle', ['dataStore', 'dataStore-Core'])
             bundle('hilt', ['hiltAndroid', 'hiltNavigation'])
+            bundle('lifecycle', ['lifecycleRuntime', 'lifecycleCompose'])
         }
     }
 

@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.iteneum.ItemModel
 import com.iteneum.designsystem.components.LPGenericElevatedCardImage
+import com.iteneum.designsystem.components.UIActions
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.designsystem.utils.TextUtils.TWO
 
@@ -23,22 +25,27 @@ import com.iteneum.designsystem.utils.TextUtils.TWO
  */
 @Composable
 fun CommunityListView(
+    uiAction: (UIActions) -> Unit,
     viewModel: CommunityListViewModel = hiltViewModel()
 ) {
+    viewModel.state.collectAsStateWithLifecycle(null).value?.let {
+        uiAction(it)
+    }
     LaunchedEffect(true) {
         viewModel.getInformation()
     }
     CommunityListContent(
-        list = viewModel.myData,
+        myList = viewModel.myData,
         onClickItem = {
             //TODO HERE WE ARE GOING TO DECIDE WHAT ACTION TO DO
+            viewModel.showSnack()
         }
     )
 }
 
 @Composable
 fun CommunityListContent(
-    list: List<ItemModel>,
+    myList: List<ItemModel>,
     onClickItem: (ItemModel) -> Unit
 ) {
     val dp8 = LeasePertTheme.sizes.smallerSize
@@ -48,7 +55,7 @@ fun CommunityListContent(
             verticalArrangement = Arrangement.spacedBy(dp8),
             horizontalArrangement = Arrangement.spacedBy(dp8)
         ) {
-            items(list) { item ->
+            items(myList) { item ->
                 LPGenericElevatedCardImage(
                     modifier = Modifier.fillMaxSize(),
                     imageUrl = item.urlImage,

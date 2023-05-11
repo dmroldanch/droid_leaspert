@@ -44,8 +44,8 @@ android {
 
 dependencies {
     implementation libs.bundles.compose
+    implementation libs.bundles.lifecycle
     implementation libs.core
-    implementation libs.lifecycle
 
     implementation project(":core:designsystem")
 }

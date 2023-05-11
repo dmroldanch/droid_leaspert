@@ -4,10 +4,11 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iteneum.ItemModel
+import com.iteneum.designsystem.components.UIActions
 import com.iteneum.network.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
 /**
@@ -19,9 +20,9 @@ import kotlinx.coroutines.launch
 class CommunityListViewModel : ViewModel() {
 
     /* THIS STATE IS GOING TO BE USED WHEN WE NEED TO DO A BIG CHANGE TO THE VIEW  */
-    private val _state: MutableStateFlow<CommunityListState> =
-        MutableStateFlow(CommunityListState.Loading)
-    val state: StateFlow<CommunityListState> = _state
+    private val _state: MutableSharedFlow<UIActions> =
+        MutableSharedFlow()
+    val state: SharedFlow<UIActions> = _state
 
     var myData: MutableList<ItemModel> = mutableStateListOf()
         private set
@@ -35,10 +36,12 @@ class CommunityListViewModel : ViewModel() {
                 myData.addAll(response.data)
             }
             is DataState.Error -> {
-                _state.emit(CommunityListState.Error)
+                _state.emit(UIActions.ShowSnackBar("Mi description", "Reintentar", action = {
+                    callGetInformation()
+                }))
             }
-            is  DataState.Loading -> {
-                _state.emit(CommunityListState.Loading)
+            is DataState.Loading -> {
+                //_state.emit(CommunityListState.Loading)
             }
             else -> Unit
         }
@@ -46,6 +49,14 @@ class CommunityListViewModel : ViewModel() {
     /** EMMIT STATE SUCCESS IF YOU ARE WAITING THE ANSWER SERVICE.
      *THIS IS FOR EXAMPLE WE HAVE A BUTTON AND WE NEED TO CALL A SERVICE AFTER THAT
      **/
+    internal fun showSnack() = viewModelScope.launch {
+        _state.emit(UIActions.ShowSnackBar("Mi description", "Reintentar", action = {
+            callGetInformation()
+        }))
+    }
+    private fun callGetInformation(){
+        getInformation()
+    }
 }
 /** You can create a sealed class and to map your objects for
  * each case you need to implement

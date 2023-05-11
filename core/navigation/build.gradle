@@ -38,6 +38,7 @@ dependencies {
     implementation libs.bundles.compose
     implementation libs.coil
 
+    implementation project(":core:designsystem")
     implementation project(":feature:example")
     implementation project(":feature:login")
     implementation project(":feature:dashboard")

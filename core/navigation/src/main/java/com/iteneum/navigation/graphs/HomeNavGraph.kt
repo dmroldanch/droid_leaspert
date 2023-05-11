@@ -7,11 +7,15 @@ import androidx.navigation.compose.composable
 import com.iteneum.apartment.presentation.ApartmentView
 import com.iteneum.community.presentation.CommunityView
 import com.iteneum.dashboard.presentation.DashboardView
+import com.iteneum.designsystem.components.UIActions
 import com.iteneum.navigation.BottomBar
 import com.iteneum.office.presentation.ui.OfficeUI
 
 @Composable
-fun HomeNavGraph(navController: NavHostController) {
+fun HomeNavGraph(
+    uiAction: (UIActions) -> Unit,
+    navController: NavHostController
+) {
     NavHost(
         navController = navController,
         route = Graph.HOME,
@@ -39,8 +43,9 @@ fun HomeNavGraph(navController: NavHostController) {
             CommunityView(
                 navigationToCommunityWall = {
                     navController.navigate(CommunityScreen.Wall.route)
-                } ,
+                },
                 navigationToAmenities = {
+                    //uiAction(UIActions.ShowSnackBar(titleButton = "Titulo", description = "Prueba"))
                     navController.navigate(CommunityScreen.Amenities.route)
                 }
             )
@@ -51,7 +56,12 @@ fun HomeNavGraph(navController: NavHostController) {
         }
         dashboardNavGraph(navController = navController)
         apartmentNavGraph(navController = navController)
-        communityNavGraph(navController = navController)
+        communityNavGraph(
+            uiAction = {
+                uiAction(it)
+            },
+            navController = navController
+        )
     }
 }
 
