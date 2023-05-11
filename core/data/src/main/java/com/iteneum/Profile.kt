@@ -1,6 +1,6 @@
 package com.iteneum
 
-data class ProfileModel (
+data class Profile (
     val profileImage : String = "",
     val profileName : String = "",
     val profileApartment : String = "",

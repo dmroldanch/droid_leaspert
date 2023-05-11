@@ -39,7 +39,7 @@ import com.iteneum.profile.data.ProfileViewModel
 
 @Composable
 fun ProfileView(
-    navigation: () -> Unit /* TODO - ProfileView - Check navigation parameter*/ ,
+    backToDashBoard: () -> Unit /* TODO - ProfileView - use when back arrow component is implemented */ ,
     profileViewModel: ProfileViewModel = hiltViewModel()
 ) {
     LaunchedEffect(true) {
@@ -65,7 +65,7 @@ fun ProfileContainer(
                     vertical = sizes.midSmallSize
                 )
             ) {
-                /*TODO here will be a nav component*/
+                /*TODO - ProfileView on ProfileContainer() - to add the backToDashBoard() call when implemented*/
             }
             Box(
                 modifier = Modifier
@@ -210,6 +210,4 @@ fun ProfileContainer(
             textButton = stringResource(id = R.string.log_out),
             onClicked = { profileViewModel.onClickLogOutButton() })
     }
-
-
 }

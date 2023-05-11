@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iteneum.ProfileModel
+import com.iteneum.Profile
 import com.iteneum.network.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,13 +19,12 @@ import javax.inject.Inject
  * @author Jose Miguel Garcia Reyes
  */
 
-
 @HiltViewModel
 class ProfileViewModel @Inject constructor(): ViewModel() {
-    private val _profileModelMutable : MutableState<ProfileModel> = mutableStateOf(ProfileModel())
-    val profileModelRead: MutableState<ProfileModel>
+    private val _profileModelMutable : MutableState<Profile> = mutableStateOf(Profile())
+    val profileModelRead: MutableState<Profile>
         get() = _profileModelMutable
-    var profileModel : ProfileModel by mutableStateOf(ProfileModel())
+    var profileModel : Profile by mutableStateOf(Profile())
         private set
 
     fun getInformation() = viewModelScope.launch {
@@ -34,7 +33,7 @@ class ProfileViewModel @Inject constructor(): ViewModel() {
                 _profileModelMutable.value = response.data
             }
             is DataState.Error -> {
-                _profileModelMutable.value = ProfileModel(
+                _profileModelMutable.value = Profile(
                     profileName = "Error",
                     profileApartment = "Error",
                     profilePhoneNumber = "1111111111",
@@ -43,7 +42,7 @@ class ProfileViewModel @Inject constructor(): ViewModel() {
                 )
             }
             is DataState.Loading -> {
-                _profileModelMutable.value = ProfileModel(
+                _profileModelMutable.value = Profile(
                     profileName = "Loading...",
                     profileApartment = "Loading...",
                     profilePhoneNumber = "0000000000",
@@ -87,8 +86,9 @@ class ProfileViewModel @Inject constructor(): ViewModel() {
     }
 }
 
-val response: DataState<ProfileModel> = DataState.Success(
-    ProfileModel (
+/* TODO - ProfileViewModel - Example of data received, modify or erase when DB is available  */
+val response: DataState<Profile> = DataState.Success(
+    Profile (
         /*profileImage = "A123",*/ /* TODO - ProfileViewModel - Too see how profileImage will be implemented  */
         profileName = "Juan",
         profileApartment = "A123",

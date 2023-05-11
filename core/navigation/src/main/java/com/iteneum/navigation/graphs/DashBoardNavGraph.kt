@@ -7,14 +7,13 @@ import androidx.navigation.navigation
 import com.iteneum.notification.presentation.NotificationListView
 import com.iteneum.profile.presentation.ProfileView
 
-
 fun NavGraphBuilder.dashboardNavGraph(navController: NavHostController) {
     navigation(
         route = Graph.DASHBOARD,
         startDestination = DashBoardScreen.Profile.route
     ) {
         composable(route = DashBoardScreen.Profile.route) {
-            ProfileView(navigation = { /*TODO*/ })
+            ProfileView(backToDashBoard = { /*TODO - DashBoardNavGraph -  to pass the high order function that will enable navigation for the buttons */ })
         }
         composable(route = DashBoardScreen.Notification.route) {
             NotificationListView()
