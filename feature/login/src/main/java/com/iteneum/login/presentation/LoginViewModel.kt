@@ -3,6 +3,7 @@ package com.iteneum.login.presentation
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -22,12 +23,12 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     var isEmailError: Boolean by mutableStateOf(false)
         private set
 
-    private var email: String? = ""
+    val email = mutableStateOf("")
 
     var isPasswordError: Boolean by mutableStateOf(false)
         private set
 
-    private var password: String? = ""
+    val password = mutableStateOf("")
 
     var isSuccess: Boolean by mutableStateOf(false)
         private set
@@ -40,11 +41,11 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     }
 
     fun onEmailChanged(newEmail: String) {
-        email = newEmail
+        email.value = newEmail
     }
 
     fun onPasswordChanged(newPassword: String) {
-        password = newPassword
+        password.value = newPassword
     }
 
     private fun String.isValidEmail(): Boolean {
@@ -59,8 +60,8 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     }
 
     fun onLoginClicked() {
-        val isEmailValid = email?.isValidEmail() ?: false
-        val isPasswordValid = password?.isValidPassword() ?: false
+        val isEmailValid = email.value.isValidEmail()
+        val isPasswordValid = password.value.isValidPassword()
 
         when {
             isEmailValid && isPasswordValid -> {

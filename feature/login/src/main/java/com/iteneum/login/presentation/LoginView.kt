@@ -96,6 +96,7 @@ fun LoginView(
             isValid = loginViewModel.isEmailError,
             onImeActionPerformed = { focusRequester.requestFocus() },
             supportTextError = stringResource(R.string.lv_valid_email_error),
+            value = loginViewModel.email.value,
             onValueChanged = { newEmail ->
                 loginViewModel.onEmailChanged(newEmail)
             }
@@ -115,6 +116,7 @@ fun LoginView(
             isValid = loginViewModel.isPasswordError,
             labelText = stringResource(R.string.lv_password),
             passwordVisible = loginViewModel.passwordVisible,
+            value = loginViewModel.password.value,
             onPasswordVisibilityChanged = { loginViewModel.onPasswordVisibilityChanged() }
         )
         LpFilledTonalButton(
