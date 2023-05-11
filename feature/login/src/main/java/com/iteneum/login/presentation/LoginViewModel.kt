@@ -23,12 +23,14 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     var isEmailError: Boolean by mutableStateOf(false)
         private set
 
-    val email = mutableStateOf("")
+    var email: String by mutableStateOf("")
+        private set
 
     var isPasswordError: Boolean by mutableStateOf(false)
         private set
 
-    val password = mutableStateOf("")
+    var password: String by mutableStateOf("")
+        private set
 
     var isSuccess: Boolean by mutableStateOf(false)
         private set
@@ -41,11 +43,11 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     }
 
     fun onEmailChanged(newEmail: String) {
-        email.value = newEmail
+        email = newEmail
     }
 
     fun onPasswordChanged(newPassword: String) {
-        password.value = newPassword
+        password = newPassword
     }
 
     private fun String.isValidEmail(): Boolean {
@@ -60,8 +62,8 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     }
 
     fun onLoginClicked() {
-        val isEmailValid = email.value.isValidEmail()
-        val isPasswordValid = password.value.isValidPassword()
+        val isEmailValid = email.isValidEmail()
+        val isPasswordValid = password.isValidPassword()
 
         when {
             isEmailValid && isPasswordValid -> {
@@ -75,7 +77,7 @@ class LoginViewModel @Inject constructor() : ViewModel() {
             }
             else -> {
                 isEmailError = false
-                isPasswordError= false
+                isPasswordError = false
                 if (!isEmailValid) {
                     isEmailError = true
                 }
