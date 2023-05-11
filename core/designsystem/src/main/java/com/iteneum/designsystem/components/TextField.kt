@@ -71,7 +71,7 @@ fun LpOutlinedTextFieldPassword(
         ),
         isError = isValid,
         supportingText = {
-            Text(text = if (isValid) supportTextError else value)
+            Text(text = if (isValid) supportTextError else "")
         },
         singleLine = true,
         maxLines = 1,
@@ -162,11 +162,7 @@ fun LpOutlinedTextField(
         ),
         isError = isValid,
         supportingText = {
-            if (isValid) {
-                Text(text = supportTextError)
-            } else {
-                Text(text = value)
-            }
+            Text(text = if (isValid) supportTextError else "")
         },
         singleLine = true,
         maxLines = 1,

@@ -23,12 +23,14 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     var isEmailError: Boolean by mutableStateOf(false)
         private set
 
-    val email = mutableStateOf("")
+    var email: String by mutableStateOf("")
+        private set
 
     var isPasswordError: Boolean by mutableStateOf(false)
         private set
 
-    val password = mutableStateOf("")
+    var password: String by mutableStateOf("")
+        private set
 
     var isSuccess: Boolean by mutableStateOf(false)
         private set
