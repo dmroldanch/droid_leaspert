@@ -44,9 +44,11 @@ class CommunityViewModel : ViewModel() {
                 _communitySections.clear()
                 _communitySections.addAll(response.data)
             }
+
             is DataState.Error -> {
                 _state.emit(State.Error)
             }
+
             is DataState.Loading -> {
                 _state.emit(State.Loading)
             }

@@ -1,5 +1,6 @@
 package com.iteneum.community.presentation
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -73,12 +75,25 @@ fun CommunityView(
                 end = sizes.midSmallSize
             )
     ) {
+        if (state.value != State.Success) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = if (state.value == State.Error)
+                        stringResource(R.string.error_message_retrieving_repository_data)
+                    else stringResource(
+                        R.string.loading_message_retrieving_repository_data
+                    )
+                )
+            }
+        }
         Text(
             text = stringResource(R.string.title_community),
             modifier = Modifier.padding(start = sizes.smallSize),
             style = MaterialTheme.typography.titleLarge
         )
-
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(sizes.smallerSize)
@@ -97,19 +112,24 @@ fun CommunityView(
                             CommunityCardType.Amenities -> {
                                 navigationToAmenities()
                             }
+
                             CommunityCardType.Events -> {
                                 /* TODO() This view does not exist, as soon as
                                     this view is defined the navigation of this section is added */
                             }
+
                             CommunityCardType.CommunityWall -> {
                                 navigationToCommunityWall()
                             }
+
                             CommunityCardType.DoItYourself -> {
                                 /* TODO() This view does not exist, as soon as
                                     this view is defined the navigation of this section is added */
                             }
+
                             CommunityCardType.Services -> {
-                                navigationToServices()
+                                /* TODO() This view does not exist, as soon as
+                                    this view is defined the navigation of this section is added */
                             }
                         }
                     }
