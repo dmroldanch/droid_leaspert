@@ -3,13 +3,13 @@ package com.iteneum
 import android.net.Uri
 
 /**
- * File that contains [RepairModel] definition data class.
+ * File that contains [RepairRequest] definition data class.
  * It contains all the text field values to be stored from the RepairView.
  *
  * @author Jose Miguel Garcia Reyes
  */
 
-data class RepairModel (
+data class RepairRequest(
     val unitDepartment: String = "",
     val contactPhone: String = "",
     val petInUnit: String = "",

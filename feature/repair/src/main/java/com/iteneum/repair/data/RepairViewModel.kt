@@ -1,14 +1,14 @@
 package com.iteneum.repair.data
 
-import android.net.Uri
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.net.toUri
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iteneum.RepairModel
+import com.iteneum.RepairRequest
+import com.iteneum.UIEventRepair
 import com.iteneum.network.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -19,63 +19,62 @@ import javax.inject.Inject
  * It will handle the data work & process when loading & be done with the view.
  *
  * @author Jose Miguel Garcia Reyes
+ * @author Carlos Andres Perez Hernandez
  */
 
-
 @HiltViewModel
-class RepairViewModel @Inject constructor(): ViewModel() {
-    private val _repairModelMutable : MutableState<RepairModel> = mutableStateOf(RepairModel())
-    val repairModelRead: MutableState<RepairModel>
-        get() = _repairModelMutable
-
-    var repairModel : RepairModel by mutableStateOf(RepairModel())
+class RepairViewModel @Inject constructor() : ViewModel() {
+    var repairRequest: RepairRequest by mutableStateOf(RepairRequest())
         private set
 
     fun getInformation() = viewModelScope.launch {
         when (response) {
             is DataState.Success -> {
-                _repairModelMutable.value = response.data
-            }
-            is DataState.Error -> {
-                _repairModelMutable.value = RepairModel(unitDepartment = "E000")
-            }
-            is DataState.Loading -> {
-                _repairModelMutable.value = RepairModel(unitDepartment = "L000")
+                repairRequest = response.data
             }
             else -> Unit
         }
     }
 
-    fun getUnitDepartmentFromView(unitDepartment:String) {
-        repairModel = repairModel.copy(unitDepartment = unitDepartment)
-    }
-    fun getContactPhoneFromView(contactPhone:String) {
-        if (contactPhone.isDigitsOnly() && contactPhone.length <= 10) {
-            repairModel = repairModel.copy(contactPhone = contactPhone)
+    fun setValues(event: UIEventRepair) {
+        when (event) {
+            is UIEventRepair.UnitDepartment -> {
+                repairRequest = repairRequest.copy(unitDepartment = event.unitDepartment)
+            }
+            is UIEventRepair.ContactPhone ->{
+                if (event.contactPhone.isDigitsOnly() && event.contactPhone.length <= 10) {
+                    repairRequest = repairRequest.copy(contactPhone = event.contactPhone)
+                }
+            }
+            is UIEventRepair.PetInUnit -> {
+                repairRequest = repairRequest.copy(petInUnit = event.petInUnit)
+            }
+            is UIEventRepair.Category -> {
+                repairRequest = repairRequest.copy(category = event.category)
+            }
+            is UIEventRepair.ProblemDescription -> {
+                repairRequest = repairRequest.copy(problemDescription = event.problemDescription)
+            }
+            is UIEventRepair.ImageOrVideoFile -> {
+                repairRequest = repairRequest.copy(imageOrVideoFile = event.imageOrVideoFile.toUri())
+            }
+            is UIEventRepair.PermissionToEnter -> {
+                repairRequest = repairRequest.copy(permissionToEnter = event.permissionToEnter)
+            }
         }
     }
-    fun getPetInUnitFromView(petInUnit:String) {
-        repairModel = repairModel.copy(petInUnit = petInUnit)
+
+    fun validatePhone(phone: String): Boolean {
+        return phone.isEmpty() || phone.length < 10
     }
-    fun getCategoryFromView(category:String) {
-        repairModel = repairModel.copy(category = category)
-    }
-    fun getProblemDescriptionFromView(problemDescription:String) {
-        repairModel = repairModel.copy(problemDescription = problemDescription)
-    }
-    fun getImageOrVideoFileFromView(imageOrVideoFile: Uri) {
-        repairModel = repairModel.copy(imageOrVideoFile = imageOrVideoFile)
-    }
-    fun getPermissionToEnterFromView(permissionToEnter:String) {
-        repairModel = repairModel.copy(permissionToEnter = permissionToEnter)
-    }
+
     fun onClickSendButton() {
         /* TODO - RepairViewModel onClickSendButton - When user clicks on Send button, save data and store it */
     }
 }
 
-val response: DataState<RepairModel> = DataState.Success(
-    RepairModel (
+val response: DataState<RepairRequest> = DataState.Success(
+    RepairRequest(
         unitDepartment = "A123"
     )
 )

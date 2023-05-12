@@ -8,6 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.iteneum.RepairRequest
+import com.iteneum.UIEventRepair
 import com.iteneum.designsystem.components.*
 import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.theme.LeasePertTheme
@@ -23,9 +25,11 @@ import com.iteneum.repair.data.RepairViewModel
  * @param repairViewModel - to get the Repair View Model access
  *
  * Function [RepairContainer] has
- * @param unitDepartment - to use if for displaying Unit in the Unit Text Field
- * @param repairViewModel -  to get the Repair View Model access
- * @param navigateToApartment - its passed from RepairView() for same purpose
+ * @param formularyValues - to pass the content of the RepairRequest
+ * @param formularyData - to handle the UI events of data when text is modified
+ * @param validatePhone - to validate is thw phone contains 10 digits and only numbers
+ * @param onClickButton - to handle the action when button is clicked
+ * @param navigateToApartment - passed from RepairView to handle navigation
  *
  * @author Jose Miguel Garcia Reyes
  */
@@ -39,7 +43,12 @@ fun RepairView(
         repairViewModel.getInformation()
     }
     RepairContainer(
-        unitDepartment = repairViewModel.repairModelRead.value.unitDepartment,
+        formularyValues = repairViewModel.repairRequest,
+        formularyData = {
+            repairViewModel.setValues(it)
+        },
+        validatePhone = { repairViewModel.validatePhone(phone = it) },
+        onClickButton = { repairViewModel.onClickSendButton() },
         navigateToApartment = navigateToApartment
     )
 }
@@ -47,9 +56,11 @@ fun RepairView(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RepairContainer(
-    unitDepartment: String,
-    repairViewModel: RepairViewModel = hiltViewModel(),
-    navigateToApartment: () -> Unit,
+    formularyValues: RepairRequest,
+    formularyData: (UIEventRepair) -> Unit,
+    validatePhone: (it: String) -> Boolean,
+    onClickButton: () -> Unit,
+    navigateToApartment: () -> Unit
 ) {
     val sizes = LeasePertTheme.sizes
     val optionsPermissionRadioButtons = stringArrayResource(id = R.array.options_radio_button)
@@ -85,23 +96,19 @@ fun RepairContainer(
                 enabled = false,
                 label = stringResource(id = R.string.label_unit),
                 hint = stringResource(id = R.string.hint_unit),
-                value = unitDepartment,
+                value = formularyValues.unitDepartment,
                 onValueChanged = {
-                    repairViewModel.getUnitDepartmentFromView(it)
+                    formularyData(UIEventRepair.UnitDepartment(unitDepartment = it))
                 }
             )
             LPPhoneNumberText(
                 modifier = Modifier.padding(
                     top = sizes.extraSize14
                 ),
-                value = repairViewModel.repairModel.contactPhone,
+                value = formularyValues.contactPhone,
                 onPhoneChanged = {
-                    if (it.isEmpty() || it.length < 10) {
-                        isNotValidPhone = true
-                    }
-                   else {
-                        repairViewModel.getContactPhoneFromView(it)
-                    }
+                    isNotValidPhone = validatePhone(it)
+                    formularyData(UIEventRepair.ContactPhone(contactPhone = it))
                 },
                 isNotValid = isNotValidPhone,
                 supportTextError = stringResource(id = R.string.support_error_phone)
@@ -112,8 +119,9 @@ fun RepairContainer(
                 ),
                 title = stringResource(id = R.string.label_pet_in_unit),
                 items = optionsPetInUnit.toList(),
+                value = formularyValues.petInUnit,
                 selected = {
-                    repairViewModel.getPetInUnitFromView(it)
+                    formularyData(UIEventRepair.PetInUnit(petInUnit = it))
                 }
             )
             Text(
@@ -129,8 +137,9 @@ fun RepairContainer(
                 ),
                 title = stringResource(id = R.string.label_category),
                 items = optionsCategory.toList(),
+                value = formularyValues.category,
                 selected = {
-                    repairViewModel.getCategoryFromView(it)
+                    formularyData(UIEventRepair.Category(category = it))
                 }
             )
             LpOutlinedTextFieldInput(
@@ -142,8 +151,9 @@ fun RepairContainer(
                     .fillMaxWidth(),
                 label = stringResource(id = R.string.label_description),
                 hint = stringResource(id = R.string.hint_description),
+                value = formularyValues.problemDescription,
                 onValueChanged = {
-                    repairViewModel.getProblemDescriptionFromView(it)
+                    formularyData(UIEventRepair.ProblemDescription(problemDescription = it))
                 }
             )
             Text(
@@ -159,9 +169,9 @@ fun RepairContainer(
                         top = sizes.extraSize10
                     )
                     .fillMaxWidth(),
-                mimeTypes = arrayOf("video/*", "image/*"),
+                mimeTypes = arrayOf("video/*", "image/*"), /* TODO - Verify how will this work */
                 onFileSelected = {
-                    repairViewModel.getImageOrVideoFileFromView(it)
+                    formularyData(UIEventRepair.ImageOrVideoFile(imageOrVideoFile = it.toString()))
                 }
             )
             Text(
@@ -177,9 +187,9 @@ fun RepairContainer(
                     top = sizes.extraSize10
                 ),
                 options = optionsPermissionRadioButtons.toList(),
-                selectedOption = repairViewModel.repairModel.permissionToEnter,
+                selectedOption = formularyValues.permissionToEnter,
                 onOptionSelected = {
-                    repairViewModel.getPermissionToEnterFromView(it)
+                    formularyData(UIEventRepair.PermissionToEnter(permissionToEnter = it))
                 }
             )
             LpFilledTonalButton(
@@ -191,7 +201,7 @@ fun RepairContainer(
                     .fillMaxWidth(),
                 textButton = stringResource(id = R.string.text_repair_send_button),
                 onClicked = {
-                    repairViewModel.onClickSendButton()
+                    onClickButton()
                     navigateToApartment()
                 }
             )
