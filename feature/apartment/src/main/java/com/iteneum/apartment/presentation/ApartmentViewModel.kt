@@ -102,8 +102,8 @@ class ApartmentViewModel @Inject constructor() : ViewModel() {
 val response: DataState<ApartmentModel> = DataState.Success(
     ApartmentModel(
         month = "January",
-        quantity = 990.00,
-        limitDateToPay = Timestamp(2434),
+        quantity = "990.00",
+        limitDateToPay = "Jan 25 2023",
         repairStatusOpen = "0",
         repairStatusInProgres = "2",
         repairStatusClosed = "0"

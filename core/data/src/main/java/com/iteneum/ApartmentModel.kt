@@ -10,8 +10,8 @@ import java.sql.Timestamp
  */
 data class ApartmentModel(
     val month: String,
-    val quantity: Double = 0.0,
-    val limitDateToPay: Timestamp =  Timestamp(33344),
+    val quantity: String = "0.0",
+    val limitDateToPay: String = "",
     val repairStatusOpen: String = "",
     val repairStatusInProgres: String = "",
     val repairStatusClosed: String =""

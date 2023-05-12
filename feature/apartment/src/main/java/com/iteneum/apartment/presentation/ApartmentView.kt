@@ -20,7 +20,6 @@ import com.iteneum.designsystem.components.LPTitleLarge
 import com.iteneum.designsystem.components.LpGenericChip
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.components.LpPaymentsRentCard
-import java.sql.Timestamp
 
 /**
  * [ApartmentView] The apartment view is the main function, container and screen where all the sections of the view it be contained like:
@@ -139,10 +138,10 @@ fun TitleApartmentScreen() {
 /**
  * [PaymentsSection] All the params for this sections is for show the current status, date, month and their account,
  * in this section the user can their account
+ * [dataInfo] is the instance of the ApartmentViewModel, all the actions, and values it be there
  * [modifier] Modifier is for specify style and params of the card, like for example the width of the component.
- * [month] is the current month what the user can watch in this section
- * [quantityToPay] is the quantity of the account what the user must to pay
- * [limitDateToPay] is the limit date what the user have to pay their account
+ * [onClickedHistoryButton] is the high order function, where doing some action when user clicked in History button
+ * [onClickedPayNowButton] is the high order function, where doing some action when user clicked in PayNowButton button
  * */
 @Composable
 fun PaymentsSection(
@@ -170,9 +169,9 @@ fun PaymentsSection(
         }
         LpPaymentsRentCard(
             modifier = Modifier.fillMaxWidth(),
-            month = dataInfo?.month ?: "Not found month",
-            quantity = dataInfo?.quantity ?: 0.0,
-            date = dataInfo?.limitDateToPay ?: Timestamp(233)
+            currentMonth = dataInfo?.month ?: "Not found month",
+            quantityToPay = dataInfo?.quantity ?: "",
+            limitDateToPay = dataInfo?.limitDateToPay ?: ""
         ) {
             onClickedPayNowButton
         }
@@ -182,6 +181,8 @@ fun PaymentsSection(
 /**
  * [RepairsSection] is the section where the status of the repairs it shows to the user like Open, In progress and Closed
  * in this section the user have a button where the user could make a new repairs requests
+ * [dataInfo] is the instance of the ApartmentViewModel, all the actions, and values it be there
+ * [navigateToRepair] is a high order function what will doing something whe the user click in the New Button
  *
  * @author Usiel Filiberto Garcia Jimenez
  * */
