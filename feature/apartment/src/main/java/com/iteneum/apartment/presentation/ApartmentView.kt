@@ -143,10 +143,6 @@ fun TitleApartmentScreen() {
  * [month] is the current month what the user can watch in this section
  * [quantityToPay] is the quantity of the account what the user must to pay
  * [limitDateToPay] is the limit date what the user have to pay their account
- * [onClickedHistoryButton] is the button where the history high order function is invoke for the user
- * [onClickedPayNowButton] is the button where the Pay now action is invoke for the user
- *
- * @author Usiel Filiberto Garcia Jimenez
  * */
 @Composable
 fun PaymentsSection(
