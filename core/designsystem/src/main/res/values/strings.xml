@@ -10,6 +10,8 @@
     <string name="rent">Rent</string>
     <string name="icon_description">an icon</string>
     <string name="pay_now">Pay Now</string>
+    <string name="OTFPasswordShowContent">Show Password</string>
+    <string name="OTFPasswordHideContent">Hide Password</string>
     <string name="content_description_add">Add</string>
     <string name="content_description_comment">Comment</string>
     <string name="content_description_favorite">Favorite</string>
