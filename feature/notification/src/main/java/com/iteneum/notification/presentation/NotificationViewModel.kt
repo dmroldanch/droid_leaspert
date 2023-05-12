@@ -3,7 +3,7 @@ package com.iteneum.notification.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iteneum.network.DataState
-import com.iteneum.notification.domain.models.NotificationDomain
+import com.iteneum.notification.domain.models.NotificationModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,10 +16,10 @@ import javax.inject.Inject
 @HiltViewModel
 class NotificationViewModel @Inject constructor() : ViewModel(){
 
-    var dataToday: MutableList<NotificationDomain> = mutableListOf()
+    var dataToday: MutableList<NotificationModel> = mutableListOf()
         private set
 
-    var dataWeek: MutableList<NotificationDomain> = mutableListOf()
+    var dataWeek: MutableList<NotificationModel> = mutableListOf()
         private set
 
     init {
@@ -60,12 +60,12 @@ class NotificationViewModel @Inject constructor() : ViewModel(){
 }
 
 // Fake data what simulates one response of the API
-val response: DataState<List<NotificationDomain>> = DataState.Success(
+val response: DataState<List<NotificationModel>> = DataState.Success(
     listOf(
-        NotificationDomain(1,"Now", "Apartment payment received thank you!"),
-        NotificationDomain(1,"6 hours ago", "Don't forget you event Tomorrow!"),
-        NotificationDomain(2,"3 days ago", "Service request complete enjoy your space."),
-        NotificationDomain(2,"5 days ago", "January payment available please make your payment."),
-        NotificationDomain(2,"6 days ago", "You have an amenity booked for today.")
+        NotificationModel(1,"Now", "Apartment payment received thank you!"),
+        NotificationModel(1,"6 hours ago", "Don't forget you event Tomorrow!"),
+        NotificationModel(2,"3 days ago", "Service request complete enjoy your space."),
+        NotificationModel(2,"5 days ago", "January payment available please make your payment."),
+        NotificationModel(2,"6 days ago", "You have an amenity booked for today.")
     )
 )

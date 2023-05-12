@@ -16,13 +16,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.notification.R
-import com.iteneum.notification.domain.models.NotificationDomain
+import com.iteneum.notification.domain.models.NotificationModel
 
 /**
  * [NotificationListContent] is a Content that show the list of notifications
  * [viewModel] this property is one instance of the NotificationViewModel, here is where al the information or actions it will be executed
  *
- * @author Daniel Roldan && Usiel Filiberto Garcia Jimenez
+ * @author Daniel Roldan
+ * @modifiedBy Usiel Filiberto Garcia Jimenez
  */
 @Composable
 fun NotificationListView(
@@ -42,13 +43,14 @@ fun NotificationListView(
  * [listToday] is a list what comes form the backend form API and brings the notifications from today
  * [listWeek] is a list what comes form the backend form API and brings the notifications from this week
  *
- * @author Daniel Roldan && Usiel Filiberto Garcia Jimenez
+ * @author Daniel Roldan
+ * @modifiedBy Usiel Filiberto Garcia Jimenez
  */
 
 @Composable
 fun NotificationListContent(
-    listToday: List<NotificationDomain>,
-    listWeek: List<NotificationDomain>
+    listToday: List<NotificationModel>,
+    listWeek: List<NotificationModel>
 ) {
     Column(
         modifier = Modifier
