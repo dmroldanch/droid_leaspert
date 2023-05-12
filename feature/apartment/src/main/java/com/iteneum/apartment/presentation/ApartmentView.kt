@@ -109,9 +109,9 @@ fun PaymentsSection(
         }
         LpPaymentsRentCard(
             modifier = Modifier.fillMaxWidth(),
-            month = month,
-            quantity = 999.00,
-            date = Timestamp(33344)
+            currentMonth  = month,
+            quantityToPay = quantityToPay,
+            limitDateToPay = limitDateToPay
         ){
             /*TODO add the functionality to this onclick*/
         }
