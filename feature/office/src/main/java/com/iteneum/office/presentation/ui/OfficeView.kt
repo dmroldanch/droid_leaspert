@@ -1,6 +1,5 @@
 package com.iteneum.office.presentation.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
@@ -27,7 +26,6 @@ import com.iteneum.office.data.OfficeModel
  * working as container for OfficeUI function.
  * @author Andres Ivan Medina
  */
-
 
 @Composable
 fun OfficeView() {
