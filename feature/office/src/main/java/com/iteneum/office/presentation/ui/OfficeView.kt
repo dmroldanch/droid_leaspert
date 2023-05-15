@@ -1,6 +1,5 @@
 package com.iteneum.office.presentation.ui
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
@@ -8,12 +7,21 @@ import androidx.compose.material.icons.outlined.Mail
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextIndent
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.iteneum.designsystem.components.LPBodyMedium
 import com.iteneum.designsystem.components.LPTitleLarge
 import com.iteneum.designsystem.components.LpOutlinedButton
@@ -27,7 +35,6 @@ import com.iteneum.office.data.OfficeModel
  * working as container for OfficeUI function.
  * @author Andres Ivan Medina
  */
-
 
 @Composable
 fun OfficeView() {
@@ -54,50 +61,62 @@ fun OfficeView() {
  * Modified by:
  * @author Andres Ivan Medina
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OfficeUI(
     officeData: OfficeModel,
     onCallButtonClicked: () -> Unit,
     onEmailButtonClicked: () -> Unit,
 ) {
-    Scaffold(content = { paddingValues ->
+    Column(Modifier.fillMaxSize().padding(top = 32.dp)) {
         val sizes = LeasePertTheme.sizes
-        Box(modifier = Modifier.padding(paddingValues)) {
-            Column(
-                Modifier.fillMaxSize()
-                //.padding(top = sizes.extraSize18)
-            ) {
-                LPTitleLarge(label = stringResource(
-                    id = R.string.LPInfo
-                ),
-                    color = MaterialTheme.colorScheme.tertiary,
-                    textAlign = TextAlign.Justify,
-                    onClick = {})
-                LPBodyMedium(modifier = Modifier.padding(top = sizes.extraSize10),
-                    label = officeData.address,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    textAlign = TextAlign.Justify,
-                    onClick = {})
-                LPBodyMedium(modifier = Modifier.padding(top = sizes.extraSize10),
-                    label = stringResource(id = R.string.LPHours) + officeData.schedule,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    textAlign = TextAlign.Justify,
-                    onClick = {})
-                LpOutlinedButton(Modifier.padding(top = sizes.extraSize10),
-                    icon = Icons.Filled.Call,
-                    textButton = stringResource(id = R.string.LPCallButton),
-                    onClicked = {
-                        onCallButtonClicked()
-                    })
-                LpOutlinedButton(Modifier.padding(top = sizes.extraSize10),
-                    icon = Icons.Outlined.Mail,
-                    textButton = stringResource(id = R.string.LPMailButton),
-                    onClicked = {
-                        onEmailButtonClicked()
-                    })
-            }
-        }
-    })
-}
+        Text(
+            text = stringResource(id = R.string.LPInfo),
+            modifier = Modifier
+                .width(sizes.extraSize124)
+                .height(sizes.regularSize),
+            style = TextStyle(
+                textAlign = TextAlign.Justify,
+                color = MaterialTheme.colorScheme.tertiary,
+                fontFamily = FontFamily.SansSerif,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                lineHeight = 20.sp,
+                textIndent = TextIndent(firstLine = 14.sp)
+            )
+        )
 
+        Text(
+            text =officeData.address,
+            style = TextStyle(
+                textAlign = TextAlign.Justify,
+                lineHeight = 20.sp,
+                textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
+            ),
+            modifier = Modifier.padding(top = sizes.extraSize10)
+        )
+
+        Text(
+            text =officeData.schedule,
+            modifier = Modifier.padding(top = sizes.extraSize10),
+            style = TextStyle(
+                textAlign = TextAlign.Justify,
+                lineHeight = 20.sp,
+                textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
+            )
+        )
+        LpOutlinedButton(modifier = Modifier,
+            icon = Icons.Filled.Call,
+            textButton = stringResource(id = R.string.LPCallButton),
+            onClicked = {
+                onCallButtonClicked()
+            })
+
+
+        LpOutlinedButton(modifier = Modifier,
+            icon = Icons.Outlined.Mail,
+            textButton = stringResource(id = R.string.LPMailButton),
+            onClicked = {
+                onEmailButtonClicked()
+            })
+    }
+}
