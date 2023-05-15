@@ -1,6 +1,5 @@
 package com.iteneum.profile.data
 
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -21,19 +20,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(): ViewModel() {
-    private val _profileModelMutable : MutableState<Profile> = mutableStateOf(Profile())
-    val profileModelRead: MutableState<Profile>
-        get() = _profileModelMutable
-    var profileModel : Profile by mutableStateOf(Profile())
+    var profileModelMutable: Profile by mutableStateOf(Profile())
         private set
 
     fun getInformation() = viewModelScope.launch {
         when (response) {
             is DataState.Success -> {
-                _profileModelMutable.value = response.data
+                profileModelMutable = response.data
             }
             is DataState.Error -> {
-                _profileModelMutable.value = Profile(
+                profileModelMutable = Profile(
                     profileName = "Error",
                     profileApartment = "Error",
                     profilePhoneNumber = "1111111111",
@@ -42,7 +38,7 @@ class ProfileViewModel @Inject constructor(): ViewModel() {
                 )
             }
             is DataState.Loading -> {
-                _profileModelMutable.value = Profile(
+                profileModelMutable = Profile(
                     profileName = "Loading...",
                     profileApartment = "Loading...",
                     profilePhoneNumber = "0000000000",
@@ -55,22 +51,22 @@ class ProfileViewModel @Inject constructor(): ViewModel() {
     }
 
     fun getProfileImageFromView(profileImage:String) {
-        profileModel = profileModel.copy(profileImage = profileImage)
+        profileModelMutable = profileModelMutable.copy(profileImage = profileImage)
     }
     fun getProfileNameFromView(profileName:String) {
-        profileModel = profileModel.copy(profileName = profileName)
+        profileModelMutable = profileModelMutable.copy(profileName = profileName)
     }
     fun getProfileApartmentFromView(profileApartment:String) {
-        profileModel = profileModel.copy(profileApartment = profileApartment)
+        profileModelMutable = profileModelMutable.copy(profileApartment = profileApartment)
     }
     fun getProfilePhoneNumberFromView(profilePhoneNumber:String) {
-        profileModel = profileModel.copy(profilePhoneNumber = profilePhoneNumber)
+        profileModelMutable = profileModelMutable.copy(profilePhoneNumber = profilePhoneNumber)
     }
     fun getProfileEmailFromView(profileEmail:String) {
-        profileModel = profileModel.copy(profileEmail = profileEmail)
+        profileModelMutable = profileModelMutable.copy(profileEmail = profileEmail)
     }
     fun getProfileAddressFromView(profileAddress:String) {
-        profileModel = profileModel.copy(profileAddress = profileAddress)
+        profileModelMutable = profileModelMutable.copy(profileAddress = profileAddress)
     }
     fun onClickEditProfileButton() {
         /* TODO - ProfileViewModel onClickEditProfileButton - Logic when user clicks on Profile Edit icon button */

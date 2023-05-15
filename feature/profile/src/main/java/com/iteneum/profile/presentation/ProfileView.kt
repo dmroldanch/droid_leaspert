@@ -30,12 +30,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.iteneum.Profile
 import com.iteneum.designsystem.components.LpFloatingActionIconButton
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.theme.LeasePertTheme
-import com.iteneum.designsystem.R as R_DS
 import com.iteneum.profile.R
 import com.iteneum.profile.data.ProfileViewModel
+import com.iteneum.designsystem.R as R_DS
 
 @Composable
 fun ProfileView(
@@ -45,13 +46,23 @@ fun ProfileView(
     LaunchedEffect(true) {
         profileViewModel.getInformation()
     }
-    ProfileContainer()
+    ProfileContainer(
+        profileValues = profileViewModel.profileModelMutable,
+        onClickEditProfileButton = { profileViewModel.onClickEditProfileButton() },
+        onClickPaymentMethodsButton = { profileViewModel.onClickPaymentMethodsButton() },
+        onClickEmergencyContactsButton = { profileViewModel.onClickEmergencyContactsButton() },
+        onClickLogOutButton = { profileViewModel.onClickLogOutButton() }
+    )
 }
 
 @Composable
 fun ProfileContainer(
-    profileViewModel: ProfileViewModel = hiltViewModel()
-) {
+    profileValues: Profile,
+    onClickEditProfileButton: () -> Unit,
+    onClickPaymentMethodsButton: () -> Unit,
+    onClickEmergencyContactsButton: () -> Unit,
+    onClickLogOutButton: () -> Unit
+    ) {
     val sizes = LeasePertTheme.sizes
     Column(
         modifier = Modifier
@@ -88,7 +99,7 @@ fun ProfileContainer(
                     icon = Icons.Outlined.Edit,
                     contentDescription = stringResource(R.string.content_description_edit)
                 ) {
-                    profileViewModel.onClickEditProfileButton()
+                    onClickEditProfileButton()
                 }
             }
         }
@@ -105,14 +116,14 @@ fun ProfileContainer(
             }
             Column {
                 Text(
-                    text = profileViewModel.profileModelRead.value.profileName,
+                    text = profileValues.profileName,
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.padding(vertical = sizes.midSmallSize)
                 )
                 Text(
-                    text = profileViewModel.profileModelRead.value.profileApartment,
+                    text = profileValues.profileApartment,
                     color = MaterialTheme.colorScheme.tertiary,
                     modifier = Modifier.padding(top = sizes.stroke)
                 )
@@ -135,7 +146,7 @@ fun ProfileContainer(
                 tint = MaterialTheme.colorScheme.tertiary
             )
             Text(
-                text = profileViewModel.profileModelRead.value.profilePhoneNumber,
+                text = profileValues.profilePhoneNumber,
                 fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colorScheme.tertiary
             )
@@ -152,7 +163,7 @@ fun ProfileContainer(
                 tint = MaterialTheme.colorScheme.tertiary
             )
             Text(
-                text = profileViewModel.profileModelRead.value.profileEmail,
+                text = profileValues.profileEmail,
                 fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colorScheme.tertiary
             )
@@ -174,7 +185,7 @@ fun ProfileContainer(
                 tint = MaterialTheme.colorScheme.tertiary
             )
             Text(
-                text = profileViewModel.profileModelRead.value.profileAddress,
+                text = profileValues.profileAddress,
                 fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colorScheme.tertiary
             )
@@ -192,7 +203,7 @@ fun ProfileContainer(
                     vertical = sizes.minorSmallSize
                 ),
             textButton = stringResource(id = R.string.payment_methods),
-            onClicked = { profileViewModel.onClickPaymentMethodsButton() })
+            onClicked = { onClickPaymentMethodsButton() })
         LpOutlinedButton(
             modifier = Modifier
                 .padding(
@@ -200,7 +211,7 @@ fun ProfileContainer(
                     vertical = sizes.minorSmallSize
                 ),
             textButton = stringResource(id = R.string.emergency_contacts),
-            onClicked = { profileViewModel.onClickEmergencyContactsButton() })
+            onClicked = { onClickEmergencyContactsButton() })
         LpOutlinedButton(
             modifier = Modifier
                 .padding(
@@ -208,6 +219,6 @@ fun ProfileContainer(
                     vertical = sizes.minorSmallSize
                 ),
             textButton = stringResource(id = R.string.log_out),
-            onClicked = { profileViewModel.onClickLogOutButton() })
+            onClicked = { onClickLogOutButton() })
     }
 }
