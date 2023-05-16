@@ -1,18 +1,19 @@
 package com.iteneum.office.presentation.ui
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.outlined.Mail
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -21,9 +22,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.iteneum.designsystem.components.LPBodyMedium
-import com.iteneum.designsystem.components.LPTitleLarge
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.office.R
@@ -67,7 +65,10 @@ fun OfficeUI(
     onCallButtonClicked: () -> Unit,
     onEmailButtonClicked: () -> Unit,
 ) {
-    Column(Modifier.fillMaxSize().padding(top = 32.dp)) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .padding(top = 32.dp)) {
         val sizes = LeasePertTheme.sizes
         Text(
             text = stringResource(id = R.string.LPInfo),
@@ -86,7 +87,7 @@ fun OfficeUI(
         )
 
         Text(
-            text =officeData.address,
+            text = officeData.address,
             style = TextStyle(
                 textAlign = TextAlign.Justify,
                 lineHeight = 20.sp,
@@ -96,7 +97,7 @@ fun OfficeUI(
         )
 
         Text(
-            text =officeData.schedule,
+            text = officeData.schedule,
             modifier = Modifier.padding(top = sizes.extraSize10),
             style = TextStyle(
                 textAlign = TextAlign.Justify,
