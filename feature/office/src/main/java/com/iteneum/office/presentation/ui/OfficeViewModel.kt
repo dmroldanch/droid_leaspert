@@ -26,9 +26,9 @@ import kotlinx.coroutines.launch
 
 class OfficeViewModel() : ViewModel() {
 
-    private val _state: MutableStateFlow<OfficeStateList> =
-        MutableStateFlow(OfficeStateList.Loading)
-    val state: StateFlow<OfficeStateList> = _state
+    private val _state: MutableStateFlow<OfficeStateResponse> =
+        MutableStateFlow(OfficeStateResponse.Loading)
+    val state: StateFlow<OfficeStateResponse> = _state
 
     private val _officeInfo: MutableState<OfficeModel?> = mutableStateOf(null)
     val officeInfo: OfficeModel?
@@ -45,11 +45,11 @@ class OfficeViewModel() : ViewModel() {
             }
 
             is DataState.Error -> {
-                _state.emit(OfficeStateList.Error)
+                _state.emit(OfficeStateResponse.Error)
             }
 
             is DataState.Loading -> {
-                _state.emit(OfficeStateList.Loading)
+                _state.emit(OfficeStateResponse.Loading)
             }
 
             else -> Unit
@@ -93,8 +93,8 @@ val officeInfoResponse: DataState<OfficeModel> = DataState.Success(
  *
  * @author Andres Ivan Medina
  */
-sealed class OfficeStateList {
-    object Loading : OfficeStateList()
-    object Error : OfficeStateList()
-    object Success : OfficeStateList()
+sealed class OfficeStateResponse {
+    object Loading : OfficeStateResponse()
+    object Error : OfficeStateResponse()
+    object Success : OfficeStateResponse()
 }
