@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.iteneum.designsystem.theme.LPTypography
 
@@ -89,6 +90,7 @@ fun LPTitleLarge(
     label: String,
     color: Color,
     textAlign: TextAlign? = TextAlign.Center,
+    weight: FontWeight,
     onClick: (() -> Unit)? = null
 ) {
     Text(
@@ -96,7 +98,8 @@ fun LPTitleLarge(
         color = color,
         style = LPTypography.titleLarge,
         modifier = modifier.clickable { onClick?.invoke() },
-        textAlign = textAlign
+        textAlign = textAlign,
+        fontWeight = weight
     )
 }
 
@@ -106,6 +109,7 @@ fun LPTitleMedium(
     label: String,
     color: Color,
     textAlign: TextAlign? = TextAlign.Center,
+    weight: FontWeight,
     onClick: (() -> Unit)? = null
 ) {
     Text(
@@ -113,7 +117,8 @@ fun LPTitleMedium(
         color = color,
         style = LPTypography.titleMedium,
         modifier = modifier.clickable { onClick?.invoke() },
-        textAlign = textAlign
+        textAlign = textAlign,
+        fontWeight = weight
     )
 }
 
@@ -123,6 +128,7 @@ fun LPTitleSmall(
     label: String,
     color: Color,
     textAlign: TextAlign? = TextAlign.Center,
+    weight: FontWeight,
     onClick: (() -> Unit)? = null
 ){
     Text(
@@ -130,7 +136,8 @@ fun LPTitleSmall(
         color = color,
         style = LPTypography.titleSmall,
         modifier = modifier.clickable { onClick?.invoke() },
-        textAlign = textAlign
+        textAlign = textAlign,
+        fontWeight = weight
     )
 }
 
@@ -140,6 +147,7 @@ fun LPBodyLarge(
     label: String,
     color: Color,
     textAlign: TextAlign? = TextAlign.Center,
+    weight: FontWeight,
     onClick: (() -> Unit)? = null
 ) {
     Text(
@@ -147,7 +155,8 @@ fun LPBodyLarge(
         color = color,
         style = LPTypography.bodyLarge,
         modifier = modifier.clickable { onClick?.invoke() },
-        textAlign = textAlign
+        textAlign = textAlign,
+        fontWeight = weight
     )
 }
 
@@ -157,6 +166,7 @@ fun LPBodyMedium(
     label: String,
     color: Color,
     textAlign: TextAlign? = TextAlign.Center,
+    weight: FontWeight,
     onClick: (() -> Unit)? = null
 ) {
     Text(
@@ -164,7 +174,8 @@ fun LPBodyMedium(
         color = color,
         style = LPTypography.bodyMedium,
         modifier = modifier.clickable { onClick?.invoke() },
-        textAlign = textAlign
+        textAlign = textAlign,
+        fontWeight = weight
     )
 }
 
@@ -174,6 +185,7 @@ fun LPBodySmall(
     label: String,
     color: Color,
     textAlign: TextAlign? = TextAlign.Center,
+    weight: FontWeight,
     onClick: (() -> Unit)? = null
 ) {
     Text(
@@ -181,7 +193,8 @@ fun LPBodySmall(
         color = color,
         style = LPTypography.bodySmall,
         modifier = modifier.clickable { onClick?.invoke() },
-        textAlign = textAlign
+        textAlign = textAlign,
+        fontWeight = weight
     )
 }
 
@@ -191,6 +204,7 @@ fun LPSubTitleLarge(
     label: String,
     color: Color,
     textAlign: TextAlign? = TextAlign.Center,
+    weight: FontWeight,
     onClick: (() -> Unit)? = null
 ){
     Text(
@@ -198,7 +212,8 @@ fun LPSubTitleLarge(
         color = color,
         style = LPTypography.labelLarge,
         modifier = modifier.clickable { onClick?.invoke() },
-        textAlign = textAlign
+        textAlign = textAlign,
+        fontWeight = weight
     )
 }
 
@@ -208,6 +223,7 @@ fun LPSubTitleMedium(
     label: String,
     color: Color,
     textAlign: TextAlign? = TextAlign.Center,
+    weight: FontWeight,
     onClick: (() -> Unit)? = null
 ){
     Text(
@@ -215,7 +231,8 @@ fun LPSubTitleMedium(
         color = color,
         style = LPTypography.labelMedium,
         modifier = modifier.clickable { onClick?.invoke() },
-        textAlign = textAlign
+        textAlign = textAlign,
+        fontWeight = weight
     )
 }
 
@@ -225,6 +242,7 @@ fun LPSubTitleSmall(
     label: String,
     color: Color,
     textAlign: TextAlign? = TextAlign.Center,
+    weight: FontWeight,
     onClick: (() -> Unit)? = null
 ){
     Text(
@@ -232,6 +250,7 @@ fun LPSubTitleSmall(
         color = color,
         style = LPTypography.labelSmall,
         modifier = modifier.clickable { onClick?.invoke() },
-        textAlign = textAlign
+        textAlign = textAlign,
+        fontWeight = weight
     )
 }
