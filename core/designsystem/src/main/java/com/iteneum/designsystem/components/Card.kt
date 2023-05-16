@@ -419,9 +419,9 @@ fun LPGenericElevatedCardImage(
  * [LpPaymentsRentCard] is a button for show in the UI and this button can have icon depending of the use
  *
  * @param modifier Modifier is for specify style and params of the card, like for example the width of the component.
- * @param month is the month what this component shown at the user for indicate what month is must to pay
- * @param quantity is the quantity what the user have to pay
- * @param date is the limit date where it have to pay their rent
+ * @param currentMonth is the month what this component shown at the user for indicate what month is must to pay
+ * @param quantityToPay is the quantity what the user have to pay
+ * @param limitDateToPay is the limit date where it have to pay their rent
  * @param onButtonClicked high order function to call the function clicked.
  *
  * @author Usiel Filiberto Garcia Jimenez
@@ -429,9 +429,9 @@ fun LPGenericElevatedCardImage(
 @Composable
 fun LpPaymentsRentCard(
     modifier: Modifier,
-    month: String,
-    quantity: Double,
-    date: Timestamp,
+    currentMonth: String,
+    quantityToPay: String,
+    limitDateToPay: String,
     onButtonClicked: () -> Unit
 ) {
     OutlinedCard(
@@ -456,7 +456,7 @@ fun LpPaymentsRentCard(
                 )
         ) {
             Text(
-                text = month,
+                text = currentMonth,
                 style = MaterialTheme.typography.bodyLarge
             )
         }
@@ -476,12 +476,12 @@ fun LpPaymentsRentCard(
             )
             Column(modifier = Modifier.padding(start = LeasePertTheme.sizes.midLargeSize)) {
                 Text(
-                    text = "$$quantity",
+                    text = "${stringResource(id = R.string.plus_symbol_for_quantities)}$quantityToPay",
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(bottom = LeasePertTheme.sizes.minorMediumSize)
                 )
                 Text(
-                    text = date.toString(),
+                    text = limitDateToPay,
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
