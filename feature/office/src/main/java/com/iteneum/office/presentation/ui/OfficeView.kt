@@ -42,7 +42,7 @@ fun OfficeView() {
         viewModel.getOfficeInformation()
     }
 
-    val OfficeData = remember { viewModel.officeInfo }
+    val OfficeData = viewModel.officeInfo
 
     OfficeData?.let {
         OfficeUI(it,
