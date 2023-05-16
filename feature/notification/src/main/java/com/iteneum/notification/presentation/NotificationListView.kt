@@ -9,16 +9,30 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.iteneum.designsystem.components.LPBodyLarge
+import com.iteneum.designsystem.components.LPBodyMedium
+import com.iteneum.designsystem.components.LPTitleMedium
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.notification.R
-import com.iteneum.notification.domain.models.NotificationDomain
+import com.iteneum.notification.domain.models.Notification
 
 @Composable
-fun NotificationListView() {
-    NotificationListContent()
+fun NotificationListView(
+    viewModel: NotificationViewModel = hiltViewModel()
+) {
+    LaunchedEffect(true){
+        viewModel.getNotification()
+    }
+
+    NotificationListContent(
+        viewModel.todayNotificationList,
+        viewModel.weekNotificationList
+    )
 }
 
 /**
@@ -28,28 +42,16 @@ fun NotificationListView() {
  */
 
 @Composable
-fun NotificationListContent() {
-
-    val todayNotificationList = listOf<NotificationDomain>(
-        NotificationDomain(
-            "Now",
-            "Apartment payment received thank you!"
-        ), NotificationDomain("6 hrs ago", "Don't forget your event Tomorrow!")
-    )
-    val thisWeekNotificationList = listOf<NotificationDomain>(
-        NotificationDomain(
-            "3 days ago",
-            "Service request complete enjoy your space."
-        ), NotificationDomain("5 days ago", "January payment available please make your payment.")
-    )
-
-    val dp16 = LeasePertTheme.sizes.smallSize
-    val dp8 = LeasePertTheme.sizes.smallerSize
+fun NotificationListContent(
+    todayNotificationList: List<Notification>,
+    thisWeekNotificationList: List<Notification>,
+) {
+    val sizes = LeasePertTheme.sizes
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(dp16)
+            .padding(sizes.smallSize)
     ) {
 
         Text(
@@ -59,61 +61,56 @@ fun NotificationListContent() {
 
         LazyColumn() {
             item {
-                Text(
-                    text = stringResource(id = R.string.notification_today),
-                    modifier = Modifier.padding(top = dp16, bottom = dp16),
+                LPTitleMedium(
+                    label = stringResource(id = R.string.notification_this_week),
                     color = MaterialTheme.colorScheme.tertiary,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize
+                    modifier = Modifier.padding(top = sizes.smallSize, bottom = sizes.smallSize),
+                    weight = FontWeight.Medium
                 )
             }
             items(todayNotificationList) { notification ->
                 Column {
-                    Text(
-                        text = notification.date,
+                    LPBodyMedium(
+                        label = notification.date,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        fontSize = MaterialTheme.typography.titleSmall.fontSize
+                        weight = FontWeight.Medium
                     )
-                    Text(
-                        text = notification.body,
+                    LPBodyLarge(
+                        label = notification.body,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = MaterialTheme.typography.bodyLarge.fontSize
+                        weight = FontWeight.Bold
                     )
                     Divider(
                         Modifier
                             .fillMaxSize()
-                            .padding(all = dp8)
+                            .padding(all = sizes.smallerSize)
                     )
                 }
             }
             item {
-                Text(
-                    text = stringResource(id = R.string.notification_this_week),
-                    modifier = Modifier.padding(top = dp16, bottom = dp16),
+                LPTitleMedium(
+                    label = stringResource(id = R.string.notification_this_week),
                     color = MaterialTheme.colorScheme.tertiary,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize
+                    modifier = Modifier.padding(top = sizes.smallSize, bottom = sizes.smallSize),
+                    weight = FontWeight.Medium
                 )
             }
             items(thisWeekNotificationList) { notification ->
-                Column(
-                ) {
-                    Text(
-                        text = notification.date,
+                Column {
+                    LPBodyMedium(
+                        label = notification.date,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        fontSize = MaterialTheme.typography.titleSmall.fontSize
+                        weight = FontWeight.Medium
                     )
-                    Text(
-                        text = notification.body,
+                    LPBodyLarge(
+                        label = notification.body,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = MaterialTheme.typography.bodyLarge.fontSize
+                        weight = FontWeight.Bold
                     )
                     Divider(
                         Modifier
                             .fillMaxSize()
-                            .padding(all = dp8)
+                            .padding(all = sizes.smallerSize)
                     )
                 }
             }
