@@ -16,9 +16,7 @@ import kotlinx.coroutines.launch
 /**
  *class OfficeViewModel will handle the UI Logic and
  * expose data to the composable views.
- * TODO implement @param intentActions needs to be injected in order to decouple logic *
  *
- * /*viewModel: OfficeViewModel = hiltViewModel()*/
  *@author  Yaritza Moreno
  *
  *@author Andres Ivan Medina
