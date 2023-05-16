@@ -9,7 +9,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -35,9 +34,9 @@ fun OfficeView() {
         viewModel.getOfficeInformation()
     }
 
-    val OfficeData = remember { viewModel.officeInfo }
+    val officeData =  viewModel.officeInfo
 
-    OfficeData?.let {
+    officeData?.let {
         OfficeUI(it,
             onCallButtonClicked = { viewModel.makeCall() },
             onEmailButtonClicked = { viewModel.sendEmail() })
