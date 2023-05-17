@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -137,7 +138,8 @@ fun LoginView(
                     end.linkTo(parent.end)
                 },
             label = stringResource(R.string.lv_login_with),
-            color = MaterialTheme.colorScheme.onSecondary
+            color = MaterialTheme.colorScheme.onSecondary,
+            weight = FontWeight.Normal
         )
         Row(
             horizontalArrangement = Arrangement.spacedBy(space = sizes.mediumSize),
@@ -216,12 +218,14 @@ fun LoginView(
         ) {
             LPBodyMedium(
                 label = stringResource(R.string.lv_new_to_leasepert),
-                color = MaterialTheme.colorScheme.onSecondary
+                color = MaterialTheme.colorScheme.onSecondary,
+                weight = FontWeight.Normal
             )
-            LPTitleSmall(
+            LPBodyMedium(
                 label = stringResource(R.string.lv_register),
                 onClick = { /*TODO("Will open a register account window or screen")*/ },
-                color = MaterialTheme.colorScheme.onPrimary
+                color = MaterialTheme.colorScheme.onPrimary,
+                weight = FontWeight.Bold
             )
         }
     }
