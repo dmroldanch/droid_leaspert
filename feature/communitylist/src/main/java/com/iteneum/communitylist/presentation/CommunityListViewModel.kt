@@ -3,7 +3,7 @@ package com.iteneum.communitylist.presentation
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iteneum.ItemModel
+import com.iteneum.Amenity
 import com.iteneum.network.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,26 +18,21 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class CommunityListViewModel : ViewModel() {
 
+    /* THIS STATE IS GOING TO BE USED WHEN WE NEED TO DO A BIG CHANGE TO THE VIEW  */
     private val _state: MutableStateFlow<CommunityListState> =
         MutableStateFlow(CommunityListState.Loading)
     val state: StateFlow<CommunityListState> = _state
 
-    private val _dataInfo: MutableList<ItemModel> = mutableStateListOf()
-    val dataInfo: MutableList<ItemModel>
-        get() = _dataInfo
+    var amenitiesList: MutableList<Amenity> = mutableStateListOf()
+        private set
 
-
-    /* WHEN YOU GET INITIAL INFORMATION YOU PUT THE METHOD HERE */
-    init {
-        getInformation()
-    }
     /* GETTING INFORMATION FROM SERVICE EXAMPLE */
     internal fun getInformation() = viewModelScope.launch {
         /* HERE WE ARE GOING TO BE LISTENING THE DATA STATE FROM WE SERVICE */
         when (response) {
             is DataState.Success -> {
-                _dataInfo.clear()
-                _dataInfo.addAll(response.data)
+                amenitiesList.clear()
+                amenitiesList.addAll(response.data)
             }
             is DataState.Error -> {
                 _state.emit(CommunityListState.Error)
@@ -59,23 +54,22 @@ sealed class CommunityListState {
     object Loading : CommunityListState()
     object Error : CommunityListState()
     object Success : CommunityListState()
-
 }
 
 /* RESPONSE EXAMPLE */
-val response: DataState<List<ItemModel>> = DataState.Success(
+val response: DataState<List<Amenity>> = DataState.Success(
     listOf(
-        ItemModel(
+        Amenity(
             id = 1,
             title = "Rooftop Lounge",
             description = "Relaxing atmosphere."
         ),
-        ItemModel(
+        Amenity(
             id = 2,
             title = "Rooftop Lounge",
             description = "Relaxing atmosphere."
         ),
-        ItemModel(
+        Amenity(
             id = 3,
             title = "Rooftop Lounge",
             description = "Relaxing atmosphere."
