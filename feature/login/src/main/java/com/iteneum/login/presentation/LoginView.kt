@@ -10,10 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +22,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.AnnotatedString
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,9 +29,7 @@ import com.iteneum.designsystem.R.drawable.facebook_logo
 import com.iteneum.designsystem.R.drawable.google_logo
 import com.iteneum.designsystem.R.drawable.leasepert_logo
 import com.iteneum.designsystem.R.drawable.twitter_logo
-import com.iteneum.designsystem.components.LpFilledTonalButton
-import com.iteneum.designsystem.components.LpOutlinedTextFieldMail
-import com.iteneum.designsystem.components.LpOutlinedTextFieldPassword
+import com.iteneum.designsystem.components.*
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.login.R
 
@@ -134,15 +129,15 @@ fun LoginView(
                 loginViewModel.onLoginClicked()
             },
         )
-        Text(
+        LPBodyMedium(
             modifier = Modifier
                 .constrainAs(loginWith) {
                     top.linkTo(loginButton.bottom, margin = sizes.extraSize14)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-            text = stringResource(R.string.lv_login_with),
-            style = MaterialTheme.typography.bodyMedium
+            label = stringResource(R.string.lv_login_with),
+            color = MaterialTheme.colorScheme.onSecondary
         )
         Row(
             horizontalArrangement = Arrangement.spacedBy(space = sizes.mediumSize),
@@ -219,16 +214,14 @@ fun LoginView(
                 bottom.linkTo(parent.bottom, margin = sizes.extraSize10)
             }
         ) {
-            Text(
-                text = stringResource(R.string.lv_new_to_leasepert),
-                style = MaterialTheme.typography.bodyMedium
+            LPBodyMedium(
+                label = stringResource(R.string.lv_new_to_leasepert),
+                color = MaterialTheme.colorScheme.onSecondary
             )
-            ClickableText(
-                text = AnnotatedString(stringResource(R.string.lv_register)),
+            LPTitleSmall(
+                label = stringResource(R.string.lv_register),
                 onClick = { /*TODO("Will open a register account window or screen")*/ },
-                style = MaterialTheme.typography.labelLarge.copy(
-                    color = MaterialTheme.colorScheme.onPrimary
-                )
+                color = MaterialTheme.colorScheme.onPrimary
             )
         }
     }
