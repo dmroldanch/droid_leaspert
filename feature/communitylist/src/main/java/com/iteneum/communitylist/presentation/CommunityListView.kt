@@ -9,7 +9,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.iteneum.ItemModel
+import com.iteneum.Amenity
 import com.iteneum.designsystem.components.LPGenericElevatedCardImage
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.designsystem.utils.TextUtils.TWO
@@ -25,26 +25,22 @@ import com.iteneum.designsystem.utils.TextUtils.TWO
 fun CommunityListView(
     viewModel: CommunityListViewModel = hiltViewModel()
 ) {
-    LaunchedEffect(true){
+    LaunchedEffect(true) {
         viewModel.getInformation()
     }
-    val list = remember {
-        viewModel.dataInfo
-    }
     CommunityListContent(
-        list = list,
+        list = viewModel.amenitiesList,
         onClickItem = {
-           //TODO HERE WE ARE GOING TO DECIDE WHAT ACTION TO DO
+            //TODO HERE WE ARE GOING TO DECIDE WHAT ACTION TO DO
         }
     )
 }
 
 @Composable
 fun CommunityListContent(
-    list: List<ItemModel>,
-    onClickItem: (ItemModel) -> Unit
+    list: List<Amenity>,
+    onClickItem: (Amenity) -> Unit
 ) {
-
     val dp8 = LeasePertTheme.sizes.smallerSize
     Column {
         LazyVerticalGrid(
@@ -64,5 +60,3 @@ fun CommunityListContent(
         }
     }
 }
-
-

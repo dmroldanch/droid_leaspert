@@ -227,7 +227,7 @@ fun LpOutlinedTextFieldMail(
             if (isValid) {
                 Text(text = supportTextError)
             } else {
-                Text(text = value)
+                Text(text = "")
             }
         },
         singleLine = true,
