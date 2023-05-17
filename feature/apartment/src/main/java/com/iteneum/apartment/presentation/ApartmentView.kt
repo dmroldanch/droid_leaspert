@@ -70,7 +70,8 @@ fun TitleApartmentScreen() {
             label = stringResource(
                 id = R.string.text_title_apartment
             ),
-            color = MaterialTheme.colorScheme.onPrimaryContainer
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            weight = FontWeight.Bold
         )
     }
 }

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.iteneum.designsystem.components.LPBodyMedium
 import com.iteneum.designsystem.components.LPTitleLarge
@@ -70,16 +71,19 @@ fun OfficeUI(
                 ),
                     color = MaterialTheme.colorScheme.tertiary,
                     textAlign = TextAlign.Justify,
+                    weight =FontWeight.Bold ,
                     onClick = {})
                 LPBodyMedium(modifier = Modifier.padding(top = sizes.extraSize10),
                     label = officeData.address,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     textAlign = TextAlign.Justify,
+                    weight = FontWeight.Normal ,
                     onClick = {})
                 LPBodyMedium(modifier = Modifier.padding(top = sizes.extraSize10),
                     label = stringResource(id = R.string.LPHours) + officeData.schedule,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     textAlign = TextAlign.Justify,
+                    weight = FontWeight.Normal,
                     onClick = {})
                 LpOutlinedButton(Modifier.padding(top = sizes.extraSize10),
                     icon = Icons.Filled.Call,
