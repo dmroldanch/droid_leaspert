@@ -29,22 +29,10 @@ class ProfileViewModel @Inject constructor(): ViewModel() {
                 profileModelMutable = response.data
             }
             is DataState.Error -> {
-                profileModelMutable = Profile(
-                    profileName = "Error",
-                    profileApartment = "Error",
-                    profilePhoneNumber = "1111111111",
-                    profileEmail = "Error",
-                    profileAddress = "Error"
-                )
+                /* TODO - ProfileViewModel - Error data logic to handle  */
             }
             is DataState.Loading -> {
-                profileModelMutable = Profile(
-                    profileName = "Loading...",
-                    profileApartment = "Loading...",
-                    profilePhoneNumber = "0000000000",
-                    profileEmail = "Loading...",
-                    profileAddress = "Loading..."
-                )
+                /* TODO - ProfileViewModel - Loading data logic to handle  */
             }
             else -> Unit
         }
