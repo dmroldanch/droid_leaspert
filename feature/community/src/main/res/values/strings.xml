@@ -7,6 +7,6 @@
     <string name="cardButton_services">Services</string>
     <string name="title_community">Community</string>
     <string name="default_card_description"> </string>
-    <string name="error_message_retrieving_repository_data">Error</string>
-    <string name="loading_message_retrieving_repository_data">Loading</string>
+    <string name="error_message">Error</string>
+    <string name="loading_message">Loading</string>
 </resources>

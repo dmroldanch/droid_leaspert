@@ -12,14 +12,13 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.iteneum.community.R
+import com.iteneum.community.domain.Community
 import com.iteneum.community.domain.CommunityCardType
 import com.iteneum.designsystem.components.LpIconTextCard
 import com.iteneum.designsystem.theme.LeasePertTheme
@@ -51,20 +50,56 @@ fun CommunityView(
     navigationToServices: () -> Unit,
     viewModel: CommunityViewModel = hiltViewModel()
 ) {
-    val sizes = LeasePertTheme.sizes
     val state = viewModel.state.collectAsState()
 
-    LaunchedEffect(true) {
-        viewModel.getCommunitySections()
-    }
+    when (state.value) {
+        State.Error -> {
+            ShowStateContent(stringResource(id = R.string.error_message))
+        }
 
-    val communityCardButtons = remember {
-        viewModel.communitySections
-    }
+        State.Loading -> {
+            ShowStateContent(stringResource(id = R.string.loading_message))
+        }
 
-    val cardDescriptions = remember {
-        viewModel.cardDescriptions
+        State.Success -> {
+            CommunityContent(
+                list = viewModel.communitySections,
+                cardDescriptions = viewModel.cardDescriptions,
+                onClick = {
+                    when (it.cardType) {
+                        CommunityCardType.Amenities -> {
+                            navigationToAmenities()
+                        }
+
+                        CommunityCardType.CommunityWall -> {
+                            navigationToCommunityWall()
+                        }
+
+                        CommunityCardType.DoItYourself -> {
+                            navigationToDoItYourSelf()
+                        }
+
+                        CommunityCardType.Events -> {
+                            navigationToEvents()
+                        }
+
+                        CommunityCardType.Services -> {
+                            navigationToServices()
+                        }
+                    }
+                }
+            )
+        }
     }
+}
+
+@Composable
+fun CommunityContent(
+    list: List<Community>,
+    cardDescriptions: Map<CommunityCardType, Int>,
+    onClick: (Community) -> Unit
+) {
+    val sizes = LeasePertTheme.sizes
 
     Column(
         modifier = Modifier
@@ -75,20 +110,6 @@ fun CommunityView(
                 end = sizes.midSmallSize
             )
     ) {
-        if (state.value != State.Success) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = if (state.value == State.Error)
-                        stringResource(R.string.error_message_retrieving_repository_data)
-                    else stringResource(
-                        R.string.loading_message_retrieving_repository_data
-                    )
-                )
-            }
-        }
         Text(
             text = stringResource(R.string.title_community),
             modifier = Modifier.padding(start = sizes.smallSize),
@@ -98,7 +119,7 @@ fun CommunityView(
             columns = GridCells.Fixed(2),
             contentPadding = PaddingValues(sizes.smallerSize)
         ) {
-            items(communityCardButtons) { itemCard ->
+            items(list) { itemCard ->
                 LpIconTextCard(modifier = Modifier
                     .size(width = sizes.extraSize124, height = sizes.extraSize128)
                     .padding(sizes.smallerSize),
@@ -108,33 +129,23 @@ fun CommunityView(
                             ?: R.string.default_card_description
                     ),
                     onCardClicked = {
-                        when (itemCard.cardType) {
-                            CommunityCardType.Amenities -> {
-                                navigationToAmenities()
-                            }
-
-                            CommunityCardType.Events -> {
-                                /* TODO() This view does not exist, as soon as
-                                    this view is defined the navigation of this section is added */
-                            }
-
-                            CommunityCardType.CommunityWall -> {
-                                navigationToCommunityWall()
-                            }
-
-                            CommunityCardType.DoItYourself -> {
-                                /* TODO() This view does not exist, as soon as
-                                    this view is defined the navigation of this section is added */
-                            }
-
-                            CommunityCardType.Services -> {
-                                /* TODO() This view does not exist, as soon as
-                                    this view is defined the navigation of this section is added */
-                            }
-                        }
+                        onClick(itemCard)
                     }
                 )
             }
         }
     }
 }
+
+@Composable
+fun ShowStateContent(message: String) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = message
+        )
+    }
+}
+
