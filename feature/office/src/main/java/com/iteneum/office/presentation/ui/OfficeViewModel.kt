@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iteneum.network.DataState
 import com.iteneum.office.data.OfficeModel
-import com.itenum.domain.ContactTelephone
-import com.itenum.domain.Email
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -49,7 +47,6 @@ class OfficeViewModel() : ViewModel() {
         }
     }
 
-
     fun makeCall() {
         /*TODO implement intent actions to make call*/
     }
@@ -70,8 +67,8 @@ val officeInfoResponse: DataState<OfficeModel> = DataState.Success(
     OfficeModel(
         "4950 Gaidrew, Alpharetta, GA, 30022 ",
         "9AM-6PM",
-        phone = ContactTelephone("+1 452 123 4567"),
-        email = Email("contact@leaspert.com", "mail test", "this is a mail send test")
+        phone = "+1 452 123 4567",
+        email = "contact@leaspert.com"
     )
 )
 

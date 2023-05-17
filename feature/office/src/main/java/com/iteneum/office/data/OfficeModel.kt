@@ -1,8 +1,5 @@
 package com.iteneum.office.data
 
-import com.itenum.domain.ContactTelephone
-import com.itenum.domain.Email
-
 /**
  * This class is for the data for each item in the list.
  * @param address the address of the busines
@@ -14,6 +11,6 @@ import com.itenum.domain.Email
 data class OfficeModel(
     val address: String,
     val schedule: String,
-    val phone: ContactTelephone,
-    var email: Email,
+    val phone: String,
+    var email: String,
 )

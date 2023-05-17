@@ -35,7 +35,7 @@ fun OfficeView() {
         viewModel.getOfficeInformation()
     }
 
-    val officeData =  viewModel.officeInfo
+    val officeData = viewModel.officeInfo
 
     officeData?.let {
         OfficeUI(it,
@@ -71,13 +71,13 @@ fun OfficeUI(
                 ),
                     color = MaterialTheme.colorScheme.tertiary,
                     textAlign = TextAlign.Justify,
-                    weight =FontWeight.Bold ,
+                    weight = FontWeight.Bold,
                     onClick = {})
                 LPBodyMedium(modifier = Modifier.padding(top = sizes.extraSize10),
                     label = officeData.address,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     textAlign = TextAlign.Justify,
-                    weight = FontWeight.Normal ,
+                    weight = FontWeight.Normal,
                     onClick = {})
                 LPBodyMedium(modifier = Modifier.padding(top = sizes.extraSize10),
                     label = stringResource(id = R.string.LPHours) + officeData.schedule,
