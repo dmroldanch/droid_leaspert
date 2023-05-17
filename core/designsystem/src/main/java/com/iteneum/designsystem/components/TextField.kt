@@ -2,7 +2,11 @@ package com.iteneum.designsystem.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -12,7 +16,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
 import com.iteneum.designsystem.R
 import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransformation
@@ -25,6 +29,8 @@ import com.iteneum.designsystem.components.phonenumbertext.PhoneNumberTransforma
  * @param isValid Validate if text is valid
  * @param supportTextError This parameter determines whether the error is displayed or not
  * @param onPasswordChanged Returns value typed
+ * @param passwordVisible
+ * @param onPasswordVisibilityChanged
  *
  * @author Jose G. Rivera
  * @modifiedBy Jesus Lopez
@@ -38,8 +44,11 @@ fun LpOutlinedTextFieldPassword(
     value: String = "",
     isValid: Boolean = true,
     supportTextError: String = "",
-    onPasswordChanged: (String) -> Unit
+    onPasswordChanged: (String) -> Unit,
+    passwordVisible: Boolean,
+    onPasswordVisibilityChanged: () -> Unit
 ) {
+
     OutlinedTextField(
         value = value,
         onValueChange = onPasswordChanged,
@@ -57,25 +66,49 @@ fun LpOutlinedTextFieldPassword(
             focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
             errorLabelColor = MaterialTheme.colorScheme.error,
             errorBorderColor = MaterialTheme.colorScheme.error,
-            errorSupportingTextColor = MaterialTheme.colorScheme.error
+            errorSupportingTextColor = MaterialTheme.colorScheme.error,
+            unfocusedLabelColor = MaterialTheme.colorScheme.onPrimary,
         ),
         isError = isValid,
         supportingText = {
-            if (isValid) {
-                Text(text = supportTextError)
-            } else {
-                Text(text = "")
-            }
+            Text(text = if (isValid) supportTextError else "")
         },
         singleLine = true,
         maxLines = 1,
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Password
         ),
-        visualTransformation = PasswordVisualTransformation()
+        visualTransformation =
+        if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+        trailingIcon =
+        { PasswordVisibilityIcon(passwordVisible, onPasswordVisibilityChanged) }
     )
 }
 
+/**
+ * This function is needed for the [LpOutlinedTextFieldPassword] to change the icon visibility
+ * @param passwordVisible Checks if the password is visible
+ * @param onPasswordVisibilityChanged Called when the user clicks on the icon
+ *
+ * @author Jesus Lopez
+ */
+@Composable
+fun PasswordVisibilityIcon(
+    passwordVisible: Boolean,
+    onPasswordVisibilityChanged: () -> Unit
+) {
+    IconButton(onClick = onPasswordVisibilityChanged) {
+        Icon(
+            imageVector =
+            if (passwordVisible) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
+            contentDescription =
+            if (passwordVisible)
+                stringResource(id = R.string.OTFPasswordHideContent)
+            else
+                stringResource(id = R.string.OTFPasswordShowContent)
+        )
+    }
+}
 
 /**
  * This function creates a generic OutlinedTextField
@@ -129,11 +162,7 @@ fun LpOutlinedTextField(
         ),
         isError = isValid,
         supportingText = {
-            if (isValid) {
-                Text(text = supportTextError)
-            } else {
-                Text(text = value)
-            }
+            Text(text = if (isValid) supportTextError else "")
         },
         singleLine = true,
         maxLines = 1,
@@ -150,6 +179,7 @@ fun LpOutlinedTextField(
  * @param label Text label
  * @param isValid Validate if text is valid
  * @param supportTextError Error message
+ * @param onImeActionPerformed To set an action performed by the keyboard
  * @param value The current value of the input field
  * @param onValueChanged This parameter return the field value
  *
@@ -162,9 +192,11 @@ fun LpOutlinedTextField(
 fun LpOutlinedTextFieldMail(
     modifier: Modifier,
     label: String,
+    placeholder: String,
     isValid: Boolean,
     supportTextError: String,
     value: String = "",
+    onImeActionPerformed: () -> Unit,
     onValueChanged: (String) -> Unit
 ) {
 
@@ -179,27 +211,32 @@ fun LpOutlinedTextFieldMail(
                 color = MaterialTheme.colorScheme.tertiary
             )
         },
+        placeholder = { Text(placeholder) },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
             unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary,
             focusedLabelColor = MaterialTheme.colorScheme.onPrimary,
             errorLabelColor = MaterialTheme.colorScheme.error,
             errorBorderColor = MaterialTheme.colorScheme.error,
-            errorSupportingTextColor = MaterialTheme.colorScheme.error
+            errorSupportingTextColor = MaterialTheme.colorScheme.error,
+            placeholderColor = MaterialTheme.colorScheme.tertiary,
+            unfocusedLabelColor = MaterialTheme.colorScheme.onPrimary
         ),
         isError = isValid,
         supportingText = {
             if (isValid) {
                 Text(text = supportTextError)
             } else {
-                Text(text = value)
+                Text(text = "")
             }
         },
         singleLine = true,
         maxLines = 1,
         keyboardOptions = KeyboardOptions.Default.copy(
-            keyboardType = KeyboardType.Email
-        )
+            keyboardType = KeyboardType.Email,
+            imeAction = ImeAction.Next
+        ),
+        keyboardActions = KeyboardActions(onNext = { onImeActionPerformed() })
     )
 }
 

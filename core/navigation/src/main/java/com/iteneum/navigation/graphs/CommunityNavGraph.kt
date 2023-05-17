@@ -13,7 +13,7 @@ fun NavGraphBuilder.communityNavGraph(navController: NavHostController) {
         startDestination = CommunityScreen.Amenities.route
     ) {
         composable(route = CommunityScreen.Amenities.route) {
-            //CommunityListView()
+            CommunityListView()
         }
         composable(route = CommunityScreen.Wall.route) {
             CommunityWallView()

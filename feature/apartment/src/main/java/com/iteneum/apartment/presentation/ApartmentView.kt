@@ -70,7 +70,8 @@ fun TitleApartmentScreen() {
             label = stringResource(
                 id = R.string.text_title_apartment
             ),
-            color = MaterialTheme.colorScheme.onPrimaryContainer
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            weight = FontWeight.Bold
         )
     }
 }
@@ -109,9 +110,9 @@ fun PaymentsSection(
         }
         LpPaymentsRentCard(
             modifier = Modifier.fillMaxWidth(),
-            month = month,
-            quantity = 999.00,
-            date = Timestamp(33344)
+            currentMonth  = month,
+            quantityToPay = quantityToPay,
+            limitDateToPay = limitDateToPay
         ){
             /*TODO add the functionality to this onclick*/
         }

@@ -68,7 +68,7 @@ fun OfficeUI(
     Column(
         Modifier
             .fillMaxSize()
-            .padding(top = 32.dp)) {
+    ) {
         val sizes = LeasePertTheme.sizes
         Text(
             text = stringResource(id = R.string.LPInfo),
@@ -105,6 +105,7 @@ fun OfficeUI(
                 textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
             )
         )
+
         LpOutlinedButton(modifier = Modifier,
             icon = Icons.Filled.Call,
             textButton = stringResource(id = R.string.LPCallButton),
