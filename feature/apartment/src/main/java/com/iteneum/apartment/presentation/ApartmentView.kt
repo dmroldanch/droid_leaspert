@@ -1,39 +1,71 @@
 package com.iteneum.apartment.presentation
 
-import androidx.compose.foundation.*
-import com.iteneum.designsystem.theme.LeasePertTheme
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.*
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.iteneum.apartment.R
+import com.iteneum.apartment.domain.UserDetail
 import com.iteneum.designsystem.components.LPTitleLarge
 import com.iteneum.designsystem.components.LpGenericChip
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.components.LpPaymentsRentCard
-import java.sql.Timestamp
+import com.iteneum.designsystem.theme.LeasePertTheme
 
 /**
  * [ApartmentView] The apartment view is the main function, container and screen where all the sections of the view it be contained like:
  * payments, repairs, information, in resume this be the main container for the apartment view
+ *
+ * @created Usiel Garcia
+ * @modifiedBy Juan Islas
  */
 @Composable
-fun ApartmentView(navigateToRepair : () -> Unit) {
-    ApartmentContainer { navigateToRepair() }
+fun ApartmentView(
+    navigateToRepair : () -> Unit,
+    viewModel: ApartmentViewModel = hiltViewModel()
+) {
+    LaunchedEffect(true){
+        viewModel.getInformation()
+    }
+    //ApartmentContainer { navigateToRepair() }
+    ApartmentContainer(
+        navigateToRepair = { navigateToRepair() },
+        userData = viewModel.userData
+    )
 }
 
 /**
  * [ApartmentContainer] This section is where all the sections are, because all the sections are divided each one
  * in this container it's defined the paddings, the vertical scroll and the configurations of how is the view shown to the user
+ *
+ * @created Usiel Garcia
+ * @modifiedBy Juan Islas
  * */
 @Composable
-fun ApartmentContainer(navigateToRepair : () -> Unit) {
+fun ApartmentContainer(
+    navigateToRepair : () -> Unit,
+    userData: UserDetail
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -45,8 +77,20 @@ fun ApartmentContainer(navigateToRepair : () -> Unit) {
     ) {
         Column {
             TitleApartmentScreen()
-            PaymentsSection(Modifier, "Junary", "990.00", "Jan 23 2022")
-            RepairsSection { navigateToRepair.invoke() }
+            userData.paymentDetails?.currentMonth?.let {
+                userData.paymentDetails.deadline?.let { it1 ->
+                    PaymentsSection(
+                        modifier = Modifier,
+                        month = it,
+                        quantityToPay = userData.paymentDetails.rentDebt.toString(),
+                        limitDateToPay = it1
+                    )
+                }
+            }
+            RepairsSection(
+                navigateToRepair ={ navigateToRepair.invoke() },
+                userData = userData
+            )
             InformationSection()
         }
     }
@@ -91,7 +135,7 @@ fun PaymentsSection(
     quantityToPay: String,
     limitDateToPay: String
 ) {
-    Column() {
+    Column {
         Row(
             modifier = modifier
                 .fillMaxWidth()
@@ -123,10 +167,15 @@ fun PaymentsSection(
  * [RepairsSection] is the section where the status of the repairs it shows to the user like Open, In progress and Closed
  * in this section the user have a button where the user could make a new repairs requests
  *
+ * @created Usiel Garcia
+ * @modifiedBy Juan Islas
  * */
 @Composable
-fun RepairsSection(navigateToRepair : () -> Unit) {
-    Column() {
+fun RepairsSection(
+    navigateToRepair : () -> Unit,
+    userData: UserDetail
+) {
+    Column {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -143,14 +192,15 @@ fun RepairsSection(navigateToRepair : () -> Unit) {
             )
             LpGenericChip(
                 icon = Icons.Filled.Add,
-                label = "${stringResource(id = R.string.text_button_new)}",
+                label = stringResource(id = R.string.text_button_new),
                 onClicked = { navigateToRepair.invoke() }
 
             )
         }
         RepairStatusRow(
             modifier = Modifier.fillMaxWidth(),
-            titleStatusRepairs = stringResource(id = R.string.text_status_open)
+            titleStatusRepairs = stringResource(id = R.string.text_status_open),
+            quantityStatusRepairs = userData.openRepairs
         )
         Divider(
             thickness = LeasePertTheme.sizes.stroke,
@@ -162,7 +212,8 @@ fun RepairsSection(navigateToRepair : () -> Unit) {
         )
         RepairStatusRow(
             modifier = Modifier.fillMaxWidth(),
-            titleStatusRepairs = stringResource(id = R.string.text_status_in_progress)
+            titleStatusRepairs = stringResource(id = R.string.text_status_in_progress),
+            quantityStatusRepairs = userData.inProgress
         )
         Divider(
             thickness = LeasePertTheme.sizes.stroke,
@@ -174,7 +225,8 @@ fun RepairsSection(navigateToRepair : () -> Unit) {
         )
         RepairStatusRow(
             modifier = Modifier.fillMaxWidth(),
-            titleStatusRepairs = stringResource(id = R.string.text_status_closed)
+            titleStatusRepairs = stringResource(id = R.string.text_status_closed),
+            quantityStatusRepairs = userData.closedRepairs
         )
     }
 }
@@ -230,7 +282,7 @@ fun RepairStatusRow(
 
 /**
  * [InformationSection] in this section the user can three buttons for to do different actions
- * the first button is for the user can watch wich documents do he needs for rent some apartment
+ * the first button is for the user can watch which documents do he needs for rent some apartment
  * the second button is for what the user can watch the photos of the apartment
  * the third is for watch the status of the apartment, for example if the apartment is available for rent
  * */
