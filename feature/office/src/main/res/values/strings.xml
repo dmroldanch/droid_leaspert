@@ -5,6 +5,8 @@
     <string name="LPInfo">Information</string>
     <string name="LPHours">Hours:</string>
     <string name="LPAddress">Address: 4950 Gaidrew, Alpharetta, GA, 30022</string>
-    <string name="LPphoneServiceContact">+1 452 123 4567</string>
-    <string name="LPcontactEmail">contact@leaspert.com</string>
+    <string name="LPPhoneServiceContact">+1 452 123 4567</string>
+    <string name="LPContactEmail">contact@leaspert.com</string>
+    <string name="Loading">Loading</string>
+    <string name="Error">Error</string>
 </resources>

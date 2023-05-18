@@ -12,7 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -20,12 +20,13 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextIndent
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.iteneum.designsystem.components.LPTitleLarge
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.office.R
-import com.iteneum.office.data.OfficeModel
+import com.iteneum.office.domain.Office
 
 /**
  * function: OfficeView  will handle:
@@ -35,20 +36,41 @@ import com.iteneum.office.data.OfficeModel
  */
 
 @Composable
-fun OfficeView() {
-    val viewModel = OfficeViewModel()
+fun OfficeView(viewModel: OfficeViewModel = hiltViewModel()) {
 
     LaunchedEffect(true) {
         viewModel.getOfficeInformation()
     }
 
-    val OfficeData = viewModel.officeInfo
+    val uiState = viewModel.state.collectAsState()
 
-    OfficeData?.let {
-        OfficeUI(it,
-            onCallButtonClicked = { viewModel.makeCall() },
-            onEmailButtonClicked = { viewModel.sendEmail() })
+    when (uiState.value) {
+        is OfficeStateResponse.Error -> {
+            ShowStateContent(stringResource(R.string.Error))
+        }
+
+        is OfficeStateResponse.Loading -> {
+            ShowStateContent(stringResource(R.string.Loading))
+        }
+
+        is OfficeStateResponse.Success -> {
+            val OfficeData = viewModel.officeInfo
+
+            OfficeData?.let {
+                OfficeUI(
+                    it,
+                    onCallButtonClicked = { viewModel.makeCall() },
+                    onEmailButtonClicked = { viewModel.sendEmail() }
+                )
+            }
+        }
     }
+
+}
+
+@Composable
+fun ShowStateContent(response :String){
+    LPTitleLarge(label = response, color = MaterialTheme.colorScheme.tertiary, weight =FontWeight.Bold)
 }
 
 /**
@@ -57,17 +79,16 @@ fun OfficeView() {
  * @param onEmailButtonClicked launches the Email intent
  * @author Yaritza Moreno
  * Modified by:
- * @author Andres Ivan Medina
+ * @modifiedBy Andres Ivan Medina
  */
 @Composable
 fun OfficeUI(
-    officeData: OfficeModel,
+    officeData: Office,
     onCallButtonClicked: () -> Unit,
     onEmailButtonClicked: () -> Unit,
 ) {
     Column(
-        Modifier
-            .fillMaxSize()
+        modifier=Modifier.fillMaxSize()
     ) {
         val sizes = LeasePertTheme.sizes
         Text(
@@ -87,13 +108,11 @@ fun OfficeUI(
         )
 
         Text(
-            text = officeData.address,
-            style = TextStyle(
+            text = officeData.address, style = TextStyle(
                 textAlign = TextAlign.Justify,
                 lineHeight = 20.sp,
                 textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
-            ),
-            modifier = Modifier.padding(top = sizes.extraSize10)
+            ), modifier = Modifier.padding(top = sizes.extraSize10)
         )
 
         Text(

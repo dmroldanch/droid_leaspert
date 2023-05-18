@@ -4,11 +4,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iteneum.office.data.OfficeModel
+import com.iteneum.office.domain.Office
 import com.iteneum.network.DataState
-import com.iteneum.office.presentation.ui.officeInfoResponse
-import com.itenum.domain.ContactTelephone
-import com.itenum.domain.Email
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,7 +16,7 @@ import kotlinx.coroutines.launch
  *
  *@author  Yaritza Moreno
  *
- *@author Andres Ivan Medina
+ *@modifiedBy Andres Ivan Medina
  */
 
 class OfficeViewModel() : ViewModel() {
@@ -28,8 +25,8 @@ class OfficeViewModel() : ViewModel() {
         MutableStateFlow(OfficeStateResponse.Loading)
     val state: StateFlow<OfficeStateResponse> = _state
 
-    private val _officeInfo: MutableState<OfficeModel?> = mutableStateOf(null)
-    val officeInfo: OfficeModel?
+    private val _officeInfo: MutableState<Office?> = mutableStateOf(null)
+    val officeInfo: Office?
         get() = _officeInfo.value
 
     init {
@@ -37,11 +34,11 @@ class OfficeViewModel() : ViewModel() {
     }
 
     internal fun getOfficeInformation() = viewModelScope.launch {
-        when (officeInfoResponse) {
+        when (officeResponse) {
             is DataState.Success -> {
-                _officeInfo.value = officeInfoResponse.data
+                _officeInfo.value = officeResponse.data
+                _state.emit(OfficeStateResponse.Success)
             }
-
             is DataState.Error -> {
                 _state.emit(OfficeStateResponse.Error)
             }
@@ -49,23 +46,15 @@ class OfficeViewModel() : ViewModel() {
             is DataState.Loading -> {
                 _state.emit(OfficeStateResponse.Loading)
             }
-
-            else -> Unit
         }
     }
 
     fun makeCall() {
-        val contactTelephone =
-            _officeInfo.value?.phone?.let { ContactTelephone(it.number) }/*TODO: Implement call intent once permission logic is stablished*/
+       /*TODO: Implement call intent once permission logic is stablished*/
     }
 
     fun sendEmail() {
-        val email = Email(
-            _officeInfo.value?.email?.to ?: "",
-            _officeInfo.value?.email?.subject ?: "",
-            _officeInfo.value?.email?.body ?: ""
-        )/*TODO: Implement Email intent once permission logic is stablished*/
-
+        /*TODO: Implement Email intent once permission logic is stablished*/
     }
 }
 
@@ -76,18 +65,18 @@ class OfficeViewModel() : ViewModel() {
  *
  * @author Andres Ivan Medina
  */
-val officeInfoResponse: DataState<OfficeModel> = DataState.Success(
-    OfficeModel(
+val officeResponse: DataState<Office> = DataState.Success(
+    Office(
         "4950 Gaidrew, Alpharetta, GA, 30022 ",
         "9AM-6PM",
-        phone = ContactTelephone("+1 452 123 4567"),
-        email = Email("contact@leaspert.com", "mail test", "this is a mail send test")
+        phone = "+1 452 123 4567",
+        email = "contact@leaspert.com"
     )
 )
 
 /**
- * class:OfficeStateList  represents the states of the data
- * exposed through the list.
+ * class:OfficeStateResponse  represents the states of the data
+ * exposed to the view.
  *
  * @author Andres Ivan Medina
  */
@@ -96,3 +85,4 @@ sealed class OfficeStateResponse {
     object Error : OfficeStateResponse()
     object Success : OfficeStateResponse()
 }
+

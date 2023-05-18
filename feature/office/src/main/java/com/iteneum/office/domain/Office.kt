@@ -1,7 +1,4 @@
-package com.iteneum.office.data
-
-import com.itenum.domain.ContactTelephone
-import com.itenum.domain.Email
+package com.iteneum.office.domain
 
 /**
  * This class is for the data for each item in the list.
@@ -11,9 +8,9 @@ import com.itenum.domain.Email
  * @param email electronic email of the business
  * @author Andres Ivan Medina
  */
-data class OfficeModel(
+data class Office(
     val address: String,
     val schedule: String,
-    val phone: ContactTelephone,
-    var email: Email,
+    val phone: String,
+    var email: String,
 )
