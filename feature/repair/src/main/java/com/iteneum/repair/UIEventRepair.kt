@@ -1,11 +1,11 @@
-package com.iteneum
+package com.iteneum.repair
 
 /**
  * File that contains [UIEventRepair] sealed class
  * It contains definitions of all the possible Events that will be catch on RepairView.
  *
  * @author Jose Miguel Garcia Reyes
- * @author Carlos Andres Perez Hernandez
+ * @modifiedBy Carlos Andres Perez Hernandez
  */
 
 sealed class UIEventRepair {
