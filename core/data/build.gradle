@@ -32,8 +32,8 @@ android {
 
 dependencies {
     implementation libs.bundles.hilt
+    implementation libs.bundles.compose
 
     implementation project(path: ':core:domain')
-    implementation libs.bundles.compose
     implementation project(":core:designsystem")
 }

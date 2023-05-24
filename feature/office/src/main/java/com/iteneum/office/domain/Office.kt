@@ -1,4 +1,4 @@
-package com.iteneum.office.data
+package com.iteneum.office.domain
 
 /**
  * This class is for the data for each item in the list.
@@ -8,7 +8,7 @@ package com.iteneum.office.data
  * @param email electronic email of the business
  * @author Andres Ivan Medina
  */
-data class OfficeModel(
+data class Office(
     val address: String,
     val schedule: String,
     val phone: String,

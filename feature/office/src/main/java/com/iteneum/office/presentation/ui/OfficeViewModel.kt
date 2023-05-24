@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.iteneum.network.DataState
-import com.iteneum.office.data.OfficeModel
+import com.iteneum.office.domain.Office
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -21,8 +21,8 @@ class OfficeViewModel() : ViewModel() {
         MutableStateFlow(OfficeStateResponse.Loading)
     val state: StateFlow<OfficeStateResponse> = _state
 
-    private val _officeInfo: MutableState<OfficeModel?> = mutableStateOf(null)
-    val officeInfo: OfficeModel?
+    private val _officeInfo: MutableState<Office?> = mutableStateOf(null)
+    val officeInfo: Office?
         get() = _officeInfo.value
 
     init {
@@ -30,9 +30,9 @@ class OfficeViewModel() : ViewModel() {
     }
 
     internal fun getOfficeInformation() = viewModelScope.launch {
-        when (officeInfoResponse) {
+        when (officeResponse) {
             is DataState.Success -> {
-                _officeInfo.value = officeInfoResponse.data
+                _officeInfo.value = officeResponse.data
             }
 
             is DataState.Error -> {
@@ -63,8 +63,8 @@ class OfficeViewModel() : ViewModel() {
  *
  * @author Andres Ivan Medina
  */
-val officeInfoResponse: DataState<OfficeModel> = DataState.Success(
-    OfficeModel(
+val officeResponse: DataState<Office> = DataState.Success(
+    Office(
         "4950 Gaidrew, Alpharetta, GA, 30022 ",
         "9AM-6PM",
         phone = "+1 452 123 4567",
@@ -73,7 +73,7 @@ val officeInfoResponse: DataState<OfficeModel> = DataState.Success(
 )
 
 /**
- * class:OfficeStateList  represents the states of the data
+ * class:OfficeStateResponse  represents the states of the data
  * exposed through the list.
  *
  * @author Andres Ivan Medina
