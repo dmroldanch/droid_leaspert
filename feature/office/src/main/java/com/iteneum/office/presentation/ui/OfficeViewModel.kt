@@ -33,6 +33,7 @@ class OfficeViewModel() : ViewModel() {
         when (officeResponse) {
             is DataState.Success -> {
                 _officeInfo.value = officeResponse.data
+                _state.emit(OfficeStateResponse.Success)
             }
 
             is DataState.Error -> {
@@ -65,8 +66,8 @@ class OfficeViewModel() : ViewModel() {
  */
 val officeResponse: DataState<Office> = DataState.Success(
     Office(
-        "4950 Gaidrew, Alpharetta, GA, 30022 ",
-        "9AM-6PM",
+        "4950 Gaidrew, Alpharetta, GA, 30022",
+        "Hours: 9AM-6PM",
         phone = "+1 452 123 4567",
         email = "contact@leaspert.com"
     )

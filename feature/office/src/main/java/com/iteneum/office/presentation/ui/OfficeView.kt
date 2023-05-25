@@ -76,7 +76,6 @@ fun ShowStateContent(response: String) {
  * @param onCallButtonClicked launches the call intent
  * @param onEmailButtonClicked launches the Email intent
  * @author Yaritza Moreno
- * Modified by:
  * @modifiedBy Andres Ivan Medina
  */
 @Composable
@@ -89,6 +88,8 @@ fun OfficeUI(
         modifier = Modifier.fillMaxSize()
     ) {
         val sizes = LeasePertTheme.sizes
+        val address = stringResource(id = R.string.LPAddress, officeData.address)
+        val schedule = stringResource(id = R.string.LPHours, officeData.schedule)
         LPTitleLarge(label = stringResource(
             id = R.string.LPInfo
         ),
@@ -97,13 +98,13 @@ fun OfficeUI(
             weight = FontWeight.Bold,
             onClick = {})
         LPBodyMedium(modifier = Modifier.padding(top = sizes.extraSize10),
-            label = officeData.address,
+            label = address,
             color = MaterialTheme.colorScheme.onPrimaryContainer,
             textAlign = TextAlign.Justify,
             weight = FontWeight.Normal,
             onClick = {})
         LPBodyMedium(modifier = Modifier.padding(top = sizes.extraSize10),
-            label = stringResource(id = R.string.LPHours) + officeData.schedule,
+            label = schedule,
             color = MaterialTheme.colorScheme.onPrimaryContainer,
             textAlign = TextAlign.Justify,
             weight = FontWeight.Normal,
