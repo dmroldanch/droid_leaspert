@@ -21,9 +21,7 @@ import com.iteneum.repair.data.RepairViewModel
 /**
  * Function that creates [RepairView] compose, for user's service request.
  * User will require to fill all the correspondent fields on the screen.
- *
- * Function [RepairView] has
- * @param navigateToApartment - to get the function to navigate ApartmentView when clicking button
+ * @param navigateToApartment - to get the function to navigate ApartmentView when clicking the button
  * @param repairViewModel - to get the Repair View Model access
  *
  * @author Jose Miguel Garcia Reyes
@@ -50,12 +48,12 @@ fun RepairView(
 }
 
 /**
- * Function [RepairContainer] contains the view os RepairView, will generate the composable elements
- * to create the form and fill answers to require in did come q a g
+ * Function [RepairContainer] contains the actual view of RepairView.
+ * It will generate the composable elements to create the form for the user repair petitions.
  * @param formularyValues - to pass the content of the RepairRequest
  * @param formularyData - to handle the UI events of data when text is modified
- * @param validatePhone - to validate that value phone contains at least 10 digits and numbers only
- * @param onClickButton - to handle the action when button is clicked
+ * @param validatePhone - to validate phone value contains at least 10 digits and only numbers
+ * @param onClickButton - to handle the action when "Send" button is clicked
  * @param navigateToApartment - passed from RepairView to handle navigation
  *
  * @author Jose Miguel Garcia Reyes
