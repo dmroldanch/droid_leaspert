@@ -1,4 +1,10 @@
-package com.iteneum
+package com.iteneum.profile
+
+/**
+ * Class that contains [Profile] data fields.
+ *
+ * @author Jose Miguel Garcia Reyes
+ */
 
 data class Profile (
     val profileImage : String = "",

@@ -1,4 +1,4 @@
-package com.iteneum
+package com.iteneum.profile
 
 /**
  * File that contains [UIEventProfile] sealed class

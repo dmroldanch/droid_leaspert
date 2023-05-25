@@ -5,14 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iteneum.Profile
+import com.iteneum.profile.Profile
 import com.iteneum.network.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * File that contains [ProfileViewModel] that works as ViewModel for the Profile View.
+ * Class that contains [ProfileViewModel] that works as ViewModel for the Profile View.
  * It will handle the data work & process when loading & be done with the view.
  *
  * @author Jose Miguel Garcia Reyes
