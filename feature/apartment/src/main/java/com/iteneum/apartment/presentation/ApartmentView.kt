@@ -47,7 +47,7 @@ fun ApartmentView(
     LaunchedEffect(true){
         viewModel.getInformation()
     }
-    //ApartmentContainer { navigateToRepair() }
+
     ApartmentContainer(
         navigateToRepair = { navigateToRepair() },
         userData = viewModel.userData
@@ -77,18 +77,18 @@ fun ApartmentContainer(
     ) {
         Column {
             TitleApartmentScreen()
-            userData.paymentDetails?.currentMonth?.let {
-                userData.paymentDetails.deadline?.let { it1 ->
+            userData.paymentDetails?.currentMonth?.let {monthValue ->
+                userData.paymentDetails.deadline?.let { deadlineValue ->
                     PaymentsSection(
                         modifier = Modifier,
-                        month = it,
+                        month = monthValue,
                         quantityToPay = userData.paymentDetails.rentDebt.toString(),
-                        limitDateToPay = it1
+                        limitDateToPay = deadlineValue
                     )
                 }
             }
             RepairsSection(
-                navigateToRepair ={ navigateToRepair.invoke() },
+                navigateToRepair ={ navigateToRepair() },
                 userData = userData
             )
             InformationSection()
