@@ -61,7 +61,7 @@ class OfficeViewModel() : ViewModel() {
 
 /**
  * This variable represents the data Mock brought by the API call.
- * @param officeInfoResponse this is the mock data exposed as list*
+ * @param officeResponse this is the mock data exposed as list*
  *
  * @author Andres Ivan Medina
  */

@@ -57,11 +57,9 @@ fun OfficeView(viewModel: OfficeViewModel = hiltViewModel()) {
             val OfficeData = viewModel.officeInfo
 
             OfficeData?.let {
-                OfficeUI(
-                    it,
+                OfficeUI(it,
                     onCallButtonClicked = { viewModel.makeCall() },
-                    onEmailButtonClicked = { viewModel.sendEmail() }
-                )
+                    onEmailButtonClicked = { viewModel.sendEmail() })
             }
         }
     }
@@ -69,8 +67,10 @@ fun OfficeView(viewModel: OfficeViewModel = hiltViewModel()) {
 }
 
 @Composable
-fun ShowStateContent(response :String){
-    LPTitleLarge(label = response, color = MaterialTheme.colorScheme.tertiary, weight =FontWeight.Bold)
+fun ShowStateContent(response: String) {
+    LPTitleLarge(
+        label = response, color = MaterialTheme.colorScheme.tertiary, weight = FontWeight.Bold
+    )
 }
 
 /**
@@ -78,7 +78,6 @@ fun ShowStateContent(response :String){
  * @param onCallButtonClicked launches the call intent
  * @param onEmailButtonClicked launches the Email intent
  * @author Yaritza Moreno
- * Modified by:
  * @modifiedBy Andres Ivan Medina
  */
 @Composable
@@ -88,8 +87,10 @@ fun OfficeUI(
     onEmailButtonClicked: () -> Unit,
 ) {
     Column(
-        modifier=Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
+        val address = stringResource(id = R.string.LPAddress, officeData.address)
+        val schedule = stringResource(id = R.string.LPHours, officeData.schedule)
         val sizes = LeasePertTheme.sizes
         Text(
             text = stringResource(id = R.string.LPInfo),
@@ -108,15 +109,17 @@ fun OfficeUI(
         )
 
         Text(
-            text = officeData.address, style = TextStyle(
+            text = address,
+            style = TextStyle(
                 textAlign = TextAlign.Justify,
                 lineHeight = 20.sp,
                 textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
-            ), modifier = Modifier.padding(top = sizes.extraSize10)
+            ),
+            modifier = Modifier.padding(top = sizes.extraSize10)
         )
 
         Text(
-            text = officeData.schedule,
+            text = schedule,
             modifier = Modifier.padding(top = sizes.extraSize10),
             style = TextStyle(
                 textAlign = TextAlign.Justify,
