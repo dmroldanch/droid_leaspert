@@ -127,7 +127,8 @@ fun LoginView(
                 },
             textButton = stringResource(R.string.lv_login),
             onClicked = {
-                loginViewModel.onLoginClicked()
+                //loginViewModel.onLoginClicked()
+                        navigationToDashboard()
             },
         )
         LPBodyMedium(
