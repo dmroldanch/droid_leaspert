@@ -19,7 +19,7 @@ import com.iteneum.repair.R
 import com.iteneum.repair.data.RepairViewModel
 
 /**
- * Function that creates [RepairView] compose. for user's service request.
+ * Function that creates [RepairView] compose, for user's service request.
  * User will require to fill all the correspondent fields on the screen.
  *
  * Function [RepairView] has
@@ -50,10 +50,11 @@ fun RepairView(
 }
 
 /**
- * Function [RepairContainer] has
+ * Function [RepairContainer] contains the view os RepairView, will generate the composable elements
+ * to create the form and fill answers to require in did come q a g
  * @param formularyValues - to pass the content of the RepairRequest
  * @param formularyData - to handle the UI events of data when text is modified
- * @param validatePhone - to validate is thw phone contains 10 digits and only numbers
+ * @param validatePhone - to validate that value phone contains at least 10 digits and numbers only
  * @param onClickButton - to handle the action when button is clicked
  * @param navigateToApartment - passed from RepairView to handle navigation
  *

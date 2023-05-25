@@ -36,10 +36,10 @@ class RepairViewModel @Inject constructor() : ViewModel() {
                 repairRequest = response.data
             }
             is DataState.Error -> {
-                repairRequest = RepairRequest(unitDepartment = "EEE")
+                /* TODO - RepairViewModel - Add functionality of DataState Error */
             }
             is DataState.Loading -> {
-                repairRequest = RepairRequest(unitDepartment = "LLL")
+                /* TODO - RepairViewModel - Add functionality of DataState Loading */
             }
             else -> Unit
         }
