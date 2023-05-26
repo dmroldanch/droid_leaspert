@@ -57,9 +57,11 @@ fun OfficeView(viewModel: OfficeViewModel = hiltViewModel()) {
             val OfficeData = viewModel.officeInfo
 
             OfficeData?.let {
-                OfficeUI(it,
+                OfficeUI(
+                    it,
                     onCallButtonClicked = { viewModel.makeCall() },
-                    onEmailButtonClicked = { viewModel.sendEmail() })
+                    onEmailButtonClicked = { viewModel.sendEmail() }
+                )
             }
         }
     }
@@ -69,7 +71,9 @@ fun OfficeView(viewModel: OfficeViewModel = hiltViewModel()) {
 @Composable
 fun ShowStateContent(response: String) {
     LPTitleLarge(
-        label = response, color = MaterialTheme.colorScheme.tertiary, weight = FontWeight.Bold
+        label = response,
+        color = MaterialTheme.colorScheme.tertiary,
+        weight = FontWeight.Bold
     )
 }
 
@@ -93,10 +97,10 @@ fun OfficeUI(
         val schedule = stringResource(id = R.string.LPHours, officeData.schedule)
         val sizes = LeasePertTheme.sizes
         Text(
-            text = stringResource(id = R.string.LPInfo),
             modifier = Modifier
                 .width(sizes.extraSize124)
                 .height(sizes.regularSize),
+            text = stringResource(id = R.string.LPInfo),
             style = TextStyle(
                 textAlign = TextAlign.Justify,
                 color = MaterialTheme.colorScheme.tertiary,
@@ -109,18 +113,16 @@ fun OfficeUI(
         )
 
         Text(
-            text = address,
-            style = TextStyle(
+            modifier = Modifier.padding(top = sizes.extraSize10), text = address, style = TextStyle(
                 textAlign = TextAlign.Justify,
                 lineHeight = 20.sp,
                 textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
-            ),
-            modifier = Modifier.padding(top = sizes.extraSize10)
+            )
         )
 
         Text(
-            text = schedule,
             modifier = Modifier.padding(top = sizes.extraSize10),
+            text = schedule,
             style = TextStyle(
                 textAlign = TextAlign.Justify,
                 lineHeight = 20.sp,
