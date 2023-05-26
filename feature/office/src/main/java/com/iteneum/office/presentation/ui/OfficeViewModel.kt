@@ -66,10 +66,10 @@ class OfficeViewModel() : ViewModel() {
  */
 val officeResponse: DataState<Office> = DataState.Success(
     Office(
-        address=  "4950 Gaidrew, Alpharetta, GA, 30022",
-        schedule= "9AM-6PM",
-        phone =  "+1 452 123 4567",
-        email =  "contact@leaspert.com"
+        address = "4950 Gaidrew, Alpharetta, GA, 30022",
+        schedule = "9AM-6PM",
+        phone = "+1 452 123 4567",
+        email = "contact@leaspert.com"
     )
 )
 
