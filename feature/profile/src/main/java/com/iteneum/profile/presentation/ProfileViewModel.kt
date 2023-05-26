@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 /**
  * Class that contains [ProfileViewModel] that works as ViewModel for the Profile View.
- * It will handle the data work & process when loading and be done with the view.
+ * It will handle the data work and process when loading and be done with the view.
  *
  * @author Jose Miguel Garcia Reyes
  */
@@ -89,7 +89,7 @@ sealed class ProfileState {
 /* TODO - ProfileViewModel - Example of data received, modify or erase when DB is available  */
 val response: DataState<Profile> = DataState.Success(
     Profile (
-        /*image = "A123",*/ /* TODO - ProfileViewModel - Too see how image will be implemented  */
+        image = "https://picsum.photos/200",
         name = "Juan",
         apartment = "A123",
         phoneNumber = "1234567891",
