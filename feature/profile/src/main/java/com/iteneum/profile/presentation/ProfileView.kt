@@ -34,15 +34,14 @@ import com.iteneum.designsystem.components.LPTitleMedium
 import com.iteneum.designsystem.components.LpFloatingActionIconButton
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.theme.LeasePertTheme
-import com.iteneum.profile.Profile
+import com.iteneum.profile.domain.Profile
 import com.iteneum.profile.R
-import com.iteneum.profile.data.ProfileViewModel
 import com.iteneum.designsystem.R as R_DS
 
 /**
  * Function that creates [ProfileView] compose, to visualize user's profile.
  * It will contain the personal user's data and more options related to profile.
- * @param backToDashBoard - high order function to return to previous view when clicking on arrow
+ * @param backToDashBoard - high order function to return to previous view when clicking on up button
  * @param profileViewModel - to obtain the model view instance
  *
  * @author Juan Islas
@@ -58,7 +57,7 @@ fun ProfileView(
         profileViewModel.getInformation()
     }
     ProfileContainer(
-        profileValues = profileViewModel.profileModelMutable,
+        profile = profileViewModel.profileModelMutable,
         onClickEditProfileButton = { profileViewModel.onClickEditProfileButton() },
         onClickPaymentMethodsButton = { profileViewModel.onClickPaymentMethodsButton() },
         onClickEmergencyContactsButton = { profileViewModel.onClickEmergencyContactsButton() },
@@ -69,7 +68,7 @@ fun ProfileView(
 /**
  * Function [ProfileContainer] contains the actual view of ProfileView.
  * It will generate the composable elements to create the user's profile.
- * @param profileValues - to have the profile values passed from View Model
+ * @param profile - to get profile values passed from View Model
  * @param onClickEditProfileButton - high order function to handle action when clicking on Edit button
  * @param onClickPaymentMethodsButton - high order function to handle action when clicking on Payment Method button
  * @param onClickEmergencyContactsButton - high order function to handle action when clicking on Emergency button
@@ -81,7 +80,7 @@ fun ProfileView(
 
 @Composable
 fun ProfileContainer(
-    profileValues: Profile,
+    profile: Profile,
     onClickEditProfileButton: () -> Unit,
     onClickPaymentMethodsButton: () -> Unit,
     onClickEmergencyContactsButton: () -> Unit,
@@ -157,12 +156,12 @@ fun ProfileContainer(
             }
             Column {
                 LPTitleLarge(
-                    label = profileValues.profileName,
+                    label = profile.name,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     weight = FontWeight.Medium
                 )
                 LPTitleMedium(
-                    label = profileValues.profileApartment,
+                    label = profile.apartment,
                     color = MaterialTheme.colorScheme.tertiary,
                     weight = FontWeight.Medium
                 )
@@ -185,7 +184,7 @@ fun ProfileContainer(
                 tint = MaterialTheme.colorScheme.tertiary
             )
             LPBodyLarge(
-                label = profileValues.profilePhoneNumber,
+                label = profile.phoneNumber,
                 color = MaterialTheme.colorScheme.tertiary,
                 weight = FontWeight.Normal
             )
@@ -205,7 +204,7 @@ fun ProfileContainer(
                 tint = MaterialTheme.colorScheme.tertiary
             )
             LPBodyLarge(
-                label = profileValues.profileEmail,
+                label = profile.email,
                 color = MaterialTheme.colorScheme.tertiary,
                 weight = FontWeight.Normal
             )
@@ -227,7 +226,7 @@ fun ProfileContainer(
                 tint = MaterialTheme.colorScheme.tertiary
             )
             LPBodyLarge(
-                label = profileValues.profileAddress,
+                label = profile.address,
                 color = MaterialTheme.colorScheme.tertiary,
                 weight = FontWeight.Normal
             )
