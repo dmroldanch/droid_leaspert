@@ -59,8 +59,12 @@ fun OfficeView(viewModel: OfficeViewModel = hiltViewModel()) {
             OfficeData?.let {
                 OfficeUI(
                     it,
-                    onCallButtonClicked = { viewModel.makeCall() },
-                    onEmailButtonClicked = { viewModel.sendEmail() }
+                    onCallButtonClicked = {
+                        viewModel.makeCall()
+                    },
+                    onEmailButtonClicked = {
+                        viewModel.sendEmail()
+                    }
                 )
             }
         }
@@ -100,7 +104,9 @@ fun OfficeUI(
             modifier = Modifier
                 .width(sizes.extraSize124)
                 .height(sizes.regularSize),
-            text = stringResource(id = R.string.LPInfo),
+            text = stringResource(
+                id = R.string.LPInfo
+            ),
             style = TextStyle(
                 textAlign = TextAlign.Justify,
                 color = MaterialTheme.colorScheme.tertiary,
@@ -113,16 +119,10 @@ fun OfficeUI(
         )
 
         Text(
-            modifier = Modifier.padding(top = sizes.extraSize10), text = address, style = TextStyle(
-                textAlign = TextAlign.Justify,
-                lineHeight = 20.sp,
-                textIndent = TextIndent(firstLine = 14.sp, restLine = 3.sp)
-            )
-        )
-
-        Text(
-            modifier = Modifier.padding(top = sizes.extraSize10),
-            text = schedule,
+            modifier = Modifier.padding(
+                top = sizes.extraSize10
+            ),
+            text = address,
             style = TextStyle(
                 textAlign = TextAlign.Justify,
                 lineHeight = 20.sp,
@@ -130,19 +130,40 @@ fun OfficeUI(
             )
         )
 
+        Text(
+            modifier = Modifier.padding(
+                top = sizes.extraSize10
+            ),
+            text = schedule,
+            style = TextStyle(
+                textAlign = TextAlign.Justify,
+                lineHeight = 20.sp,
+                textIndent = TextIndent(
+                    firstLine = 14.sp,
+                    restLine = 3.sp
+                )
+            )
+        )
+
         LpOutlinedButton(modifier = Modifier,
             icon = Icons.Filled.Call,
-            textButton = stringResource(id = R.string.LPCallButton),
+            textButton = stringResource(
+                id = R.string.LPCallButton
+            ),
             onClicked = {
                 onCallButtonClicked()
             })
 
 
-        LpOutlinedButton(modifier = Modifier,
+        LpOutlinedButton(
+            modifier = Modifier,
             icon = Icons.Outlined.Mail,
-            textButton = stringResource(id = R.string.LPMailButton),
+            textButton = stringResource(
+                id = R.string.LPMailButton
+            ),
             onClicked = {
                 onEmailButtonClicked()
-            })
+            }
+        )
     }
 }
