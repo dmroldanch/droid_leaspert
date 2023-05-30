@@ -4,18 +4,18 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.iteneum.repair.RepairRequest
-import com.iteneum.repair.UIEventRepair
 import com.iteneum.designsystem.components.*
-import com.iteneum.designsystem.theme.LPTypography
 import com.iteneum.designsystem.theme.LeasePertTheme
 import com.iteneum.repair.R
+import com.iteneum.repair.RepairRequest
+import com.iteneum.repair.UIEventRepair
 import com.iteneum.repair.data.RepairViewModel
 
 /**
@@ -88,13 +88,10 @@ fun RepairContainer(
     ) {
         Row {
             /* TODO - Arrow Back Navigation - Add "arrow" navigation component here when available */
-            Text(
-                text = stringResource(R.string.text_repair_view_title),
-                modifier = Modifier
-                    .padding(
-                        all = sizes.extraSize6
-                    ),
-                style = LPTypography.headlineSmall
+            LPTitleLarge(
+                label = stringResource(R.string.text_repair_view_title),
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                weight = FontWeight.Medium
             )
         }
         LpOutlinedTextFieldInput(
@@ -136,13 +133,14 @@ fun RepairContainer(
                 formularyData(UIEventRepair.PetInUnit(petInUnit = it))
             }
         )
-        Text(
-            text = stringResource(id = R.string.text_service),
+        LPBodyLarge(
             modifier = Modifier
                 .padding(
-                    top = sizes.extraSize14
+                    top = sizes.midSmallSize
                 ),
-            style = LPTypography.bodyLarge
+            label = stringResource(id = R.string.text_service),
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            weight = FontWeight.Normal
         )
         DropdownTextField(
             modifier = Modifier
@@ -170,13 +168,14 @@ fun RepairContainer(
                 formularyData(UIEventRepair.ProblemDescription(problemDescription = it))
             }
         )
-        Text(
-            text = stringResource(id = R.string.text_video_button),
+        LPBodyLarge(
             modifier = Modifier
                 .padding(
-                    top = sizes.extraSize14
+                    top = sizes.midSmallSize
                 ),
-            style = LPTypography.bodyLarge
+            label = stringResource(id = R.string.text_video_button),
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            weight = FontWeight.Normal
         )
         LpFileButton(
             modifier = Modifier
@@ -184,18 +183,19 @@ fun RepairContainer(
                     top = sizes.extraSize10
                 )
                 .fillMaxWidth(),
-            mimeTypes = mimeTypes, /* TODO - Verify how will this work */
+            mimeTypes = mimeTypes, /* TODO - RepairView - Verify how will the file types work */
             onFileSelected = {
                 formularyData(UIEventRepair.ImageOrVideoFile(imageOrVideoFile = it.toString()))
             }
         )
-        Text(
-            text = stringResource(id = R.string.text_permission),
+        LPBodyLarge(
             modifier = Modifier
                 .padding(
-                    top = sizes.smallSize
+                    top = sizes.midSmallSize
                 ),
-            style = LPTypography.bodyLarge
+            label = stringResource(id = R.string.text_permission),
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            weight = FontWeight.Normal
         )
         LpRadioGroup(
             modifier = Modifier
