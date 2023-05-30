@@ -3,6 +3,10 @@
     <string name="LPCallButton">Call</string>
     <string name="LPMailButton">Mail</string>
     <string name="LPInfo">Information</string>
-    <string name="LPAddress">Address: 4950 Gaidrew, Alpharetta, GA, 30022</string>
-    <string name="LPHours">Hours: 9AM - 7PM</string>
+    <string name="LPHours">Hours: %s</string>
+    <string name="LPAddress">Address: %s</string>
+    <string name="LPPhoneServiceContact">+1 452 123 4567</string>
+    <string name="LPContactEmail">contact@leaspert.com</string>
+    <string name="Error">Error</string>
+    <string name="Loading">Loading</string>
 </resources>
