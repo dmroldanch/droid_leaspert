@@ -18,8 +18,8 @@ import kotlinx.coroutines.launch
  *
  *@modifiedBy Andres Ivan Medina
  */
-
 class OfficeViewModel() : ViewModel() {
+
 
     private val _state: MutableStateFlow<OfficeStateResponse> =
         MutableStateFlow(OfficeStateResponse.Loading)
@@ -77,6 +77,8 @@ val officeResponse: DataState<Office> = DataState.Success(
 /**
  * class:OfficeStateResponse  represents the states of the data
  * exposed to the view.
+ * class:OfficeStateResponse  represents the states of the data
+ * exposed through the list.
  *
  * @author Andres Ivan Medina
  */

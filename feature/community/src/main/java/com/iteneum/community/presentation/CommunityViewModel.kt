@@ -12,6 +12,7 @@ import com.iteneum.community.R
 import com.iteneum.community.domain.Community
 import com.iteneum.community.domain.CommunityCardType
 import com.iteneum.network.DataState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -37,16 +38,19 @@ class CommunityViewModel : ViewModel() {
         getCommunitySections()
     }
 
-    fun getCommunitySections() = viewModelScope.launch {
+    private fun getCommunitySections() = viewModelScope.launch {
         when (response) {
             is DataState.Success -> {
+                delay(2000)
                 _state.emit(State.Success)
                 _communitySections.clear()
                 _communitySections.addAll(response.data)
             }
+
             is DataState.Error -> {
                 _state.emit(State.Error)
             }
+
             is DataState.Loading -> {
                 _state.emit(State.Loading)
             }

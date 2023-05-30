@@ -50,7 +50,7 @@ fun HomeNavGraph(navController: NavHostController) {
                     // TODO: add navigation when screen is ready
                 },
                 navigationToServices = {
-                    navController.navigate(ApartmentScreen.Repair.route)
+                    // TODO: add navigation when screen is ready
                 }
             )
         }
