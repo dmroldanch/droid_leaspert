@@ -4,8 +4,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iteneum.office.domain.Office
 import com.iteneum.network.DataState
+import com.iteneum.office.domain.Office
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -39,6 +39,7 @@ class OfficeViewModel() : ViewModel() {
                 _officeInfo.value = officeResponse.data
                 _state.emit(OfficeStateResponse.Success)
             }
+
             is DataState.Error -> {
                 _state.emit(OfficeStateResponse.Error)
             }
@@ -50,7 +51,7 @@ class OfficeViewModel() : ViewModel() {
     }
 
     fun makeCall() {
-       /*TODO: Implement call intent once permission logic is stablished*/
+        /*TODO: Implement call intent once permission logic is stablished*/
     }
 
     fun sendEmail() {
