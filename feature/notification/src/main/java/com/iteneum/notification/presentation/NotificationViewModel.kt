@@ -17,7 +17,9 @@ class NotificationViewModel : ViewModel() {
     val state : StateFlow<NotificationViewState> = _state
 
     var todayNotificationList : MutableList<Notification> = mutableStateListOf()
+        private set
     var weekNotificationList : MutableList<Notification> = mutableStateListOf()
+        private set
 
     internal fun getNotification() = viewModelScope.launch {
 
@@ -30,6 +32,7 @@ class NotificationViewModel : ViewModel() {
             }
             is DataState.Success -> {
                 response.data.forEach{ notification ->
+                    _state.emit(NotificationViewState.Idle)
                     if (notification.type == 1) {
                         todayNotificationList.add(notification)
                     } else {
