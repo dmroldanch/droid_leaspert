@@ -1,25 +1,30 @@
-package com.iteneum.profile.data
+package com.iteneum.profile.presentation
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.iteneum.Profile
 import com.iteneum.network.DataState
+import com.iteneum.profile.domain.Profile
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
- * File that contains [ProfileViewModel] that works as ViewModel for the Profile View.
- * It will handle the data work & process when loading & be done with the view.
+ * Class that contains [ProfileViewModel] that works as ViewModel for the Profile View.
+ * It will handle the data work and process when loading and be done with the view.
  *
  * @author Jose Miguel Garcia Reyes
  */
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(): ViewModel() {
+
+    private val _state: MutableStateFlow<ProfileState> =
+        MutableStateFlow(ProfileState.Loading)
+
     var profileModelMutable: Profile by mutableStateOf(Profile())
         private set
 
@@ -27,35 +32,20 @@ class ProfileViewModel @Inject constructor(): ViewModel() {
         when (response) {
             is DataState.Success -> {
                 profileModelMutable = response.data
+                _state.emit(ProfileState.Success)
             }
             is DataState.Error -> {
                 /* TODO - ProfileViewModel - Error data logic to handle  */
+                _state.emit(ProfileState.Error)
             }
             is DataState.Loading -> {
                 /* TODO - ProfileViewModel - Loading data logic to handle  */
+                _state.emit(ProfileState.Loading)
             }
             else -> Unit
         }
     }
 
-    fun getProfileImageFromView(profileImage:String) {
-        profileModelMutable = profileModelMutable.copy(profileImage = profileImage)
-    }
-    fun getProfileNameFromView(profileName:String) {
-        profileModelMutable = profileModelMutable.copy(profileName = profileName)
-    }
-    fun getProfileApartmentFromView(profileApartment:String) {
-        profileModelMutable = profileModelMutable.copy(profileApartment = profileApartment)
-    }
-    fun getProfilePhoneNumberFromView(profilePhoneNumber:String) {
-        profileModelMutable = profileModelMutable.copy(profilePhoneNumber = profilePhoneNumber)
-    }
-    fun getProfileEmailFromView(profileEmail:String) {
-        profileModelMutable = profileModelMutable.copy(profileEmail = profileEmail)
-    }
-    fun getProfileAddressFromView(profileAddress:String) {
-        profileModelMutable = profileModelMutable.copy(profileAddress = profileAddress)
-    }
     fun onClickEditProfileButton() {
         /* TODO - ProfileViewModel onClickEditProfileButton - Logic when user clicks on Profile Edit icon button */
     }
@@ -70,14 +60,20 @@ class ProfileViewModel @Inject constructor(): ViewModel() {
     }
 }
 
+sealed class ProfileState {
+    object Loading: ProfileState()
+    object Error: ProfileState()
+    object Success: ProfileState()
+}
+
 /* TODO - ProfileViewModel - Example of data received, modify or erase when DB is available  */
 val response: DataState<Profile> = DataState.Success(
     Profile (
-        /*profileImage = "A123",*/ /* TODO - ProfileViewModel - Too see how profileImage will be implemented  */
-        profileName = "Juan",
-        profileApartment = "A123",
-        profilePhoneNumber = "6666666666",
-        profileEmail = "juan@gmail.com",
-        profileAddress = "4950 Gaidrew, Alpharetta, GA, 30022",
+        image = "https://picsum.photos/200",
+        name = "Juan",
+        apartment = "A123",
+        phoneNumber = "1234567891",
+        email = "juan@gmail.com",
+        address = "4950 Gaidrew, Alpharetta, GA, 30022",
     )
 )

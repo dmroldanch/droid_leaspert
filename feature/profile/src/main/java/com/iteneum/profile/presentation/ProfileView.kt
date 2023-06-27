@@ -18,7 +18,6 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -28,15 +27,26 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.iteneum.Profile
+import com.iteneum.designsystem.components.LPBodyLarge
+import com.iteneum.designsystem.components.LPTitleLarge
+import com.iteneum.designsystem.components.LPTitleMedium
 import com.iteneum.designsystem.components.LpFloatingActionIconButton
 import com.iteneum.designsystem.components.LpOutlinedButton
 import com.iteneum.designsystem.theme.LeasePertTheme
+import com.iteneum.profile.domain.Profile
 import com.iteneum.profile.R
-import com.iteneum.profile.data.ProfileViewModel
 import com.iteneum.designsystem.R as R_DS
+
+/**
+ * Function that creates [ProfileView] compose, to visualize user's profile.
+ * It will contain the personal user's data and more options related to profile.
+ * @param backToDashBoard - high order function to return to previous view when clicking on up button
+ * @param profileViewModel - to obtain the model view instance
+ *
+ * @author Juan Islas
+ * @modifiedBy Jose Miguel Garcia Reyes
+ */
 
 @Composable
 fun ProfileView(
@@ -47,7 +57,7 @@ fun ProfileView(
         profileViewModel.getInformation()
     }
     ProfileContainer(
-        profileValues = profileViewModel.profileModelMutable,
+        profile = profileViewModel.profileModelMutable,
         onClickEditProfileButton = { profileViewModel.onClickEditProfileButton() },
         onClickPaymentMethodsButton = { profileViewModel.onClickPaymentMethodsButton() },
         onClickEmergencyContactsButton = { profileViewModel.onClickEmergencyContactsButton() },
@@ -55,42 +65,65 @@ fun ProfileView(
     )
 }
 
+/**
+ * Function [ProfileContainer] contains the actual view of ProfileView.
+ * It will generate the composable elements to create the user's profile.
+ * @param profile - to get profile values passed from View Model
+ * @param onClickEditProfileButton - high order function to handle action when clicking on Edit button
+ * @param onClickPaymentMethodsButton - high order function to handle action when clicking on Payment Method button
+ * @param onClickEmergencyContactsButton - high order function to handle action when clicking on Emergency button
+ * @param onClickLogOutButton - high order function to handle action when clicking on Log Out button
+ *
+ * @author Juan Islas
+ * @modifiedBy Jose Miguel Garcia Reyes
+ */
+
 @Composable
 fun ProfileContainer(
-    profileValues: Profile,
+    profile: Profile,
     onClickEditProfileButton: () -> Unit,
     onClickPaymentMethodsButton: () -> Unit,
     onClickEmergencyContactsButton: () -> Unit,
     onClickLogOutButton: () -> Unit
-    ) {
+) {
     val sizes = LeasePertTheme.sizes
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(all = sizes.smallerSize)
     ) {
-        Row(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
             Box(
-                modifier = Modifier.padding(
-                    horizontal = sizes.nothingSize,
-                    vertical = sizes.midSmallSize
-                )
+                modifier = Modifier
+                    .padding(
+                        horizontal = sizes.nothingSize,
+                        vertical = sizes.midSmallSize
+                    )
             ) {
                 /*TODO - ProfileView on ProfileContainer() - to add the backToDashBoard() call when implemented*/
             }
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.75f)
-                    .padding(horizontal = sizes.minorSmallSize, vertical = sizes.minorRegularSize)
+                    .padding(
+                        horizontal = sizes.minorSmallSize,
+                        vertical = sizes.minorRegularSize
+                    )
             ) {
-                Text(
-                    text = stringResource(id = R.string.profile),
-                    fontSize = 22.sp,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                LPTitleLarge(
+                    label = stringResource(id = R.string.profile),
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    weight = FontWeight.Bold
                 )
             }
             Column(
-                modifier = Modifier.padding(all = sizes.nothingSize),
+                modifier = Modifier
+                    .padding(
+                        all = sizes.nothingSize
+                    ),
                 horizontalAlignment = Alignment.End
             ) {
                 LpFloatingActionIconButton(
@@ -103,8 +136,15 @@ fun ProfileContainer(
                 }
             }
         }
-        Row(modifier = Modifier.fillMaxWidth()) {
-            Column(modifier = Modifier.padding(horizontal = sizes.smallSize)) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Column(modifier = Modifier
+                .padding(
+                    horizontal = sizes.smallSize
+                )
+            ) {
                 Image(
                     painter = painterResource(id = R_DS.drawable.default_user_photo),
                     contentDescription = stringResource(R.string.user_photo),
@@ -115,17 +155,15 @@ fun ProfileContainer(
                 )
             }
             Column {
-                Text(
-                    text = profileValues.profileName,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 18.sp,
+                LPTitleLarge(
+                    label = profile.name,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    modifier = Modifier.padding(vertical = sizes.midSmallSize)
+                    weight = FontWeight.Medium
                 )
-                Text(
-                    text = profileValues.profileApartment,
+                LPTitleMedium(
+                    label = profile.apartment,
                     color = MaterialTheme.colorScheme.tertiary,
-                    modifier = Modifier.padding(top = sizes.stroke)
+                    weight = FontWeight.Medium
                 )
             }
         }
@@ -145,16 +183,19 @@ fun ProfileContainer(
                 modifier = Modifier.padding(end = sizes.minorSmallSize),
                 tint = MaterialTheme.colorScheme.tertiary
             )
-            Text(
-                text = profileValues.profilePhoneNumber,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.tertiary
+            LPBodyLarge(
+                label = profile.phoneNumber,
+                color = MaterialTheme.colorScheme.tertiary,
+                weight = FontWeight.Normal
             )
         }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = sizes.regularSize, vertical = sizes.smallerSize)
+                .padding(
+                    horizontal = sizes.regularSize,
+                    vertical = sizes.smallerSize
+                )
         ) {
             Icon(
                 Icons.Outlined.Mail,
@@ -162,10 +203,10 @@ fun ProfileContainer(
                 modifier = Modifier.padding(end = sizes.minorSmallSize),
                 tint = MaterialTheme.colorScheme.tertiary
             )
-            Text(
-                text = profileValues.profileEmail,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.tertiary
+            LPBodyLarge(
+                label = profile.email,
+                color = MaterialTheme.colorScheme.tertiary,
+                weight = FontWeight.Normal
             )
         }
         Row(
@@ -184,16 +225,19 @@ fun ProfileContainer(
                 modifier = Modifier.padding(end = sizes.minorSmallSize),
                 tint = MaterialTheme.colorScheme.tertiary
             )
-            Text(
-                text = profileValues.profileAddress,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.tertiary
+            LPBodyLarge(
+                label = profile.address,
+                color = MaterialTheme.colorScheme.tertiary,
+                weight = FontWeight.Normal
             )
         }
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = sizes.minorRegularSize, vertical = sizes.midSmallSize),
+                .padding(
+                    horizontal = sizes.minorRegularSize,
+                    vertical = sizes.midSmallSize
+                ),
             color = MaterialTheme.colorScheme.onPrimary
         )
         LpOutlinedButton(
@@ -203,7 +247,8 @@ fun ProfileContainer(
                     vertical = sizes.minorSmallSize
                 ),
             textButton = stringResource(id = R.string.payment_methods),
-            onClicked = { onClickPaymentMethodsButton() })
+            onClicked = { onClickPaymentMethodsButton() }
+        )
         LpOutlinedButton(
             modifier = Modifier
                 .padding(
@@ -211,7 +256,8 @@ fun ProfileContainer(
                     vertical = sizes.minorSmallSize
                 ),
             textButton = stringResource(id = R.string.emergency_contacts),
-            onClicked = { onClickEmergencyContactsButton() })
+            onClicked = { onClickEmergencyContactsButton() }
+        )
         LpOutlinedButton(
             modifier = Modifier
                 .padding(
@@ -219,6 +265,7 @@ fun ProfileContainer(
                     vertical = sizes.minorSmallSize
                 ),
             textButton = stringResource(id = R.string.log_out),
-            onClicked = { onClickLogOutButton() })
+            onClicked = { onClickLogOutButton() }
+        )
     }
 }
